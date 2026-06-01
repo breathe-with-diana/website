@@ -4,7 +4,7 @@
 (function () {
   var body = document.body;
   var KEY = 'dianafb:' + (body.dataset.fbKey || location.pathname);
-  var MAILTO = body.dataset.fbEmail || 'daniel@li.finance';
+  var MAILTO = body.dataset.fbEmail || 'd.blaecker@gmail.com';
   var PAGE = body.dataset.fbPage || document.title;
 
   var CSS = '' +
@@ -53,7 +53,7 @@
         '<button id="fb-email" type="button" class="fb-ghost">Email it</button>' +
         '<button id="fb-clear" type="button" class="fb-ghost fb-clear">Reset</button>' +
       '</div>' +
-      '<div id="fb-hint">“Copy” puts it on your clipboard — paste into WhatsApp/Telegram to Daniel. “Email” opens your mail app.</div>' +
+      '<div id="fb-hint">“Copy” puts it on your clipboard — paste into WhatsApp/Telegram to Daniel. “Email” opens a pre-filled Gmail to him.</div>' +
     '</div>';
   document.addEventListener('DOMContentLoaded', mount);
   if (document.readyState !== 'loading') mount();
@@ -118,7 +118,13 @@
       else fallbackCopy(txt);
     };
     document.getElementById('fb-email').onclick = function () {
-      location.href = 'mailto:' + MAILTO + '?subject=' + encodeURIComponent('Diana brand feedback — ' + PAGE) + '&body=' + encodeURIComponent(compile());
+      var subj = encodeURIComponent('Diana brand feedback — ' + PAGE);
+      var body2 = encodeURIComponent(compile());
+      // Gmail web compose works in any browser (no desktop mail client needed); opens pre-filled to MAILTO.
+      var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=' + encodeURIComponent(MAILTO) + '&su=' + subj + '&body=' + body2;
+      var w = window.open(gmail, '_blank');
+      if (!w) location.href = 'mailto:' + MAILTO + '?subject=' + subj + '&body=' + body2; // popup blocked → fall back to mail app
+      else flash('Opened Gmail — just hit send');
     };
     document.getElementById('fb-clear').onclick = function () {
       if (!confirm('Clear all your saved logos and notes on this page?')) return;
