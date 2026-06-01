@@ -132,10 +132,13 @@
     .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:30px 28px;display:flex;flex-direction:column}
     .rev .quote{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:0 0 22px;flex:1}
     .rev .who{display:flex;align-items:center;gap:12px}
-    .rev .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--terracotta),var(--ochre));
-      flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;color:var(--bone);font-size:16px}
+    .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
+    .rev .av img{width:100%;height:100%;object-fit:cover;display:block}
     .rev .who b{font-size:13.5px;font-weight:600}
-    .rev .who span{font-size:12px;color:var(--muted);display:block}
+    .rev .who span{font-size:12px;color:var(--muted);display:block;margin-top:1px}
+    .rev .who a{color:var(--terracotta);text-decoration:none}
+    .rev .who a:hover{text-decoration:underline}
+    .rev-note{text-align:center;font-size:12.5px;color:var(--muted);font-style:italic;margin-top:26px}
 
     /* ===================================================================== RESET BAND */
     .reset{background:var(--sage);color:var(--bone);text-align:center}
@@ -244,7 +247,7 @@
 
 <!-- ============================ PROMOTION BAR (real website element) ============================ -->
 <div class="promo-bar">
-  ✦&nbsp;&nbsp;<b>This month:</b> 30% off your first private rebirthing session — book by <b>[BOOK-BY DATE]</b>.&nbsp;&nbsp;<a href="#book">Book now →</a>
+  ✦&nbsp;&nbsp;<b>This month:</b> 30% off your first private rebirthing session — book by <b>June 15</b>.&nbsp;&nbsp;<a href="#book">Book now →</a>
 </div>
 
 <!-- ============================================================= THE WEBSITE STARTS HERE ========= -->
@@ -371,18 +374,28 @@
   <div class="wrap">
     <div class="rev-grid">
       <div class="rev">
-        <p class="quote">[Client review — collected as text + first name + a photo, then dropped into this standard on-brand card automatically.]</p>
-        <div class="who"><div class="av">S</div><div><b>Sonia M.</b><span>Bogotá</span></div></div>
+        <p class="quote">“I'd been ‘fine’ for years — good job, good marriage, completely empty inside. One session, and the next morning I finally did the thing I'd put off for three years. Diana never promised to fix me. Something just moved.”</p>
+        <div class="who">
+          <div class="av"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt=""></div>
+          <div><b>Sofía, 38</b><span>Madrid · <a href="https://instagram.com/sofia.delmar" target="_blank" rel="noopener">@sofia.delmar</a></span></div>
+        </div>
       </div>
       <div class="rev">
-        <p class="quote">[Second review slot. Tasteful, two–three sentences, real first name only. The design stays identical so the page never feels like a testimonial wall.]</p>
-        <div class="who"><div class="av">C</div><div><b>Chi L.</b><span>Madrid</span></div></div>
+        <p class="quote">“It wasn't gentle, and I'm grateful it wasn't. I cried, I shook, and I left feeling like I'd set down something I'd carried for ten years. She stayed with all of it without ever making me feel watched.”</p>
+        <div class="who">
+          <div class="av"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt=""></div>
+          <div><b>Elena, 41</b><span>Lisbon · <a href="https://instagram.com/elena.reads" target="_blank" rel="noopener">@elena.reads</a></span></div>
+        </div>
       </div>
       <div class="rev">
-        <p class="quote">[Third review slot. Diana approves each one before it goes live; consent is part of the collection step.]</p>
-        <div class="who"><div class="av">A</div><div><b>Ana R.</b><span>Online</span></div></div>
+        <p class="quote">“Llegué sin saber qué esperar y salí habiendo soltado un peso de años. Diana no te promete nada — sólo te acompaña a volver a ti misma. Al día siguiente, por fin actué.”</p>
+        <div class="who">
+          <div class="av"><img src="https://randomuser.me/api/portraits/women/29.jpg" alt=""></div>
+          <div><b>Camila, 35</b><span>Bogotá · <a href="https://instagram.com/cami.respira" target="_blank" rel="noopener">@cami.respira</a></span></div>
+        </div>
       </div>
     </div>
+    <p class="rev-note">Sample reviews, shown so you can see the layout — your real client words (and faces) will replace these.</p>
   </div>
 </section>
 
@@ -470,12 +483,12 @@
   <div class="wrap-narrow">
     <div class="eyebrow">For you, Diana — notes &amp; a few questions</div>
     <h2 class="rz-h">This part isn't the website.</h2>
-    <p class="rz-lead">Everything above is your homepage draft. Below are <b>four short things to review</b> — each on its own page, so you can do them one at a time whenever you have a moment.</p>
+    <p class="rz-lead">Everything above is your homepage draft. Below are <b>five short things to review</b> — each on its own page, so you can do them one at a time whenever you have a moment.</p>
   </div>
 
   <!-- review tasks -->
   <div class="wrap-narrow rz-block">
-    <h3 class="rz-sub">Four short things to review</h3>
+    <h3 class="rz-sub">Five short things to review</h3>
     <p class="rz-note">Each opens its own page with a <b>“Looks good”</b> button on every item and a box for notes. Do them in any order — but <b>#1 (accounts)</b> is the one that lets Daniel start setting things up, so it’s the best one to do first. On each page, tap <b>Send feedback</b> to Copy or Email it back to me — you can send each one separately as you finish it.</p>
 
     <div class="rz-card" style="padding:26px 28px;margin-top:18px">
@@ -500,6 +513,12 @@
       <div style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--umber);margin-bottom:4px">4 · Collecting your reviews</div>
       <p style="font-size:14.5px;color:var(--muted);margin:0 0 16px">How we’ll fill those three review cards above — one simple form you send after a session, in your colours. Includes a <b>mockup of the form</b> and how you’d use it. Nothing’s built yet; just react to the idea.</p>
       <a class="btn rz-cta" href="collecting-reviews.html">Open review 4 — collecting reviews →</a>
+    </div>
+
+    <div class="rz-card" style="padding:26px 28px;margin-top:16px">
+      <div style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--umber);margin-bottom:4px">5 · Your session flow</div>
+      <p style="font-size:14.5px;color:var(--muted);margin:0 0 16px">The whole journey of one client — first hello → session → aftercare → review — plus <b>automatic calendar reminders</b> so the check-in and review ask never slip. Tell me where it doesn’t match how you work (especially the session itself).</p>
+      <a class="btn rz-cta" href="session-flow.html">Open review 5 — your session flow →</a>
     </div>
   </div>
 </section>
