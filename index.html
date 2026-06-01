@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Breath with Diana — Website Draft v1 + Logo Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Recoleta isn't free; Cormorant Garamond stands in for this preview, as in the brand mockup.
+       In production the headline face would be Recoleta (or Canela). */
+    :root{
+      --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
+      --umber:#5B4636; --ochre:#D4A24C;
+      --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
+      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
+      --sans:'Inter',system-ui,-apple-system,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;scroll-behavior:smooth}
+    body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+    /* ===== meta banner (this is the review wrapper, not part of the site) ===== */
+    .meta-banner{background:var(--umber);color:var(--bone);font-family:var(--sans);font-size:12.5px;
+      letter-spacing:.04em;padding:10px 20px;text-align:center;position:sticky;top:0;z-index:200}
+    .meta-banner b{color:var(--ochre)}
+    .meta-banner a{color:var(--bone)}
+
+    /* ============================================================= SITE NAV */
+    .site{max-width:100%;}
+    .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--hairline)}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px}
+    .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
+    .logo-lockup svg{width:30px;height:30px;display:block}
+    .logo-word{font-family:var(--serif);font-size:23px;font-weight:500;color:var(--umber);letter-spacing:.01em;line-height:1}
+    .logo-word small{display:block;font-family:var(--sans);font-size:8.5px;font-weight:500;letter-spacing:.32em;
+      text-transform:uppercase;color:var(--muted);margin-top:3px}
+    .nav a.link{font-family:var(--sans);font-size:13.5px;color:var(--umber);text-decoration:none;opacity:.82}
+    .nav a.link:hover{opacity:1}
+    .lang{font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--muted);border:1px solid var(--hairline);
+      border-radius:999px;padding:5px 11px}
+    .lang b{color:var(--umber)}
+    .btn{font-family:var(--sans);font-size:13.5px;font-weight:500;text-decoration:none;border-radius:999px;
+      padding:10px 20px;display:inline-block;transition:.15s}
+    .btn-primary{background:var(--terracotta);color:var(--bone)}
+    .btn-primary:hover{background:#b86a4b}
+    .btn-ghost{border:1px solid var(--umber);color:var(--umber)}
+    .btn-ghost:hover{background:var(--umber);color:var(--bone)}
+
+    section{padding:104px 32px}
+    .wrap{max-width:1140px;margin:0 auto}
+    .wrap-narrow{max-width:760px;margin:0 auto}
+    .eyebrow{font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+      color:var(--terracotta);margin-bottom:22px}
+    h2.sec{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}
+    .lead{font-size:17px;color:var(--umber);max-width:620px}
+    .muted{color:var(--muted)}
+
+    /* ===================================================================== HERO */
+    .hero{padding:92px 32px 96px;background:
+      radial-gradient(at 78% 18%,rgba(212,162,76,.16),transparent 46%),
+      radial-gradient(at 12% 92%,rgba(201,123,90,.14),transparent 50%),var(--bone)}
+    .hero-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+    .hero h1{font-family:var(--serif);font-weight:500;font-size:66px;line-height:1.04;letter-spacing:-.015em;margin:18px 0 22px}
+    .hero h1 em{font-style:italic;color:var(--terracotta)}
+    .hero p.sub{font-size:18.5px;line-height:1.6;color:var(--umber);max-width:500px;margin:0 0 34px}
+    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .hero-photo{aspect-ratio:4/5;border-radius:10px;position:relative;overflow:hidden;
+      background:radial-gradient(at 35% 28%,rgba(212,162,76,.5),transparent 55%),
+                 radial-gradient(at 72% 78%,rgba(201,123,90,.55),transparent 60%),
+                 linear-gradient(160deg,var(--cream),#Dcd2bf)}
+    .photo-tag{position:absolute;left:0;bottom:0;right:0;padding:14px 16px;font-family:var(--sans);font-size:11px;
+      letter-spacing:.06em;color:var(--umber);background:rgba(244,239,230,.55);backdrop-filter:blur(2px)}
+
+    /* ===================================================================== TWO DOORS */
+    .doors{background:var(--cream)}
+    .door-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:42px}
+    .door{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:38px 34px}
+    .door .ix{width:46px;height:46px;margin-bottom:20px}
+    .door h3{font-family:var(--serif);font-size:27px;font-weight:500;margin:0 0 10px}
+    .door p{font-size:15px;color:var(--umber);margin:0 0 6px}
+    .door .tagword{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--terracotta)}
+    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:23px;color:var(--umber)}
+
+    /* ===================================================================== SESSION / WHAT IT IS */
+    .session-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:18px}
+    .step{display:flex;gap:18px;margin-bottom:26px}
+    .step .n{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--terracotta);line-height:1;flex-shrink:0;width:34px}
+    .step h4{font-family:var(--sans);font-weight:600;font-size:15px;margin:2px 0 4px}
+    .step p{font-size:14.5px;color:var(--muted);margin:0}
+    .honest{background:var(--umber);color:var(--bone);border-radius:14px;padding:38px 36px}
+    .honest h3{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--bone);margin:0 0 16px}
+    .honest p{font-size:15px;color:rgba(244,239,230,.85);margin:0 0 14px}
+    .honest .pull{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ochre);margin-top:22px}
+
+    /* ===================================================================== STORY */
+    .story{background:var(--cream)}
+    .story-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
+    .story-photo{aspect-ratio:1/1;border-radius:10px;
+      background:radial-gradient(at 60% 35%,rgba(201,123,90,.5),transparent 55%),linear-gradient(160deg,var(--bone),#ddd2bf)}
+    .story blockquote{font-family:var(--serif);font-size:30px;line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
+    .story p{font-size:15.5px;color:var(--umber);max-width:560px}
+
+    /* ===================================================================== REVIEWS */
+    .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
+    .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:30px 28px;display:flex;flex-direction:column}
+    .rev .quote{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:0 0 22px;flex:1}
+    .rev .who{display:flex;align-items:center;gap:12px}
+    .rev .av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--terracotta),var(--ochre));
+      flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-style:italic;color:var(--bone);font-size:16px}
+    .rev .who b{font-size:13.5px;font-weight:600}
+    .rev .who span{font-size:12px;color:var(--muted);display:block}
+
+    /* ===================================================================== RESET BAND */
+    .reset{background:var(--sage);color:var(--bone);text-align:center}
+    .reset h2{font-family:var(--serif);font-weight:500;font-size:40px;color:var(--bone);margin:0 0 14px}
+    .reset p{color:rgba(244,239,230,.9);max-width:480px;margin:0 auto 28px;font-size:16px}
+    .reset-form{display:flex;gap:10px;max-width:430px;margin:0 auto;justify-content:center;flex-wrap:wrap}
+    .reset-form input{font-family:var(--sans);font-size:14px;padding:13px 18px;border-radius:999px;border:none;
+      flex:1;min-width:220px;color:var(--umber)}
+    .reset-form .btn-primary{background:var(--umber)}
+    .reset-form .btn-primary:hover{background:#43332628}
+
+    /* ===================================================================== BOOK */
+    .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
+    .price-card{background:var(--bone);border:1px solid var(--terracotta);box-shadow:0 0 0 1px var(--terracotta);
+      border-radius:16px;padding:38px 34px}
+    .price-card .label{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+    .price-card .amt{font-family:var(--serif);font-size:48px;font-weight:500;color:var(--umber);margin:6px 0 2px}
+    .price-card .amt small{font-size:18px;color:var(--muted)}
+    .price-card ul{list-style:none;padding:0;margin:22px 0 26px}
+    .price-card li{font-size:14.5px;padding:9px 0;border-bottom:1px solid var(--hairline);display:flex;gap:10px}
+    .price-card li::before{content:"·";color:var(--terracotta);font-weight:700}
+    details{border-bottom:1px solid var(--hairline);padding:16px 0}
+    details summary{font-family:var(--sans);font-weight:500;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+    details summary::-webkit-details-marker{display:none}
+    details summary::after{content:"+";color:var(--terracotta);font-size:20px}
+    details[open] summary::after{content:"–"}
+    details p{font-size:14px;color:var(--muted);margin:12px 0 2px}
+
+    /* ===================================================================== FOOTER */
+    footer{background:var(--umber);color:var(--bone);padding:64px 32px 40px}
+    .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+    .foot-grid .logo-word{color:var(--bone)}
+    .foot-grid .logo-word small{color:rgba(244,239,230,.6)}
+    footer h5{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
+    footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:14px}
+    footer a:hover{color:var(--bone)}
+    .foot-sig{font-family:var(--serif);font-style:italic;font-size:17px;color:rgba(244,239,230,.7);margin-top:14px}
+    .foot-bottom{max-width:1140px;margin:48px auto 0;padding-top:22px;border-top:1px solid rgba(244,239,230,.18);
+      font-size:12px;color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+    /* ===================================================================== LOGO LAB */
+    .lab{background:var(--bone);padding:90px 32px 30px;border-top:6px solid var(--ochre)}
+    .lab .wrap{max-width:1140px}
+    .lab h2{font-family:var(--serif);font-size:42px;font-weight:500;margin:0 0 8px}
+    .lab .lead{margin-bottom:8px}
+    .logo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+    .lcard{border:1px solid var(--hairline);border-radius:14px;overflow:hidden;background:#fff7;display:flex;flex-direction:column}
+    .lcard .stage{background:var(--cream);padding:38px 24px 30px;display:flex;flex-direction:column;align-items:center;gap:22px;min-height:200px;justify-content:center}
+    .lcard .mark{width:78px;height:78px}
+    .lcard .lock{display:flex;align-items:center;gap:9px}
+    .lcard .lock svg{width:26px;height:26px}
+    .lcard .lockword{font-family:var(--serif);font-size:21px;font-weight:500;color:var(--umber);line-height:1}
+    .lcard .lockword small{display:block;font-family:var(--sans);font-size:7.5px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+    .lcard .body{padding:20px 22px 24px}
+    .lcard .lname{font-family:var(--serif);font-size:21px;font-weight:500;margin:0 0 2px}
+    .lcard .ltag{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .lcard .ldesc{font-size:13.5px;color:var(--umber)}
+    .lcard .flag{margin-top:12px;font-size:12px;border-radius:8px;padding:9px 12px}
+    .flag.good{background:rgba(138,140,110,.16);color:var(--umber)}
+    .flag.warn{background:rgba(201,123,90,.16);color:var(--umber)}
+    .flag b{color:var(--terracotta)}
+
+    /* ===================================================================== APPENDIX */
+    .appendix{background:var(--cream);padding:80px 32px 110px}
+    .appendix h2{font-family:var(--serif);font-size:38px;font-weight:500;margin:0 0 8px}
+    .struct{margin-top:36px;border-left:2px solid var(--hairline);padding-left:0}
+    .srow{display:grid;grid-template-columns:42px 230px 1fr;gap:18px;padding:18px 0 18px 22px;border-bottom:1px solid var(--hairline);position:relative}
+    .srow::before{content:"";position:absolute;left:-6px;top:26px;width:10px;height:10px;border-radius:50%;background:var(--terracotta)}
+    .srow .si{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--terracotta)}
+    .srow .sn{font-family:var(--sans);font-weight:600;font-size:15px}
+    .srow .sd{font-size:14px;color:var(--muted)}
+
+    @media(max-width:880px){
+      .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
+      .door-grid,.rev-grid,.logo-grid,.foot-grid{grid-template-columns:1fr}
+      .hero h1{font-size:48px}.nav a.link{display:none}.srow{grid-template-columns:1fr;gap:4px}
+      .srow .si{display:none}
+    }
+  </style>
+</head>
+<body data-fb-key="website" data-fb-page="Website Home — Breath with Diana" data-fb-email="daniel@li.finance">
+
+<!-- ============================ REVIEW WRAPPER (not part of the site) ============================ -->
+<div class="meta-banner">
+  <b>DRAFT v1 — directional.</b> Real homepage below · see the full <a href="logos.html"><b>Logo Catalog — 114 marks</b></a> (or the quick <a href="#logolab">6 below</a>) · then <a href="#appendix">why this structure</a>. Photos are placeholders. Use the <b>Send feedback</b> button (bottom-right) to leave notes.
+</div>
+
+<!-- ============================================================= THE WEBSITE STARTS HERE ========= -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo-lockup" href="#top">
+      <!-- default mark = open ring (Option 1) -->
+      <svg viewBox="0 0 100 100" fill="none" stroke="#5B4636" stroke-width="4" stroke-linecap="round">
+        <path d="M50 14 A36 36 0 1 1 35 17"/>
+      </svg>
+      <span class="logo-word">Diana<small>Breathwork</small></span>
+    </a>
+    <a class="link" href="#doors">The work</a>
+    <a class="link" href="#session">A session</a>
+    <a class="link" href="#story">My story</a>
+    <a class="link" href="#reviews">Reviews</a>
+    <span class="lang"><b>EN</b> · ES</span>
+    <a class="btn btn-primary" href="#book">Book a session</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<a id="top"></a>
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Rebirthing Breathwork · Bilingual · Thailand &amp; online</div>
+      <h1>Coming home<br>to your <em>body</em>.</h1>
+      <p class="sub">For when life looks right on the outside but feels empty inside — and you're ready to stop avoiding it. The work is making peace with what's already there, instead of looking outside for the next fix.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#book">Book a session</a>
+        <a class="btn btn-ghost" href="#reset">Start with a free 10-min reset</a>
+      </div>
+    </div>
+    <div class="hero-photo"><div class="photo-tag">Hero portrait — warm, natural light, mid-exhale. (Diana's photo)</div></div>
+  </div>
+</section>
+
+<!-- ===== TWO DOORS ===== -->
+<section class="doors" id="doors">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">Two ways in</div>
+    <h2 class="sec">Start gentle. Or go deep.</h2>
+    <p class="lead muted" style="margin:0 auto">You don't have to begin with the deep work. Most people start with the breath that steadies an ordinary day — and go further when they're ready.</p>
+  </div>
+  <div class="wrap">
+    <div class="door-grid">
+      <div class="door">
+        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#8A8C6E" stroke-width="2.4" stroke-linecap="round">
+          <path d="M8 30 q16 -14 32 0"/><path d="M12 36 q12 -9 24 0"/>
+        </svg>
+        <div class="tagword">Everyday calm</div>
+        <h3>Simple breathing tools</h3>
+        <p>Short, practical breathing practices for daily calm — to steady your nervous system in the middle of an ordinary, overwhelming day. Free to learn, yours to keep.</p>
+      </div>
+      <div class="door">
+        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#C97B5A" stroke-width="2.4" stroke-linecap="round">
+          <circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="8"/>
+        </svg>
+        <div class="tagword">The deep work</div>
+        <h3>Rebirthing sessions</h3>
+        <p>Deeper 1:1 rebirthing breathwork that moves stuck emotion out of the body and returns you to yourself. This is the work that shifts something — not a quick fix.</p>
+      </div>
+    </div>
+    <p class="doors-note">“It's not about fixing you. It's about coming home to what's already there.”</p>
+  </div>
+</section>
+
+<!-- ===== WHAT A SESSION IS LIKE (honest explainer) ===== -->
+<section id="session">
+  <div class="wrap">
+    <div class="eyebrow">What a session is like</div>
+    <h2 class="sec">Honest about the work — before you ever book.</h2>
+    <div class="session-grid">
+      <div>
+        <div class="step"><div class="n">1</div><div><h4>We talk first</h4><p>Every session opens with a conversation — what brought you here, what feels stuck, anything I should know. No surprises.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>You breathe</h4><p>A continuous, connected breathing pattern I guide you through. You lie down; I hold the space and pace. This is the heart of rebirthing.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Something moves</h4><p>Emotion often surfaces — tears, shaking, sound, sometimes a wave of heat or cold. This is the stuck weight leaving the body. It's normal, and it's the point.</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>We land</h4><p>We close slowly, and I stay with you afterward — plus follow-up support in the days after, because the morning after is where the real shift shows up.</p></div></div>
+      </div>
+      <div class="honest">
+        <h3>The honest part</h3>
+        <p>This isn't a relaxing spa breath. A session is around 2–3 hours, and it can be intense — most people leave tired, like a weight just passed through them.</p>
+        <p>I'll never promise to fix you or heal you. What I can offer is a safe, steady space to meet what you've been avoiding — and the tools to hold yourself once you have.</p>
+        <p class="muted" style="color:rgba(244,239,230,.6);font-size:13px">Breathwork isn't suitable for everyone. If you're pregnant or have a heart, respiratory, or certain mental-health conditions, we'll talk it through on a free call first.</p>
+        <div class="pull">The morning after, the wanting becomes doing.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STORY ===== -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-photo"></div>
+      <div>
+        <div class="eyebrow">My story</div>
+        <blockquote>I built the life I was told would make me happy — and still felt empty. So I left it.</blockquote>
+        <p>I'm Diana. I'm Colombian, I live in Thailand, and I work in both Spanish and English. For years I did everything right on paper — and quietly felt like I was missing myself the whole time.</p>
+        <p>Rebirthing breathwork is how I found my way back to my own body. Not in a weekend, and not without some hard mornings. Now I guide other people through the same work — as someone who lived it, not as a guru above it.</p>
+        <p style="margin-top:18px"><a class="btn btn-ghost" href="#book">Read more &amp; book a call</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section id="reviews">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">In their words</div>
+    <h2 class="sec">What people say afterward.</h2>
+    <p class="lead muted" style="margin:0 auto">Shared with permission. No before-and-afters, no spotlight wall — just honest words from people who did the work.</p>
+  </div>
+  <div class="wrap">
+    <div class="rev-grid">
+      <div class="rev">
+        <p class="quote">[Client review — collected as text + first name + a photo, then dropped into this standard on-brand card automatically.]</p>
+        <div class="who"><div class="av">S</div><div><b>Sonia M.</b><span>Bogotá</span></div></div>
+      </div>
+      <div class="rev">
+        <p class="quote">[Second review slot. Tasteful, two–three sentences, real first name only. The design stays identical so the page never feels like a testimonial wall.]</p>
+        <div class="who"><div class="av">C</div><div><b>Chi L.</b><span>Bangkok</span></div></div>
+      </div>
+      <div class="rev">
+        <p class="quote">[Third review slot. Diana approves each one before it goes live; consent is part of the collection step.]</p>
+        <div class="who"><div class="av">A</div><div><b>Ana R.</b><span>Online</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FREE RESET BAND ===== -->
+<section class="reset" id="reset">
+  <div class="wrap-narrow">
+    <div class="eyebrow" style="color:var(--ochre)">Start here · free</div>
+    <h2>A free 10-minute breath reset.</h2>
+    <p>One short guided recording you can use anytime you feel overwhelmed. Leave your email and I'll send it straight to you — no spam, just the audio and the occasional honest note.</p>
+    <form class="reset-form" onsubmit="return false">
+      <input type="email" placeholder="your@email.com" aria-label="email">
+      <button class="btn btn-primary" type="submit">Send me the reset</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===== BOOK / PRICING / FAQ ===== -->
+<section id="book">
+  <div class="wrap">
+    <div class="eyebrow">Work with me</div>
+    <h2 class="sec">Book a private session.</h2>
+    <div class="book-grid">
+      <div class="price-card">
+        <div class="label">Private 1:1 rebirthing session</div>
+        <div class="amt">5,000 THB <small>· ~€130</small></div>
+        <ul>
+          <li>2–3 hours, fully held start to finish</li>
+          <li>Pre-session conversation included</li>
+          <li>Follow-up support in the days after</li>
+          <li>In person in Thailand, or online worldwide</li>
+          <li>In English or Spanish</li>
+        </ul>
+        <a class="btn btn-primary" href="#" style="width:100%;text-align:center">Check availability</a>
+        <p class="muted" style="font-size:13px;margin-top:16px;text-align:center">Not sure yet? <a href="#" style="color:var(--terracotta)">Book a free 15-min call</a> first.</p>
+      </div>
+      <div>
+        <details open><summary>Do I need any experience?</summary><p>None at all. I guide you through every breath. Most people who come have never done breathwork before.</p></details>
+        <details><summary>Will I feel calm afterward?</summary><p>Sometimes — but calm isn't the promise. Rebirthing tends to move emotion rather than soothe it. Many people feel tired and tender right after, and lighter the next day.</p></details>
+        <details><summary>Is this therapy?</summary><p>No. It's a complement to inner work, not a replacement for therapy or medical care. If you're in treatment, keep your therapist in the loop.</p></details>
+        <details><summary>Can we do it online?</summary><p>Yes. Online sessions work well over video once we've had a short call to set up your space safely. [Diana to confirm online offering.]</p></details>
+        <details><summary>What if I need to reschedule?</summary><p>Life happens — just give me 24 hours' notice and we'll find a new time.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <span class="logo-word">Diana<small>Breathwork</small></span>
+      <div class="foot-sig">Coming home to your body.</div>
+    </div>
+    <div>
+      <h5>Explore</h5>
+      <a href="#doors">The work</a>
+      <a href="#session">A session</a>
+      <a href="#story">My story</a>
+      <a href="#book">Book</a>
+    </div>
+    <div>
+      <h5>Find me</h5>
+      <a href="#">Instagram — @breath.with.diana</a>
+      <a href="#">Instagram — @respira.con.diana</a>
+      <a href="#">hello@breathwithdiana.com</a>
+      <a href="#">Español →</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Breath with Diana · breathwithdiana.com</span>
+    <span>Rebirthing breathwork is not a substitute for medical or psychological care.</span>
+  </div>
+</footer>
+
+<!-- ============================================================= LOGO LAB ========================= -->
+<section class="lab" id="logolab">
+  <div class="wrap">
+    <div class="eyebrow">Logo lab</div>
+    <h2>Six directions for Diana to react to.</h2>
+    <p class="lead">All built from the brand: <b>grounded, warm, slow — and deliberately not woo</b>. Each shows the symbol on its own and locked-up with the name. Pick a direction (or mix two), and I'll refine the winner into a real, scalable logo.</p>
+
+    <div class="logo-grid">
+
+      <!-- 1 OPEN RING -->
+      <div class="lcard">
+        <div class="stage">
+          <svg class="mark" viewBox="0 0 100 100" fill="none" stroke="#C97B5A" stroke-width="5" stroke-linecap="round">
+            <path d="M50 10 A40 40 0 1 1 32 14"/>
+          </svg>
+          <div class="lock">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#5B4636" stroke-width="6" stroke-linecap="round"><path d="M50 10 A40 40 0 1 1 32 14"/></svg>
+            <span class="lockword">Diana<small>Breathwork</small></span>
+          </div>
+        </div>
+        <div class="body">
+          <div class="lname">The Open Ring</div>
+          <div class="ltag">Symbol · coming home</div>
+          <div class="ldesc">A circle that doesn't quite close. The opening is the breath, and the space to come home to yourself. Calm, modern, instantly a memorable mark.</div>
+          <div class="flag good"><b>On-brand:</b> ties straight to “coming home to your body.” Reads adult, not mystical. My top pick for a logo-mark.</div>
+        </div>
+      </div>
+
+      <!-- 2 BREATH RINGS -->
+      <div class="lcard">
+        <div class="stage">
+          <svg class="mark" viewBox="0 0 100 100" fill="none" stroke="#C97B5A" stroke-width="4" stroke-linecap="round">
+            <path d="M22 60 A30 30 0 0 1 78 60"/>
+            <path d="M32 60 A20 20 0 0 1 68 60"/>
+            <path d="M42 60 A10 10 0 0 1 58 60"/>
+          </svg>
+          <div class="lock">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#5B4636" stroke-width="5" stroke-linecap="round">
+              <path d="M22 60 A30 30 0 0 1 78 60"/><path d="M34 60 A18 18 0 0 1 66 60"/><path d="M45 60 A7 7 0 0 1 55 60"/>
+            </svg>
+            <span class="lockword">Diana<small>Breathwork</small></span>
+          </div>
+        </div>
+        <div class="body">
+          <div class="lname">The Breath Arcs</div>
+          <div class="ltag">Symbol · the exhale</div>
+          <div class="ldesc">Three nested arcs — a breath radiating outward, or a sunrise. Warm and quiet; pairs naturally with the Breath Lab content pillar.</div>
+          <div class="flag good"><b>On-brand:</b> literally about breath, soft and grounded. Very flexible as an icon.</div>
+        </div>
+      </div>
+
+      <!-- 3 EXHALE LINE -->
+      <div class="lcard">
+        <div class="stage">
+          <svg class="mark" viewBox="0 0 100 100" fill="none" stroke="#C97B5A" stroke-width="4.5" stroke-linecap="round">
+            <path d="M14 64 C 40 64, 48 34, 74 30"/><circle cx="83" cy="28" r="4.5" fill="#D4A24C" stroke="none"/>
+          </svg>
+          <div class="lock">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#5B4636" stroke-width="5.5" stroke-linecap="round">
+              <path d="M14 64 C 40 64, 48 34, 74 30"/><circle cx="83" cy="28" r="5" fill="#C97B5A" stroke="none"/>
+            </svg>
+            <span class="lockword">Diana<small>Breathwork</small></span>
+          </div>
+        </div>
+        <div class="body">
+          <div class="lname">The Exhale</div>
+          <div class="ltag">Symbol · release</div>
+          <div class="ldesc">A line that rises and releases into a single point — a breath leaving the body. The ochre dot is the brand's “rare eye-catcher” accent.</div>
+          <div class="flag good"><b>On-brand:</b> motion + release, honest and light. Distinctive — nobody else in the space has this.</div>
+        </div>
+      </div>
+
+      <!-- 4 BOTANICAL -->
+      <div class="lcard">
+        <div class="stage">
+          <svg class="mark" viewBox="0 0 100 100" fill="none" stroke="#8A8C6E" stroke-width="3.6" stroke-linecap="round">
+            <path d="M50 86 C 50 64, 50 48, 50 22"/>
+            <path d="M50 52 C 36 50, 28 40, 28 30 C 40 30, 48 40, 50 52"/>
+            <path d="M50 44 C 64 42, 72 32, 72 22 C 60 22, 52 32, 50 44"/>
+          </svg>
+          <div class="lock">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#5B4636" stroke-width="4.4" stroke-linecap="round">
+              <path d="M50 86 C 50 64, 50 48, 50 22"/><path d="M50 54 C 36 52, 28 42, 28 32 C 40 32, 48 42, 50 54"/><path d="M50 46 C 64 44, 72 34, 72 24 C 60 24, 52 34, 50 46"/>
+            </svg>
+            <span class="lockword">Diana<small>Breathwork</small></span>
+          </div>
+        </div>
+        <div class="body">
+          <div class="lname">The Sprig</div>
+          <div class="ltag">Symbol · rooted &amp; growing</div>
+          <div class="ldesc">A single-line seedling. Leans on her “connect with nature” value and the sage tone. Warm and human, low-spiritual.</div>
+          <div class="flag good"><b>On-brand:</b> nature + growth without crystals-and-zodiac energy. Feels organic and editorial.</div>
+        </div>
+      </div>
+
+      <!-- 5 MONOGRAM -->
+      <div class="lcard">
+        <div class="stage">
+          <svg class="mark" viewBox="0 0 100 100" fill="none">
+            <text x="50" y="72" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="78" font-weight="500" fill="#C97B5A" font-style="italic">D</text>
+            <path d="M50 22 A28 28 0 0 1 50 78" fill="none" stroke="#D4A24C" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <div class="lock">
+            <svg viewBox="0 0 100 100">
+              <text x="50" y="72" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="78" font-weight="500" fill="#5B4636" font-style="italic">D</text>
+              <path d="M50 24 A26 26 0 0 1 50 76" fill="none" stroke="#C97B5A" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <span class="lockword">Diana<small>Breathwork</small></span>
+          </div>
+        </div>
+        <div class="body">
+          <div class="lname">The Monogram</div>
+          <div class="ltag">Symbol · initial + breath</div>
+          <div class="ldesc">An italic serif <b>D</b> with a breath-arc echoing its curve. The most personal and “signature” of the set — works beautifully as a tiny avatar / favicon.</div>
+          <div class="flag good"><b>On-brand:</b> editorial, refined, ownable. Great for profile pics and stamps.</div>
+        </div>
+      </div>
+
+      <!-- 6 FLOWER OF LIFE -->
+      <div class="lcard">
+        <div class="stage">
+          <svg class="mark" viewBox="0 0 100 100" fill="none" stroke="#8A8C6E" stroke-width="2.2">
+            <circle cx="50" cy="50" r="15"/>
+            <circle cx="65" cy="50" r="15"/><circle cx="35" cy="50" r="15"/>
+            <circle cx="57.5" cy="37" r="15"/><circle cx="42.5" cy="37" r="15"/>
+            <circle cx="57.5" cy="63" r="15"/><circle cx="42.5" cy="63" r="15"/>
+          </svg>
+          <div class="lock">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#5B4636" stroke-width="2.4">
+              <circle cx="50" cy="50" r="15"/><circle cx="65" cy="50" r="15"/><circle cx="35" cy="50" r="15"/>
+              <circle cx="57.5" cy="37" r="15"/><circle cx="42.5" cy="37" r="15"/><circle cx="57.5" cy="63" r="15"/><circle cx="42.5" cy="63" r="15"/>
+            </svg>
+            <span class="lockword">Diana<small>Breathwork</small></span>
+          </div>
+        </div>
+        <div class="body">
+          <div class="lname">Flower / Seed of Life</div>
+          <div class="ltag">Symbol · sacred geometry</div>
+          <div class="ldesc">The symbol you mentioned — the classic sacred-geometry motif, here in a single thin restrained weight.</div>
+          <div class="flag warn"><b>Honest flag:</b> this is the <i>most saturated</i> symbol in the wellness/spiritual space, and Diana's brand explicitly avoids the “crystal-and-zodiac mystical” register (grounded, not floaty). Included because you asked — but it pulls toward the lane she's trying to stand apart from. Use sparingly, if at all.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= APPENDIX: STRUCTURE ============= -->
+<section class="appendix" id="appendix">
+  <div class="wrap-narrow">
+    <div class="eyebrow">Why this structure</div>
+    <h2>The page, top to bottom.</h2>
+    <p class="lead muted">A single long-scroll page for v1 — it reads like a slow, honest conversation (matches her voice), it's cheap to build &amp; clone to Spanish, and it puts <b>credibility first, booking second</b>, exactly as you chose. Each block has one job:</p>
+    <div class="struct">
+      <div class="srow"><div class="si">1</div><div class="sn">Hero</div><div class="sd">Name the feeling in 5 seconds (“coming home to your body”) + two clear CTAs: book, or start free.</div></div>
+      <div class="srow"><div class="si">2</div><div class="sn">Two ways in</div><div class="sd">The two-door offer — everyday calm tools + the deep rebirthing work. Lowers the barrier to entry.</div></div>
+      <div class="srow"><div class="si">3</div><div class="sn">What a session is like</div><div class="sd">The honesty block. Tells a stranger exactly what happens — including that it's intense. Builds trust by not overselling.</div></div>
+      <div class="srow"><div class="si">4</div><div class="sn">My story</div><div class="sd">“I lived it.” The human reason to trust her — no guru, no teacher-name needed.</div></div>
+      <div class="srow"><div class="si">5</div><div class="sn">Reviews</div><div class="sd">Three tasteful, identical cards. Social proof without the spotlight wall.</div></div>
+      <div class="srow"><div class="si">6</div><div class="sn">Free 10-min reset</div><div class="sd">Low-commitment entry + email capture — the same lead magnet that feeds Instagram.</div></div>
+      <div class="srow"><div class="si">7</div><div class="sn">Book + pricing + FAQ</div><div class="sd">5,000 THB session, what's included, free intro call, and the questions that quietly stop people from booking.</div></div>
+      <div class="srow"><div class="si">8</div><div class="sn">Footer</div><div class="sd">Both Instagram handles, contact, and the Spanish toggle that goes live when we clone the page.</div></div>
+    </div>
+    <p class="muted" style="margin-top:36px;font-size:13.5px"><b>Spanish later, cheaply:</b> because content lives in clean, repeated blocks, the ES version is a copy of this page with translated text at <code>/es</code> — no redesign. We build EN to feel finished first, then flip ES on when the copy's ready.</p>
+  </div>
+</section>
+
+<script src="feedback.js"></script>
+</body>
+</html>
