@@ -42,6 +42,15 @@
     .mconsent p{margin:0;font-size:12.5px;line-height:1.45;color:var(--umber)}
     .msend{margin-top:20px;background:var(--terracotta);color:#fff;text-align:center;
       border-radius:999px;padding:13px;font-size:14px;font-weight:500}
+    /* authenticity callout + soft-force opt-out + how-you'll-appear preview */
+    .mauth{background:rgba(201,123,90,.12);border:1px solid rgba(201,123,90,.32);border-radius:11px;
+      padding:11px 13px;font-size:12px;line-height:1.45;color:var(--umber);margin:2px 0 17px}
+    .mreq{font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#fff;
+      background:var(--terracotta);border-radius:999px;padding:2px 8px;margin-left:5px;vertical-align:middle}
+    .mopt{font-size:11px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:6px}
+    .mappear{background:#FCFAF5;border:1px dashed var(--hairline);border-radius:9px;padding:9px 12px;
+      font-size:12px;color:var(--muted);margin:2px 0 4px}
+    .mappear b{color:var(--umber);font-weight:600}
     /* the "where it lands" mini diagram */
     .flow{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
       background:var(--cream);border:1px solid var(--hairline);border-radius:14px;padding:18px 16px;margin:8px 0 4px}
@@ -87,7 +96,7 @@
         <div class="flow">
           <div class="node">Client fills the form<small>on their phone, 1 min</small></div>
           <div class="arr">→</div>
-          <div class="node">One private list<small>words · photo · permission</small></div>
+          <div class="node">One private list<small>words · photo · Instagram · permission</small></div>
           <div class="arr">→</div>
           <div class="node">You pick → it’s a post<small>only ones who said yes</small></div>
         </div>
@@ -114,26 +123,32 @@
               <p class="mock-intro">Thank you for breathing with me 🤍</p>
               <p class="mock-sub">If it felt like something, I’d love a few words. Takes a minute.</p>
 
-              <div class="mq"><label>Your name</label><div class="mfield">Maria</div></div>
-              <div class="mq"><label>Your email</label><div class="mfield">maria@…</div></div>
+              <div class="mq"><label>First name</label><div class="mfield">Maria</div></div>
+              <div class="mq"><label>Age <span class="opt">· optional</span></label><div class="mfield" style="max-width:90px">34</div></div>
+              <div class="mq"><label>Your email <span class="opt">· stays private</span></label><div class="mfield">maria@…</div></div>
               <div class="mq"><label>How was your experience?</label><div class="mfield tall">I came in tense and left lighter than I have in months…</div></div>
               <div class="mq"><label>How was it, in stars?</label><div class="mstars">★★★★★</div></div>
-              <div class="mq"><label>What could I have done better? <span class="opt">· just for me, never shared</span></label><div class="mfield">…</div></div>
-              <div class="mq"><label>A photo I can show with your words <span class="opt">· optional</span></label><div class="mupload">＋ add a photo — or paste a link</div></div>
+
+              <div class="mauth">These two are what make your review <b>real</b> — a face and a profile people can recognise are worth ten anonymous ones. Please add both if you can 🤍</div>
+              <div class="mq"><label>Your Instagram <span class="mreq">needed</span></label><div class="mfield">@maria.breathes</div>
+                <div class="mopt">☐ I’d rather not share my Instagram</div></div>
+              <div class="mq"><label>A photo of you <span class="mreq">needed</span></label><div class="mupload">＋ add a photo — or paste a link</div>
+                <div class="mopt">☐ I’d rather not share a photo</div></div>
+
               <div class="mq"><label>A short video review <span class="opt">· optional</span></label><div class="mupload">＋ add a short clip — or paste a link</div></div>
-              <div class="mq"><label>How should I credit you?</label>
-                <div class="mchips"><span class="mchip">Full name</span><span class="mchip sel">First name only</span><span class="mchip">Initials</span><span class="mchip">Anonymous</span></div>
-              </div>
+              <div class="mq"><label>What could I have done better? <span class="opt">· just for me, never shared</span></label><div class="mfield">…</div></div>
+
+              <div class="mappear">How you’ll appear: <b>Maria, 34 · @maria.breathes</b></div>
               <div class="mconsent">
                 <div class="mbox">✓</div>
-                <p>I’m happy for Diana to use my words, my first name, and any photo or video I shared on her website and social media.</p>
+                <p>I’m happy for Diana to use my words, my first name &amp; age, my photo or video, and my Instagram handle on her website and social media.</p>
               </div>
               <div class="msend">Send 🤍</div>
             </div>
           </div>
           <p class="mock-cap">Mockup — the real form is built once you’re happy with the idea.</p>
         </div>
-        <p class="muted" style="font-size:13.5px">Two quiet but important touches: the <b>“what could I have done better?”</b> answer is kept <b>private</b> — it’s only for you, it never goes on a post. And the <b>permission tick</b> is its own thing: if someone leaves it unticked, you still get their lovely words and their honest feedback, you just won’t post them.</p>
+        <p class="muted" style="font-size:13.5px">Three quiet but important touches: <b>(1)</b> the photo and Instagram are gently <b>pushed as “needed”</b> — a real face and profile are what make a stranger trust a review, so the form leans on people to add them, with a small “I’d rather not” escape so you don’t lose the whole review. Everyone’s shown <b>how they’ll appear</b> (“Maria, 34 · @handle”) so it feels safe. <b>(2)</b> The <b>“what could I have done better?”</b> answer is kept <b>private</b> — only for you, never on a post. <b>(3)</b> The <b>permission tick</b> is its own thing: if someone leaves it unticked, you still get their words and honest feedback, you just won’t post them.</p>
       </div>
       <textarea class="fav-note" data-id="form" data-name="The form mockup" rows="2" placeholder="Anything to add, remove, or word differently? (optional)"></textarea>
     </div>
