@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Your accounts — a few things only you can do</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
+  --umber:#5B4636; --ochre:#D4A24C;
+  --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --green:#5f7d52;
+}
+*{box-sizing:border-box}
+body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding:0 22px}
+
+/* sticky progress header */
+.topbar{position:sticky;top:0;z-index:10;background:var(--umber);color:var(--bone);padding:14px 0;box-shadow:0 2px 14px rgba(91,70,54,.18)}
+.topbar .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.topbar .ttl{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--bone)}
+.bar{flex:1;min-width:160px;height:10px;background:rgba(244,239,230,.2);border-radius:6px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--ochre);transition:width .25s ease}
+.count{font-size:13px;color:var(--ochre);font-weight:600;white-space:nowrap}
+.reset{font-family:var(--sans);font-size:12px;color:rgba(244,239,230,.7);background:none;border:1px solid rgba(244,239,230,.3);border-radius:8px;padding:5px 10px;cursor:pointer}
+.reset:hover{color:var(--bone);border-color:var(--bone)}
+
+header.head{padding:34px 0 6px}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);margin:0 0 12px}
+h1{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1.08;letter-spacing:-.01em;margin:0 0 14px}
+.lead{font-size:16px;max-width:640px;margin:0 0 6px}
+.pathline{background:var(--cream);border:1px solid var(--hairline);border-radius:12px;padding:14px 18px;margin:22px 0 6px;font-size:14px;color:var(--umber)}
+.pathline b{color:var(--terracotta)}
+
+.phase{margin:34px 0 8px}
+.phase-h{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--hairline);padding-bottom:8px;margin-bottom:6px}
+.phase-h h2{font-family:var(--serif);font-weight:600;font-size:26px;margin:0;color:var(--umber)}
+.phase-h .est{font-size:12.5px;color:var(--muted);margin-left:auto;white-space:nowrap}
+.phase-note{font-size:13.5px;color:var(--muted);margin:8px 0 4px}
+
+.item{display:flex;gap:14px;background:#ffffff66;border:1px solid var(--hairline);border-radius:14px;padding:16px 18px;margin:12px 0;transition:opacity .2s,background .2s}
+.item.done{opacity:.55;background:rgba(95,125,82,.07)}
+.item.done .it-title{text-decoration:line-through;text-decoration-color:rgba(91,70,54,.4)}
+.cb{flex-shrink:0;margin-top:2px}
+.cb input{appearance:none;-webkit-appearance:none;width:24px;height:24px;border:2px solid var(--sage);border-radius:7px;cursor:pointer;position:relative;background:#fff}
+.cb input:checked{background:var(--green);border-color:var(--green)}
+.cb input:checked::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.it-body{flex:1;min-width:0}
+.it-title{font-weight:600;font-size:15.5px;line-height:1.4}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:20px;margin-left:8px;vertical-align:middle}
+.tag.now{background:var(--terracotta);color:#fff}
+.tag.nice{background:rgba(212,162,76,.25);color:#a9791f}
+.it-detail{font-size:14px;color:var(--umber);margin:6px 0 0}
+.it-detail a{color:var(--terracotta)}
+code{background:var(--cream);border-radius:5px;padding:1.5px 6px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--umber)}
+.tip{background:rgba(212,162,76,.13);border-left:3px solid var(--ochre);border-radius:8px;padding:9px 12px;font-size:13px;margin-top:9px}
+.tip b{color:#a9791f}
+
+/* copy-paste draft box */
+.copybox{margin-top:11px;background:#fff;border:1px solid var(--hairline);border-radius:11px;overflow:hidden}
+.copybox .draft{margin:0;padding:13px 15px;font-family:var(--sans);font-size:14px;line-height:1.5;white-space:pre-wrap;color:var(--umber)}
+.copybox .cbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 12px;background:var(--cream);border-top:1px solid var(--hairline)}
+.copybox .cbar small{font-size:11.5px;color:var(--muted)}
+.copybox .copy{font-family:var(--sans);font-size:12px;font-weight:600;color:#fff;background:var(--terracotta);border:none;border-radius:7px;padding:6px 13px;cursor:pointer}
+.copybox .copy:hover{filter:brightness(1.05)}
+.copybox .copy.ok{background:var(--green)}
+
+.later{background:var(--cream);border:1px solid var(--hairline);border-radius:16px;padding:6px 22px 18px;margin:30px 0}
+footer{background:var(--umber);color:rgba(244,239,230,.78);padding:30px 22px;text-align:center;font-size:13px;margin-top:36px}
+@media print{.topbar,.reset{position:static;box-shadow:none}.item{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="ttl">Your setup</span>
+    <div class="bar"><i id="barfill"></i></div>
+    <span class="count" id="count">0 / 0</span>
+    <button class="reset" id="reset">Reset</button>
+  </div>
+</div>
+
+<div class="wrap">
+<header class="head">
+  <div class="eyebrow">For Diana · a few small things</div>
+  <h1>Your accounts are ready. Just your touch left.</h1>
+  <p class="lead">Everything technical is done — your two Instagram accounts and WhatsApp Business all exist and are set up. What's left are the few things only <i>you</i> can do, because they're your face and your words. None of it is urgent. Tick a box when it's done — your progress saves in this browser.</p>
+  <div class="pathline"><b>Tip:</b> do <b>your photo first</b> — the same picture goes on all three accounts so you look like one person everywhere. Each draft below has a <b>Copy</b> button: copy it, paste it in, then make it sound like you. The words are a starting point, not a script.</div>
+</header>
+
+<div id="list"></div>
+
+<div class="later" id="laterbox">
+  <div class="phase-h" style="margin-top:18px"><h2>When you're ready — not now</h2></div>
+  <p class="phase-note">Not part of setting up. These come once the accounts are dressed and you're starting to share. Still tickable whenever you get to them.</p>
+  <div id="laterlist"></div>
+</div>
+
+</div>
+
+<footer>
+  Made for you with care 🤍 &nbsp;·&nbsp; Saved privately in this browser — nothing here is public.
+</footer>
+
+<script>
+const ITEMS = [
+  {phase:"1 · Your photo", est:"do this first", note:"One photo, used on all three accounts, so you look consistent everywhere."},
+  {id:"photo", tag:"now", title:"Choose one profile photo you love",
+   detail:"A warm, natural headshot where your face is clearly visible. The <b>same photo</b> goes on both Instagram accounts and WhatsApp. A square-ish crop works best (profiles show as circles).",
+   tip:"Don't have the perfect one cropped? Send your favourite to Daniel and he'll size it cleanly for all three."},
+
+  {phase:"2 · Instagram — English", est:"@breathe.with.diana", note:"Your English-speaking audience."},
+  {id:"ig-en-photo", tag:"now", title:"Add your profile photo",
+   detail:"Edit profile → change profile photo."},
+  {id:"ig-en-name", tag:"now", title:"Set the Name field to “Breathe with Diana”",
+   detail:"This is the <b>name</b> (shown in bold), separate from your <code>@breathe.with.diana</code> handle. It's what people search."},
+  {id:"ig-en-bio", tag:"now", title:"Write your bio",
+   detail:"Edit profile → Bio. Here's a draft in your voice — copy it, then change anything that doesn't feel like you:",
+   copy:"Breathwork to come home to your body 🤍\nEveryday calm + deep rebirthing\nGrounded & honest — no guru talk\n↓ come, breathe with me"},
+  {id:"ig-en-cat", tag:"nice", title:"Check your category says “Health & Wellness”",
+   detail:"Edit profile → category. You already switched to a Creator account; just confirm the label fits."},
+
+  {phase:"3 · Instagram — Spanish", est:"@respira.con.diana", note:"Tu público en español. Mismo proceso, en español."},
+  {id:"ig-es-photo", tag:"now", title:"Add the same profile photo",
+   detail:"Edit profile → change profile photo. Use the exact same picture as the English account."},
+  {id:"ig-es-name", tag:"now", title:"Set the Name field to “Respira con Diana”",
+   detail:"El nombre en negrita, junto al handle <code>@respira.con.diana</code>."},
+  {id:"ig-es-bio", tag:"now", title:"Write your Spanish bio",
+   detail:"Un borrador en tu voz — cópialo y ajústalo a tu gusto:",
+   copy:"Respiración para volver a tu cuerpo 🤍\nCalma diaria + renacimiento profundo\nCálida y honesta, sin gurús\n↓ ven, respira conmigo"},
+  {id:"ig-es-cat", tag:"nice", title:"Categoría: “Salud y bienestar”",
+   detail:"Editar perfil → categoría. Confirma que la etiqueta encaje."},
+
+  {phase:"4 · WhatsApp Business", est:"~10 min", note:"The same warm voice as everywhere else."},
+  {id:"wa-photo", tag:"now", title:"Add the same profile photo",
+   detail:"Settings → Business tools → Profile → photo."},
+  {id:"wa-about", tag:"now", title:"Write the “About” / description",
+   detail:"A short line about what you offer. Draft:",
+   copy:"Breathwork with Diana — everyday calm tools & deep rebirthing journeys. Coming home to your body. Write to me here 🤍"},
+  {id:"wa-hours", tag:"nice", title:"Set your business hours",
+   detail:"So people know when to expect a reply. Profile → Business hours. Pick whatever feels honest for you — it's easy to change."},
+  {id:"wa-greeting", tag:"nice", title:"Write a greeting message",
+   detail:"Sent automatically the first time someone messages you. Draft:",
+   copy:"Hi, and welcome 🤍 So glad you reached out. Tell me a little about what's bringing you here — I'll reply as soon as I'm back at my phone.\n— Diana"},
+  {id:"wa-away", tag:"nice", title:"Write an away message",
+   detail:"Sent automatically outside your hours. Draft:",
+   copy:"Thank you for your message 🤍 I'm away from my phone right now and will get back to you as soon as I can. Breathe easy.\n— Diana"},
+];
+
+const LATER = [
+  {id:"l-audio", tag:"nice", title:"Record your free breath-reset audio",
+   detail:"Your first real gift to the audience — the short guided reset. This is the piece worth doing well; everything else can wait on it."},
+  {id:"l-link", tag:"nice", title:"Add a link in both bios",
+   detail:"Once the website (or a simple link page) is ready, Daniel will give you one link to drop into both bios' website field."},
+  {id:"l-highlights", tag:"nice", title:"Create a few Story Highlight covers",
+   detail:"Little saved categories under your bio (e.g. “About me”, “Sessions”, “Reviews”) — once you've posted a few Stories."},
+  {id:"l-post", tag:"nice", title:"Start sharing",
+   detail:"Your content — the part that's truly yours. No rush, no pressure. When it feels right."},
+];
+
+const KEY="diana-your-setup-v1";
+const state=JSON.parse(localStorage.getItem(KEY)||"{}");
+function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function renderItem(it){
+  if(it.phase){
+    return `<div class="phase"><div class="phase-h"><h2>${it.phase}</h2>${it.est?`<span class="est">${it.est}</span>`:""}</div>${it.note?`<p class="phase-note">${it.note}</p>`:""}</div>`;
+  }
+  const tagHtml = it.tag? `<span class="tag ${it.tag}">${it.tag==="now"?"Now":"Nice to have"}</span>`:"";
+  const tip = it.tip? `<div class="tip">${it.tip}</div>`:"";
+  const copy = it.copy? `<div class="copybox"><pre class="draft">${esc(it.copy)}</pre><div class="cbar"><small>Draft — make it yours</small><button class="copy" type="button">Copy</button></div></div>`:"";
+  const on = state[it.id]?"done":"";
+  const ck = state[it.id]?"checked":"";
+  return `<div class="item ${on}" data-row="${it.id}">
+    <label class="cb"><input type="checkbox" data-id="${it.id}" ${ck}></label>
+    <div class="it-body">
+      <div class="it-title">${it.title}${tagHtml}</div>
+      ${it.detail?`<div class="it-detail">${it.detail}</div>`:""}
+      ${tip}${copy}
+    </div>
+  </div>`;
+}
+
+document.getElementById("list").innerHTML = ITEMS.map(renderItem).join("");
+document.getElementById("laterlist").innerHTML = LATER.map(renderItem).join("");
+
+const allIds=[...ITEMS,...LATER].filter(i=>i.id).map(i=>i.id);
+
+function refresh(){
+  const done=allIds.filter(id=>state[id]).length;
+  const total=allIds.length;
+  document.getElementById("count").textContent=`${done} / ${total}`;
+  document.getElementById("barfill").style.width=(total?Math.round(done/total*100):0)+"%";
+}
+
+document.addEventListener("change",e=>{
+  if(e.target.matches("input[type=checkbox]")){
+    const id=e.target.dataset.id;
+    state[id]=e.target.checked; save();
+    const row=document.querySelector(`[data-row="${id}"]`);
+    if(row) row.classList.toggle("done",e.target.checked);
+    refresh();
+  }
+});
+
+document.addEventListener("click",e=>{
+  const btn=e.target.closest(".copy");
+  if(!btn) return;
+  const pre=btn.closest(".copybox").querySelector(".draft");
+  const text=pre.textContent;
+  const done=()=>{btn.textContent="Copied ✓";btn.classList.add("ok");setTimeout(()=>{btn.textContent="Copy";btn.classList.remove("ok");},1600);};
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>{fallbackCopy(text);done();});
+  } else { fallbackCopy(text); done(); }
+});
+function fallbackCopy(text){
+  const ta=document.createElement("textarea");ta.value=text;ta.style.position="fixed";ta.style.opacity="0";
+  document.body.appendChild(ta);ta.select();try{document.execCommand("copy");}catch(_){}document.body.removeChild(ta);
+}
+
+document.getElementById("reset").addEventListener("click",()=>{
+  if(!confirm("Clear all checkmarks?"))return;
+  for(const k in state) delete state[k]; save();
+  document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
+  document.querySelectorAll(".item.done").forEach(r=>r.classList.remove("done"));
+  refresh();
+});
+refresh();
+</script>
+</body>
+</html>
