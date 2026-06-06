@@ -151,12 +151,23 @@
 
       <div class="q" id="q-photo">
         <label>A photo of you <span class="req">needed</span></label>
-        <div class="upload" id="photo-drop">
-          <span id="photo-label">＋ add a photo</span>
-          <input type="file" id="photo" name="photo" accept="image/*">
+
+        <!-- shown only once an Instagram handle is entered -->
+        <div id="ig-photo-option" style="display:none;background:rgba(138,140,110,.12);border:1px solid rgba(138,140,110,.4);border-radius:11px;padding:12px 14px;margin-bottom:13px">
+          <label class="optout" style="margin-top:0;color:var(--umber);align-items:flex-start">
+            <input type="checkbox" id="use-ig-photo" style="margin-top:2px">
+            <span><b>Easiest — just use a photo from my Instagram</b> (<b id="ig-photo-handle">@you</b>). Diana can use my profile picture or one from my feed, so I don’t have to upload anything.</span>
+          </label>
         </div>
-        <div class="or">— or —</div>
-        <input type="text" id="photoLink" name="photoLink" placeholder="paste a link to a photo">
+
+        <div id="photo-upload-block">
+          <div class="upload" id="photo-drop">
+            <span id="photo-label">＋ add a photo</span>
+            <input type="file" id="photo" name="photo" accept="image/*">
+          </div>
+          <div class="or">— or —</div>
+          <input type="text" id="photoLink" name="photoLink" placeholder="paste a link to a photo">
+        </div>
         <label class="optout"><input type="checkbox" id="photo-optout"> I’d rather not share a photo</label>
       </div>
 
@@ -256,6 +267,32 @@
   ['firstName','age','instagram'].forEach(id=>document.getElementById(id).addEventListener('input', updateAppear));
   updateAppear();
 
+  // ====== "use a photo from my Instagram" — only shows once a handle is entered ======
+  function reflectIgPhoto(){
+    const useIg = document.getElementById('use-ig-photo').checked;
+    document.getElementById('photo-upload-block').style.opacity = useIg ? .45 : 1; // de-emphasise upload when reusing IG
+    if(useIg){
+      const po = document.getElementById('photo-optout');         // can't both reuse IG and decline a photo
+      if(po.checked){ po.checked = false; po.dispatchEvent(new Event('change')); }
+    }
+  }
+  function updatePhotoOptions(){
+    const igOut = document.getElementById('ig-optout').checked;
+    const ig = document.getElementById('instagram').value.trim().replace(/^@/,'');
+    const show = !!ig && !igOut;
+    document.getElementById('ig-photo-option').style.display = show ? '' : 'none';
+    if(show){ document.getElementById('ig-photo-handle').textContent = '@' + ig; }
+    const useIg = document.getElementById('use-ig-photo');
+    if(!show && useIg.checked){ useIg.checked = false; reflectIgPhoto(); }
+  }
+  document.getElementById('use-ig-photo').addEventListener('change', ()=>{ reflectIgPhoto(); setErr(''); });
+  document.getElementById('instagram').addEventListener('input', updatePhotoOptions);
+  document.getElementById('ig-optout').addEventListener('change', updatePhotoOptions);
+  document.getElementById('photo-optout').addEventListener('change', (e)=>{
+    if(e.target.checked){ const u=document.getElementById('use-ig-photo'); if(u.checked){ u.checked=false; reflectIgPhoto(); } }
+  });
+  updatePhotoOptions();
+
   // ====== helpers ======
   function setErr(m){ document.getElementById('err').textContent = m || ''; }
   function readAsDataURL(file){
@@ -281,7 +318,8 @@
     if(!rating) return setErr('Please tap a star rating.');
     if(!igOut && !v('instagram')) return setErr('Please add your Instagram — or tick “I’d rather not”.');
     const photoFile = document.getElementById('photo').files[0];
-    if(!photoOut && !photoFile && !v('photoLink')) return setErr('Please add a photo or a link — or tick “I’d rather not”.');
+    const useIgPhoto = !igOut && !!v('instagram') && document.getElementById('use-ig-photo').checked;
+    if(!photoOut && !useIgPhoto && !photoFile && !v('photoLink')) return setErr('Please add a photo, use your Instagram photo, or tick “I’d rather not”.');
 
     const btn = document.getElementById('sendBtn');
     btn.disabled = true; btn.textContent = 'Sending…';
@@ -293,7 +331,7 @@
         firstName: v('firstName'), age: v('age'), email: v('email'),
         experience: v('experience'), stars: rating,
         instagram: igOut ? '' : v('instagram').replace(/^@/,''),
-        igOptOut: igOut, photoOptOut: photoOut,
+        igOptOut: igOut, photoOptOut: photoOut, useIgPhoto: useIgPhoto,
         photoLink: v('photoLink'), videoLink: v('videoLink'),
         privateFeedback: v('private'),
         consent: document.getElementById('consent').checked,
