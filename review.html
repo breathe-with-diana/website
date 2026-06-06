@@ -112,16 +112,17 @@
     <div id="gate">
       <p class="intro">Thank you for breathing with me 🤍</p>
       <p class="sub">If today meant something to you, a few honest words are the most loving way to pass it on. First, one quick question:</p>
-      <div class="gate-q">Would you be happy for Diana to share your review — your words, first name, photo &amp; Instagram — on her website and Instagram?</div>
-      <button type="button" class="gate-btn yes" id="goPublic">Yes, I’m happy to share 🤍</button>
-      <button type="button" class="gate-btn no" id="goPrivate">I’d rather keep it private</button>
-      <p class="gate-fine">Either way, your words go straight to Diana. “Private” simply means they’re for her eyes only — never posted anywhere.</p>
+      <div class="gate-q">Would you be happy for me to share your words — your name, your photo, your Instagram — here on my website and on Instagram?</div>
+      <p style="font-size:13px;color:var(--umber);line-height:1.55;margin:0 0 16px">Sharing openly is the most precious gift you could give me. It’s how this work quietly finds its way to the next person who’s aching for it — your story helps me reach and hold so many more hearts. If you feel able to, I’d be endlessly grateful. 🤍</p>
+      <button type="button" class="gate-btn yes" id="goPublic">Yes, I’d love to share 🤍</button>
+      <button type="button" class="gate-btn no" id="goPrivate">I’d rather keep it just for you</button>
+      <p class="gate-fine">Either way, your words come straight to me. “Just for you” simply means they’re for my eyes only — never shared anywhere.</p>
     </div>
 
     <!-- ===================== PUBLIC path ===================== -->
     <form id="publicForm" style="display:none" novalidate>
       <button type="button" class="backlink" data-back>← back</button>
-      <p class="sub" style="margin-top:-4px">Wonderful — thank you for sharing. A real face and a few honest words help these tools reach the next person who needs them.</p>
+      <p class="sub" style="margin-top:-4px">Thank you, truly 🤍 Your face and your honest words are what help someone who’s still unsure feel they can trust this work — and take their first breath.</p>
 
       <div class="q">
         <label for="firstName">First name <span class="req">needed</span></label>
@@ -139,8 +140,8 @@
       </div>
 
       <div class="q">
-        <label for="experience">How was your experience? <span class="req">needed</span></label>
-        <textarea id="experience" placeholder="I came in tense and left lighter than I have in months…"></textarea>
+        <label for="experience">How was it for you? <span class="req">needed</span></label>
+        <textarea id="experience" placeholder="What you felt, what shifted, what you carried home with you…"></textarea>
       </div>
 
       <div class="q">
@@ -169,7 +170,7 @@
         <div id="ig-photo-option" style="display:none;background:rgba(138,140,110,.12);border:1px solid rgba(138,140,110,.4);border-radius:11px;padding:12px 14px;margin-bottom:13px">
           <label class="optout" style="margin-top:0;color:var(--umber);align-items:flex-start">
             <input type="checkbox" id="use-ig-photo" style="margin-top:2px">
-            <span><b>Easiest — just use a photo from my Instagram</b> (<b id="ig-photo-handle">@you</b>). Diana can use my profile picture or one from my feed, so I don’t have to upload anything.</span>
+            <span><b>Easiest — just use a photo from my Instagram</b> (<b id="ig-photo-handle">@you</b>): my profile picture or any from my feed, so I don’t have to upload anything.</span>
           </label>
         </div>
 
@@ -187,7 +188,7 @@
       <div class="q">
         <label for="videoLink">A short video review <span class="opt">· optional</span></label>
         <input type="text" id="videoLink" placeholder="paste a link — YouTube, Drive, Instagram…">
-        <p style="font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.5">Video says so much. Easiest is to paste a link — or just send your clip to Diana on WhatsApp 🤍</p>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.5">Video says so much. Easiest is to paste a link — or just send it to me on WhatsApp 🤍</p>
       </div>
 
       <div class="q">
@@ -199,40 +200,40 @@
 
       <button type="submit" class="send" id="sendPublic">Send 🤍</button>
       <div class="err" id="err"></div>
-      <p class="privacy">By sharing, you’re happy for Diana to use your words, first name &amp; age, photo or video, and Instagram handle on her website and social media. Your email and your “what could I do better” note always stay <b>private</b> — only Diana sees them.</p>
+      <p class="privacy">By sharing, you’re letting me use your words, your name &amp; age, your photo or video, and your Instagram on my website and social media. Your email and your “what could I have done better” note always stay <b>private</b> — only I ever see them.</p>
     </form>
 
     <!-- ===================== PRIVATE path ===================== -->
     <form id="privateForm" style="display:none" novalidate>
       <button type="button" class="backlink" data-back>← back</button>
       <p class="intro" style="margin-top:-2px">Thank you 🤍</p>
-      <p class="sub">This stays just between you and Diana — nothing here is ever posted. Your honest thoughts are a gift that helps her grow.</p>
+      <p class="sub">This stays just between us — nothing here is ever shared. Your honest words are a gift; they help me hold this space ever more gently.</p>
 
       <div class="q">
-        <label for="p-name">Your first name <span class="opt">· optional</span></label>
+        <label for="p-name">Your name <span class="opt">· if you’d like me to know it</span></label>
         <input type="text" id="p-name" placeholder="Maria" autocomplete="given-name">
       </div>
 
       <div class="q">
-        <label for="p-good">What was good?</label>
-        <textarea id="p-good" placeholder="What landed, what you’ll carry with you…"></textarea>
+        <label for="p-good">What did you take with you from our time together?</label>
+        <textarea id="p-good" placeholder="Anything you felt, noticed, or carried home with you…"></textarea>
       </div>
 
       <div class="q">
-        <label for="p-better">What could have been better?</label>
-        <textarea id="p-better" placeholder="Anything that didn’t sit right, or could be improved…"></textarea>
+        <label for="p-better">Is there anything I could have held more gently, or done differently for you?</label>
+        <textarea id="p-better" placeholder="Be honest with me — it’s how I learn to care for you better 🤍"></textarea>
       </div>
 
       <button type="submit" class="send" id="sendPrivate">Send 🤍</button>
       <div class="err" id="p-err"></div>
-      <p class="privacy">For Diana’s eyes only — never shared or posted.</p>
+      <p class="privacy">For my eyes only — never shared. 🤍</p>
     </form>
 
     <!-- ===================== success ===================== -->
     <div class="thanks" id="thanks">
       <div class="tlogo">🤍</div>
       <h2>Thank you, truly.</h2>
-      <p id="thanks-text">Your words have landed safely with Diana. It means more than you know.</p>
+      <p id="thanks-text">Your words have reached me, safely. It means more than you know.</p>
     </div>
 
   </div>
@@ -369,8 +370,8 @@
     if(!photoOut && !useIgPhoto && photoFile){
       payload.photo = { name:photoFile.name, mimeType:photoFile.type, data: await readAsDataURL(photoFile) };
     }
-    try{ await send(payload, $('sendPublic'), 'publicForm', 'Your words have landed safely with Diana — this is how these tools reach the next person who needs them.'); }
-    catch(_){ setErr('Something went wrong sending that. Please try again, or send Diana your words directly.'); }
+    try{ await send(payload, $('sendPublic'), 'publicForm', 'Your words have reached me, safely. Thank you — this is how this work finds its way to the next person who needs it. 🤍'); }
+    catch(_){ setErr('Something went wrong sending that. Please try again, or just send me your words directly.'); }
   });
 
   // ====== PRIVATE submit ======
@@ -385,7 +386,7 @@
       experience: good,
       privateFeedback: better
     };
-    try{ await send(payload, $('sendPrivate'), 'privateForm', 'Thank you — your honest thoughts have reached Diana, and only Diana. It truly helps.'); }
+    try{ await send(payload, $('sendPrivate'), 'privateForm', 'Thank you — your honest words have reached me, and only me. They truly help. 🤍'); }
     catch(_){ $('p-err').textContent='Something went wrong sending that. Please try again.'; }
   });
 </script>
