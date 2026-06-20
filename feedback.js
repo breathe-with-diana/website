@@ -90,6 +90,20 @@
   }
   function grandTotal() { var t = 0; readAll().forEach(function (s) { t += storeCount(s); }); return t; }
 
+  // ---- wipe EVERY page's saved feedback (Copy/Email send all pages, so a clear must clear all pages) ----
+  function wipeAllPages() {
+    var keys = [];
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k && k.indexOf(PREFIX) === 0) keys.push(k);
+    }
+    keys.forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+    store = { favs: {}, general: '' };
+    var g = document.getElementById('fb-general'); if (g) g.value = '';
+    refresh();                                 // note: no save() here, we want this page to stay empty in storage too
+  }
+  function sentOk(msg) { wipeAllPages(); flash(msg); }   // after a successful send the batch is captured, so start fresh
+
   function acceptedList() { return Object.keys(store.favs).filter(function (id) { return store.favs[id].accepted; }); }
   function notedList() { return Object.keys(store.favs).filter(function (id) { return store.favs[id].note && store.favs[id].note.trim(); }); }
 
@@ -110,7 +124,7 @@
         '<button id="fb-email" type="button" class="fb-ghost">Email it</button>' +
         '<button id="fb-clear" type="button" class="fb-ghost fb-clear">Reset</button>' +
       '</div>' +
-      '<div id="fb-hint">Sends <b>everything you’ve marked on all pages</b> at once, you don’t have to send each page separately. “Copy” → paste to Daniel; “Email” → opens a pre-filled Gmail.</div>' +
+      '<div id="fb-hint">Sends <b>everything you’ve marked on all pages</b> at once, you don’t have to send each page separately. “Copy” → paste to Daniel; “Email” → opens a pre-filled Gmail. Once you send, your marks clear so next time starts fresh.</div>' +
     '</div>';
   document.addEventListener('DOMContentLoaded', mount);
   if (document.readyState !== 'loading') mount();
@@ -128,7 +142,8 @@
       b.setAttribute('aria-pressed', (store.favs[b.dataset.id] && store.favs[b.dataset.id].accepted) ? 'true' : 'false');
     });
     document.querySelectorAll('.fav-note').forEach(function (n) {
-      if (store.favs[n.dataset.id] && typeof store.favs[n.dataset.id].note === 'string') n.value = store.favs[n.dataset.id].note;
+      var f = store.favs[n.dataset.id];
+      n.value = (f && typeof f.note === 'string') ? f.note : '';   // empty when the mark is gone, so a reset visibly clears the box
     });
     document.getElementById('fb-count').textContent = grandTotal();
 
@@ -184,21 +199,32 @@
     document.getElementById('fb-close').onclick = function () { document.getElementById('fb-panel').hidden = true; };
     document.getElementById('fb-copy').onclick = function () {
       var txt = compileAll();
-      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { flash('Copied, paste it to Daniel'); }, fallbackCopy.bind(null, txt));
+      if (txt.indexOf('(nothing marked yet)') !== -1) { flash('Nothing marked yet'); return; }
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { sentOk('Copied & cleared, paste it to Daniel'); }, fallbackCopy.bind(null, txt));
       else fallbackCopy(txt);
     };
     document.getElementById('fb-email').onclick = function () {
+      var txt = compileAll();
+      if (txt.indexOf('(nothing marked yet)') !== -1) { flash('Nothing marked yet'); return; }
       var subj = encodeURIComponent('Diana feedback, all review pages');
-      var body2 = encodeURIComponent(compileAll());
+      var body2 = encodeURIComponent(txt);
       var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=' + encodeURIComponent(MAILTO) + '&su=' + subj + '&body=' + body2;
       var w = window.open(gmail, '_blank');
-      if (!w) location.href = 'mailto:' + MAILTO + '?subject=' + subj + '&body=' + body2;
-      else flash('Opened Gmail, just hit send');
+      if (!w) { location.href = 'mailto:' + MAILTO + '?subject=' + subj + '&body=' + body2; sentOk('Opened your mail, cleared here'); }
+      else sentOk('Opened Gmail, just hit send, cleared here');
     };
-    document.getElementById('fb-clear').onclick = function () {
-      if (!confirm('Clear everything you’ve marked on THIS page? (other pages are kept)')) return;
-      store = { favs: {}, general: '' }; save();
-      document.getElementById('fb-general').value = ''; refresh();
+    // Reset clears ALL pages (sending sends all pages, so reset must too) and never uses confirm(),
+    // which in-app browsers (WhatsApp/Telegram) silently block, making the button look dead.
+    // Two-tap on the button itself is the confirmation instead.
+    var resetBtn = document.getElementById('fb-clear'), resetArmed = false, resetTimer = null;
+    resetBtn.onclick = function () {
+      if (!resetArmed) {
+        resetArmed = true; resetBtn.textContent = 'Tap again to clear all';
+        resetTimer = setTimeout(function () { resetArmed = false; resetBtn.textContent = 'Reset'; }, 4000);
+        return;
+      }
+      clearTimeout(resetTimer); resetArmed = false; resetBtn.textContent = 'Reset';
+      wipeAllPages(); flash('Cleared everything, fresh start');
     };
   }
 
@@ -233,8 +259,10 @@
 
   function fallbackCopy(txt) {
     var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); flash('Copied, paste it to Daniel'); } catch (e) { flash('Select all in the box and copy'); }
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
     document.body.removeChild(ta);
+    if (ok) sentOk('Copied & cleared, paste it to Daniel'); else flash('Select all in the box and copy');
   }
   function flash(msg) {
     var f = document.createElement('div'); f.className = 'fb-flash'; f.textContent = msg; document.body.appendChild(f);
