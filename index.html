@@ -260,8 +260,8 @@
 <header class="nav">
   <div class="nav-inner">
     <a class="logo-lockup" href="#top" aria-label="Breathe with Diana, home">
-      <!-- full lockup: figure + flying seeds + soft ripple + wordmark + tagline -->
-      <svg id="navmark" viewBox="42 16 404 196" role="img" aria-label="Breathe with Diana"></svg>
+      <!-- final chosen mark, outlined compact lockup (figure + seeds + wordmark) -->
+      <img id="navmark" src="logo-mark.svg" alt="Breathe with Diana" />
     </a>
     <a class="link" href="#doors">The work</a>
     <a class="link" href="#session">A session</a>
@@ -452,7 +452,7 @@
 <footer>
   <div class="foot-grid">
     <div>
-      <svg id="footmark" viewBox="42 16 404 196" role="img" aria-label="Breathe with Diana"></svg>
+      <img id="footmark" src="logo-mark-dark.svg" alt="Breathe with Diana" />
     </div>
     <div>
       <h5>Explore</h5>
@@ -556,33 +556,6 @@
 </section>
 
 
-<script>
-/* Site logo, the EXACT girl & dandelion lockup (figure + flying seeds + soft ripple + wordmark + tagline).
-   Same render as the chosen "Soft · present / dreamy" variation. Colours are parameterized so the
-   footer renders a light version on the dark band. */
-(function(){
-  function rng(s){var a=s>>>0;return function(){a=(a+0x6D2B79F5)>>>0;var t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
-  function mark(C){
-    var U=C.ink, MU=C.muted, O=C.accent, BL=C.blur;
-    function sd(x,y,s,c,rot){var L=3*s,L2=4*s;return '<g transform="translate('+x.toFixed(1)+','+y.toFixed(1)+') rotate('+rot.toFixed(0)+')" stroke="'+c+'" stroke-width="0.9" stroke-linecap="round"><circle r="'+(1.05*s).toFixed(2)+'" fill="'+c+'"/><line x2="'+(-L).toFixed(1)+'" y2="'+(-L).toFixed(1)+'"/><line y2="'+(-L2).toFixed(1)+'"/><line x2="'+L.toFixed(1)+'" y2="'+(-L).toFixed(1)+'"/></g>';}
-    function puff(cx,cy,R){var a=[50,70,90,110,130,150,170,190,210,230,250,270,290,310],o='';a.forEach(function(d){var r=d*Math.PI/180,x=cx+R*Math.cos(r),y=cy-R*Math.sin(r);o+='<line x1="'+cx+'" y1="'+cy+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'"/><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="0.7" fill="'+U+'"/>';});return '<g stroke="'+U+'" stroke-width="0.75" stroke-linecap="round">'+o+'</g><circle cx="'+cx+'" cy="'+cy+'" r="1.5" fill="'+U+'"/>';}
-    function girl(){return '<g fill="'+U+'"><path d="M86 41 C84 31 74 27 65 31 C56 35 52 45 55 55 C56 49 61 45 67 44 C71 38 79 37 86 41 Z"/><path d="M56 51 C48 54 45 62 49 69 C52 63 57 61 62 62 C58 57 56 53 56 51 Z"/><circle cx="80" cy="46" r="12.5"/><path d="M71 58 C67 58 66 62 66 66 L54 150 C54 150 65 158 80 158 C95 158 99 151 99 148 L89 66 C89 62 87 58 83 58 Z"/><path d="M71 156 L69 190 C69 193 73 193 74 190 L78 158 Z"/><path d="M85 158 L88 190 C88 193 92 193 93 190 L91 156 Z"/><path d="M65 189 C63 192 64 195 68 195 L76 195 C77 192 75 190 73 189 Z"/><path d="M86 189 C85 192 86 195 90 195 L98 195 C98 192 96 190 94 189 Z"/></g>'
-      +'<path d="M69 67 C64 79 64 91 67 101" fill="none" stroke="'+U+'" stroke-width="6.5" stroke-linecap="round"/>'
-      +'<path d="M85 67 C90 66 95 65 98 64" fill="none" stroke="'+U+'" stroke-width="7.5" stroke-linecap="round"/>'
-      +'<path d="M103 51 C102 56 100 60 98 64" fill="none" stroke="'+U+'" stroke-width="1.5" stroke-linecap="round"/>'
-      +puff(103,45,7);}
-    function fan(){var o={seed:4,n:20,x0:104,y0:50,x1:352,y1:26,w0:3,w1:34,gamma:2.1,open:0.62,jx:12,s0:1.35,s1:0.55,ochreAt:9};var r=rng(o.seed),out='',i;for(i=0;i<o.n;i++){var u=(i+0.5)/o.n,t=Math.pow(u,o.gamma),open=Math.pow(t,o.open);var x=o.x0+(o.x1-o.x0)*t+(r()-0.5)*o.jx*(0.35+open);var y=o.y0+(o.y1-o.y0)*t+(r()-0.5)*2*(o.w0+(o.w1-o.w0)*open);var s=Math.max(0.5,o.s0+(o.s1-o.s0)*t+(r()-0.4)*0.2),rot=(r()-0.5)*60;out+=sd(x,y,s,(i===o.ochreAt)?O:U,rot);}return out;}
-    function ripple(){var o={seed:3,cx:252,cyTop:160,n:3,rx0:46,grow:28,flat:0.5,amp:1.8,o0:0.34,cover:0.7,sw:0.9};var r=rng(o.seed),radii=[],rr=o.rx0,gap=o.grow,k;for(k=0;k<o.n;k++){radii.push(rr);rr+=gap*(0.7+r()*0.6);gap*=0.9;}var out='',i,sgi;for(i=0;i<o.n;i++){var rx=radii[i],ry=rx*o.flat,ox=(r()-0.5)*3.5,oy=(r()-0.35)*2.2;var amp=o.amp*(0.7+0.5*(i/Math.max(1,o.n-1))),freq=3+Math.floor(r()*4),phase=r()*6.2831;var segs=o.cover<0.95?(1+Math.floor(r()*2)):1;for(sgi=0;sgi<segs;sgi++){var span=o.cover>=0.95?Math.PI:(o.cover*0.55+0.25+r()*0.35)*Math.PI;if(span>Math.PI)span=Math.PI;var a0=o.cover>=0.95?Math.PI:Math.PI+r()*(Math.PI-span);var steps=Math.max(8,Math.round(span/0.05)),pts=[],j;for(j=0;j<=steps;j++){var f=j/steps,phi=a0+span*f,uu=(phi-Math.PI)/Math.PI,w=amp*Math.sin(freq*uu*6.2831+phase);pts.push((j?'L':'M')+(o.cx+ox+(rx+w)*Math.cos(phi)).toFixed(1)+' '+(o.cyTop+oy-(ry+w*o.flat)*Math.sin(phi)).toFixed(1));}out+='<path d="'+pts.join(' ')+'" fill="none" stroke="'+U+'" stroke-width="'+Math.max(0.35,o.sw-0.04*i).toFixed(2)+'" opacity="'+(o.o0*(0.6+0.55*r())*(1-0.28*i/o.n)).toFixed(3)+'" stroke-linecap="round" stroke-linejoin="round"/>';}}return '<g filter="url(#'+BL+')">'+out+'</g>';}
-    /* website variation: wordmark only, the "coming home to your body" tagline is dropped
-       (it's already the hero headline), so the mark sits larger and cleaner. (MU kept for API parity.) */
-    function words(){return '<text x="146" y="124" font-family="Cormorant Garamond, Georgia, serif" font-weight="500" font-size="33" fill="'+U+'">Breathe with Diana</text>';}
-    return ripple()+'<g transform="translate(-8,7)">'+girl()+'</g>'+words()+'<g>'+fan()+'</g>';
-  }
-  var n=document.getElementById('navmark'), f=document.getElementById('footmark');
-  if(n) n.innerHTML=mark({ink:'#5B4636',muted:'#8A8C6E',accent:'#D4A24C',blur:'rblur2'});
-  if(f) f.innerHTML=mark({ink:'#F4EFE6',muted:'rgba(244,239,230,.62)',accent:'#D4A24C',blur:'rblur2'});
-})();
-</script>
 <script src="feedback.js"></script>
 </body>
 </html>
