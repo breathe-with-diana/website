@@ -30,16 +30,31 @@
     '.fav-btn:hover{transform:scale(1.18)}.fav-btn.on{color:#C97B5A}' +
     '.fav-note{width:100%;box-sizing:border-box;font-family:Inter,sans-serif;font-size:12px;border:1px solid rgba(91,70,54,.16);border-radius:8px;padding:6px 9px;margin-top:8px;color:#5B4636;background:#fff}' +
     '.fb-flash{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(8px);z-index:10000;background:#5B4636;color:#F4EFE6;font-family:Inter,sans-serif;font-size:13px;padding:11px 18px;border-radius:999px;opacity:0;transition:.2s}' +
-    '.fb-flash.go{opacity:1;transform:translateX(-50%) translateY(0)}';
+    '.fb-flash.go{opacity:1;transform:translateX(-50%) translateY(0)}' +
+    /* ---- inline text editing (only on pages that mark blocks with data-edit) ---- */
+    '.fb-editable{outline:none;border-radius:6px;cursor:text;transition:background .15s,box-shadow .15s}' +
+    '.fb-editable:hover{box-shadow:0 0 0 1px rgba(201,123,90,.4);background:rgba(201,123,90,.06)}' +
+    '.fb-editable:focus{box-shadow:0 0 0 2px rgba(201,123,90,.65);background:rgba(244,239,230,.55)}' +
+    '.fb-editable.fb-changed{box-shadow:inset 3px 0 0 #C97B5A;background:rgba(212,162,76,.13)}' +
+    '.fb-edit{font-size:13px;color:#5B4636;padding:7px 0;border-bottom:1px solid rgba(91,70,54,.12);display:flex;gap:8px;align-items:flex-start}' +
+    '.fb-edit-x{background:none;border:none;cursor:pointer;color:rgba(91,70,54,.5);font-size:13px;padding:0;flex-shrink:0;text-decoration:underline}' +
+    '.fb-edit-x:hover{color:#C97B5A}' +
+    '.fb-edit b{font-weight:600}.fb-edit-now{display:block;font-style:italic;color:#8A8C6E;margin-top:2px}';
   var st = document.createElement('style'); st.textContent = CSS; (document.head || document.documentElement).appendChild(st);
 
   var store;
   try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { store = {}; }
   store.favs = store.favs || {};      // id -> {name, group, note}
+  store.edits = store.edits || {};    // id -> {label, original, revised}  (inline text edits)
   store.general = store.general || '';
+  var editEls = {};                   // id -> the live editable element, for revert + restore
   function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
   function clearAll() {
-    store = { favs: {}, general: '' }; save();
+    // restore any edited blocks to their original wording before wiping the batch
+    Object.keys(store.edits).forEach(function (id) {
+      var el = editEls[id]; if (el) { el.innerText = store.edits[id].original; el.classList.remove('fb-changed'); }
+    });
+    store = { favs: {}, edits: {}, general: '' }; save();
     var g = document.getElementById('fb-general'); if (g) g.value = '';
     refresh();
   }
@@ -53,6 +68,7 @@
     '<div id="fb-panel" hidden>' +
       '<div id="fb-head">Your feedback <button id="fb-close" type="button" aria-label="close">×</button></div>' +
       '<div id="fb-favs"></div>' +
+      '<div id="fb-edits"></div>' +
       '<label class="fb-l">Anything else? (overall thoughts, what you love, what feels off)</label>' +
       '<textarea id="fb-general" rows="4" placeholder="Type freely…"></textarea>' +
       '<div id="fb-actions">' +
@@ -69,10 +85,50 @@
     body.appendChild(bar);
     document.getElementById('fb-general').value = store.general;
     wire();
+    setupEditables();
     refresh();
   }
 
   function favList() { return Object.keys(store.favs); }
+  function editList() { return Object.keys(store.edits); }
+
+  // Make any element flagged with data-edit="Label" directly editable. Pages that
+  // don't use data-edit (the live site) are untouched, this is purely opt-in.
+  function setupEditables() {
+    var blocks = document.querySelectorAll('[data-edit]');
+    blocks.forEach(function (el) {
+      var label = el.getAttribute('data-edit');
+      var id = el.getAttribute('data-edit-id') || label;   // label is the stable handle
+      el.classList.add('fb-editable');
+      el.setAttribute('contenteditable', 'true');
+      el.setAttribute('spellcheck', 'true');
+      el.dataset.fbId = id;
+      // the wording in the source IS the original; if she already revised it earlier this session, show that
+      var orig = (store.edits[id] && store.edits[id].original) || el.innerText.trim();
+      el.dataset.fbOrig = orig;
+      editEls[id] = el;
+      if (store.edits[id]) { el.innerText = store.edits[id].revised; el.classList.add('fb-changed'); }
+      el.addEventListener('input', function () { onEdit(el, id, label); });
+      el.addEventListener('blur', function () { onEdit(el, id, label); });
+    });
+  }
+
+  function onEdit(el, id, label) {
+    var now = el.innerText.trim();
+    var orig = el.dataset.fbOrig;
+    if (now === orig || now === '') {
+      delete store.edits[id]; el.classList.remove('fb-changed');
+    } else {
+      store.edits[id] = { label: label, original: orig, revised: now }; el.classList.add('fb-changed');
+    }
+    save(); refresh();
+  }
+
+  function revertEdit(id) {
+    var e = store.edits[id], el = editEls[id];
+    if (el && e) { el.innerText = e.original; el.classList.remove('fb-changed'); }
+    delete store.edits[id]; save(); refresh();
+  }
 
   function refresh() {
     document.querySelectorAll('.fav-btn').forEach(function (b) {
@@ -84,11 +140,15 @@
       n.value = (f && typeof f.note === 'string') ? f.note : '';   // empty when the mark is gone, so a reset visibly clears the box
     });
     var n = favList().length;
-    var c = document.getElementById('fb-count'); if (c) c.textContent = n;
+    var ne = editList().length;
+    var c = document.getElementById('fb-count'); if (c) c.textContent = n + ne;
     var favs = document.getElementById('fb-favs');
     if (favs) {
-      if (!n) { favs.innerHTML = '<div class="fb-empty">Tap the ♥ on any ' + NOUN + ' to save it here.</div>'; }
-      else {
+      var hasHearts = !!document.querySelector('.fav-btn');
+      if (!n) {
+        // only nudge about hearts on pages that actually have them (the logo lab); the edit page has none
+        favs.innerHTML = hasHearts ? '<div class="fb-empty">Tap the ♥ on any ' + NOUN + ' to save it here.</div>' : '';
+      } else {
         favs.innerHTML = '<div class="fb-l">Saved ' + NOUN + 's (' + n + ')</div>' + favList().map(function (id) {
           var f = store.favs[id];
           return '<div class="fb-fav"><b>' + esc(f.name || id) + '</b>' + (f.group ? ' <span>· ' + esc(f.group) + '</span>' : '') +
@@ -96,10 +156,27 @@
         }).join('');
       }
     }
+    var eds = document.getElementById('fb-edits');
+    if (eds) {
+      if (!ne) { eds.innerHTML = ''; }
+      else {
+        eds.innerHTML = '<div class="fb-l">Your text changes (' + ne + ')</div>' + editList().map(function (id) {
+          var e = store.edits[id];
+          return '<div class="fb-edit"><div style="flex:1"><b>' + esc(e.label) + '</b>' +
+            '<span class="fb-edit-now">“' + esc(e.revised) + '”</span></div>' +
+            '<button class="fb-edit-x" type="button" data-revert="' + esc(id) + '">undo</button></div>';
+        }).join('');
+      }
+    }
   }
 
   function wire() {
     document.addEventListener('click', function (e) {
+      // let Diana edit a button/link's words without the click navigating away
+      var ed = e.target.closest('.fb-editable');
+      if (ed && (ed.tagName === 'A' || ed.closest('a'))) { e.preventDefault(); }
+      var rv = e.target.closest('[data-revert]');
+      if (rv) { revertEdit(rv.getAttribute('data-revert')); return; }
       var b = e.target.closest('.fav-btn');
       if (b) {
         var id = b.dataset.id;
@@ -159,6 +236,17 @@
       favs.forEach(function (id) {
         var f = store.favs[id];
         lines.push('• ' + (f.group ? f.group + ' / ' : '') + (f.name || '') + '  [' + id + ']' + (f.note ? ', ' + f.note : ''));
+      });
+      lines.push('');
+    }
+    var eds = editList();
+    if (eds.length) {
+      lines.push('✎ Text changes (' + eds.length + '):');
+      eds.forEach(function (id) {
+        var e = store.edits[id];
+        lines.push('• ' + e.label);
+        lines.push('   was: ' + e.original);
+        lines.push('   now: ' + e.revised);
       });
       lines.push('');
     }
