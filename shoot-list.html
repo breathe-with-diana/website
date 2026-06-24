@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Photo &amp; Video Shoot List · Breathe with Diana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
+      --umber:#5B4636; --ochre:#D4A24C;
+      --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
+      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
+      --sans:'Inter',system-ui,-apple-system,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;scroll-behavior:smooth}
+    body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+    .meta-banner{background:var(--umber);color:var(--bone);font-family:var(--sans);font-size:12.5px;
+      letter-spacing:.04em;padding:10px 20px;text-align:center}
+    .meta-banner b{color:var(--ochre)}
+
+    header.top{max-width:980px;margin:0 auto;padding:40px 28px 14px;display:flex;align-items:center;gap:16px}
+    header.top img{height:64px;width:auto;display:block}
+    header.top .ttl{font-family:var(--serif);font-size:25px;font-weight:500;line-height:1.05}
+    header.top .ttl small{display:block;font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:.3em;
+      text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+    main{max-width:980px;margin:0 auto;padding:8px 28px 120px}
+    .intro{background:var(--cream);border:1px solid var(--hairline);border-radius:16px;padding:30px 30px;margin:20px 0 12px}
+    .intro h1{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1.1;margin:0 0 14px}
+    .intro p{font-size:15.5px;max-width:680px;margin:0 0 12px}
+    .intro .how{display:flex;gap:10px;align-items:flex-start;background:var(--bone);border-radius:12px;
+      padding:14px 16px;margin-top:16px;font-size:14px}
+    .intro .how b{color:var(--terracotta)}
+
+    .eyebrow{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--terracotta);margin:0 0 8px}
+    h2.loc{font-family:var(--serif);font-weight:500;font-size:31px;line-height:1.1;margin:48px 0 4px;
+      padding-top:14px;border-top:1px solid var(--hairline)}
+    h2.loc:first-of-type{border-top:none}
+    .loc-note{font-size:14px;color:var(--muted);margin:0 0 22px;max-width:680px}
+
+    .legend{display:flex;flex-wrap:wrap;gap:18px;font-size:12.5px;color:var(--muted);margin:6px 0 26px}
+    .badge{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.08em;
+      text-transform:uppercase;padding:3px 9px;border-radius:999px;color:#fff;vertical-align:middle}
+    .p0{background:var(--terracotta)} .p1{background:var(--ochre);color:var(--umber)} .p2{background:var(--sage)}
+
+    .shot{position:relative;background:#fff;border:1px solid var(--hairline);border-radius:14px;
+      padding:20px 22px 18px 54px;margin:0 0 14px}
+    .fav-btn{position:absolute;left:16px;top:18px}
+    .shot .sid{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--muted)}
+    .shot h3{font-family:var(--serif);font-size:21px;font-weight:500;margin:2px 0 8px;line-height:1.18}
+    .shot .tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+    .shot .tag{font-family:var(--sans);font-size:11px;letter-spacing:.04em;color:var(--umber);
+      background:var(--cream);border-radius:999px;padding:3px 10px}
+    .shot dl{margin:0;display:grid;grid-template-columns:104px 1fr;gap:5px 14px;font-size:14px}
+    .shot dt{color:var(--muted);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+    .shot dd{margin:0}
+    .fav-note{margin-top:12px}
+
+    .prep{background:var(--cream);border:1px solid var(--hairline);border-radius:16px;padding:26px 28px;margin:30px 0}
+    .prep h3{font-family:var(--serif);font-size:24px;font-weight:500;margin:0 0 14px}
+    .prep h4{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--terracotta);margin:20px 0 8px}
+    .prep ul{margin:0 0 4px;padding-left:20px;font-size:14.5px}
+    .prep li{margin:0 0 7px}
+    .prep .todo{background:var(--bone);border-left:3px solid var(--terracotta);border-radius:0 10px 10px 0;
+      padding:12px 16px;margin:8px 0;font-size:14.5px}
+    .prep .todo b{color:var(--terracotta)}
+
+    footer{max-width:980px;margin:0 auto;padding:30px 28px 60px;color:var(--muted);font-size:13px;text-align:center}
+  </style>
+</head>
+<body data-fb-noun="shot" data-fb-key="shoot-list" data-fb-page="Shoot List" data-fb-email="d.blaecker@gmail.com">
+
+  <div class="meta-banner">For <b>Diana</b> · review draft · heart the shots you love, leave notes, then hit <b>Send feedback</b> (it emails Daniel)</div>
+
+  <header class="top">
+    <img src="logo-mark.svg" alt="Breathe with Diana" />
+    <div class="ttl">Photo &amp; Video Shoot List<small>Base media gallery · v1 draft</small></div>
+  </header>
+
+  <main>
+    <div class="intro">
+      <h1>A gallery to draw from all year</h1>
+      <p>The goal of this shoot is not finished posts. It is a <b>deep well of reusable footage and photos</b>, warm, grounded, true to you, that we can cut into reels, quote graphics, story backgrounds, the website and more for months without re-shooting.</p>
+      <p>The list is ordered by priority and grouped by location, so the photographer can work through one place at a time:</p>
+      <p style="margin:0"><span class="badge p0">P0</span> the must-haves. Shooting all of these alone fills roughly <b>half a day</b> and gives a usable gallery. &nbsp; <span class="badge p1">P1</span> high-value, fills out a <b>full day</b>. &nbsp; <span class="badge p2">P2</span> nice extras for a <b>second day</b> if time allows.</p>
+      <div class="how">
+        <span>♥</span>
+        <div>Tap the heart on any shot you love or want to prioritise. Add a quick note in its box if you want it done a certain way. The floating <b>Send feedback</b> button at the bottom right gathers everything and emails it to Daniel. Nothing is saved anywhere else, so use Send when you are done.</div>
+      </div>
+    </div>
+
+    <!-- ============================ PREP ============================ -->
+    <div class="prep">
+      <h3>Before the day: prep &amp; principles</h3>
+
+      <h4>Two things I need from you, Diana</h4>
+      <div class="todo"><b>Locations.</b> Confirm which spots are realistic (a healing space, your home, beach, jungle, waterfall) and, if you can, send a few phone photos of each. Even rough snaps let us plan angles and light instead of guessing on the day.</div>
+      <div class="todo"><b>Wardrobe.</b> Lay out and photograph the outfits you would feel good in. We are planning <b>3 looks</b> across the day (see below), all in your warm, earthy palette. Show me what you have and I will map outfits to locations.</div>
+
+      <h4>Shot DNA (applies to every shot)</h4>
+      <ul>
+        <li><b>Vertical first.</b> Shoot most things 9:16 for reels and stories. Grab a 4:5 and a wide 16:9 of the strongest setups too, so one moment serves every format.</li>
+        <li><b>Leave room for text.</b> On portraits and scenery, deliberately frame with empty space beside or above Diana. That negative space is where captions and quotes go later. These plates are gold.</li>
+        <li><b>Two takes of the key moments.</b> One with eyes to camera (connection), one unaware and candid (calm, in her own world).</li>
+        <li><b>Clips: slow and loopable.</b> 10 to 20 seconds each, slow deliberate movement, steady or gentle gimbal. A few that loop seamlessly (breath in, breath out, settle).</li>
+        <li><b>Light.</b> Outdoors, shoot the golden window: first 90 minutes after sunrise or last 90 before sunset. Soft, warm, low sun. Avoid harsh midday overhead light.</li>
+        <li>Capture high-res RAW for photos and the highest quality the camera allows for video, so stills can be pulled from clips.</li>
+      </ul>
+
+      <h4>Wardrobe plan (3 looks)</h4>
+      <ul>
+        <li><b>Look A, soft and flowing</b> in cream, bone or oatmeal. For the healing space and home. Intimate, calm, the gentle door.</li>
+        <li><b>Look B, earthy</b> in terracotta, rust or olive. For the jungle and waterfall. Grounded, deeper, elemental.</li>
+        <li><b>Look C, light linen</b> in sand or warm white. For the beach. Airy and open.</li>
+        <li>Barefoot wherever it is natural. Minimal jewellery. Capture hair both down and loosely tied.</li>
+      </ul>
+
+      <h4>Props to bring</h4>
+      <ul>
+        <li>A breathwork mat or blanket, a couple of cushions or bolsters.</li>
+        <li>A few candles, a small ceramic cup, a journal and pen.</li>
+        <li>A light shawl or wrap that moves in the wind (great for beach and waterfall clips).</li>
+        <li>The model: comfortable, palette-friendly clothing, someone at ease being touched gently and guided.</li>
+      </ul>
+    </div>
+
+    <!-- ============================ LOCATION 1 ============================ -->
+    <p class="eyebrow">Location 1 · highest priority</p>
+    <h2 class="loc">Healing space or home (controlled light)</h2>
+    <p class="loc-note">The anchor of the gallery. A calm indoor or sheltered space gives us controlled light and the most reusable, evergreen assets: portraits, the breathing technique itself, and a full guided-session sequence with the model. If a dedicated healing space is not available, a clean, soft corner at home works.</p>
+    <div class="legend">
+      <span><span class="badge p0">P0</span> half-day core</span>
+      <span><span class="badge p1">P1</span> full day</span>
+      <span><span class="badge p2">P2</span> second day</span>
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS1" data-name="Hero portrait, eyes to camera" data-group="Healing space">♥</button>
+      <div class="sid">HS1 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>Hero portrait, warm eye contact</h3>
+      <div class="tags"><span class="tag">Photo</span><span class="tag">Vertical + 4:5</span><span class="tag">Website + profile</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Seated or standing, relaxed shoulders, a soft genuine smile and a calm direct gaze. A few frames with a warmer smile, a few more serene and still.</dd>
+        <dt>Frame &amp; mood</dt><dd>Medium close, soft window light from the side. Clean, uncluttered background. Warm and trustworthy, this is the face of the brand.</dd>
+        <dt>Use</dt><dd>Homepage hero, About page, Instagram profile photo, press.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS1" data-name="Hero portrait, eyes to camera" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS2" data-name="Portrait, looking away" data-group="Healing space">♥</button>
+      <div class="sid">HS2 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>Portrait, looking away / in her own world</h3>
+      <div class="tags"><span class="tag">Photo</span><span class="tag">Vertical + 4:5</span><span class="tag">Quote backgrounds</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Eyes closed or gazing off to the side, peaceful, mid-breath. Unaware, not posing.</dd>
+        <dt>Frame &amp; mood</dt><dd>Compose her to one side with generous empty space on the other for text overlay. Soft, contemplative.</dd>
+        <dt>Use</dt><dd>Quote posts, story backgrounds, section headers on the site.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS2" data-name="Portrait, looking away" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS3" data-name="Talking to camera plate" data-group="Healing space">♥</button>
+      <div class="sid">HS3 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>Talking-to-camera plate</h3>
+      <div class="tags"><span class="tag">Video</span><span class="tag">Vertical 9:16</span><span class="tag">Reel intros</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Sit naturally and speak a few warm sentences to camera (any topic, even just describing her day). We want her natural cadence and presence, not a script.</dd>
+        <dt>Frame &amp; mood</dt><dd>Medium, eyes just above lens, steady shot. Pleasant background with depth. Record 60 to 90 seconds of her simply being present and talking.</dd>
+        <dt>Use</dt><dd>The reusable look for any reel where she speaks. We can voice-over later, but having clean talking footage is invaluable.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS3" data-name="Talking to camera plate" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS4" data-name="Breathing close-up, face" data-group="Healing space">♥</button>
+      <div class="sid">HS4 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>Breathing close-up: face and chest</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical 9:16</span><span class="tag">The product itself</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Slow, full conscious breaths. Show the breath visibly: rise of the chest, soften of the face, release on the exhale. A few cycles, eyes closed.</dd>
+        <dt>Frame &amp; mood</dt><dd>Close on face and upper chest. Loopable clips of one full breath cycle. This literally shows what she teaches.</dd>
+        <dt>Use</dt><dd>Reel b-roll, "what is breathwork" content, calming loops.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS4" data-name="Breathing close-up, face" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS5" data-name="Hands on heart and belly" data-group="Healing space">♥</button>
+      <div class="sid">HS5 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>Hands on heart and belly</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + close</span><span class="tag">Detail / b-roll</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>One hand on heart, one on belly, breathing. The classic grounding gesture. Also: hands opening, palms up on knees.</dd>
+        <dt>Frame &amp; mood</dt><dd>Tight on the hands and torso, no face needed. Warm, tactile, intimate.</dd>
+        <dt>Use</dt><dd>Detail cutaways in reels, technique explainers, soothing b-roll.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS5" data-name="Hands on heart and belly" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS6" data-name="Guided session sequence with model" data-group="Healing space">♥</button>
+      <div class="sid">HS6 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>Guided session sequence (with model)</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Shows the work</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Run a real mini-session with the model: welcoming them, sitting opposite and guiding, the model lying down breathing, Diana kneeling beside with a gentle hand on shoulder or chest, the closing moment. Shoot it as a sequence, in order.</dd>
+        <dt>Frame &amp; mood</dt><dd>Mix of wide (the whole scene), medium (the two of them), and close (Diana's guiding hand, the model's calm face). Warm, safe, held. Capture genuine connection, not stiff posing.</dd>
+        <dt>Use</dt><dd>The core "what a session is like" story, website session section, testimonial-style reels.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS6" data-name="Guided session sequence with model" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS7" data-name="Setting the space" data-group="Healing space">♥</button>
+      <div class="sid">HS7 &nbsp;<span class="badge p1">P1</span></div>
+      <h3>Setting the space</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + detail</span><span class="tag">B-roll / ritual</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Lighting a candle, smoothing the mat, arranging cushions, the small rituals of preparing to hold space. Unhurried.</dd>
+        <dt>Frame &amp; mood</dt><dd>Detail and medium shots. Hands and objects. Quiet, intentional.</dd>
+        <dt>Use</dt><dd>Opening b-roll, "behind a session" content, texture between clips.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS7" data-name="Setting the space" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS8" data-name="Seated meditation wide" data-group="Healing space">♥</button>
+      <div class="sid">HS8 &nbsp;<span class="badge p1">P1</span></div>
+      <h3>Seated in stillness, wide</h3>
+      <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Wide + vertical</span><span class="tag">Calm door</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Seated cross-legged on the mat, eyes closed, settled and serene. Hold the stillness.</dd>
+        <dt>Frame &amp; mood</dt><dd>Wider frame showing the calm space around her, lots of breathing room. Peaceful, spacious.</dd>
+        <dt>Use</dt><dd>Represents the "calm" door of the offer, quote backgrounds, site imagery.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS8" data-name="Seated meditation wide" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="HS9" data-name="Candid laugh / warmth" data-group="Healing space">♥</button>
+      <div class="sid">HS9 &nbsp;<span class="badge p2">P2</span></div>
+      <h3>Candid warmth and laughter</h3>
+      <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Vertical + 4:5</span><span class="tag">Human / relatable</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>A real laugh, a warm exchange with the model, looking genuinely happy and at ease. Not breathwork, just her.</dd>
+        <dt>Frame &amp; mood</dt><dd>Candid, caught in the moment. Bright and human.</dd>
+        <dt>Use</dt><dd>Balances the calm imagery with relatable warmth, About content, lighter posts.</dd>
+      </dl>
+      <input class="fav-note" data-id="HS9" data-name="Candid laugh / warmth" data-group="Healing space" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <!-- ============================ LOCATION 2 ============================ -->
+    <p class="eyebrow">Location 2 · signature look</p>
+    <h2 class="loc">Beach (golden hour)</h2>
+    <p class="loc-note">The signature tropical brand imagery. Shoot in the soft golden window near sunrise or sunset. Beach gives openness, breath and horizon, perfect metaphors for the work and beautiful negative space for text.</p>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="BE1" data-name="Breath with arms, sky" data-group="Beach">♥</button>
+      <div class="sid">BE1 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>The full breath, arms opening to the sky</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Signature reel</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Standing, slow inhale lifting arms wide and up, exhale releasing them down. Big, open, expansive. Repeat slowly several times.</dd>
+        <dt>Frame &amp; mood</dt><dd>Backlit by low sun, ideally rim light or lens flare. Sky and space above her. Loopable.</dd>
+        <dt>Use</dt><dd>The hero reel of the whole brand, the most shareable single clip.</dd>
+      </dl>
+      <input class="fav-note" data-id="BE1" data-name="Breath with arms, sky" data-group="Beach" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="BE2" data-name="Walking the shoreline" data-group="Beach">♥</button>
+      <div class="sid">BE2 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>Walking the shoreline</h3>
+      <div class="tags"><span class="tag">Video</span><span class="tag">Vertical + wide</span><span class="tag">B-roll</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Walk slowly along the water's edge, sometimes toward camera, sometimes away, looking out to sea. Natural, unhurried.</dd>
+        <dt>Frame &amp; mood</dt><dd>Gentle tracking or gimbal. Wide enough to feel the scale of the ocean. Shawl moving in the breeze if windy.</dd>
+        <dt>Use</dt><dd>Universal b-roll under voice-overs and quotes, "the journey" metaphor.</dd>
+      </dl>
+      <input class="fav-note" data-id="BE2" data-name="Walking the shoreline" data-group="Beach" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="BE3" data-name="Beach negative-space scenery" data-group="Beach">♥</button>
+      <div class="sid">BE3 &nbsp;<span class="badge p0">P0</span></div>
+      <h3>Small in the landscape (text plate)</h3>
+      <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Vertical + wide</span><span class="tag">Quote backgrounds</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Stand or sit small within a wide beach frame, gazing out. Stillness.</dd>
+        <dt>Frame &amp; mood</dt><dd>Very wide, Diana occupying a small part of the frame with huge open sky and sand around her. Maximum negative space for text.</dd>
+        <dt>Use</dt><dd>Quote posts, story backgrounds, calming wide imagery.</dd>
+      </dl>
+      <input class="fav-note" data-id="BE3" data-name="Beach negative-space scenery" data-group="Beach" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="BE4" data-name="Seated breathwork on sand" data-group="Beach">♥</button>
+      <div class="sid">BE4 &nbsp;<span class="badge p1">P1</span></div>
+      <h3>Seated breathwork on the sand</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + 4:5</span><span class="tag">Calm door</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Seated on the sand or a blanket, breathing, eyes closed, hands on knees or heart. Settled and grounded.</dd>
+        <dt>Frame &amp; mood</dt><dd>Medium and close, low angle with the horizon behind. Warm light on her face.</dd>
+        <dt>Use</dt><dd>Calm-door imagery, breathing loops with a beautiful backdrop.</dd>
+      </dl>
+      <input class="fav-note" data-id="BE4" data-name="Seated breathwork on sand" data-group="Beach" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="BE5" data-name="Two breathing together, beach" data-group="Beach">♥</button>
+      <div class="sid">BE5 &nbsp;<span class="badge p1">P1</span></div>
+      <h3>Breathing together (with model)</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Group feel</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Diana and the model side by side or facing, breathing together, or Diana gently guiding. Suggests group sessions and shared practice.</dd>
+        <dt>Frame &amp; mood</dt><dd>Wide and medium. Two figures in the landscape. Connection and calm.</dd>
+        <dt>Use</dt><dd>Group offering content, "you are not alone" messaging, community feel.</dd>
+      </dl>
+      <input class="fav-note" data-id="BE5" data-name="Two breathing together, beach" data-group="Beach" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="BE6" data-name="Detail: feet in sand, water" data-group="Beach">♥</button>
+      <div class="sid">BE6 &nbsp;<span class="badge p2">P2</span></div>
+      <h3>Grounding details: feet, sand, water</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + close</span><span class="tag">Texture b-roll</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Bare feet in the sand or at the water's edge, a hand trailing in the water, footprints. No face needed.</dd>
+        <dt>Frame &amp; mood</dt><dd>Close, tactile, slow motion welcome. Sensory and grounding.</dd>
+        <dt>Use</dt><dd>Cutaways, transitions, "grounding / presence" themed content.</dd>
+      </dl>
+      <input class="fav-note" data-id="BE6" data-name="Detail: feet in sand, water" data-group="Beach" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <!-- ============================ LOCATION 3 ============================ -->
+    <p class="eyebrow">Location 3 · grounded &amp; elemental</p>
+    <h2 class="loc">Jungle / forest</h2>
+    <p class="loc-note">Lush, green, alive. The jungle speaks to rootedness, nature and the deeper door of the work. Dappled shade is forgiving light through much of the day, though early or late is still softest.</p>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="JU1" data-name="Standing among greenery, portrait" data-group="Jungle">♥</button>
+      <div class="sid">JU1 &nbsp;<span class="badge p1">P1</span></div>
+      <h3>Standing amid the green, portrait</h3>
+      <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Vertical + 4:5</span><span class="tag">Grounded portrait</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Standing calmly surrounded by foliage, a soft gaze to camera and a few away. Rooted, serene.</dd>
+        <dt>Frame &amp; mood</dt><dd>Medium, lush green framing her, gentle depth of field. Earthy and alive.</dd>
+        <dt>Use</dt><dd>Deeper-door imagery, About, nature-themed posts.</dd>
+      </dl>
+      <input class="fav-note" data-id="JU1" data-name="Standing among greenery, portrait" data-group="Jungle" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="JU2" data-name="Breathing surrounded by nature" data-group="Jungle">♥</button>
+      <div class="sid">JU2 &nbsp;<span class="badge p1">P1</span></div>
+      <h3>Breathing, surrounded by nature</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical 9:16</span><span class="tag">Signature loop</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Eyes closed, conscious breathing, arms opening or hands on heart, immersed in the greenery. Breathing in the forest air.</dd>
+        <dt>Frame &amp; mood</dt><dd>Medium, light filtering through leaves, ideally a shaft of soft sun. Loopable breath cycles.</dd>
+        <dt>Use</dt><dd>"Breathe with nature" reels, calming loops, the elemental side of the brand.</dd>
+      </dl>
+      <input class="fav-note" data-id="JU2" data-name="Breathing surrounded by nature" data-group="Jungle" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="JU3" data-name="Walking a forest path" data-group="Jungle">♥</button>
+      <div class="sid">JU3 &nbsp;<span class="badge p1">P1</span></div>
+      <h3>Walking a forest path</h3>
+      <div class="tags"><span class="tag">Video</span><span class="tag">Vertical + wide</span><span class="tag">B-roll</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Walking slowly along a trail, away from and toward camera, pausing to touch a leaf or look up.</dd>
+        <dt>Frame &amp; mood</dt><dd>Tracking shot, depth down the path. Sense of journey and arrival.</dd>
+        <dt>Use</dt><dd>"The path back home" b-roll (ties directly to her method line), reel openers.</dd>
+      </dl>
+      <input class="fav-note" data-id="JU3" data-name="Walking a forest path" data-group="Jungle" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="JU4" data-name="Nature texture plates" data-group="Jungle">♥</button>
+      <div class="sid">JU4 &nbsp;<span class="badge p2">P2</span></div>
+      <h3>Nature texture plates (no Diana)</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Backgrounds</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Not in frame. Capture leaves moving, light through canopy, water droplets, green textures.</dd>
+        <dt>Frame &amp; mood</dt><dd>Close and wide nature details. Calm, organic, loopable.</dd>
+        <dt>Use</dt><dd>Quote backgrounds, transitions, story fillers, breathing-prompt overlays.</dd>
+      </dl>
+      <input class="fav-note" data-id="JU4" data-name="Nature texture plates" data-group="Jungle" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <!-- ============================ LOCATION 4 ============================ -->
+    <p class="eyebrow">Location 4 · if accessible</p>
+    <h2 class="loc">Waterfall</h2>
+    <p class="loc-note">A dramatic, high-impact backdrop and a natural symbol of flow, release and renewal. Logistically the hardest (access, footing, spray on gear), so it sits lower in priority. Protect the camera from mist, mind the footing. A handful of strong shots here is plenty.</p>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="WF1" data-name="Breath before the falls" data-group="Waterfall">♥</button>
+      <div class="sid">WF1 &nbsp;<span class="badge p1">P1</span></div>
+      <h3>The breath, before the falls</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Statement clip</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Standing before the waterfall, slow expansive breath, arms opening, or arms wide taking it in. Awe and release.</dd>
+        <dt>Frame &amp; mood</dt><dd>Wide to show the scale of the falls behind her, plus a medium. Powerful, elemental, alive.</dd>
+        <dt>Use</dt><dd>High-impact hero reel, "release / let go" themed content.</dd>
+      </dl>
+      <input class="fav-note" data-id="WF1" data-name="Breath before the falls" data-group="Waterfall" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="WF2" data-name="Seated stillness by water" data-group="Waterfall">♥</button>
+      <div class="sid">WF2 &nbsp;<span class="badge p2">P2</span></div>
+      <h3>Seated stillness by the water</h3>
+      <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Vertical + 4:5</span><span class="tag">Contrast piece</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Seated calmly on a rock near the water, eyes closed, breathing. Stillness against the motion of the falls.</dd>
+        <dt>Frame &amp; mood</dt><dd>Medium, the moving water softly blurred behind her. The contrast of calm and power.</dd>
+        <dt>Use</dt><dd>"Stillness within the noise" messaging, striking quote backgrounds.</dd>
+      </dl>
+      <input class="fav-note" data-id="WF2" data-name="Seated stillness by water" data-group="Waterfall" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="WF3" data-name="Water detail, hands in flow" data-group="Waterfall">♥</button>
+      <div class="sid">WF3 &nbsp;<span class="badge p2">P2</span></div>
+      <h3>Hands in the flowing water</h3>
+      <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + close</span><span class="tag">Texture b-roll</span></div>
+      <dl>
+        <dt>Diana does</dt><dd>Hands or feet in the running water, droplets, touching the surface. No face needed.</dd>
+        <dt>Frame &amp; mood</dt><dd>Close, slow motion. Sensory, the feeling of flow and release.</dd>
+        <dt>Use</dt><dd>Cutaways, transitions, "letting go" themed content.</dd>
+      </dl>
+      <input class="fav-note" data-id="WF3" data-name="Water detail, hands in flow" data-group="Waterfall" placeholder="Note on this shot (optional)" />
+    </div>
+
+    <!-- ============================ WRAP ============================ -->
+    <div class="prep" style="margin-top:40px">
+      <h3>What we will have at the end</h3>
+      <p style="font-size:14.5px;margin:0 0 10px">If we capture the <span class="badge p0">P0</span> shots alone, you walk away with a working base gallery: hero portraits, the breathing technique on camera, a full session story, a talking-to-camera look, and signature beach imagery. Everything beyond that deepens the well.</p>
+      <p style="font-size:14.5px;margin:0">The whole list, shot across one to two days, gives months of raw material: reels, quote graphics, story backgrounds, website imagery and more, all without re-shooting. That is the point of building it generic and reusable now.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    Draft shoot list for review · Breathe with Diana · heart shots and add notes, then use Send feedback (bottom right) to email Daniel.
+  </footer>
+
+  <script src="feedback.js"></script>
+</body>
+</html>
