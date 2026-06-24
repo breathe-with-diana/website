@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Breathe with Diana, before we breathe together</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
+      --umber:#5B4636; --ochre:#D4A24C;
+      --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
+      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
+      --sans:'Inter',system-ui,-apple-system,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;
+      line-height:1.6;-webkit-font-smoothing:antialiased;padding:30px 18px 90px}
+    .card{background:#fff;border:1px solid var(--hairline);border-radius:20px;
+      box-shadow:0 22px 54px -34px rgba(91,70,54,.55);overflow:hidden;max-width:480px;margin:0 auto}
+    .top{height:7px;background:linear-gradient(90deg,var(--terracotta),var(--ochre))}
+    .inner{padding:30px 28px 34px}
+    .logo{display:block;width:188px;max-width:62%;height:auto;margin:0 0 20px}
+
+    /* draft banner, for Diana's review only */
+    .draft{background:rgba(138,140,110,.14);border:1px solid rgba(138,140,110,.4);border-radius:12px;
+      padding:13px 15px;font-size:12.5px;line-height:1.55;color:var(--umber);margin:0 0 24px}
+    .draft b{font-weight:600}
+
+    .intro{font-family:var(--serif);font-size:25px;line-height:1.24;color:var(--umber);margin:0 0 12px;font-weight:500}
+    .sub{font-size:14px;color:var(--muted);margin:0 0 16px;line-height:1.55}
+    .reassure{background:rgba(201,123,90,.1);border:1px solid rgba(201,123,90,.28);border-radius:12px;
+      padding:13px 15px;font-size:13px;line-height:1.55;color:var(--umber);margin:0 0 28px}
+
+    .sectionhead{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--umber);
+      margin:30px 0 4px;padding-top:18px;border-top:1px solid var(--hairline)}
+    .sectionhead:first-of-type{border-top:none;padding-top:0;margin-top:8px}
+    .sectionsub{font-size:12.5px;color:var(--muted);margin:0 0 16px;line-height:1.5}
+
+    /* a question row */
+    .q{margin:0 0 16px}
+    .q-top{display:flex;align-items:flex-start;gap:10px}
+    .q-text{flex:1;font-size:14.5px;color:var(--umber);line-height:1.45}
+    .q-help{display:block;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45}
+    .yn{display:flex;gap:8px;margin-top:10px}
+    .yn button{flex:1;border-radius:999px;padding:9px;font-family:var(--sans);font-size:13.5px;
+      font-weight:500;cursor:pointer;border:1px solid var(--umber);background:none;color:var(--umber);
+      transition:background .15s,color .15s,transform .05s}
+    .yn button:active{transform:translateY(1px)}
+    .yn button.sel-yes{background:var(--terracotta);border-color:var(--terracotta);color:#fff}
+    .yn button.sel-no{background:var(--sage);border-color:var(--sage);color:#fff}
+
+    /* per-question heart, the feedback widget wires these for Diana */
+    .fav-btn{background:none;border:none;cursor:pointer;font-size:18px;line-height:1;
+      color:rgba(91,70,54,.28);padding:2px 0 0;transition:transform .1s,color .15s;flex-shrink:0}
+    .fav-btn:hover{transform:scale(1.18)}
+    .fav-btn.on{color:var(--terracotta)}
+    .fav-note{width:100%;box-sizing:border-box;font-family:var(--sans);font-size:12px;
+      border:1px solid rgba(91,70,54,.16);border-radius:8px;padding:6px 9px;margin-top:8px;
+      color:var(--umber);background:#FCFAF5}
+
+    label.fld{display:block;font-size:13.5px;font-weight:500;color:var(--umber);margin-bottom:7px}
+    .fld .opt{font-weight:400;color:var(--muted);font-size:11.5px}
+    input[type=text]{width:100%;border:1px solid var(--hairline);border-radius:9px;background:#FCFAF5;
+      padding:11px 13px;font-family:var(--sans);font-size:14px;color:var(--umber);outline:none;transition:border-color .15s,background .15s}
+    textarea{width:100%;border:1px solid var(--hairline);border-radius:9px;background:#FCFAF5;
+      padding:11px 13px;font-family:var(--sans);font-size:14px;color:var(--umber);outline:none;
+      resize:vertical;min-height:84px;transition:border-color .15s,background .15s}
+    input:focus,textarea:focus{border-color:var(--terracotta);background:#fff}
+    input::placeholder,textarea::placeholder{color:rgba(91,70,54,.38)}
+
+    .consent{background:rgba(212,162,76,.12);border:1px solid rgba(212,162,76,.34);border-radius:12px;
+      padding:15px 16px;font-size:13px;line-height:1.55;color:var(--umber);margin:8px 0 8px}
+    .consent label{display:flex;align-items:flex-start;gap:9px;cursor:pointer}
+    .consent input{width:16px;height:16px;margin-top:2px;accent-color:var(--terracotta);flex-shrink:0}
+
+    .send{margin-top:18px;width:100%;background:var(--terracotta);color:#fff;border:none;cursor:pointer;
+      border-radius:999px;padding:15px;font-family:var(--sans);font-size:15px;font-weight:500;
+      transition:background .15s,transform .05s}
+    .send:hover{background:#b86a4b}
+    .send:active{transform:translateY(1px)}
+    .footnote{font-size:11px;color:var(--muted);text-align:center;margin:16px 0 0;line-height:1.5}
+  </style>
+</head>
+<body
+  data-fb-key="health-form"
+  data-fb-page="Pre-session health form, Breathe with Diana"
+  data-fb-email="d.blaecker@gmail.com"
+  data-fb-noun="question">
+<div class="card">
+  <div class="top"></div>
+  <div class="inner">
+
+    <img class="logo" src="img/logo-site.svg" alt="Breathe with Diana">
+
+    <!-- ===== draft banner, Diana only, not part of the client copy ===== -->
+    <div class="draft">
+      <b>This is a draft for you, Diana 🤎</b><br>
+      Read it as a client would. The <b>Yes / No</b> buttons show how it will feel to fill in. Tap the <b>♥</b> beside any question you love, and use the <b>Send feedback</b> box (bottom right) to add a question, change wording, or tell me what to drop. Nothing here is sent to a client yet, we finalise together first.
+    </div>
+
+    <!-- ===== gentle intro ===== -->
+    <p class="intro">Before we breathe together 🤎</p>
+    <p class="sub">Breathwork is powerful, and it is safe and welcome for most people. There are just a few conditions where this kind of deep breathing is not ideal, or asks for a little extra care. So that I can hold the space safely for you, please take a gentle moment to answer these.</p>
+    <div class="reassure">There are no wrong answers, and almost nothing here means you cannot breathe with me. If something comes up, it simply means we will have a little chat first, so I can adapt the session and keep you safe and held. 🤎</div>
+
+    <!-- ===== Section: your body ===== -->
+    <div class="sectionhead">A few things about your body</div>
+    <p class="sectionsub">Just tap Yes or No. If you are not sure, lean towards Yes and we will talk it through.</p>
+
+    <div class="q" data-id="q-heart" data-name="Heart condition, heart attack or stroke" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Do you have a heart condition, or have you ever had a heart attack or a stroke?</div>
+        <button type="button" class="fav-btn" data-id="q-heart" data-name="Heart condition, heart attack or stroke" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-heart" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-bp" data-name="Blood pressure" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Do you have high blood pressure, or low blood pressure that troubles you?</div>
+        <button type="button" class="fav-btn" data-id="q-bp" data-name="Blood pressure" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-bp" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-aneurysm" data-name="Aneurysm, personal or family" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Have you ever had an aneurysm, or does aneurysm run in your family?</div>
+        <button type="button" class="fav-btn" data-id="q-aneurysm" data-name="Aneurysm, personal or family" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-aneurysm" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-epilepsy" data-name="Epilepsy or seizures" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Do you have epilepsy, or any history of seizures?</div>
+        <button type="button" class="fav-btn" data-id="q-epilepsy" data-name="Epilepsy or seizures" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-epilepsy" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-eyes" data-name="Glaucoma or detached retina" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Do you have glaucoma, a detached retina, or another serious eye condition?</div>
+        <button type="button" class="fav-btn" data-id="q-eyes" data-name="Glaucoma or detached retina" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-eyes" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-pregnant" data-name="Pregnancy" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Are you pregnant, or could you be?</div>
+        <button type="button" class="fav-btn" data-id="q-pregnant" data-name="Pregnancy" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-pregnant" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-asthma" data-name="Asthma or breathing condition" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Do you have asthma or another breathing condition?<span class="q-help">If yes, please bring your inhaler with you 🤎</span></div>
+        <button type="button" class="fav-btn" data-id="q-asthma" data-name="Asthma or breathing condition" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-asthma" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-bones" data-name="Osteoporosis or fragile bones" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Do you have osteoporosis or fragile bones?</div>
+        <button type="button" class="fav-btn" data-id="q-bones" data-name="Osteoporosis or fragile bones" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-bones" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-surgery" data-name="Recent surgery or injury" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Have you had surgery or a significant injury in the last six months?</div>
+        <button type="button" class="fav-btn" data-id="q-surgery" data-name="Recent surgery or injury" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-surgery" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-faint" data-name="Fainting or dizziness" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Do you faint easily, or feel dizzy or light-headed often?</div>
+        <button type="button" class="fav-btn" data-id="q-faint" data-name="Fainting or dizziness" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-faint" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-other-medical" data-name="Diabetes, thyroid, other condition" data-group="Body">
+      <div class="q-top">
+        <div class="q-text">Do you have diabetes, a thyroid condition, or another ongoing health condition?</div>
+        <button type="button" class="fav-btn" data-id="q-other-medical" data-name="Diabetes, thyroid, other condition" data-group="Body" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-other-medical" placeholder="Diana's note on this question…">
+    </div>
+
+    <!-- ===== Section: heart and mind ===== -->
+    <div class="sectionhead">A few things about your heart and mind</div>
+    <p class="sectionsub">Breathwork can bring up deep feelings. This just helps me support you with extra gentleness.</p>
+
+    <div class="q" data-id="q-psychosis" data-name="Psychosis, schizophrenia, bipolar" data-group="Mind">
+      <div class="q-top">
+        <div class="q-text">Have you ever experienced psychosis, schizophrenia, or bipolar disorder?</div>
+        <button type="button" class="fav-btn" data-id="q-psychosis" data-name="Psychosis, schizophrenia, bipolar" data-group="Mind" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-psychosis" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-trauma" data-name="Severe anxiety, panic, PTSD, recent trauma" data-group="Mind">
+      <div class="q-top">
+        <div class="q-text">Are you living with severe anxiety or panic attacks, PTSD, or moving through a recent trauma?</div>
+        <button type="button" class="fav-btn" data-id="q-trauma" data-name="Severe anxiety, panic, PTSD, recent trauma" data-group="Mind" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-trauma" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-psych-care" data-name="Under psychiatric care or mental-health medication" data-group="Mind">
+      <div class="q-top">
+        <div class="q-text">Are you currently under psychiatric care, or taking medication for your mental health?</div>
+        <button type="button" class="fav-btn" data-id="q-psych-care" data-name="Under psychiatric care or mental-health medication" data-group="Mind" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-psych-care" placeholder="Diana's note on this question…">
+    </div>
+
+    <!-- ===== Section: right now ===== -->
+    <div class="sectionhead">Just for today</div>
+    <p class="sectionsub">A couple of gentle things about the day of our session.</p>
+
+    <div class="q" data-id="q-meds" data-name="Medication to be aware of" data-group="Today">
+      <div class="q-top">
+        <div class="q-text">Are you taking any medication I should know about?</div>
+        <button type="button" class="fav-btn" data-id="q-meds" data-name="Medication to be aware of" data-group="Today" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-meds" placeholder="Diana's note on this question…">
+    </div>
+
+    <div class="q" data-id="q-substances" data-name="Alcohol or recreational substances today" data-group="Today">
+      <div class="q-top">
+        <div class="q-text">Have you had any alcohol or recreational substances today?<span class="q-help">It is best to arrive clear and unhurried, and to eat only lightly beforehand.</span></div>
+        <button type="button" class="fav-btn" data-id="q-substances" data-name="Alcohol or recreational substances today" data-group="Today" aria-label="mark this question">♥</button>
+      </div>
+      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <input type="text" class="fav-note" data-id="q-substances" placeholder="Diana's note on this question…">
+    </div>
+
+    <!-- ===== free text ===== -->
+    <div class="sectionhead">Anything else</div>
+    <div class="q" data-id="q-freetext" data-name="Anything else you'd like me to know" data-group="Open">
+      <div class="q-top">
+        <label class="fld" for="anything">Is there anything else, in your body or your life right now, that you would like me to know? <span class="opt">· optional</span>
+          <span class="q-help" style="font-weight:400">Anything that feels tender or relevant. This is just between us.</span></label>
+        <button type="button" class="fav-btn" data-id="q-freetext" data-name="Anything else you'd like me to know" data-group="Open" aria-label="mark this question">♥</button>
+      </div>
+      <textarea id="anything" placeholder="Whatever you'd like to share…"></textarea>
+      <input type="text" class="fav-note" data-id="q-freetext" placeholder="Diana's note on this question…">
+    </div>
+
+    <!-- ===== name + date ===== -->
+    <div class="q">
+      <label class="fld" for="name">Your name</label>
+      <input type="text" id="name" placeholder="Maria">
+    </div>
+    <div class="q">
+      <label class="fld" for="date">Date of our session <span class="opt">· optional</span></label>
+      <input type="text" id="date" placeholder="e.g. 12 July">
+    </div>
+
+    <!-- ===== consent / acknowledgement ===== -->
+    <div class="q" data-id="q-consent" data-name="Consent and acknowledgement line" data-group="Consent">
+      <div class="q-top" style="margin-bottom:8px">
+        <div class="q-text" style="font-weight:500">A gentle acknowledgement</div>
+        <button type="button" class="fav-btn" data-id="q-consent" data-name="Consent and acknowledgement line" data-group="Consent" aria-label="mark this question">♥</button>
+      </div>
+      <div class="consent">
+        <label>
+          <input type="checkbox" id="consent">
+          <span>I have answered as honestly as I can. I understand that breathwork is not a substitute for medical or psychological care, and that Diana is not a medical professional. If anything I have shared would benefit from a closer look, I am happy to have a gentle chat with Diana before we begin. I am choosing to take part of my own free will.</span>
+        </label>
+      </div>
+      <input type="text" class="fav-note" data-id="q-consent" placeholder="Diana's note on this wording…">
+    </div>
+
+    <button type="button" class="send">Send to Diana 🤎</button>
+    <p class="footnote">Draft preview. The Send button is not wired up yet, we will connect it once you are happy with the questions.</p>
+
+  </div>
+</div>
+
+<script>
+  // Yes/No toggle, preview only, so Diana feels how it answers.
+  document.querySelectorAll('.yn').forEach(function(yn){
+    var yes = yn.querySelector('.yn-yes'), no = yn.querySelector('.yn-no');
+    yes.addEventListener('click', function(){ yes.classList.add('sel-yes'); no.classList.remove('sel-no'); });
+    no.addEventListener('click', function(){ no.classList.add('sel-no'); yes.classList.remove('sel-yes'); });
+  });
+</script>
+<script src="feedback.js"></script>
+</body>
+</html>
