@@ -233,9 +233,23 @@
     .rz-card{background:var(--bone);border:1px solid var(--hairline);border-radius:16px;padding:30px 30px}
     .rz-cta{background:var(--ochre);color:var(--umber);font-size:15px;padding:14px 26px}
     .rz-cta:hover{background:#c4923f}
+
+    /* ===== per-section feedback boxes (review layer, not the real site) ===== */
+    .sec-fb{max-width:1140px;margin:42px auto 0;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;
+      background:rgba(138,140,110,.10);border:1px dashed rgba(138,140,110,.55);border-radius:12px}
+    .sec-fb.narrow{max-width:760px}
+    .sec-fb .fav-btn{margin-top:1px;color:rgba(91,70,54,.4)}
+    .sec-fb-main{flex:1;min-width:0}
+    .sec-fb-label{display:block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--sage);margin:0 0 7px}
+    .sec-fb .fav-note{margin-top:0}
+    /* on the dark reset band, lift the label + heart so they read */
+    .reset .sec-fb{background:rgba(244,239,230,.08);border-color:rgba(244,239,230,.3)}
+    .reset .sec-fb-label{color:rgba(244,239,230,.7)}
+    .reset .sec-fb .fav-btn{color:rgba(244,239,230,.5)}
   </style>
 </head>
-<body data-fb-noun="note" data-fb-key="website" data-fb-page="Website Home, Breathe with Diana" data-fb-email="d.blaecker@gmail.com">
+<body data-fb-noun="section" data-fb-key="website" data-fb-page="Website Home, Breathe with Diana" data-fb-email="d.blaecker@gmail.com">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <filter id="rblur2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.05"/></filter>
 </defs></svg>
@@ -276,6 +290,13 @@
     </div>
     <div class="hero-photo"><img src="img/diana-hero.jpg" alt="Diana guiding a one-to-one rebirthing breathwork session"></div>
   </div>
+  <div class="sec-fb">
+    <button class="fav-btn" data-id="sec-hero" data-name="Hero · Coming home to your body" data-group="Website">♥</button>
+    <div class="sec-fb-main">
+      <span class="sec-fb-label">Your notes on this section · Hero</span>
+      <input class="fav-note" data-id="sec-hero" data-name="Hero · Coming home to your body" data-group="Website" placeholder="The headline, the photo, the opening words (optional)" />
+    </div>
+  </div>
 </section>
 
 <!-- ===== TWO DOORS ===== -->
@@ -306,6 +327,13 @@
     </div>
     <p class="doors-note">“It's not about fixing you. It's about coming home to what's already there.”</p>
   </div>
+  <div class="sec-fb">
+    <button class="fav-btn" data-id="sec-doors" data-name="Two doors · Start gentle or go deep" data-group="Website">♥</button>
+    <div class="sec-fb-main">
+      <span class="sec-fb-label">Your notes on this section · Two ways in</span>
+      <input class="fav-note" data-id="sec-doors" data-name="Two doors · Start gentle or go deep" data-group="Website" placeholder="The two doors and how they're described (optional)" />
+    </div>
+  </div>
 </section>
 
 <!-- ===== WHAT A SESSION IS LIKE (honest explainer) ===== -->
@@ -326,6 +354,13 @@
         <p>I'll never promise to fix you or heal you. What I can offer is a safe, steady space to meet what you've been avoiding, and the tools to hold yourself once you have.</p>
         <p class="muted" style="color:rgba(244,239,230,.6);font-size:13px">Breathwork isn't suitable for everyone. If you're pregnant or have a heart, respiratory, or certain mental-health conditions, we'll talk it through on a free call first.</p>
         <div class="pull">The morning after, the wanting becomes doing.</div>
+      </div>
+    </div>
+    <div class="sec-fb">
+      <button class="fav-btn" data-id="sec-session" data-name="A session · Honest about the work" data-group="Website">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Your notes on this section · What a session is like</span>
+        <input class="fav-note" data-id="sec-session" data-name="A session · Honest about the work" data-group="Website" placeholder="The 4 steps and the honest part, does it match how you work? (optional)" />
       </div>
     </div>
   </div>
@@ -351,6 +386,13 @@
           </div>
         </details>
         <p style="margin-top:22px"><a class="btn btn-ghost" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free call</a></p>
+      </div>
+    </div>
+    <div class="sec-fb">
+      <button class="fav-btn" data-id="sec-story" data-name="My story" data-group="Website">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Your notes on this section · My story</span>
+        <input class="fav-note" data-id="sec-story" data-name="My story" data-group="Website" placeholder="Your story as told here, anything to change or add (optional)" />
       </div>
     </div>
   </div>
@@ -391,6 +433,13 @@
     <p style="text-align:center;margin-top:26px">
       <a class="btn btn-ghost" href="review.html">Been to a session? Share your experience →</a>
     </p>
+    <div class="sec-fb">
+      <button class="fav-btn" data-id="sec-reviews" data-name="Reviews · What people say" data-group="Website">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Your notes on this section · Reviews</span>
+        <input class="fav-note" data-id="sec-reviews" data-name="Reviews · What people say" data-group="Website" placeholder="The review layout (sample words for now) (optional)" />
+      </div>
+    </div>
   </div>
 </section>
 
@@ -404,6 +453,13 @@
       <input type="email" placeholder="your@email.com" aria-label="email">
       <button class="btn btn-primary" type="submit">Send me the reset</button>
     </form>
+    <div class="sec-fb narrow">
+      <button class="fav-btn" data-id="sec-reset" data-name="Free 10-min reset" data-group="Website">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Your notes on this section · Free reset</span>
+        <input class="fav-note" data-id="sec-reset" data-name="Free 10-min reset" data-group="Website" placeholder="The free breath reset offer (optional)" />
+      </div>
+    </div>
   </div>
 </section>
 
@@ -434,6 +490,13 @@
         <details><summary>What if I need to reschedule?</summary><p>Life happens, just give me 24 hours' notice and we'll find a new time.</p></details>
       </div>
     </div>
+    <div class="sec-fb">
+      <button class="fav-btn" data-id="sec-book" data-name="Book · Pricing &amp; FAQ" data-group="Website">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Your notes on this section · Booking &amp; FAQ</span>
+        <input class="fav-note" data-id="sec-book" data-name="Book · Pricing &amp; FAQ" data-group="Website" placeholder="What's included, the FAQ answers, the booking flow (optional)" />
+      </div>
+    </div>
   </div>
 </section>
 
@@ -445,7 +508,15 @@
     <p class="rz-lead">Everything above is your live homepage. This section is just for you, a place I'll park things to look at. Open one, heart what you love, leave notes, then tap <b>Send feedback</b> (bottom corner) to email it back to me.</p>
 
     <div class="rz-block">
-      <div class="rz-sub">Photo &amp; video shoot list <span style="font-size:13px;color:var(--ochre);font-weight:600">· new</span></div>
+      <div class="rz-sub">Pre-session health form <span style="font-size:13px;color:var(--ochre);font-weight:600">· new</span></div>
+      <p class="rz-note">A gentle form to send clients before a session, so you know about anything that needs a little extra care. It is a draft for you: read it as a client would, heart the questions you love, and add, change, or remove any you like. A real practitioner should give the wording a final look before it goes to anyone.</p>
+      <div class="rz-card">
+        <a class="btn rz-cta" href="health-form.html">Open your health form →</a>
+      </div>
+    </div>
+
+    <div class="rz-block">
+      <div class="rz-sub">Photo &amp; video shoot list</div>
       <p class="rz-note">A full plan for your shoot with the photographer: 22 shots across the healing space, beach, jungle and waterfall, with a wardrobe plan and prep notes. Heart the shots you love and add any notes on the page.</p>
       <div class="rz-card">
         <a class="btn rz-cta" href="shoot-list.html">Open your shoot list →</a>
@@ -454,7 +525,7 @@
 
     <div class="rz-block">
       <div class="rz-sub">The website itself</div>
-      <p class="rz-note">Want to change something on this homepage? You don't need a separate page, just use the <b>Send feedback</b> button in the bottom corner from anywhere here, type your thoughts and email them over.</p>
+      <p class="rz-note">Each section above has its own little feedback box, heart what you love and leave notes right where they belong, so I know exactly which part you mean. When you're done, tap <b>Send feedback</b> in the bottom corner and it emails everything to me, grouped by section.</p>
     </div>
   </div>
 </section>
