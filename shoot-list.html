@@ -51,11 +51,8 @@
     .p0{background:var(--terracotta)} .p1{background:var(--ochre);color:var(--umber)} .p2{background:var(--sage)}
 
     .shot{position:relative;background:#fff;border:1px solid var(--hairline);border-radius:14px;
-      padding:20px 152px 18px 54px;margin:0 0 14px}
+      padding:20px 22px 18px 54px;margin:0 0 14px}
     .fav-btn{position:absolute;left:16px;top:18px}
-    .shot-ref{position:absolute;right:16px;top:18px;width:120px;margin:0}
-    .shot-ref img{width:120px;height:154px;object-fit:cover;border-radius:9px;border:1px solid var(--hairline);display:block}
-    .shot-ref figcaption{font-size:9.5px;letter-spacing:.02em;color:var(--muted);text-align:center;margin-top:5px;line-height:1.3}
     .shot .sid{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--muted)}
     .shot h3{font-family:var(--serif);font-size:21px;font-weight:500;margin:2px 0 8px;line-height:1.18}
     .shot .tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
@@ -82,12 +79,22 @@
       border-radius:12px;padding:13px 16px;margin-top:14px;font-size:13.5px;color:var(--muted)}
     .ref-note b{color:var(--umber)}
 
+    /* ===== sample photos / moodboard ===== */
+    .samples{background:var(--cream);border:1px solid var(--hairline);border-radius:16px;padding:26px 28px 30px;margin:30px 0}
+    .samples > h3{font-family:var(--serif);font-size:24px;font-weight:500;margin:0 0 6px}
+    .samples > p{font-size:14px;color:var(--muted);max-width:680px;margin:0 0 6px}
+    .sample-group{margin-top:24px}
+    .sample-group h4{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--terracotta);margin:0 0 12px}
+    .sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .sample{margin:0}
+    .sample img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px;border:1px solid var(--hairline);display:block}
+    .sample figcaption{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.35}
+
     @media(max-width:640px){
-      .shot{padding:18px 18px 16px 48px}
-      .shot-ref{position:static;width:100%;margin:0 0 14px}
-      .shot-ref img{width:100%;height:210px}
       .shot dl{grid-template-columns:1fr;gap:2px 0}
       .shot dt{padding-top:9px}
+      .sample-grid{grid-template-columns:1fr 1fr;gap:10px}
     }
   </style>
 </head>
@@ -112,7 +119,7 @@
       </div>
       <div class="ref-note">
         <span>📷</span>
-        <div>Each shot has a small <b>mood reference</b> beside it, just to show the feeling, light and framing. These are free stock photos (from Pexels), not the actual plan: the real shots will be <b>you</b>, on the island, in your own wardrobe. If a reference feels wrong for you, say so in its note.</div>
+        <div>Just below you will find a <b>Sample photos</b> gallery, a few nice examples for each location to show the feeling, light and framing we are going for. These are free stock photos (from Pexels) for mood only, not the actual plan: the real shots will be <b>you</b>, on the island, in your own wardrobe.</div>
       </div>
     </div>
 
@@ -151,6 +158,45 @@
       </ul>
     </div>
 
+    <!-- ============================ SAMPLE PHOTOS ============================ -->
+    <div class="samples">
+      <h3>Sample photos: the look &amp; feel</h3>
+      <p>A few nice examples for each location, here purely for the mood: the light, framing and feeling we are going for. These are not the exact poses, and not matched to any single shot below. The real images will be you, on the island, in your own wardrobe.</p>
+
+      <div class="sample-group">
+        <h4>Healing space &amp; home</h4>
+        <div class="sample-grid">
+          <figure class="sample"><img src="img/ref/ref-portrait.jpg" alt="Warm portrait in golden light" loading="lazy"><figcaption>Warm portrait, soft golden light</figcaption></figure>
+          <figure class="sample"><img src="img/ref/ref-session.jpg" alt="A held, hands-on session" loading="lazy"><figcaption>A held, hands-on session</figcaption></figure>
+          <figure class="sample"><img src="img/ref/ref-stillness.jpg" alt="Seated stillness in soft window light" loading="lazy"><figcaption>Seated stillness, soft window light</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sample-group">
+        <h4>Beach</h4>
+        <div class="sample-grid">
+          <figure class="sample"><img src="img/ref/ref-openbreath.jpg" alt="Arms open at the shore" loading="lazy"><figcaption>The open breath, soft sunset light</figcaption></figure>
+          <figure class="sample"><img src="img/ref/ref-walking.jpg" alt="Walking the shoreline" loading="lazy"><figcaption>Walking the shoreline</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sample-group">
+        <h4>Jungle &amp; forest</h4>
+        <div class="sample-grid">
+          <figure class="sample"><img src="img/ref/ref-jungle.jpg" alt="Light through the jungle canopy" loading="lazy"><figcaption>Light through the canopy</figcaption></figure>
+          <figure class="sample"><img src="img/ref/ref-forest-path.jpg" alt="Walking a green forest path" loading="lazy"><figcaption>Walking a green forest path</figcaption></figure>
+          <figure class="sample"><img src="img/ref/ref-nature.jpg" alt="Breathing in golden light outdoors" loading="lazy"><figcaption>Breathing in golden light</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="sample-group">
+        <h4>Waterfall</h4>
+        <div class="sample-grid">
+          <figure class="sample"><img src="img/ref/ref-waterfall.jpg" alt="Stillness on a rock at the falls" loading="lazy"><figcaption>Stillness at the falls</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
     <!-- ============================ LOCATION 1 ============================ -->
     <p class="eyebrow">Location 1 · highest priority</p>
     <h2 class="loc">Healing space or home (controlled light)</h2>
@@ -163,7 +209,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS1" data-name="Hero portrait, eyes to camera" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-portrait.jpg" alt="Reference Â· warm portrait, the breath" loading="lazy" /><figcaption>Reference Â· warm portrait, the breath</figcaption></figure>
       <div class="sid">HS1 &nbsp;<span class="badge p0">P0</span></div>
       <h3>Hero portrait, warm eye contact</h3>
       <div class="tags"><span class="tag">Photo</span><span class="tag">Vertical + 4:5</span><span class="tag">Website + profile</span></div>
@@ -177,7 +222,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS2" data-name="Portrait, looking away" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-portrait.jpg" alt="Reference Â· warm portrait, the breath" loading="lazy" /><figcaption>Reference Â· warm portrait, the breath</figcaption></figure>
       <div class="sid">HS2 &nbsp;<span class="badge p0">P0</span></div>
       <h3>Portrait, looking away / in her own world</h3>
       <div class="tags"><span class="tag">Photo</span><span class="tag">Vertical + 4:5</span><span class="tag">Quote backgrounds</span></div>
@@ -191,7 +235,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS3" data-name="Talking to camera plate" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-portrait.jpg" alt="Reference Â· warm portrait, the breath" loading="lazy" /><figcaption>Reference Â· warm portrait, the breath</figcaption></figure>
       <div class="sid">HS3 &nbsp;<span class="badge p0">P0</span></div>
       <h3>Talking-to-camera plate</h3>
       <div class="tags"><span class="tag">Video</span><span class="tag">Vertical 9:16</span><span class="tag">Reel intros</span></div>
@@ -205,7 +248,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS4" data-name="Breathing close-up, face" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-portrait.jpg" alt="Reference Â· warm portrait, the breath" loading="lazy" /><figcaption>Reference Â· warm portrait, the breath</figcaption></figure>
       <div class="sid">HS4 &nbsp;<span class="badge p0">P0</span></div>
       <h3>Breathing close-up: face and chest</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical 9:16</span><span class="tag">The product itself</span></div>
@@ -219,7 +261,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS5" data-name="Hands on heart and belly" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-session.jpg" alt="Reference Â· a held, hands-on session" loading="lazy" /><figcaption>Reference Â· a held, hands-on session</figcaption></figure>
       <div class="sid">HS5 &nbsp;<span class="badge p0">P0</span></div>
       <h3>Hands on heart and belly</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + close</span><span class="tag">Detail / b-roll</span></div>
@@ -233,7 +274,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS6" data-name="Guided session sequence with model" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-session.jpg" alt="Reference Â· a held, hands-on session" loading="lazy" /><figcaption>Reference Â· a held, hands-on session</figcaption></figure>
       <div class="sid">HS6 &nbsp;<span class="badge p0">P0</span></div>
       <h3>Guided session sequence (with model)</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Shows the work</span></div>
@@ -247,7 +287,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS7" data-name="Setting the space" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-session.jpg" alt="Reference Â· a held, hands-on session" loading="lazy" /><figcaption>Reference Â· a held, hands-on session</figcaption></figure>
       <div class="sid">HS7 &nbsp;<span class="badge p1">P1</span></div>
       <h3>Setting the space</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + detail</span><span class="tag">B-roll / ritual</span></div>
@@ -261,7 +300,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS8" data-name="Seated meditation wide" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-stillness.jpg" alt="Reference Â· seated stillness, soft light" loading="lazy" /><figcaption>Reference Â· seated stillness, soft light</figcaption></figure>
       <div class="sid">HS8 &nbsp;<span class="badge p1">P1</span></div>
       <h3>Seated in stillness, wide</h3>
       <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Wide + vertical</span><span class="tag">Calm door</span></div>
@@ -275,7 +313,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="HS9" data-name="Candid laugh / warmth" data-group="Healing space">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-portrait.jpg" alt="Reference Â· warm portrait, the breath" loading="lazy" /><figcaption>Reference Â· warm portrait, the breath</figcaption></figure>
       <div class="sid">HS9 &nbsp;<span class="badge p2">P2</span></div>
       <h3>Candid warmth and laughter</h3>
       <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Vertical + 4:5</span><span class="tag">Human / relatable</span></div>
@@ -294,7 +331,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="BE1" data-name="Breath with arms, sky" data-group="Beach">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-openbreath.jpg" alt="Reference Â· the open breath, outdoors" loading="lazy" /><figcaption>Reference Â· the open breath, outdoors</figcaption></figure>
       <div class="sid">BE1 &nbsp;<span class="badge p0">P0</span></div>
       <h3>The full breath, arms opening to the sky</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Signature reel</span></div>
@@ -308,7 +344,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="BE2" data-name="Walking the shoreline" data-group="Beach">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-walking.jpg" alt="Reference Â· walking, movement" loading="lazy" /><figcaption>Reference Â· walking, movement</figcaption></figure>
       <div class="sid">BE2 &nbsp;<span class="badge p0">P0</span></div>
       <h3>Walking the shoreline</h3>
       <div class="tags"><span class="tag">Video</span><span class="tag">Vertical + wide</span><span class="tag">B-roll</span></div>
@@ -322,7 +357,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="BE3" data-name="Beach negative-space scenery" data-group="Beach">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-walking.jpg" alt="Reference Â· walking, movement" loading="lazy" /><figcaption>Reference Â· walking, movement</figcaption></figure>
       <div class="sid">BE3 &nbsp;<span class="badge p0">P0</span></div>
       <h3>Small in the landscape (text plate)</h3>
       <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Vertical + wide</span><span class="tag">Quote backgrounds</span></div>
@@ -336,7 +370,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="BE4" data-name="Seated breathwork on sand" data-group="Beach">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-stillness.jpg" alt="Reference Â· seated stillness, soft light" loading="lazy" /><figcaption>Reference Â· seated stillness, soft light</figcaption></figure>
       <div class="sid">BE4 &nbsp;<span class="badge p1">P1</span></div>
       <h3>Seated breathwork on the sand</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + 4:5</span><span class="tag">Calm door</span></div>
@@ -350,7 +383,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="BE5" data-name="Two breathing together, beach" data-group="Beach">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-session.jpg" alt="Reference Â· a held, hands-on session" loading="lazy" /><figcaption>Reference Â· a held, hands-on session</figcaption></figure>
       <div class="sid">BE5 &nbsp;<span class="badge p1">P1</span></div>
       <h3>Breathing together (with model)</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Group feel</span></div>
@@ -364,7 +396,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="BE6" data-name="Detail: feet in sand, water" data-group="Beach">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-walking.jpg" alt="Reference Â· walking, movement" loading="lazy" /><figcaption>Reference Â· walking, movement</figcaption></figure>
       <div class="sid">BE6 &nbsp;<span class="badge p2">P2</span></div>
       <h3>Grounding details: feet, sand, water</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + close</span><span class="tag">Texture b-roll</span></div>
@@ -383,7 +414,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="JU1" data-name="Standing among greenery, portrait" data-group="Jungle">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-portrait.jpg" alt="Reference Â· warm portrait, the breath" loading="lazy" /><figcaption>Reference Â· warm portrait, the breath</figcaption></figure>
       <div class="sid">JU1 &nbsp;<span class="badge p1">P1</span></div>
       <h3>Standing amid the green, portrait</h3>
       <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Vertical + 4:5</span><span class="tag">Grounded portrait</span></div>
@@ -397,7 +427,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="JU2" data-name="Breathing surrounded by nature" data-group="Jungle">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-nature.jpg" alt="Reference Â· breathing in nature" loading="lazy" /><figcaption>Reference Â· breathing in nature</figcaption></figure>
       <div class="sid">JU2 &nbsp;<span class="badge p1">P1</span></div>
       <h3>Breathing, surrounded by nature</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical 9:16</span><span class="tag">Signature loop</span></div>
@@ -411,7 +440,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="JU3" data-name="Walking a forest path" data-group="Jungle">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-walking.jpg" alt="Reference Â· walking, movement" loading="lazy" /><figcaption>Reference Â· walking, movement</figcaption></figure>
       <div class="sid">JU3 &nbsp;<span class="badge p1">P1</span></div>
       <h3>Walking a forest path</h3>
       <div class="tags"><span class="tag">Video</span><span class="tag">Vertical + wide</span><span class="tag">B-roll</span></div>
@@ -425,7 +453,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="JU4" data-name="Nature texture plates" data-group="Jungle">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-nature.jpg" alt="Reference Â· breathing in nature" loading="lazy" /><figcaption>Reference Â· breathing in nature</figcaption></figure>
       <div class="sid">JU4 &nbsp;<span class="badge p2">P2</span></div>
       <h3>Nature texture plates (no Diana)</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Backgrounds</span></div>
@@ -444,7 +471,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="WF1" data-name="Breath before the falls" data-group="Waterfall">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-openbreath.jpg" alt="Reference Â· the open breath, outdoors" loading="lazy" /><figcaption>Reference Â· the open breath, outdoors</figcaption></figure>
       <div class="sid">WF1 &nbsp;<span class="badge p1">P1</span></div>
       <h3>The breath, before the falls</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + wide</span><span class="tag">Statement clip</span></div>
@@ -458,7 +484,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="WF2" data-name="Seated stillness by water" data-group="Waterfall">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-stillness.jpg" alt="Reference Â· seated stillness, soft light" loading="lazy" /><figcaption>Reference Â· seated stillness, soft light</figcaption></figure>
       <div class="sid">WF2 &nbsp;<span class="badge p2">P2</span></div>
       <h3>Seated stillness by the water</h3>
       <div class="tags"><span class="tag">Photo + Video</span><span class="tag">Vertical + 4:5</span><span class="tag">Contrast piece</span></div>
@@ -472,7 +497,6 @@
 
     <div class="shot">
       <button class="fav-btn" data-id="WF3" data-name="Water detail, hands in flow" data-group="Waterfall">♥</button>
-      <figure class="shot-ref"><img src="img/ref/ref-nature.jpg" alt="Reference Â· breathing in nature" loading="lazy" /><figcaption>Reference Â· breathing in nature</figcaption></figure>
       <div class="sid">WF3 &nbsp;<span class="badge p2">P2</span></div>
       <h3>Hands in the flowing water</h3>
       <div class="tags"><span class="tag">Video + Photo</span><span class="tag">Vertical + close</span><span class="tag">Texture b-roll</span></div>
