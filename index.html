@@ -220,9 +220,22 @@
       .hero h1{font-size:48px}.nav a.link{display:none}.srow{grid-template-columns:1fr;gap:4px}
       .srow .si{display:none}
     }
+
+    /* ===================================================================== REVIEW ZONE (for Diana, not the site) */
+    .review-zone{background:#E7E4D7;background-image:linear-gradient(180deg,#E9E2CF,#E4E5DA);
+      border-top:1px solid var(--hairline);padding:74px 32px 88px}
+    .review-zone .eyebrow{color:var(--sage)}
+    .rz-h{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.12;margin:0 0 14px;color:var(--umber)}
+    .rz-lead{font-size:16px;color:var(--umber);max-width:640px;margin:0 0 8px}
+    .rz-block{margin-top:46px}
+    .rz-sub{font-family:var(--serif);font-weight:500;font-size:24px;color:var(--umber);margin:0 0 8px}
+    .rz-note{font-size:14.5px;color:var(--muted);max-width:640px;margin:0 0 18px}
+    .rz-card{background:var(--bone);border:1px solid var(--hairline);border-radius:16px;padding:30px 30px}
+    .rz-cta{background:var(--ochre);color:var(--umber);font-size:15px;padding:14px 26px}
+    .rz-cta:hover{background:#c4923f}
   </style>
 </head>
-<body data-fb-key="website" data-fb-page="Website Home, Breathe with Diana" data-fb-email="d.blaecker@gmail.com">
+<body data-fb-noun="note" data-fb-key="website" data-fb-page="Website Home, Breathe with Diana" data-fb-email="d.blaecker@gmail.com">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <filter id="rblur2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.05"/></filter>
 </defs></svg>
@@ -424,6 +437,28 @@
   </div>
 </section>
 
+<!-- ============================================================= REVIEW ZONE (for Diana) ========== -->
+<section class="review-zone" id="review">
+  <div class="wrap-narrow">
+    <div class="eyebrow">For you, Diana · what's open to review</div>
+    <h2 class="rz-h">This part isn't the website.</h2>
+    <p class="rz-lead">Everything above is your live homepage. This section is just for you, a place I'll park things to look at. Open one, heart what you love, leave notes, then tap <b>Send feedback</b> (bottom corner) to email it back to me.</p>
+
+    <div class="rz-block">
+      <div class="rz-sub">Photo &amp; video shoot list <span style="font-size:13px;color:var(--ochre);font-weight:600">· new</span></div>
+      <p class="rz-note">A full plan for your shoot with the photographer: 22 shots across the healing space, beach, jungle and waterfall, with a wardrobe plan and prep notes. Heart the shots you love and add any notes on the page.</p>
+      <div class="rz-card">
+        <a class="btn rz-cta" href="shoot-list.html">Open your shoot list →</a>
+      </div>
+    </div>
+
+    <div class="rz-block">
+      <div class="rz-sub">The website itself</div>
+      <p class="rz-note">Want to change something on this homepage? You don't need a separate page, just use the <b>Send feedback</b> button in the bottom corner from anywhere here, type your thoughts and email them over.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="foot-grid">
@@ -450,5 +485,6 @@
   </div>
 </footer>
 
+<script src="feedback.js"></script>
 </body>
 </html>
