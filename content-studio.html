@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Content Studio · Breathe with Diana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
+      --umber:#5B4636; --ochre:#D4A24C;
+      --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
+      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
+      --sans:'Inter',system-ui,-apple-system,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;scroll-behavior:smooth}
+    body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+    .meta-banner{background:var(--umber);color:var(--bone);font-family:var(--sans);font-size:12.5px;
+      letter-spacing:.04em;padding:10px 20px;text-align:center}
+    .meta-banner b{color:var(--ochre)}
+
+    header.top{max-width:980px;margin:0 auto;padding:40px 28px 14px;display:flex;align-items:center;gap:16px}
+    header.top img{height:64px;width:auto;display:block}
+    header.top .ttl{font-family:var(--serif);font-size:25px;font-weight:500;line-height:1.05}
+    header.top .ttl small{display:block;font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:.3em;
+      text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+    main{max-width:980px;margin:0 auto;padding:8px 28px 120px}
+    .intro{background:var(--cream);border:1px solid var(--hairline);border-radius:16px;padding:30px 30px;margin:20px 0 12px}
+    .intro h1{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1.1;margin:0 0 14px}
+    .intro p{font-size:15.5px;max-width:700px;margin:0 0 12px}
+    .intro .how{display:flex;gap:10px;align-items:flex-start;background:var(--bone);border-radius:12px;
+      padding:14px 16px;margin-top:16px;font-size:14px}
+    .intro .how b{color:var(--terracotta)}
+
+    .eyebrow{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--terracotta);margin:0 0 8px}
+    h2.loc{font-family:var(--serif);font-weight:500;font-size:31px;line-height:1.1;margin:48px 0 4px;
+      padding-top:14px;border-top:1px solid var(--hairline)}
+    h2.loc:first-of-type{border-top:none}
+    .loc-note{font-size:14px;color:var(--muted);margin:0 0 22px;max-width:700px}
+
+    .badge{display:inline-block;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.08em;
+      text-transform:uppercase;padding:3px 9px;border-radius:999px;color:#fff;vertical-align:middle}
+    .you{background:var(--terracotta)} .dan{background:var(--ochre);color:var(--umber)} .later{background:var(--sage)}
+    .free{background:transparent;color:var(--sage);border:1px solid var(--sage)}
+
+    /* cards (choices, tools) reuse the shoot-list "shot" pattern */
+    .shot{position:relative;background:#fff;border:1px solid var(--hairline);border-radius:14px;
+      padding:20px 22px 18px 54px;margin:0 0 14px}
+    .shot.plain{padding-left:22px}
+    .fav-btn{position:absolute;left:16px;top:18px;background:none;border:none;font-size:22px;cursor:pointer;
+      color:var(--hairline);transition:color .15s,transform .1s;line-height:1}
+    .fav-btn:hover{transform:scale(1.12)}
+    .fav-btn.on{color:var(--terracotta)}
+    .shot .sid{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--muted)}
+    .shot h3{font-family:var(--serif);font-size:21px;font-weight:500;margin:2px 0 8px;line-height:1.18}
+    .shot p{font-size:14px;margin:0 0 8px}
+    .shot .tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 10px}
+    .shot .tag{font-family:var(--sans);font-size:11px;letter-spacing:.04em;color:var(--umber);
+      background:var(--cream);border-radius:999px;padding:3px 10px}
+    .fav-note{margin-top:10px;width:100%;font-family:var(--sans);font-size:13.5px;color:var(--umber);
+      background:var(--bone);border:1px solid var(--hairline);border-radius:10px;padding:9px 12px}
+
+    /* the loop */
+    .loop{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px}
+    .loop .step{flex:1 1 140px;background:#fff;border:1px solid var(--hairline);border-radius:12px;padding:14px 14px}
+    .loop .step .n{font-family:var(--serif);font-size:22px;color:var(--terracotta);line-height:1}
+    .loop .step h4{font-family:var(--sans);font-size:13px;font-weight:600;margin:6px 0 4px}
+    .loop .step p{font-size:12.5px;color:var(--muted);margin:0}
+
+    .layer{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0 4px}
+    .layer .col{background:var(--cream);border:1px solid var(--hairline);border-radius:14px;padding:18px 20px}
+    .layer .col h4{font-family:var(--serif);font-size:20px;font-weight:500;margin:0 0 4px}
+    .layer .col .sub{font-size:12px;color:var(--muted);margin:0 0 12px}
+    .layer .col ul{margin:0;padding-left:18px;font-size:14px}
+    .layer .col li{margin:0 0 7px}
+
+    .prep{background:var(--cream);border:1px solid var(--hairline);border-radius:16px;padding:26px 28px;margin:24px 0}
+    .prep h3{font-family:var(--serif);font-size:24px;font-weight:500;margin:0 0 6px}
+    .prep h4{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--terracotta);margin:20px 0 8px}
+    .prep ul,.prep ol{margin:0 0 4px;padding-left:20px;font-size:14.5px}
+    .prep li{margin:0 0 7px}
+    .prep .todo{background:var(--bone);border-left:3px solid var(--terracotta);border-radius:0 10px 10px 0;
+      padding:12px 16px;margin:14px 0 4px;font-size:14.5px}
+    .prep .todo b{color:var(--terracotta)}
+
+    .steps{counter-reset:s;list-style:none;padding:0;margin:8px 0}
+    .steps li{position:relative;padding:0 0 14px 42px;font-size:14.5px}
+    .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-2px;
+      width:28px;height:28px;border-radius:50%;background:var(--terracotta);color:#fff;
+      font-family:var(--serif);font-size:16px;display:flex;align-items:center;justify-content:center}
+    .steps li b{color:var(--umber)}
+
+    footer{max-width:980px;margin:0 auto;padding:30px 28px 60px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media(max-width:640px){
+      .layer{grid-template-columns:1fr}
+      .intro h1{font-size:31px}
+      header.top{padding-top:28px}
+    }
+  </style>
+</head>
+<body data-fb-noun="idea" data-fb-key="content-studio" data-fb-page="Content Studio" data-fb-email="d.blaecker@gmail.com">
+
+  <div class="meta-banner">For <b>Diana</b> · our content studio · a working session guide. Heart what excites you, leave notes, then hit <b>Send feedback</b> (it emails Daniel).</div>
+
+  <header class="top">
+    <img src="logo-mark.svg" alt="Breathe with Diana" />
+    <div class="ttl">Content Studio<small>Breathe with Diana · how we make your posts</small></div>
+  </header>
+
+  <main>
+
+    <div class="intro">
+      <h1>Let's set up your content, together</h1>
+      <p>This is not a lecture and you do not need to become a video editor. We are going to build a simple system where <b>you say what you want to share</b>, and a few friendly tools help you turn it into a post that looks beautiful and sounds like you.</p>
+      <p>We start tiny. We make one post together, then two, then three, and we learn as we go. Nothing on this page is fixed. It is a starting point for our conversation, and we change whatever does not feel right.</p>
+      <div class="how"><span>🤍</span><div><b>How to use this page:</b> read it before we sit down. Tap the heart on anything that excites you or that you want to start with, type a note where you have a thought or a worry, then press <b>Send feedback</b> at the bottom right. That tells me where your energy is so our session starts from you, not from me.</div></div>
+    </div>
+
+    <!-- ============================ 1. HOW IT WORKS ============================ -->
+    <p class="eyebrow">The big picture</p>
+    <h2 class="loc">How it works, in one breath</h2>
+    <p class="loc-note">Every post follows the same gentle loop. Once you have done it once or twice, it stops feeling technical and starts feeling like a rhythm.</p>
+
+    <div class="loop">
+      <div class="step"><div class="n">1</div><h4>You have something to say</h4><p>A feeling, a thought, a moment from a session.</p></div>
+      <div class="step"><div class="n">2</div><h4>AI helps shape it</h4><p>Your Brand GPT writes the words, in your voice, in English and Spanish.</p></div>
+      <div class="step"><div class="n">3</div><h4>You capture</h4><p>Film a short clip on your phone, or pick a photo you already love.</p></div>
+      <div class="step"><div class="n">4</div><h4>A tool assembles it</h4><p>Canva for graphics, CapCut for talking clips. You work inside a ready template.</p></div>
+      <div class="step"><div class="n">5</div><h4>You approve</h4><p>You look at the finished post and say yes, or change a thing.</p></div>
+      <div class="step"><div class="n">6</div><h4>It posts itself</h4><p>It sits in a scheduler and publishes for you. You only reply to comments.</p></div>
+    </div>
+
+    <div class="layer">
+      <div class="col">
+        <h4>What you do</h4>
+        <p class="sub">The human parts, the parts only you can do</p>
+        <ul>
+          <li>Decide what you want to share</li>
+          <li>Be on camera, in your real voice and face</li>
+          <li>Pick photos and clips you love</li>
+          <li>Approve or tweak the finished post</li>
+          <li>Reply to comments and messages</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>What Daniel sets up once</h4>
+        <p class="sub">The plumbing, so your part stays easy</p>
+        <ul>
+          <li>Your Brand GPT (already being built)</li>
+          <li>Your Canva brand kit and ready templates</li>
+          <li>Your photo and clip library, organised</li>
+          <li>The scheduler, connected to both accounts</li>
+          <li>A check now and then, when you want a second eye</li>
+        </ul>
+      </div>
+    </div>
+    <p class="loc-note" style="margin-top:14px">The important promise: <b>you never start from a blank page, and you never touch a video timeline.</b> You only ever edit inside something that is already built and already on brand.</p>
+
+    <!-- ============================ 2. WHAT WE DECIDE ============================ -->
+    <p class="eyebrow">Our conversation</p>
+    <h2 class="loc">What we will decide together</h2>
+    <p class="loc-note">A few small choices, that is all. Heart the ones that feel right, and we build the first posts around your answers. There are no wrong picks here.</p>
+
+    <h3 style="font-family:var(--serif);font-weight:500;font-size:22px;margin:22px 0 10px">Where do we start? Pick one format for your very first posts</h3>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="F1" data-name="Start with: quote card" data-group="Format">♥</button>
+      <div class="sid">EASIEST START</div>
+      <h3>A quote card</h3>
+      <div class="tags"><span class="tag">No camera</span><span class="tag">5 minutes</span><span class="tag">Canva</span></div>
+      <p>A beautiful image with a few words of yours on top. Your GPT writes the line, you drop it into a ready template. The gentlest way to feel a post go out.</p>
+      <input class="fav-note" data-id="F1" data-name="Start with: quote card" data-group="Format" placeholder="A thought on starting here (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="F2" data-name="Start with: talking clip" data-group="Format">♥</button>
+      <div class="sid">YOUR VOICE</div>
+      <h3>A short talking clip</h3>
+      <div class="tags"><span class="tag">Phone camera</span><span class="tag">30 to 60 sec</span><span class="tag">CapCut</span></div>
+      <p>You speak to the camera for under a minute. Your GPT writes what to say, the tool cleans it up and adds captions. This is the one that builds real trust, because people meet the real you.</p>
+      <input class="fav-note" data-id="F2" data-name="Start with: talking clip" data-group="Format" placeholder="A thought on starting here (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="F3" data-name="Start with: simple carousel" data-group="Format">♥</button>
+      <div class="sid">A LITTLE MORE</div>
+      <h3>A simple swipe (carousel)</h3>
+      <div class="tags"><span class="tag">No camera</span><span class="tag">10 minutes</span><span class="tag">Canva</span></div>
+      <p>A few cards people swipe through, like a tiny teaching. Good for "the path back home" steps, or a small idea broken into parts. Built from a ready template, one card at a time.</p>
+      <input class="fav-note" data-id="F3" data-name="Start with: simple carousel" data-group="Format" placeholder="A thought on starting here (optional)" />
+    </div>
+
+    <h3 style="font-family:var(--serif);font-weight:500;font-size:22px;margin:30px 0 10px">First things to say. Heart the sparks that feel true</h3>
+    <p class="loc-note" style="margin-top:-4px">These come straight from your own brand and your own words. They are starting points to react to, not scripts. Your GPT turns whichever ones you love into full posts.</p>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="S1" data-name="Spark: come home through breath" data-group="Sparks">♥</button>
+      <h3>"Breathe. Soften. Come home."</h3>
+      <p>An introduction to you and to the feeling of your work. Who you are, and the invitation underneath everything you do.</p>
+      <input class="fav-note" data-id="S1" data-name="Spark: come home through breath" data-group="Sparks" placeholder="Your note (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="S2" data-name="Spark: staying busy" data-group="Sparks">♥</button>
+      <h3>"Staying busy is how we keep from feeling"</h3>
+      <p>The braver, honest angle for Instagram. Naming the thing people do to avoid what is underneath, gently, without judgement.</p>
+      <input class="fav-note" data-id="S2" data-name="Spark: staying busy" data-group="Sparks" placeholder="Your note (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="S3" data-name="Spark: the path back home" data-group="Sparks">♥</button>
+      <h3>What "the path back home" means</h3>
+      <p>Your method, in your words. Rebirthing breathwork to release what words cannot reach. Could become a swipe of the steps over time.</p>
+      <input class="fav-note" data-id="S3" data-name="Spark: the path back home" data-group="Sparks" placeholder="Your note (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="S4" data-name="Spark: food for thought" data-group="Sparks">♥</button>
+      <h3>"Food for thought", a book that shaped you</h3>
+      <p>A recurring, soft series. A line from a book like Conversations with God, framed as what shaped you, never as doctrine.</p>
+      <input class="fav-note" data-id="S4" data-name="Spark: food for thought" data-group="Sparks" placeholder="Your note (optional)" />
+    </div>
+
+    <div class="shot">
+      <button class="fav-btn" data-id="S5" data-name="Spark: a moment from a session" data-group="Sparks">♥</button>
+      <h3>A small moment from a session</h3>
+      <p>What a breath can release, what you witnessed (with permission, or kept anonymous). Real, grounded, the trust engine for in person referrals.</p>
+      <input class="fav-note" data-id="S5" data-name="Spark: a moment from a session" data-group="Sparks" placeholder="Your note (optional)" />
+    </div>
+
+    <h3 style="font-family:var(--serif);font-weight:500;font-size:22px;margin:30px 0 10px">How often feels doable, not stressful?</h3>
+    <div class="shot">
+      <button class="fav-btn" data-id="C1" data-name="Cadence: one a week" data-group="Cadence">♥</button>
+      <h3>One post a week, to begin</h3>
+      <p>One calm content moment a week. This is the pace that survives. We can always add more once it feels light.</p>
+      <input class="fav-note" data-id="C1" data-name="Cadence: one a week" data-group="Cadence" placeholder="What feels right to you (optional)" />
+    </div>
+    <div class="shot">
+      <button class="fav-btn" data-id="C2" data-name="Cadence: two or three a week" data-group="Cadence">♥</button>
+      <h3>Two or three a week, once we have a rhythm</h3>
+      <p>A goal to grow into, not a starting line. We get there by batching, never by daily pressure.</p>
+      <input class="fav-note" data-id="C2" data-name="Cadence: two or three a week" data-group="Cadence" placeholder="What feels right to you (optional)" />
+    </div>
+
+    <div class="prep" style="margin-top:20px">
+      <h3>What are you excited about, and what worries you?</h3>
+      <p style="font-size:14.5px;margin:0 0 6px">There are no wrong answers. Knowing this is how we make the system fit you, instead of you fitting the system.</p>
+      <input class="fav-note" data-id="X1" data-name="Excited about" data-group="Feelings" placeholder="One thing I feel excited about..." />
+      <input class="fav-note" data-id="X2" data-name="Worried about" data-group="Feelings" placeholder="One thing I feel unsure or nervous about..." />
+    </div>
+
+    <!-- ============================ 3. TOOLKIT ============================ -->
+    <p class="eyebrow">The setup</p>
+    <h2 class="loc">What we install</h2>
+    <p class="loc-note">Everything here starts <b>free</b>. We only pay for something later if it clearly earns it, and I will always tell you why. The <span class="badge dan">Daniel</span> items I do for you. The <span class="badge you">You</span> items take about five minutes each, and we do them together.</p>
+
+    <div class="shot plain">
+      <h3>Your Brand GPT <span class="badge dan">Daniel</span> <span class="badge free">Free with ChatGPT</span></h3>
+      <p>A version of ChatGPT that already knows your brand, your voice, your method and your rules. You ask it for a week of posts and it writes them, in English and Spanish. It is being built now. You just open it and talk to it.</p>
+    </div>
+    <div class="shot plain">
+      <h3>Canva <span class="badge you">You</span> <span class="badge free">Free</span></h3>
+      <p>Where your graphics and swipes get made. I load your brand and your templates into it, so anything you make comes out on brand. You open a template and change the words and the photo.</p>
+    </div>
+    <div class="shot plain">
+      <h3>CapCut <span class="badge you">You</span> <span class="badge free">Free</span></h3>
+      <p>For your talking clips. It adds captions, cleans the sound, and trims the quiet bits for you. Free, and it runs on your Windows laptop.</p>
+    </div>
+    <div class="shot plain">
+      <h3>Meta Business Suite <span class="badge you">You</span> <span class="badge free">Free</span></h3>
+      <p>Free and made by Instagram itself. You drop finished posts into it and it publishes them for you, on the day and time we choose, to both accounts. This is the thing that removes the pressure to post in the moment.</p>
+    </div>
+    <div class="shot plain">
+      <h3>Canva Pro and Descript <span class="badge later">Later, maybe</span></h3>
+      <p>Two paid upgrades we do <b>not</b> start with. Canva Pro (about 15 a month) only if locked brand templates become worth it. Descript (about 24 a month) only if editing talking clips becomes the step where you get stuck. We decide from real use, not now.</p>
+    </div>
+
+    <!-- ============================ 4. CANVA SETUP ============================ -->
+    <p class="eyebrow">Canva, part one</p>
+    <h2 class="loc">Setting up Canva</h2>
+    <p class="loc-note">A short, one time setup. Most of this I do for you. You mainly need to create the account and accept an invite.</p>
+    <div class="prep">
+      <ol class="steps">
+        <li><b>Create a free Canva account</b> with your brand email. <span class="badge you">You</span></li>
+        <li><b>I load your brand kit</b>: your logo, your colours, your fonts, and your no dash rule, so everything you make matches the website. <span class="badge dan">Daniel</span></li>
+        <li><b>I build your templates</b>: a quote card, a swipe, and a clip caption style, all ready to fill in. <span class="badge dan">Daniel</span></li>
+        <li><b>I upload your photo and clip library</b> so your own images are right there when you need them, sorted into folders. <span class="badge dan">Daniel</span></li>
+        <li><b>You accept the invite</b> and we open one template together so it feels familiar. <span class="badge you">You</span></li>
+      </ol>
+    </div>
+
+    <!-- ============================ 5. CANVA USE ============================ -->
+    <p class="eyebrow">Canva, part two</p>
+    <h2 class="loc">Using Canva, the five moves</h2>
+    <p class="loc-note">This is the whole skill. Five moves, and you can make any post. You always begin from a template, never from nothing.</p>
+    <div class="prep">
+      <ol class="steps">
+        <li><b>Open a template.</b> Pick "quote card" or "swipe" from your folder. It is already designed.</li>
+        <li><b>Swap the photo.</b> Drag one of your own images in, or pick from the library. The layout holds itself.</li>
+        <li><b>Change the words.</b> Click the text, paste the line your GPT wrote. The font and colour are already set.</li>
+        <li><b>Glance for brand.</b> Does it feel like you, calm and warm? If yes, move on. If not, try another photo.</li>
+        <li><b>Export.</b> Press share, download, and it is ready for the scheduler. Done.</li>
+      </ol>
+      <div class="todo"><b>The only rule:</b> if you ever feel like you are "designing from scratch", stop. That is a sign the template is missing, and that is my job to fix, not yours.</div>
+    </div>
+
+    <!-- ============================ 6. FIRST SESSION ============================ -->
+    <p class="eyebrow">Our first time</p>
+    <h2 class="loc">The first session, post by post</h2>
+    <p class="loc-note">We do this side by side. The goal is not three perfect posts. The goal is for you to feel, in your own hands, that this is doable.</p>
+
+    <div class="prep">
+      <h4>Post 1 · we make it together</h4>
+      <p style="font-size:14.5px;margin:0 0 6px">We pick the easiest format you hearted. Your GPT writes it. We build it in Canva or CapCut together, start to finish, and load it into the scheduler. You watch how light it is.</p>
+      <h4>Post 2 · you lead, I sit beside you</h4>
+      <p style="font-size:14.5px;margin:0 0 6px">A different format or spark. This time your hands are on the keyboard and I only help when you ask. We find the bumpy parts and smooth them.</p>
+      <h4>Post 3 · you try on your own, then we look</h4>
+      <p style="font-size:14.5px;margin:0">You make one by yourself, in your own time, and we review it together after. Whatever felt hard becomes the next thing I set up for you, so it is easier next time.</p>
+      <div class="todo"><b>We learn along the way.</b> Every time you get stuck, that is information, not failure. It tells us exactly what to make more automatic.</div>
+    </div>
+
+    <!-- ============================ 7. RHYTHM ============================ -->
+    <p class="eyebrow">Once we are rolling</p>
+    <h2 class="loc">Your weekly rhythm</h2>
+    <p class="loc-note">A single content moment a week, not daily pressure. The system does the carrying.</p>
+    <div class="layer">
+      <div class="col">
+        <h4>Your content moment</h4>
+        <p class="sub">Maybe an hour, once a week</p>
+        <ul>
+          <li>Ask your GPT for the week's posts</li>
+          <li>Film any talking clips in one sitting</li>
+          <li>Build the graphics in Canva</li>
+          <li>Drop them all into the scheduler</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>The rest of the week</h4>
+        <p class="sub">A few minutes here and there</p>
+        <ul>
+          <li>The scheduler posts for you</li>
+          <li>You reply to comments and messages</li>
+          <li>That is the one live thing, and it matters most</li>
+          <li>Nothing else is on you</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ============================ 8. COST ============================ -->
+    <p class="eyebrow">Honesty about money</p>
+    <h2 class="loc">Free now, maybe a little later</h2>
+    <p class="loc-note">We begin at zero cost. Two upgrades exist, and we only reach for them when real use proves they are worth it.</p>
+    <div class="prep">
+      <ul>
+        <li><b>Now:</b> everything free. Brand GPT (inside the ChatGPT you already have), Canva free, CapCut free, scheduler free.</li>
+        <li><b>Maybe later, trigger one:</b> Canva Pro, about 15 a month, only if locked brand templates clearly save time and keep things consistent.</li>
+        <li><b>Maybe later, trigger two:</b> Descript, about 24 a month, only if editing talking clips turns out to be the step where you stall after a few weeks.</li>
+      </ul>
+      <div class="todo"><b>The rule:</b> a tool has to earn its money from your real experience before we pay for it. Never on a guess.</div>
+    </div>
+
+    <!-- ============================ WRAP ============================ -->
+    <div class="prep" style="margin-top:40px">
+      <h3>What we will have at the end</h3>
+      <p style="font-size:14.5px;margin:0 0 10px">A system that fits you: a GPT that writes in your voice, templates that look like your brand without effort, a scheduler that takes the pressure off, and a handful of posts already live. Most of all, the felt sense that you can do this, by yourself, on the days you want to.</p>
+      <p style="font-size:14.5px;margin:0">Before we sit down: read this, heart what excites you, note what worries you, and press <b>Send feedback</b>. Then we book one gentle session and make your first post together.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    Working session guide for review · Breathe with Diana · heart what excites you and add notes, then use Send feedback (bottom right) to email Daniel.
+  </footer>
+
+  <script src="feedback.js"></script>
+</body>
+</html>
