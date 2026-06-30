@@ -58,7 +58,10 @@
     var g = document.getElementById('fb-general'); if (g) g.value = '';
     refresh();
   }
-  function sentOk(msg) { clearAll(); flash(msg); }   // after a successful send the batch is captured, so start fresh
+  // Confirm only, NEVER auto-clear. Auto-clearing on a presumed-successful copy/email lost
+  // Diana's notes whenever the copy wasn't pasted or the Gmail window silently failed to open
+  // (common in WhatsApp/Telegram in-app browsers). Only the Reset button clears now.
+  function sentOk(msg) { flash(msg); }
 
   // ---- floating bar + panel ----
   var bar = document.createElement('div');
@@ -76,7 +79,7 @@
         '<button id="fb-email" type="button" class="fb-ghost">Email it</button>' +
         '<button id="fb-clear" type="button" class="fb-ghost fb-clear">Reset</button>' +
       '</div>' +
-      '<div id="fb-hint">“Copy” puts it on your clipboard, paste into WhatsApp/Telegram to Daniel. “Email” opens a pre-filled Gmail to him. Once you send, your marks clear so next time starts fresh.</div>' +
+      '<div id="fb-hint">“Copy” puts your notes on the clipboard, paste them into WhatsApp/Telegram to Daniel. “Email” opens a pre-filled Gmail to him. Your notes are saved on this device and stay right here until you tap Reset, so they can never get lost.</div>' +
     '</div>';
   document.addEventListener('DOMContentLoaded', mount);
   if (document.readyState !== 'loading') mount();
@@ -200,7 +203,7 @@
     document.getElementById('fb-copy').onclick = function () {
       var txt = compile();
       if (txt.indexOf('(no selections yet)') !== -1) { flash('Nothing marked yet'); return; }
-      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { sentOk('Copied & cleared, paste it to Daniel'); }, fallbackCopy.bind(null, txt));
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(function () { sentOk('Copied · now paste it to Daniel. Your notes stay saved here.'); }, fallbackCopy.bind(null, txt));
       else fallbackCopy(txt);
     };
     document.getElementById('fb-email').onclick = function () {
@@ -211,8 +214,8 @@
       // Gmail web compose works in any browser (no desktop mail client needed); opens pre-filled to MAILTO.
       var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=' + encodeURIComponent(MAILTO) + '&su=' + subj + '&body=' + body2;
       var w = window.open(gmail, '_blank');
-      if (!w) { location.href = 'mailto:' + MAILTO + '?subject=' + subj + '&body=' + body2; sentOk('Opened your mail, cleared here'); } // popup blocked, fall back to mail app
-      else sentOk('Opened Gmail, just hit send, cleared here');
+      if (!w) { location.href = 'mailto:' + MAILTO + '?subject=' + subj + '&body=' + body2; sentOk('Opened your mail · hit send there. Your notes stay saved here.'); } // popup blocked, fall back to mail app
+      else sentOk('Opened Gmail · hit send there. Your notes stay saved here.');
     };
     // Reset never uses confirm() (in-app browsers like WhatsApp/Telegram silently block it,
     // making the button look dead); a two-tap on the button is the confirmation instead.
@@ -260,7 +263,7 @@
     var ok = false;
     try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
     document.body.removeChild(ta);
-    if (ok) sentOk('Copied & cleared, paste it to Daniel'); else flash('Select all in the box and copy');
+    if (ok) sentOk('Copied · now paste it to Daniel. Your notes stay saved here.'); else flash('Select all in the box and copy');
   }
   function flash(msg) {
     var f = document.createElement('div'); f.className = 'fb-flash'; f.textContent = msg; document.body.appendChild(f);
