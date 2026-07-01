@@ -107,8 +107,8 @@
 
     /* ===================================================================== STORY */
     .story{background:var(--cream)}
-    .story-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center}
-    .story-photo{aspect-ratio:1/1;border-radius:10px;position:relative;overflow:hidden;
+    .story-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
+    .story-photo{aspect-ratio:1/1;border-radius:10px;position:sticky;top:150px;overflow:hidden;
       background:radial-gradient(at 60% 35%,rgba(201,123,90,.5),transparent 55%),linear-gradient(160deg,var(--bone),#ddd2bf)}
     .story blockquote{font-family:var(--serif);font-size:30px;line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
     .story p{font-size:15.5px;color:var(--umber);max-width:560px}
@@ -219,6 +219,7 @@
       .door-grid,.rev-grid,.logo-grid,.foot-grid{grid-template-columns:1fr}
       .hero h1{font-size:48px}.nav a.link{display:none}.srow{grid-template-columns:1fr;gap:4px}
       .srow .si{display:none}
+      .story-photo{position:static;top:auto}
     }
 
     /* ===================================================================== REVIEW ZONE (for Diana, not the site) */
