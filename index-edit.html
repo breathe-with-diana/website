@@ -100,6 +100,15 @@
     .facet p{font-size:14px;color:var(--muted);margin:0;line-height:1.6}
     .practice .boundary{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--muted);
       max-width:600px;margin:48px auto 0}
+    /* alternative photo version of the three facets (review comparison) */
+    .facets-alt{margin:66px auto 0;max-width:880px;border-top:1px dashed var(--hairline);padding-top:42px}
+    .alt-label{font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--sage);margin-bottom:30px}
+    .facets-photo{margin-top:0}
+    .facets-photo .fphoto{aspect-ratio:4/5;border-radius:12px;overflow:hidden;margin:0 auto 18px;position:relative}
+    .facets-photo .fphoto img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) contrast(.98)}
+    .facets-photo .fphoto::after{content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg,transparent 52%,rgba(201,123,90,.16));mix-blend-mode:multiply}
 
     /* ===================================================================== TWO DOORS */
     .doors{background:var(--cream)}
@@ -340,6 +349,29 @@
       </div>
     </div>
     <p class="boundary" data-edit="What it is · boundary line">It isn't therapy or medical treatment, and it isn't about chasing a big experience. It's a way of coming home to yourself, breath by breath.</p>
+
+    <!-- ALT: photo version of the three points, for Diana to compare against the icons above.
+         Photos from Pexels (free license, no attribution required). -->
+    <div class="facets-alt">
+      <div class="alt-label">Another option · photos instead of icons</div>
+      <div class="facets facets-photo">
+        <div class="facet">
+          <div class="fphoto"><img src="img/practice-breath.jpg" alt="A woman breathing gently, eyes closed, in warm light" loading="lazy"></div>
+          <h4><span data-edit="What it is · point 1 title">One connected breath</span></h4>
+          <p data-edit="What it is · point 1 text">One continuous circle, no pause between in and out. I guide you the whole way.</p>
+        </div>
+        <div class="facet">
+          <div class="fphoto"><img src="img/practice-body.jpg" alt="Hands resting over the heart" loading="lazy"></div>
+          <h4><span data-edit="What it is · point 2 title">The body leads</span></h4>
+          <p data-edit="What it is · point 2 text">Emotion rises and releases in its own time. Nothing to force.</p>
+        </div>
+        <div class="facet">
+          <div class="fphoto"><img src="img/practice-pace.jpg" alt="A person resting on the ground, calm and grounded" loading="lazy"></div>
+          <h4><span data-edit="What it is · point 3 title">At your own pace</span></h4>
+          <p data-edit="What it is · point 3 text">Grounded and trauma-informed. You stay in choice, and we only go as far as feels safe.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
