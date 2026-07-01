@@ -90,6 +90,18 @@
     .photo-tag{position:absolute;left:0;bottom:0;right:0;padding:14px 16px;font-family:var(--sans);font-size:11px;
       letter-spacing:.06em;color:var(--umber);background:rgba(244,239,230,.55);backdrop-filter:blur(2px)}
 
+    /* ===================================================================== THE PRACTICE (what it is) */
+    .practice{background:var(--bone);text-align:center;padding-top:20px}
+    .practice .wrap-narrow{max-width:800px}
+    .practice .lead{font-size:18px;color:var(--umber);max-width:660px;margin:0 auto 16px}
+    .breath-mark{display:block;width:60px;height:60px;margin:34px auto 0}
+    .facets{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin:54px auto 0;max-width:920px;text-align:left}
+    .facet h4{font-family:var(--sans);font-weight:600;font-size:14.5px;margin:0 0 7px}
+    .facet h4 .fi{font-family:var(--serif);font-style:italic;color:var(--terracotta);margin-right:9px}
+    .facet p{font-size:14px;color:var(--muted);margin:0;line-height:1.6}
+    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--muted);
+      max-width:600px;margin:48px auto 0}
+
     /* ===================================================================== TWO DOORS */
     .doors{background:var(--cream)}
     .door-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:42px}
@@ -222,7 +234,7 @@
 
     @media(max-width:880px){
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
-      .door-grid,.rev-grid,.logo-grid,.foot-grid{grid-template-columns:1fr}
+      .door-grid,.rev-grid,.logo-grid,.foot-grid,.facets{grid-template-columns:1fr}
       .hero h1{font-size:48px}.nav a.link{display:none}.srow{grid-template-columns:1fr;gap:4px}
       .srow .si{display:none}
     }
@@ -267,6 +279,7 @@
       <!-- final chosen mark, outlined compact lockup (figure + seeds + wordmark) -->
       <img id="navmark" src="logo-mark.svg" alt="Breathe with Diana" />
     </a>
+    <a class="link" href="#practice">What it is</a>
     <a class="link" href="#doors">The work</a>
     <a class="link" href="#session">A session</a>
     <a class="link" href="#story">My story</a>
@@ -290,6 +303,35 @@
       </div>
     </div>
     <div class="hero-photo"><img src="img/diana-hero.jpg" alt="Diana guiding a one-to-one rebirthing breathwork session"></div>
+  </div>
+</section>
+
+<!-- ===== THE PRACTICE (what rebirthing breathwork actually is) ===== -->
+<section class="practice" id="practice">
+  <div class="wrap-narrow">
+    <div class="eyebrow" data-edit="What it is · eyebrow">The practice</div>
+    <h2 class="sec" data-edit="What it is · heading">So, what is rebirthing breathwork?</h2>
+    <p class="lead" data-edit="What it is · definition">Rebirthing is a specific lineage of conscious, connected breathwork. It's a gentle way of breathing that helps your body let go of what it has been holding. There are no pauses between the inhale and the exhale, just one soft, continuous circle of breath. That simple rhythm signals to your nervous system that it's safe to soften, and lets feeling move through you, often without needing to explain or talk it through.</p>
+    <p class="lead" data-edit="What it is · why it works">We carry so much in the body that words never quite reach. This breath works underneath the story, so old emotion can surface, be felt, and finally loosen its grip.</p>
+    <svg class="breath-mark" viewBox="0 0 56 56" fill="none" stroke="#C97B5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M41 16 A17 17 0 1 0 45 31"/>
+      <path d="M41 8 L41 16 L33 16"/>
+    </svg>
+    <div class="facets">
+      <div class="facet">
+        <h4><span class="fi">i</span><span data-edit="What it is · point 1 title">One connected breath</span></h4>
+        <p data-edit="What it is · point 1 text">No pause between breathing in and out, just a continuous circle. That's the whole technique, and I guide you the entire way.</p>
+      </div>
+      <div class="facet">
+        <h4><span class="fi">ii</span><span data-edit="What it is · point 2 title">The body leads</span></h4>
+        <p data-edit="What it is · point 2 text">Feeling held in the body rises and releases in its own time. There's nothing to force, and no right way to do it.</p>
+      </div>
+      <div class="facet">
+        <h4><span class="fi">iii</span><span data-edit="What it is · point 3 title">At your own pace</span></h4>
+        <p data-edit="What it is · point 3 text">Grounded and trauma-informed. You stay in choice the whole time, and we only ever go as far as feels safe.</p>
+      </div>
+    </div>
+    <p class="boundary" data-edit="What it is · boundary line">It isn't therapy or medical treatment, and it isn't about chasing a big experience. It's a way of coming home to yourself, breath by breath.</p>
   </div>
 </section>
 
@@ -413,7 +455,7 @@
 <section class="reset" id="reset">
   <div class="wrap-narrow">
     <div class="eyebrow" style="color:var(--ochre)" data-edit="Free reset · eyebrow">Start here · free</div>
-    <h2 data-edit="Free reset · heading">A free 10-minute breath reset.</h2>
+    <h2 data-edit="Free reset · heading">Your free breath reset.</h2>
     <p data-edit="Free reset · text">One short guided recording you can use anytime you feel overwhelmed. Leave your email and I'll send it straight to you, no spam, just the audio and the occasional honest note.</p>
     <form class="reset-form" onsubmit="return false">
       <input type="email" placeholder="your@email.com" aria-label="email">
@@ -445,7 +487,7 @@
         <details open><summary>Do I need any experience?</summary><p data-edit="FAQ · experience answer">None at all. I guide you through every breath. Most people who come have never done breathwork before.</p></details>
         <details><summary>Will I feel calm afterward?</summary><p data-edit="FAQ · calm answer">Sometimes, but calm isn't the promise. Rebirthing tends to move emotion rather than soothe it. Many people feel tired and tender right after, and lighter the next day.</p></details>
         <details><summary>Is this therapy?</summary><p data-edit="FAQ · therapy answer">No. It's a complement to inner work, not a replacement for therapy or medical care. If you're in treatment, keep your therapist in the loop.</p></details>
-        <details><summary>Can we do it online?</summary><p data-edit="FAQ · online answer">Yes. Online sessions work well over video once we've had a short call to set up your space safely. [Diana to confirm online offering.]</p></details>
+        <details><summary>Can we do it online?</summary><p data-edit="FAQ · online answer">Yes. Online sessions work well over video once we've had a short call to set up your space safely.</p></details>
         <details><summary>What if I need to reschedule?</summary><p data-edit="FAQ · reschedule answer">Life happens, just give me 24 hours' notice and we'll find a new time.</p></details>
       </div>
     </div>

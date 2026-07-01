@@ -84,13 +84,26 @@
     .photo-tag{position:absolute;left:0;bottom:0;right:0;padding:14px 16px;font-family:var(--sans);font-size:11px;
       letter-spacing:.06em;color:var(--umber);background:rgba(244,239,230,.55);backdrop-filter:blur(2px)}
 
+    /* ===================================================================== THE PRACTICE (what it is) */
+    .practice{background:var(--bone);text-align:center;padding-top:20px}
+    .practice .wrap-narrow{max-width:800px}
+    .practice .lead{font-size:18px;color:var(--umber);max-width:660px;margin:0 auto 16px}
+    .breath-mark{display:block;width:60px;height:60px;margin:34px auto 0}
+    .facets{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin:54px auto 0;max-width:920px;text-align:left}
+    .facet h4{font-family:var(--sans);font-weight:600;font-size:14.5px;margin:0 0 7px}
+    .facet h4 .fi{font-family:var(--serif);font-style:italic;color:var(--terracotta);margin-right:9px}
+    .facet p{font-size:14px;color:var(--muted);margin:0;line-height:1.6}
+    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--muted);
+      max-width:600px;margin:48px auto 0}
+
     /* ===================================================================== TWO DOORS */
     .doors{background:var(--cream)}
     .door-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:42px}
-    .door{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:38px 34px}
+    .door{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:38px 34px;display:flex;flex-direction:column}
     .door .ix{width:46px;height:46px;margin-bottom:20px}
     .door h3{font-family:var(--serif);font-size:27px;font-weight:500;margin:0 0 10px}
     .door p{font-size:15px;color:var(--umber);margin:0 0 6px}
+    .door .door-cta{margin-top:auto;padding-top:26px}
     .door .tagword{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--terracotta)}
     .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:23px;color:var(--umber)}
 
@@ -216,7 +229,7 @@
 
     @media(max-width:880px){
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
-      .door-grid,.rev-grid,.logo-grid,.foot-grid{grid-template-columns:1fr}
+      .door-grid,.rev-grid,.logo-grid,.foot-grid,.facets{grid-template-columns:1fr}
       .hero h1{font-size:48px}.nav a.link{display:none}.srow{grid-template-columns:1fr;gap:4px}
       .srow .si{display:none}
       .story-photo{position:static;top:auto}
@@ -267,6 +280,7 @@
       <!-- final chosen mark, outlined compact lockup (figure + seeds + wordmark) -->
       <img id="navmark" src="logo-mark.svg" alt="Breathe with Diana" />
     </a>
+    <a class="link" href="#practice">What it is</a>
     <a class="link" href="#doors">The work</a>
     <a class="link" href="#session">What to expect</a>
     <a class="link" href="#story">My journey home</a>
@@ -283,7 +297,7 @@
     <div>
       <div class="eyebrow">Rebirthing breathwork · In person &amp; online</div>
       <h1>Coming home<br>to your <em>body</em>.</h1>
-      <p class="sub">For the people who have spent years doing everything they were supposed to do, yet still feel disconnected from themselves. This is an invitation to slow down, return to your body, and begin building a kinder relationship with yourself, not by becoming someone new, but by <em>remembering who you've always been</em>.</p>
+      <p class="sub">For people who have spent years doing everything &ldquo;they were supposed to do,&rdquo; yet still feel disconnected from themselves. This is an invitation to slow down, return to your body, and begin building a kinder relationship with yourself, not by becoming someone new, but by <em>remembering who you've always been</em>.</p>
       <div class="hero-cta">
         <a class="btn btn-primary" href="#book">Book a session</a>
         <a class="btn btn-ghost" href="#reset">Start with a free 10-min reset</a>
@@ -296,6 +310,42 @@
     <div class="sec-fb-main">
       <span class="sec-fb-label">Your notes on this section · Hero</span>
       <input class="fav-note" data-id="sec-hero" data-name="Hero · Coming home to your body" data-group="Website" placeholder="The headline, the photo, the opening words (optional)" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== THE PRACTICE (what rebirthing breathwork actually is) ===== -->
+<section class="practice" id="practice">
+  <div class="wrap-narrow">
+    <div class="eyebrow">The practice</div>
+    <h2 class="sec">So, what is rebirthing breathwork?</h2>
+    <p class="lead">Rebirthing is a specific lineage of conscious, connected breathwork. It's a gentle way of breathing that helps your body let go of what it has been holding. There are no pauses between the inhale and the exhale, just one soft, continuous circle of breath. That simple rhythm signals to your nervous system that it's safe to soften, and lets feeling move through you, often without needing to explain or talk it through.</p>
+    <p class="lead">We carry so much in the body that words never quite reach. This breath works underneath the story, so old emotion can surface, be felt, and finally loosen its grip.</p>
+    <svg class="breath-mark" viewBox="0 0 56 56" fill="none" stroke="#C97B5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M41 16 A17 17 0 1 0 45 31"/>
+      <path d="M41 8 L41 16 L33 16"/>
+    </svg>
+    <div class="facets">
+      <div class="facet">
+        <h4><span class="fi">i</span>One connected breath</h4>
+        <p>No pause between breathing in and out, just a continuous circle. That's the whole technique, and I guide you the entire way.</p>
+      </div>
+      <div class="facet">
+        <h4><span class="fi">ii</span>The body leads</h4>
+        <p>Feeling held in the body rises and releases in its own time. There's nothing to force, and no right way to do it.</p>
+      </div>
+      <div class="facet">
+        <h4><span class="fi">iii</span>At your own pace</h4>
+        <p>Grounded and trauma-informed. You stay in choice the whole time, and we only ever go as far as feels safe.</p>
+      </div>
+    </div>
+    <p class="boundary">It isn't therapy or medical treatment, and it isn't about chasing a big experience. It's a way of coming home to yourself, breath by breath.</p>
+  </div>
+  <div class="sec-fb narrow">
+    <button class="fav-btn" data-id="sec-practice" data-name="The practice · What rebirthing breathwork is" data-group="Website">♥</button>
+    <div class="sec-fb-main">
+      <span class="sec-fb-label">Your notes on this section · What it is</span>
+      <input class="fav-note" data-id="sec-practice" data-name="The practice · What rebirthing breathwork is" data-group="Website" placeholder="Does this describe the practice the way you'd say it? (optional)" />
     </div>
   </div>
 </section>
@@ -316,6 +366,7 @@
         <div class="tagword">Everyday calm</div>
         <h3>Start gentle</h3>
         <p>A simple breathing practice to slow down, drop into your body, and feel what it's like to come home to yourself. No experience needed.</p>
+        <div class="door-cta"><a class="btn btn-ghost" href="#reset">Get the free breath reset</a></div>
       </div>
       <div class="door">
         <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#C97B5A" stroke-width="2.4" stroke-linecap="round">
@@ -323,7 +374,8 @@
         </svg>
         <div class="tagword">The deep work</div>
         <h3>Go deeper</h3>
-        <p>Rebirthing breathwork to release what words can't reach. It works underneath the story, releasing the emotion the body has been holding, so the patterns you've carried for years finally loosen their grip. You leave lighter, clearer, more yourself.</p>
+        <p>Rebirthing breathwork to release what words can't reach. It works underneath the story, releasing the emotions the body has been holding, so the patterns you've carried for years finally loosen their grip. You leave lighter, clearer, more yourself.</p>
+        <div class="door-cta"><a class="btn btn-primary" href="#book">Reserve a free 15-min call</a></div>
       </div>
     </div>
     <p class="doors-note">“It's not about fixing you. It's about coming home to what's already there.”</p>
@@ -342,12 +394,12 @@
   <div class="wrap">
     <div class="eyebrow">What to expect</div>
     <h2 class="sec">Every session is different, because every person is different.</h2>
-    <p class="lead muted" style="max-width:680px">Some people laugh. Some cry. Some revisit memories. Some simply feel a deep sense of peace. There isn't a “right” experience, and there is nothing you need to force. My role is to create a space where you feel safe enough to be yourself: safe enough to soften, safe enough to let your body guide the experience at its own pace. Whether you cry, laugh, stay quiet, or simply breathe, you are welcome exactly as you are.</p>
+    <p class="lead muted" style="max-width:680px">Some people laugh. Some cry. Some revisit memories. Some simply feel a deep sense of peace. There isn't a “right” experience, and there is nothing you need to force. My role is to create a space where you feel safe enough to be yourself: safe enough to soften, safe enough to let your body guide the experience at its own pace.</p>
     <div class="session-grid">
       <div>
         <div class="step"><div class="n">1</div><div><h4>We begin with a conversation</h4><p>Before we breathe, we take time to get to know each other. We'll talk about what brought you here, what feels present in your life, your intentions for the session, and anything important about your physical or emotional health. I'll explain exactly how the process works, answer your questions, and make sure you feel comfortable before we begin.</p></div></div>
         <div class="step"><div class="n">2</div><div><h4>Then we breathe</h4><p>You'll lie down comfortably while I guide you through the connected breathing pattern used in rebirthing. Throughout, I'm fully present with you: listening to your breath, noticing how your body responds, gently encouraging you when needed, and giving you space when silence is what's needed most. You don't have to hold yourself together here. I'll be right beside you, every step of the way.</p></div></div>
-        <div class="step"><div class="n">3</div><div><h4>Then we trust your body</h4><p>Some people release emotions they've held for years. Others feel warmth, tingling, waves of energy, deep peace or profound stillness. Many are surprised by how deeply they can feel, how much love they have for themselves, and how naturally clarity begins to emerge. There is nothing you need to achieve. We simply welcome whatever your body is ready to reveal.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Then we trust your body</h4><p>Some people release emotions they've held for years. Others feel warmth, tingling, waves of energy, deep peace or profound stillness. Many are surprised by how deeply they can feel, how much love they have for themselves, and how clarity begins to emerge naturally. There is nothing you need to achieve. We simply welcome whatever your body is ready to reveal.</p></div></div>
         <div class="step"><div class="n">4</div><div><h4>We take time to integrate</h4><p>The session doesn't end the moment the breathing does. We slow down together, talk about what came up, and let your nervous system settle before you leave. I'll also check in with you afterwards, because some of the deepest insights keep unfolding long after the session has finished.</p></div></div>
       </div>
       <div class="honest">
@@ -356,8 +408,7 @@
         <p>Sessions usually last around two and a half hours and can be emotionally and physically intense. Some people leave feeling light and energized. Others feel deeply relaxed, emotional, or pleasantly tired.</p>
         <p>I won't promise to heal you or transform your life in one session. What I do promise is a safe, grounded, trauma-informed space where you can explore whatever arises at your own pace.</p>
         <p>There's nothing you need to force, and nothing you need to prove. I trust your body's own wisdom and timing, and I'll be there to support you, not to push you toward a breakthrough. Because when we feel truly safe, the body often knows exactly what it needs to do.</p>
-        <p class="muted" style="color:rgba(244,239,230,.6);font-size:13px">Rebirthing isn't suitable for everyone. If you're pregnant or have certain heart, respiratory, neurological, or mental-health conditions, we'll talk everything through on a free consultation before deciding whether this work is right for you.</p>
-        <div class="pull">You don't have to hold yourself together here. I'll be right beside you.</div>
+        <div class="pull">You don't have to hold yourself together here. I'll be right&nbsp;beside&nbsp;you.</div>
       </div>
     </div>
     <div class="sec-fb">
@@ -380,9 +431,9 @@
       <div class="story-photo"><img src="img/diana-story.jpg" alt="Diana with a client during a session"></div>
       <div>
         <div class="eyebrow">My journey home</div>
-        <blockquote>It wasn't that my life was wrong. It just wasn't fully mine.</blockquote>
-        <p>For a long time, I believed that if I made the right choices, happiness would naturally follow. So I did what I was supposed to do.</p>
-        <p>I studied engineering because it was the sensible path. I moved across the world to build a successful career. I earned scholarships, spoke new languages, built businesses, got married, and kept reaching the milestones that looked impressive from the outside.</p>
+        <blockquote>It wasn't that my life was wrong.<br>It just wasn't fully mine.</blockquote>
+        <p>For a long time, I believed that if I made the right choices, happiness would naturally follow. So I did what I was “supposed to do”.</p>
+        <p>I studied engineering because it promised the kind of future my parents wanted me to have: a solid career, good money, security. I moved across the world to build a successful career. I earned scholarships, learned new languages, built businesses, got married, and kept reaching the milestones that looked impressive from the outside.</p>
         <details class="story-more">
           <summary class="story-more-toggle"></summary>
           <div class="more-body">
@@ -393,7 +444,7 @@
             <p>Rebirthing wasn't a quick fix. It didn't magically erase my fears or my old patterns. What it gave me was something much more valuable: a way to reconnect with my body, process emotions I had carried for years, and slowly rebuild the trust I had lost in myself.</p>
             <p>Breath by breath, I stopped trying to become someone better. I started becoming more myself.</p>
             <p>Today, I live a life that once felt impossible. Not because it's perfect, but because it's aligned with who I am. I continue to choose curiosity over certainty, authenticity over expectation, and trust over fear.</p>
-            <p>I work with women who have spent years building a life that makes sense, but no longer feels like home. They're intelligent, capable and successful. From the outside, their lives look full. Yet inside, something feels disconnected. They don't need someone to tell them who to become. They need a safe space to remember who they've always been.</p>
+            <p>I work with people who have spent years building a life that makes sense, but no longer feels like home. They're intelligent, capable and successful. From the outside, their lives look full. Yet inside, something feels disconnected. They don't need someone to tell them who to become. They need a safe space to remember who they've always been.</p>
             <p>That's why I do this work. Not because I have all the answers, but because I know what it's like to lose yourself while trying to build a life that makes sense. And I know how powerful it is to find your way back.</p>
           </div>
         </details>
@@ -459,17 +510,17 @@
 <section class="reset" id="reset">
   <div class="wrap-narrow">
     <div class="eyebrow" style="color:var(--ochre)">Start here · free</div>
-    <h2>A free 10-minute breath reset.</h2>
+    <h2>Your free breath reset.</h2>
     <p>If you're not ready for a full session yet, this is a gentle place to begin. A free guided practice to help you slow down, reconnect with your breath, and experience a small taste of this work, wherever you are. Leave your email below and I'll send it straight to you.</p>
     <form class="reset-form" onsubmit="return false">
       <input type="email" placeholder="your@email.com" aria-label="email">
       <button class="btn btn-primary" type="submit">Send me the reset</button>
     </form>
     <div class="sec-fb narrow">
-      <button class="fav-btn" data-id="sec-reset" data-name="Free 10-min reset" data-group="Website">♥</button>
+      <button class="fav-btn" data-id="sec-reset" data-name="Free breath reset" data-group="Website">♥</button>
       <div class="sec-fb-main">
         <span class="sec-fb-label">Your notes on this section · Free reset</span>
-        <input class="fav-note" data-id="sec-reset" data-name="Free 10-min reset" data-group="Website" placeholder="The free breath reset offer (optional)" />
+        <input class="fav-note" data-id="sec-reset" data-name="Free breath reset" data-group="Website" placeholder="The free breath reset offer (optional)" />
       </div>
     </div>
   </div>
@@ -479,7 +530,7 @@
 <section id="book">
   <div class="wrap">
     <div class="eyebrow">Work with me</div>
-    <h2 class="sec">Start with a free call.</h2>
+    <h2 class="sec">Start your journey.</h2>
     <p class="lead muted" style="margin-bottom:6px">Every session begins with a free 15-minute call, so we can make sure it's right for you, answer your questions, and find a time together. You book the session on that call.</p>
     <div class="book-grid">
       <div class="price-card">
@@ -498,7 +549,7 @@
         <details open><summary>Do I need any experience?</summary><p>Not at all. Most people who come to me have never experienced rebirthing before. I'll guide you through every step, and you don't need to know how to breathe “correctly”. We simply begin together.</p></details>
         <details><summary>Will I feel calm afterward?</summary><p>Sometimes, but calm isn't the promise. Rebirthing tends to move emotion rather than soothe it. Many people feel tired and tender right after, and lighter the next day.</p></details>
         <details><summary>Is this therapy?</summary><p>No. It's a complement to inner work, not a replacement for therapy or medical care. If you're in treatment, keep your therapist in the loop.</p></details>
-        <details><summary>Can we do it online?</summary><p>Yes. Online sessions work well over video once we've had a short call to set up your space safely. [Diana to confirm online offering.]</p></details>
+        <details><summary>Can we do it online?</summary><p>Yes. Online sessions work well over video once we've had a short call to set up your space safely.</p></details>
         <details><summary>What if I need to reschedule?</summary><p>Life happens, just give me 24 hours' notice and we'll find a new time.</p></details>
       </div>
     </div>
