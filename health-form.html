@@ -65,6 +65,13 @@
 
     label.fld{display:block;font-size:13.5px;font-weight:500;color:var(--umber);margin-bottom:7px}
     .fld .opt{font-weight:400;color:var(--muted);font-size:11.5px}
+
+    /* checklist question, tick-any-that-apply */
+    .checklist{margin-top:10px;display:flex;flex-direction:column;gap:9px}
+    .chk{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;color:var(--umber);line-height:1.4;cursor:pointer}
+    .chk input{width:16px;height:16px;margin-top:1px;accent-color:var(--terracotta);flex-shrink:0}
+    .chk-none{padding-top:8px;margin-top:2px;border-top:1px solid var(--hairline);font-weight:500}
+    .if-yes{margin-top:10px}
     input[type=text]{width:100%;border:1px solid var(--hairline);border-radius:9px;background:#FCFAF5;
       padding:11px 13px;font-family:var(--sans);font-size:14px;color:var(--umber);outline:none;transition:border-color .15s,background .15s}
     textarea{width:100%;border:1px solid var(--hairline);border-radius:9px;background:#FCFAF5;
@@ -110,69 +117,65 @@
 
     <!-- ===== Section: your body ===== -->
     <div class="sectionhead">A few things about your body</div>
-    <p class="sectionsub">Just tap Yes or No. If you are not sure, lean towards Yes and we will talk it through.</p>
+    <p class="sectionsub">Just tick what applies. If you are not sure, lean towards checking it and we will talk it through.</p>
 
-    <div class="q" data-id="q-heart" data-name="Heart condition, heart attack or stroke" data-group="Body">
+    <div class="q" data-id="q-conditions" data-name="Health conditions checklist" data-group="Body">
       <div class="q-top">
-        <div class="q-text">Do you have a heart condition, or have you ever had a heart attack or a stroke?</div>
-        <button type="button" class="fav-btn" data-id="q-heart" data-name="Heart condition, heart attack or stroke" data-group="Body" aria-label="mark this question">♥</button>
+        <div class="q-text">Do you currently have any of the following? <span class="q-help">Please check any that apply.</span></div>
+        <button type="button" class="fav-btn" data-id="q-conditions" data-name="Health conditions checklist" data-group="Body" aria-label="mark this question">♥</button>
       </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-heart" placeholder="Diana's note on this question…">
+      <div class="checklist">
+        <label class="chk"><input type="checkbox" class="cond"><span>Heart disease, previous heart attack, stroke, or aneurysm</span></label>
+        <label class="chk"><input type="checkbox" class="cond"><span>High blood pressure</span></label>
+        <label class="chk"><input type="checkbox" class="cond"><span>Epilepsy or seizures</span></label>
+        <label class="chk"><input type="checkbox" class="cond"><span>Asthma or other significant breathing condition</span></label>
+        <label class="chk"><input type="checkbox" class="cond"><span>Detached retina or glaucoma</span></label>
+        <label class="chk"><input type="checkbox" class="cond"><span>Uncontrolled thyroid condition</span></label>
+        <label class="chk"><input type="checkbox" class="cond"><span>Diabetes</span></label>
+        <label class="chk"><input type="checkbox" class="cond"><span>Recent surgery or significant injury (last 6 months)</span></label>
+        <label class="chk"><input type="checkbox" class="cond"><span>Severe mental health condition (such as psychosis, schizophrenia, bipolar disorder, or severe PTSD)</span></label>
+        <label class="chk chk-none"><input type="checkbox" id="cond-none"><span>None of the above</span></label>
+      </div>
+      <input type="text" class="fav-note" data-id="q-conditions" placeholder="Diana's note on this question…">
     </div>
 
-    <div class="q" data-id="q-bp" data-name="Blood pressure" data-group="Body">
+    <div class="q" data-id="q-conditions-detail" data-name="Tell me more about checked conditions" data-group="Body">
       <div class="q-top">
-        <div class="q-text">Do you have high blood pressure, or low blood pressure that troubles you?</div>
-        <button type="button" class="fav-btn" data-id="q-bp" data-name="Blood pressure" data-group="Body" aria-label="mark this question">♥</button>
+        <label class="fld" for="conditions-detail" style="margin-bottom:0">If you checked any of the above, please tell me more <span class="opt">· optional</span></label>
+        <button type="button" class="fav-btn" data-id="q-conditions-detail" data-name="Tell me more about checked conditions" data-group="Body" aria-label="mark this question">♥</button>
       </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-bp" placeholder="Diana's note on this question…">
+      <textarea id="conditions-detail" placeholder="Whatever feels relevant…" style="margin-top:8px"></textarea>
+      <input type="text" class="fav-note" data-id="q-conditions-detail" placeholder="Diana's note on this question…">
     </div>
 
-    <div class="q" data-id="q-aneurysm" data-name="Aneurysm, personal or family" data-group="Body">
+    <div class="q" data-id="q-meds-breathing" data-name="Medication affecting breathing or emotional state" data-group="Body">
       <div class="q-top">
-        <div class="q-text">Have you ever had an aneurysm, or does aneurysm run in your family?</div>
-        <button type="button" class="fav-btn" data-id="q-aneurysm" data-name="Aneurysm, personal or family" data-group="Body" aria-label="mark this question">♥</button>
+        <div class="q-text">Are you currently taking any medication that may affect your breathing or emotional state?</div>
+        <button type="button" class="fav-btn" data-id="q-meds-breathing" data-name="Medication affecting breathing or emotional state" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-aneurysm" placeholder="Diana's note on this question…">
-    </div>
-
-    <div class="q" data-id="q-epilepsy" data-name="Epilepsy or seizures" data-group="Body">
-      <div class="q-top">
-        <div class="q-text">Do you have epilepsy, or any history of seizures?</div>
-        <button type="button" class="fav-btn" data-id="q-epilepsy" data-name="Epilepsy or seizures" data-group="Body" aria-label="mark this question">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-epilepsy" placeholder="Diana's note on this question…">
-    </div>
-
-    <div class="q" data-id="q-eyes" data-name="Glaucoma or detached retina" data-group="Body">
-      <div class="q-top">
-        <div class="q-text">Do you have glaucoma, a detached retina, or another serious eye condition?</div>
-        <button type="button" class="fav-btn" data-id="q-eyes" data-name="Glaucoma or detached retina" data-group="Body" aria-label="mark this question">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-eyes" placeholder="Diana's note on this question…">
+      <input type="text" class="if-yes" placeholder="If yes, please list…">
+      <input type="text" class="fav-note" data-id="q-meds-breathing" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-pregnant" data-name="Pregnancy" data-group="Body">
       <div class="q-top">
-        <div class="q-text">Are you pregnant, or could you be?</div>
+        <div class="q-text">Are you pregnant?</div>
         <button type="button" class="fav-btn" data-id="q-pregnant" data-name="Pregnancy" data-group="Body" aria-label="mark this question">♥</button>
       </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <div class="yn"><button type="button" class="yn-no">No</button><button type="button" class="yn-yes">Yes</button></div>
+      <input type="text" class="if-yes" placeholder="If yes, how many weeks?">
       <input type="text" class="fav-note" data-id="q-pregnant" placeholder="Diana's note on this question…">
     </div>
 
-    <div class="q" data-id="q-asthma" data-name="Asthma or breathing condition" data-group="Body">
+    <div class="q" data-id="q-allergies" data-name="Allergies or sensitivities" data-group="Body">
       <div class="q-top">
-        <div class="q-text">Do you have asthma or another breathing condition?<span class="q-help">If yes, please bring your inhaler with you 🤎</span></div>
-        <button type="button" class="fav-btn" data-id="q-asthma" data-name="Asthma or breathing condition" data-group="Body" aria-label="mark this question">♥</button>
+        <div class="q-text">Do you have any allergies or sensitivities? <span class="q-help">e.g. essential oils, scents</span></div>
+        <button type="button" class="fav-btn" data-id="q-allergies" data-name="Allergies or sensitivities" data-group="Body" aria-label="mark this question">♥</button>
       </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-asthma" placeholder="Diana's note on this question…">
+      <div class="yn"><button type="button" class="yn-no">No</button><button type="button" class="yn-yes">Yes</button></div>
+      <input type="text" class="if-yes" placeholder="If yes, please specify…">
+      <input type="text" class="fav-note" data-id="q-allergies" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-bones" data-name="Osteoporosis or fragile bones" data-group="Body">
@@ -184,15 +187,6 @@
       <input type="text" class="fav-note" data-id="q-bones" placeholder="Diana's note on this question…">
     </div>
 
-    <div class="q" data-id="q-surgery" data-name="Recent surgery or injury" data-group="Body">
-      <div class="q-top">
-        <div class="q-text">Have you had surgery or a significant injury in the last six months?</div>
-        <button type="button" class="fav-btn" data-id="q-surgery" data-name="Recent surgery or injury" data-group="Body" aria-label="mark this question">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-surgery" placeholder="Diana's note on this question…">
-    </div>
-
     <div class="q" data-id="q-faint" data-name="Fainting or dizziness" data-group="Body">
       <div class="q-top">
         <div class="q-text">Do you faint easily, or feel dizzy or light-headed often?</div>
@@ -202,58 +196,32 @@
       <input type="text" class="fav-note" data-id="q-faint" placeholder="Diana's note on this question…">
     </div>
 
-    <div class="q" data-id="q-other-medical" data-name="Diabetes, thyroid, other condition" data-group="Body">
-      <div class="q-top">
-        <div class="q-text">Do you have diabetes, a thyroid condition, or another ongoing health condition?</div>
-        <button type="button" class="fav-btn" data-id="q-other-medical" data-name="Diabetes, thyroid, other condition" data-group="Body" aria-label="mark this question">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-other-medical" placeholder="Diana's note on this question…">
-    </div>
-
     <!-- ===== Section: heart and mind ===== -->
     <div class="sectionhead">A few things about your heart and mind</div>
     <p class="sectionsub">Breathwork can bring up deep feelings. This just helps me support you with extra gentleness.</p>
 
-    <div class="q" data-id="q-psychosis" data-name="Psychosis, schizophrenia, bipolar" data-group="Mind">
+    <div class="q" data-id="q-mental-support" data-name="Currently receiving mental or emotional support" data-group="Mind">
       <div class="q-top">
-        <div class="q-text">Have you ever experienced psychosis, schizophrenia, or bipolar disorder?</div>
-        <button type="button" class="fav-btn" data-id="q-psychosis" data-name="Psychosis, schizophrenia, bipolar" data-group="Mind" aria-label="mark this question">♥</button>
+        <div class="q-text">Are you currently receiving treatment or support for your mental or emotional wellbeing?</div>
+        <button type="button" class="fav-btn" data-id="q-mental-support" data-name="Currently receiving mental or emotional support" data-group="Mind" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-psychosis" placeholder="Diana's note on this question…">
+      <textarea class="if-yes" placeholder="If yes, please briefly explain…" style="min-height:64px"></textarea>
+      <input type="text" class="fav-note" data-id="q-mental-support" placeholder="Diana's note on this question…">
     </div>
 
-    <div class="q" data-id="q-trauma" data-name="Severe anxiety, panic, PTSD, recent trauma" data-group="Mind">
+    <div class="q" data-id="q-trauma" data-name="Severe anxiety, panic, recent trauma" data-group="Mind">
       <div class="q-top">
-        <div class="q-text">Are you living with severe anxiety or panic attacks, PTSD, or moving through a recent trauma?</div>
-        <button type="button" class="fav-btn" data-id="q-trauma" data-name="Severe anxiety, panic, PTSD, recent trauma" data-group="Mind" aria-label="mark this question">♥</button>
+        <div class="q-text">Are you living with severe anxiety or panic attacks, or moving through a recent trauma?</div>
+        <button type="button" class="fav-btn" data-id="q-trauma" data-name="Severe anxiety, panic, recent trauma" data-group="Mind" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
       <input type="text" class="fav-note" data-id="q-trauma" placeholder="Diana's note on this question…">
     </div>
 
-    <div class="q" data-id="q-psych-care" data-name="Under psychiatric care or mental-health medication" data-group="Mind">
-      <div class="q-top">
-        <div class="q-text">Are you currently under psychiatric care, or taking medication for your mental health?</div>
-        <button type="button" class="fav-btn" data-id="q-psych-care" data-name="Under psychiatric care or mental-health medication" data-group="Mind" aria-label="mark this question">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-psych-care" placeholder="Diana's note on this question…">
-    </div>
-
     <!-- ===== Section: right now ===== -->
     <div class="sectionhead">Just for today</div>
     <p class="sectionsub">A couple of gentle things about the day of our session.</p>
-
-    <div class="q" data-id="q-meds" data-name="Medication to be aware of" data-group="Today">
-      <div class="q-top">
-        <div class="q-text">Are you taking any medication I should know about?</div>
-        <button type="button" class="fav-btn" data-id="q-meds" data-name="Medication to be aware of" data-group="Today" aria-label="mark this question">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="fav-note" data-id="q-meds" placeholder="Diana's note on this question…">
-    </div>
 
     <div class="q" data-id="q-substances" data-name="Alcohol or recreational substances today" data-group="Today">
       <div class="q-top">
@@ -314,6 +282,19 @@
     yes.addEventListener('click', function(){ yes.classList.add('sel-yes'); no.classList.remove('sel-no'); });
     no.addEventListener('click', function(){ no.classList.add('sel-no'); yes.classList.remove('sel-yes'); });
   });
+
+  // Checklist "None of the above" clears the other conditions, and vice versa
+  (function(){
+    var none = document.getElementById('cond-none');
+    var conds = document.querySelectorAll('.cond');
+    if(!none) return;
+    none.addEventListener('change', function(){
+      if(none.checked){ conds.forEach(function(c){ c.checked = false; }); }
+    });
+    conds.forEach(function(c){
+      c.addEventListener('change', function(){ if(c.checked) none.checked = false; });
+    });
+  })();
 </script>
 <script src="feedback.js?v=3"></script>
 </body>
