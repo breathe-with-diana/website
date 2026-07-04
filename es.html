@@ -4,55 +4,619 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Respira con Diana, próximamente</title>
+  <title>Respira con Diana · Volver a casa, a tu cuerpo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{--bone:#F4EFE6;--cream:#EFE7D8;--terracotta:#C97B5A;--umber:#5B4636;--ochre:#D4A24C;
-      --muted:rgba(91,70,54,.62);--hairline:rgba(91,70,54,.14);
-      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;--sans:'Inter',system-ui,sans-serif;}
-    *{box-sizing:border-box}html,body{margin:0;padding:0}
-    body{background:var(--bone);color:var(--umber);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;
-      min-height:100vh;display:flex;flex-direction:column}
-    .nav{border-bottom:1px solid var(--hairline)}
-    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:18px}
+    /* Recoleta isn't free; Cormorant Garamond stands in for this preview, as in the brand mockup. */
+    :root{
+      --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
+      --umber:#5B4636; --ochre:#D4A24C;
+      --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
+      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
+      --sans:'Inter',system-ui,-apple-system,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;scroll-behavior:smooth}
+    body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+    /* ===== promotion bar ===== */
+    .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:12.5px;font-weight:500;
+      letter-spacing:.03em;padding:10px 20px;text-align:center;position:sticky;top:0;z-index:200}
+    .promo-bar b{font-weight:700}
+    .promo-bar a{color:var(--umber);text-decoration:underline;font-weight:700;white-space:nowrap}
+
+    /* ============================================================= SITE NAV */
+    .site{max-width:100%;}
+    .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--hairline)}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px}
     .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
-    .logo-lockup svg{width:30px;height:30px;display:block}
-    .logo-word{font-family:var(--serif);font-size:23px;font-weight:500;color:var(--umber)}
+    #navmark{height:72px;width:auto;display:block}
+    #footmark{height:150px;width:auto;display:block}
+    .nav a.link{font-family:var(--sans);font-size:13.5px;color:var(--umber);text-decoration:none;opacity:.82}
+    .nav a.link:hover{opacity:1}
     .lang{font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--muted);border:1px solid var(--hairline);
       border-radius:999px;padding:5px 11px}
-    .lang b{color:var(--umber)}.lang a{color:var(--muted);text-decoration:none}.lang a:hover{color:var(--umber)}
-    main{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 28px}
-    .eyebrow{font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--terracotta);margin-bottom:18px}
-    h1{font-family:var(--serif);font-weight:500;font-size:48px;line-height:1.08;margin:0 0 18px}
-    p{font-size:17px;color:var(--muted);max-width:440px;margin:0 auto 28px}
-    .back{font-family:var(--sans);font-size:14px;font-weight:500;text-decoration:none;color:var(--bone);background:var(--terracotta);
-      border-radius:999px;padding:11px 22px;display:inline-block}
-    footer{text-align:center;padding:26px;font-size:12px;color:var(--muted)}
+    .lang b{color:var(--umber)}
+    .lang a{color:var(--muted);text-decoration:none}
+    .lang a:hover{color:var(--umber)}
+    .btn{font-family:var(--sans);font-size:13.5px;font-weight:500;text-decoration:none;border-radius:999px;
+      padding:10px 20px;display:inline-block;transition:.15s}
+    .btn-primary{background:var(--terracotta);color:var(--bone)}
+    .btn-primary:hover{background:#b86a4b}
+    .btn-ghost{border:1px solid var(--umber);color:var(--umber)}
+    .btn-ghost:hover{background:var(--umber);color:var(--bone)}
+
+    section{padding:104px 32px}
+    .wrap{max-width:1140px;margin:0 auto}
+    .wrap-narrow{max-width:760px;margin:0 auto}
+    .eyebrow{font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
+      color:var(--terracotta);margin-bottom:22px}
+    h2.sec{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}
+    .lead{font-size:17px;color:var(--umber);max-width:620px}
+    .muted{color:var(--muted)}
+
+    /* ===================================================================== HERO */
+    .hero{padding:92px 32px 96px;background:
+      radial-gradient(at 78% 18%,rgba(212,162,76,.16),transparent 46%),
+      radial-gradient(at 12% 92%,rgba(201,123,90,.14),transparent 50%),var(--bone)}
+    .hero-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+    .hero h1{font-family:var(--serif);font-weight:500;font-size:66px;line-height:1.04;letter-spacing:-.015em;margin:18px 0 22px}
+    .hero h1 em{font-style:italic;color:var(--terracotta)}
+    .hero p.sub{font-size:18.5px;line-height:1.6;color:var(--umber);max-width:500px;margin:0 0 34px}
+    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .hero-photo{aspect-ratio:4/5;border-radius:10px;position:relative;overflow:hidden;
+      background:radial-gradient(at 35% 28%,rgba(212,162,76,.5),transparent 55%),
+                 radial-gradient(at 72% 78%,rgba(201,123,90,.55),transparent 60%),
+                 linear-gradient(160deg,var(--cream),#Dcd2bf)}
+
+    /* ===================================================================== THE PRACTICE */
+    .practice{background:var(--bone);text-align:center;padding-top:20px}
+    .practice .wrap-narrow{max-width:800px}
+    .practice .lead{font-size:18px;color:var(--umber);max-width:660px;margin:0 auto 16px}
+    .facets{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin:56px auto 0;max-width:880px;text-align:center}
+    .facet .fic{width:52px;height:52px;margin:0 auto 18px;display:block}
+    .facet h4{font-family:var(--sans);font-weight:600;font-size:14.5px;margin:0 0 8px}
+    .facet p{font-size:14px;color:var(--muted);margin:0;line-height:1.6}
+    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--muted);
+      max-width:600px;margin:48px auto 0}
+
+    /* ===================================================================== TWO DOORS */
+    .doors{background:var(--cream)}
+    .door-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:42px}
+    .door{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:38px 34px;display:flex;flex-direction:column}
+    .door .ix{width:46px;height:46px;margin-bottom:20px}
+    .door h3{font-family:var(--serif);font-size:27px;font-weight:500;margin:0 0 10px}
+    .door p{font-size:15px;color:var(--umber);margin:0 0 6px}
+    .door .door-cta{margin-top:auto;padding-top:26px}
+    .door .tagword{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--terracotta)}
+    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:23px;color:var(--umber)}
+
+    /* ===================================================================== SESSION */
+    .session-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:18px}
+    .step{display:flex;gap:18px;margin-bottom:26px}
+    .step .n{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--terracotta);line-height:1;flex-shrink:0;width:34px}
+    .step h4{font-family:var(--sans);font-weight:600;font-size:15px;margin:2px 0 4px}
+    .step p{font-size:14.5px;color:var(--muted);margin:0}
+    .honest{background:var(--umber);color:var(--bone);border-radius:14px;padding:38px 36px}
+    .honest h3{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--bone);margin:0 0 16px}
+    .honest p{font-size:15px;color:rgba(244,239,230,.85);margin:0 0 14px}
+    .honest .pull{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ochre);margin-top:22px}
+
+    /* ===================================================================== STORY */
+    .story{background:var(--cream)}
+    .story-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
+    .story-photo{aspect-ratio:1/1;border-radius:10px;position:sticky;top:150px;overflow:hidden;
+      background:radial-gradient(at 60% 35%,rgba(201,123,90,.5),transparent 55%),linear-gradient(160deg,var(--bone),#ddd2bf)}
+    .story blockquote{font-family:var(--serif);font-size:30px;line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
+    .story p{font-size:15.5px;color:var(--umber);max-width:560px}
+    .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .hero-photo img{object-position:50% 30%}
+    .story-more{margin-top:6px}
+    .story-more[open] .story-more-toggle::after{content:"  Mostrar menos"}
+    .story-more-toggle{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--terracotta);cursor:pointer;
+      list-style:none;display:inline-block;margin-top:4px}
+    .story-more-toggle::-webkit-details-marker{display:none}
+    .story-more-toggle::after{content:"  Lee más de mi historia →"}
+    .story-more .more-body{margin-top:14px}
+    .story-more .more-body p{margin:0 0 14px}
+    .story-sig{font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.3;color:var(--terracotta);margin-top:22px}
+    .space-band{position:relative;height:clamp(220px,38vw,440px);overflow:hidden}
+    .space-band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
+    .amt-note{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--umber);margin:6px 0 2px}
+
+    /* ===================================================================== REVIEWS */
+    .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
+    .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:30px 28px;display:flex;flex-direction:column}
+    .rev .rev-body{flex:1;margin-bottom:22px}
+    .rev .quote{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:0}
+    .rev .stars{color:var(--ochre);font-size:12px;letter-spacing:4px;margin-bottom:12px}
+    .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:19px;font-style:italic;color:var(--terracotta);border:1px solid var(--hairline)}
+    .rev-more{margin-top:10px}
+    .rev-more summary{cursor:pointer;font-size:12.5px;color:var(--terracotta);list-style:none;display:inline-block;border-bottom:1px solid currentColor;padding-bottom:1px}
+    .rev-more summary::-webkit-details-marker{display:none}
+    .rev-more[open] summary{display:none}
+    .rev-more .quote-more p{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:12px 0 0}
+    .rev .who{display:flex;align-items:center;gap:12px}
+    .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
+    .rev .av img{width:100%;height:100%;object-fit:cover;display:block}
+    .rev .who b{font-size:13.5px;font-weight:600}
+    .rev .who span{font-size:12px;color:var(--muted);display:block;margin-top:1px}
+    .rev .who a{color:var(--terracotta);text-decoration:none}
+    .rev .who a:hover{text-decoration:underline}
+    .rev-note{text-align:center;font-size:12.5px;color:var(--muted);font-style:italic;margin-top:26px}
+
+    /* ===================================================================== RESET BAND */
+    .reset{background:var(--sage);color:var(--bone);text-align:center}
+    .reset h2{font-family:var(--serif);font-weight:500;font-size:40px;color:var(--bone);margin:0 0 14px}
+    .reset p{color:rgba(244,239,230,.9);max-width:480px;margin:0 auto 28px;font-size:16px}
+    .reset-form{display:flex;gap:10px;max-width:430px;margin:0 auto;justify-content:center;flex-wrap:wrap}
+    .reset-form input{font-family:var(--sans);font-size:14px;padding:13px 18px;border-radius:999px;border:none;
+      flex:1;min-width:220px;color:var(--umber)}
+    .reset-form .btn-primary{background:var(--umber)}
+    .reset-form .btn-primary:hover{background:#43332628}
+
+    /* ===================================================================== BOOK */
+    .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
+    .price-card{background:var(--bone);border:1px solid var(--terracotta);box-shadow:0 0 0 1px var(--terracotta);
+      border-radius:16px;padding:38px 34px}
+    .price-card .label{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+    .price-card ul{list-style:none;padding:0;margin:22px 0 26px}
+    .price-card li{font-size:14.5px;padding:9px 0;border-bottom:1px solid var(--hairline);display:flex;gap:10px}
+    .price-card li::before{content:"·";color:var(--terracotta);font-weight:700}
+    details{border-bottom:1px solid var(--hairline);padding:16px 0}
+    details summary{font-family:var(--sans);font-weight:500;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+    details summary::-webkit-details-marker{display:none}
+    details summary::after{content:"+";color:var(--terracotta);font-size:20px}
+    details[open] summary::after{content:"-"}
+    details p{font-size:14px;color:var(--muted);margin:12px 0 2px}
+    .story-more summary::after{content:none}
+    .story-more{border-bottom:none;padding:0}
+
+    /* ===================================================================== FOOTER */
+    footer{background:var(--umber);color:var(--bone);padding:64px 32px 40px}
+    .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+    footer h5{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
+    footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:14px}
+    footer a:hover{color:var(--bone)}
+    .foot-bottom{max-width:1140px;margin:48px auto 0;padding-top:22px;border-top:1px solid rgba(244,239,230,.18);
+      font-size:12px;color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+    @media(max-width:880px){
+      .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
+      .door-grid,.rev-grid,.foot-grid,.facets{grid-template-columns:1fr}
+      .hero h1{font-size:48px}.nav a.link{display:none}
+      .story-photo{position:static;top:auto}
+    }
+
+    /* ===================================================================== REVIEW ZONE (para Diana, no es parte de la página) */
+    .review-zone{background:#E7E4D7;background-image:linear-gradient(180deg,#E9E2CF,#E4E5DA);
+      border-top:1px solid var(--hairline);padding:74px 32px 88px}
+    .review-zone .eyebrow{color:var(--sage)}
+    .rz-h{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.12;margin:0 0 14px;color:var(--umber)}
+    .rz-lead{font-size:16px;color:var(--umber);max-width:640px;margin:0 0 8px}
+
+    /* ===== per-section feedback boxes (capa de revisión, no la página real) ===== */
+    .sec-fb{max-width:1140px;margin:42px auto 0;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;
+      background:rgba(138,140,110,.10);border:1px dashed rgba(138,140,110,.55);border-radius:12px}
+    .sec-fb.narrow{max-width:760px}
+    .sec-fb .fav-btn{margin-top:1px;color:rgba(91,70,54,.4)}
+    .sec-fb-main{flex:1;min-width:0}
+    .sec-fb-label{display:block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--sage);margin:0 0 7px}
+    .sec-fb .fav-note{margin-top:0}
+    .reset .sec-fb{background:rgba(244,239,230,.08);border-color:rgba(244,239,230,.3)}
+    .reset .sec-fb-label{color:rgba(244,239,230,.7)}
+    .reset .sec-fb .fav-btn{color:rgba(244,239,230,.5)}
   </style>
 </head>
-<body>
-  <header class="nav">
-    <div class="nav-inner">
-      <a class="logo-lockup" href="index.html">
-        <svg viewBox="0 0 100 100" fill="none" stroke="#5B4636" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M44 22 C28 40 28 60 44 78" stroke-width="7.5"/>
-          <path d="M66 33 C78 45 78 55 66 67" stroke-width="4.2"/>
-        </svg>
-        <span class="logo-word">Respira con Diana</span>
-      </a>
-      <span class="lang" title="Idioma"><a href="index.html">EN</a> · <b>ES</b> · <a href="ru.html">RU</a></span>
-    </div>
-  </header>
-  <main>
+<body data-fb-noun="sección" data-fb-key="website-es" data-fb-page="Website ES · Respira con Diana" data-fb-email="d.blaecker@gmail.com">
+
+<!-- ============================ PROMOTION BAR ============================ -->
+<div class="promo-bar">
+  ✦&nbsp;&nbsp;<b>¿Primera vez aquí?</b> Ven a respirar conmigo, empieza con un reset gratuito de 10 minutos.&nbsp;&nbsp;<a href="#reset">Empezar →</a>
+</div>
+
+<!-- ============================================================= LA PÁGINA EMPIEZA AQUÍ ========= -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo-lockup" href="#top" aria-label="Respira con Diana, inicio">
+      <img id="navmark" src="logo-mark.svg" alt="Breathe with Diana" />
+    </a>
+    <a class="link" href="#practice">Qué es</a>
+    <a class="link" href="#doors">El trabajo</a>
+    <a class="link" href="#session">Qué esperar</a>
+    <a class="link" href="#story">Mi camino a casa</a>
+    <a class="link" href="#reviews">Reseñas</a>
+    <span class="lang" title="Idioma"><a href="index.html">EN</a> · <b>ES</b> · <a href="ru.html">RU</a></span>
+    <a class="btn btn-primary" href="#book">Reserva una sesión</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<a id="top"></a>
+<section class="hero">
+  <div class="hero-grid">
     <div>
-      <div class="eyebrow">Próximamente</div>
-      <h1>Volver a casa,<br>a tu cuerpo.</h1>
-      <p>La versión en español está en camino. Mientras tanto, puedes ver la página en inglés.</p>
-      <a class="back" href="index.html">← Ver en inglés</a>
+      <div class="eyebrow">Rebirthing breathwork · Presencial y en línea</div>
+      <h1>Volver a casa,<br>a tu <em>cuerpo</em>.</h1>
+      <p class="sub">Para las personas que llevan años haciendo todo lo que &ldquo;se suponía que debían hacer&rdquo; y aun así se sienten desconectadas de sí mismas. Esta es una invitación a bajar el ritmo, volver a tu cuerpo y empezar a construir una relación más amable contigo, no convirtiéndote en alguien nuevo, sino <em>recordando quién has sido siempre</em>.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#book">Reserva una sesión</a>
+        <a class="btn btn-ghost" href="#reset">Empieza con un reset gratis de 10 min</a>
+      </div>
     </div>
-  </main>
-  <footer>Respira con Diana · respiracondiana.com</footer>
+    <div class="hero-photo"><img src="img/diana-hero.jpg" alt="Diana guiando una sesión privada de rebirthing breathwork"></div>
+  </div>
+  <div class="sec-fb">
+    <button class="fav-btn" data-id="sec-hero" data-name="Hero ES · Volver a casa, a tu cuerpo" data-group="Website ES">♥</button>
+    <div class="sec-fb-main">
+      <span class="sec-fb-label">Tus notas sobre esta sección · Hero</span>
+      <input class="fav-note" data-id="sec-hero" data-name="Hero ES · Volver a casa, a tu cuerpo" data-group="Website ES" placeholder="El titular, la foto, las primeras palabras (opcional)" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== LA PRÁCTICA ===== -->
+<section class="practice" id="practice">
+  <div class="wrap-narrow">
+    <div class="eyebrow">La práctica</div>
+    <h2 class="sec">¿Qué es el rebirthing breathwork?</h2>
+    <p class="lead">El rebirthing es un linaje específico de respiración consciente y conectada. Es una forma suave de respirar que ayuda a tu cuerpo a soltar lo que ha estado cargando. No hay pausas entre la inhalación y la exhalación, solo un círculo de respiración suave y continuo. Ese ritmo tan simple le indica a tu sistema nervioso que puede ablandarse, y permite que lo que sientes se mueva a través de ti, muchas veces sin necesidad de explicarlo ni hablarlo.</p>
+    <p class="lead">Cargamos en el cuerpo tantas cosas que las palabras nunca alcanzan. Esta respiración trabaja por debajo de la historia, para que la emoción guardada pueda salir a la superficie, sentirse y por fin aflojar su agarre.</p>
+    <div class="facets">
+      <div class="facet">
+        <svg class="fic" viewBox="0 0 48 48" fill="none" stroke="#C97B5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 24 C10 15 24 15 24 24 C24 33 38 33 38 24 C38 15 24 15 24 24 C24 33 10 33 10 24 Z"/>
+        </svg>
+        <h4>Una respiración conectada</h4>
+        <p>Un círculo continuo, sin pausa entre la entrada y la salida. Yo te guío todo el camino.</p>
+      </div>
+      <div class="facet">
+        <svg class="fic" viewBox="0 0 48 48" fill="none" stroke="#C97B5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 20 Q16 12 24 20 T40 20"/>
+          <path d="M8 30 Q16 22 24 30 T40 30"/>
+        </svg>
+        <h4>El cuerpo guía</h4>
+        <p>La emoción sube y se libera a su propio tiempo. Nada que forzar.</p>
+      </div>
+      <div class="facet">
+        <svg class="fic" viewBox="0 0 48 48" fill="none" stroke="#C97B5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 40 H36"/>
+          <path d="M24 40 V22"/>
+          <path d="M24 30 C19 30 15 27 15 21 C21 21 24 25 24 30 Z"/>
+          <path d="M24 25 C29 25 33 22 33 16 C27 16 24 20 24 25 Z"/>
+        </svg>
+        <h4>A tu propio ritmo</h4>
+        <p>Con los pies en la tierra y con un enfoque informado en trauma. Tú siempre eliges, y solo vamos tan lejos como se sienta seguro.</p>
+      </div>
+    </div>
+    <p class="boundary">No es terapia ni tratamiento médico, y no se trata de perseguir una gran experiencia. Es una forma de volver a casa, a ti, respiración a respiración.</p>
+  </div>
+  <div class="sec-fb narrow">
+    <button class="fav-btn" data-id="sec-practice" data-name="La práctica · Qué es el rebirthing" data-group="Website ES">♥</button>
+    <div class="sec-fb-main">
+      <span class="sec-fb-label">Tus notas sobre esta sección · Qué es</span>
+      <input class="fav-note" data-id="sec-practice" data-name="La práctica · Qué es el rebirthing" data-group="Website ES" placeholder="¿Así lo dirías tú en español? (opcional)" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== DOS CAMINOS ===== -->
+<section class="doors" id="doors">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">Dos caminos</div>
+    <h2 class="sec">Empieza suave. O ve profundo.</h2>
+    <p class="lead muted" style="margin:0 auto">No hay un lugar correcto para empezar. Algunas personas comienzan con una práctica de respiración sencilla para reconectar consigo mismas. Otras se sienten listas para explorar más profundo. Simplemente empezamos donde estás.</p>
+  </div>
+  <div class="wrap">
+    <div class="door-grid">
+      <div class="door">
+        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#8A8C6E" stroke-width="2.4" stroke-linecap="round">
+          <path d="M8 30 q16 -14 32 0"/><path d="M12 36 q12 -9 24 0"/>
+        </svg>
+        <div class="tagword">Calma cotidiana</div>
+        <h3>Empieza suave</h3>
+        <p>Una práctica de respiración sencilla para bajar el ritmo, habitar tu cuerpo y sentir lo que es volver a casa, a ti. No necesitas experiencia.</p>
+        <div class="door-cta"><a class="btn btn-ghost" href="#reset">Recibe el reset de respiración gratis</a></div>
+      </div>
+      <div class="door">
+        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#C97B5A" stroke-width="2.4" stroke-linecap="round">
+          <circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="8"/>
+        </svg>
+        <div class="tagword">El trabajo profundo</div>
+        <h3>Ve más profundo</h3>
+        <p>Rebirthing breathwork para liberar lo que las palabras no alcanzan. Trabaja por debajo de la historia, liberando las emociones que el cuerpo ha estado guardando, para que los patrones que has cargado por años por fin aflojen su agarre. Sales con más ligereza, con más claridad, más tú.</p>
+        <div class="door-cta"><a class="btn btn-primary" href="#book">Reserva una llamada gratis de 15 min</a></div>
+      </div>
+    </div>
+    <p class="doors-note">«No se trata de arreglarte. Se trata de volver a casa, a lo que ya está dentro de ti.»</p>
+  </div>
+  <div class="sec-fb">
+    <button class="fav-btn" data-id="sec-doors" data-name="Dos caminos · Suave o profundo" data-group="Website ES">♥</button>
+    <div class="sec-fb-main">
+      <span class="sec-fb-label">Tus notas sobre esta sección · Dos caminos</span>
+      <input class="fav-note" data-id="sec-doors" data-name="Dos caminos · Suave o profundo" data-group="Website ES" placeholder="Los dos caminos y cómo están descritos (opcional)" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUÉ ESPERAR ===== -->
+<section id="session">
+  <div class="wrap">
+    <div class="eyebrow">Qué esperar</div>
+    <h2 class="sec">Cada sesión es diferente, porque cada persona es diferente.</h2>
+    <p class="lead muted" style="max-width:none">Algunas personas ríen. Otras lloran. Algunas revisitan recuerdos. Otras simplemente sienten una paz profunda. No existe una experiencia &ldquo;correcta&rdquo;, y no hay nada que necesites forzar. Mi rol es crear un espacio donde te sientas con la seguridad suficiente para ser tú: para ablandarte, y para dejar que tu cuerpo guíe la experiencia a su propio ritmo.</p>
+    <div class="session-grid">
+      <div>
+        <div class="step"><div class="n">1</div><div><h4>Empezamos con una conversación</h4><p>Antes de respirar, nos tomamos el tiempo de conocernos. Hablamos de lo que te trae aquí, de lo que está presente en tu vida, de tus intenciones para la sesión y de cualquier cosa importante sobre tu salud física o emocional. Te explico exactamente cómo funciona el proceso, respondo tus preguntas y me aseguro de que te sientas en confianza antes de empezar.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Luego respiramos</h4><p>Te recuestas cómodamente mientras te guío a través del patrón de respiración conectada que se usa en el rebirthing. Durante todo el proceso estoy plenamente presente contigo: escucho tu respiración, observo cómo responde tu cuerpo, te animo con suavidad cuando hace falta y te doy espacio cuando el silencio es lo que más se necesita. Aquí no tienes que sostenerlo todo. Estaré a tu lado en cada paso.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Luego confiamos en tu cuerpo</h4><p>Algunas personas liberan emociones que han guardado por años. Otras sienten calor, hormigueo, olas de energía, paz profunda o una quietud inmensa. Muchas se sorprenden de cuán profundo pueden sentir, de cuánto amor tienen por sí mismas y de cómo la claridad empieza a emerger de forma natural. No hay nada que necesites lograr. Simplemente recibimos lo que tu cuerpo esté listo para mostrar.</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>Nos tomamos el tiempo de integrar</h4><p>La sesión no termina en el momento en que termina la respiración. Bajamos el ritmo, hablamos de lo que surgió y dejamos que tu sistema nervioso se asiente antes de irte. También estaré pendiente de ti en los días siguientes, porque algunas de las comprensiones más profundas siguen llegando mucho después de que la sesión termina.</p></div></div>
+      </div>
+      <div class="honest">
+        <h3>Un poco de honestidad antes de reservar</h3>
+        <p>El rebirthing no se trata de perseguir experiencias extraordinarias ni de escapar de ti. Se trata de crear las condiciones para que puedas encontrarte contigo con honestidad y compasión.</p>
+        <p>Las sesiones suelen durar alrededor de dos horas y media y pueden ser intensas, física y emocionalmente. Algunas personas salen sintiéndose livianas y con energía. Otras se sienten profundamente relajadas, sensibles o agradablemente cansadas.</p>
+        <p>No te voy a prometer sanarte ni transformar tu vida en una sesión. Lo que sí te prometo es un espacio seguro, con los pies en la tierra e informado en trauma, donde puedes explorar lo que surja a tu propio ritmo.</p>
+        <p>No hay nada que necesites forzar, ni nada que necesites demostrar. Confío en la sabiduría y en los tiempos de tu cuerpo, y estaré ahí para apoyarte, no para empujarte hacia un gran momento. Porque cuando nos sentimos realmente seguros, el cuerpo suele saber exactamente lo que necesita hacer.</p>
+        <div class="pull">Aquí no tienes que sostenerlo todo.<br>Estaré justo a&nbsp;tu&nbsp;lado.</div>
+      </div>
+    </div>
+    <div class="sec-fb">
+      <button class="fav-btn" data-id="sec-session" data-name="Qué esperar de una sesión (ES)" data-group="Website ES">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Tus notas sobre esta sección · Qué esperar</span>
+        <input class="fav-note" data-id="sec-session" data-name="Qué esperar de una sesión (ES)" data-group="Website ES" placeholder="Los cuatro pasos y la caja de honestidad, ¿suenan a ti? (opcional)" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EL ESPACIO ===== -->
+<div class="space-band"><img src="img/studio-space.jpg" alt="El espacio tranquilo y lleno de luz donde se realizan las sesiones"></div>
+
+<!-- ===== MI HISTORIA ===== -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-photo"><img src="img/diana-story.jpg" alt="Diana con una clienta durante una sesión"></div>
+      <div>
+        <div class="eyebrow">Mi camino a casa</div>
+        <blockquote>No es que mi vida estuviera mal.<br>Es que no era del todo mía.</blockquote>
+        <p>Durante mucho tiempo creí que si tomaba las decisiones correctas, la felicidad llegaría por sí sola. Así que hice lo que &ldquo;se suponía que debía hacer&rdquo;.</p>
+        <p>Estudié ingeniería porque prometía el futuro que mis padres querían para mí: una carrera sólida, buen dinero, seguridad. Me mudé al otro lado del mundo para construir una carrera exitosa. Gané becas, aprendí nuevos idiomas, construí negocios, me casé, y seguí alcanzando las metas que desde afuera se veían impresionantes.</p>
+        <details class="story-more">
+          <summary class="story-more-toggle"></summary>
+          <div class="more-body">
+            <p>Cada decisión tenía sentido. Cada una enorgullecía a las personas que yo amaba. Pero en algún punto del camino, perdí a la persona que tomaba esas decisiones.</p>
+            <p>Mirando atrás, veo que me había vuelto muy buena escuchando a todos menos a mí misma. Sabía ser responsable, capaz, independiente y exitosa. Lo que no sabía era confiar en mi propia voz interior. Aunque en el fondo siempre hubo una parte de mí que cuestionaba las reglas. Solo me tomó años dejar que ella guiara.</p>
+            <p>Todo empezó a cambiar después de mi divorcio. Por primera vez dejé de preguntarme &ldquo;¿Qué debería hacer?&rdquo; y empecé a preguntarme &ldquo;¿Qué se siente verdadero?&rdquo;. Esa pregunta cambió la dirección de mi vida.</p>
+            <p>Me llevó a la meditación, a la psicología, a meses de viajar sola, a maestros que desafiaron la forma en que me veía a mí misma, y finalmente al rebirthing breathwork.</p>
+            <p>Mi primera sesión me tomó completamente por sorpresa. Lloré durante casi tres horas. Mi respiración me llevaba una y otra vez a momentos que creía haber dejado atrás, y en algún lugar de todo eso, pude soltar algo. A la mañana siguiente desperté más tranquila y más segura de mí de lo que me había sentido en años.</p>
+            <p>El rebirthing no fue una solución rápida. No borró por arte de magia mis miedos ni mis viejos patrones. Lo que me dio fue algo mucho más valioso: una forma de reconectar con mi cuerpo, procesar emociones que había cargado por años y reconstruir, poco a poco, la confianza que había perdido en mí.</p>
+            <p>Respiración a respiración, dejé de intentar convertirme en alguien mejor. Empecé a ser más yo.</p>
+            <p>Hoy vivo una vida que alguna vez me pareció imposible. No porque sea perfecta, sino porque está alineada con quien soy. Sigo eligiendo la curiosidad por encima de la certeza, la autenticidad por encima de la expectativa y la confianza por encima del miedo.</p>
+            <p>Trabajo con personas que llevan años construyendo una vida que tiene sentido, pero que ya no se siente como un hogar. Son personas inteligentes, capaces y exitosas. Desde afuera, sus vidas se ven llenas. Pero por dentro, algo se siente desconectado. No necesitan que alguien les diga en quién convertirse. Necesitan un espacio seguro para recordar quiénes han sido siempre.</p>
+            <p>Por eso hago este trabajo. No porque tenga todas las respuestas, sino porque sé lo que es perderte a ti misma intentando construir una vida que tiene sentido. Y sé lo poderoso que es encontrar el camino de vuelta.</p>
+            <p class="story-sig">«El riesgo más grande que he tomado no fue mudarme al otro lado del mundo. Fue confiar en mí misma.»</p>
+          </div>
+        </details>
+        <p style="margin-top:22px"><a class="btn btn-ghost" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una llamada gratis</a></p>
+      </div>
+    </div>
+    <div class="sec-fb">
+      <button class="fav-btn" data-id="sec-story" data-name="Mi camino a casa (ES)" data-group="Website ES">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Tus notas sobre esta sección · Mi camino a casa</span>
+        <input class="fav-note" data-id="sec-story" data-name="Mi camino a casa (ES)" data-group="Website ES" placeholder="Tu historia contada aquí, en tu español. ¿Cambiarías algo? (opcional)" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESEÑAS ===== -->
+<section id="reviews">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">En sus palabras</div>
+    <h2 class="sec">Cuando las personas se sienten lo bastante seguras para soltar.</h2>
+    <p class="lead muted" style="margin:0 auto">Cada experiencia es única. Estas historias se comparten con permiso de personas que eligieron abrir su corazón, confiar en el proceso y contar lo que la experiencia significó para ellas.</p>
+  </div>
+  <div class="wrap">
+    <div class="rev-grid">
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“I had wanted to try rebirthing for a long time, but somehow never got around to it. Then I saw Diana's message, and it came at exactly the moment when I needed it most. What I loved most was the way Diana guided the process, with so much care, presence, and attention to every detail. She explained everything clearly beforehand, which helped me feel safe and trust the experience.</p>
+          <details class="rev-more">
+            <summary>Seguir leyendo</summary>
+            <div class="quote-more">
+              <p>“During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</p>
+              <p>“The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through.</p>
+              <p>“By the end of the session, I felt immense gratitude for Diana and the work she does. Honestly, experiences like this are beyond any price tag. The opportunity to reconnect so deeply with your body and quiet the endless stories and noise of the mind is incredibly valuable.</p>
+              <p>“As a therapist myself, I know how important it is to find the right guides and practitioners. I wholeheartedly recommend Diana to anyone who wants to release stored emotions, let go of blocks held in the body, reset their system, and create space for meaningful inner transformation.”</p>
+            </div>
+          </details>
+        </div>
+        <div class="who">
+          <div class="av"><img src="img/rev-maria.jpg" alt="Maria"></div>
+          <div><b>Maria, 36</b><span><a href="https://instagram.com/art_of_contact" target="_blank" rel="noopener">@art_of_contact</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“I cannot recommend Diana highly enough. She is a truly 'old soul' whose presence is both grounding and deeply transformative. I have had the pleasure of working with Diana in both group and private breathwork sessions, and she has a remarkable, intuitive ability to hold space.</p>
+          <details class="rev-more">
+            <summary>Seguir leyendo</summary>
+            <div class="quote-more">
+              <p>“In the past, I have struggled with practitioners who lacked the necessary sensitivity, which made it difficult for me to fully let go. With Diana, however, I felt completely safe and supported from the very first moment. Her sensitivity allowed my subconscious mind to relax, enabling me to open up and explore deep, meaningful topics that I hadn't been able to access before.</p>
+              <p>“Every breathwork session with Diana has been a profound journey. Her sessions are truly transformative, and I am incredibly grateful for the healing work we have done together. If you are looking for a guide who is not only skilled but also deeply empathetic and present, Diana is the person to see.”</p>
+            </div>
+          </details>
+        </div>
+        <div class="who">
+          <div class="av av-letter">D</div>
+          <div><b>Doris, 41</b><span><a href="https://instagram.com/doriskemptner_official" target="_blank" rel="noopener">@doriskemptner_official</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“In one of my breathwork sessions with Diana I went into a memory of something from the past and my body went into deep release. Diana held space very well, she has grounded, compassionate presence, she is trauma-informed, is sensitive and has a gentle but strong heart. I felt held and loved, the session was difficult emotionally but my body felt safe and I felt very relaxed and light afterwards.”</p>
+        </div>
+        <div class="who">
+          <div class="av av-letter">S</div>
+          <div><b>Sofia</b><span><a href="https://instagram.com/gypsiefamily" target="_blank" rel="noopener">@gypsiefamily</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“This was my first rebirthing breathwork session with her, although I had experienced rebirthing breath work with someone else about 20 years ago, so I had a general idea of what to expect. From the beginning, she was warm, kind, and consultative, taking the time to understand my experience and helping me feel comfortable throughout the session. Although my experience was neither dramatic nor highly emotional, it was gentle, calming, and felt exactly as it needed to be.</p>
+          <details class="rev-more">
+            <summary>Seguir leyendo</summary>
+            <div class="quote-more">
+              <p>“At one point I may even have drifted into a light sleep despite the intensity of the breathing, which surprised me. While I sensed she may have expected something more profound to emerge, I never felt that my experience was somehow 'less.' I trusted both her guidance and the process, and I left feeling that whatever suppressed or pent-up energy needed to be released had been.</p>
+              <p>“If you're looking for someone who creates a safe, supportive, and non-judgmental space for breathwork, I would happily recommend her.”</p>
+            </div>
+          </details>
+        </div>
+        <div class="who">
+          <div class="av av-letter">S</div>
+          <div><b>Su, 60</b></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“I felt completely safe and supported with Diana :) It was a powerful experience and releasing in a new way for me. The session left me with an understanding about my self set emotional range limitations and how good it is to just feel deeply.”</p>
+        </div>
+        <div class="who">
+          <div class="av av-letter">F</div>
+          <div><b>Fey</b><span><a href="https://instagram.com/aiwithfey" target="_blank" rel="noopener">@aiwithfey</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“Wonderful!”</p>
+        </div>
+        <div class="who">
+          <div class="av"><img src="img/rev-marcela.jpg" alt="Marcela"></div>
+          <div><b>Marcela, 36</b><span><a href="https://instagram.com/dianamarcela_ramirez" target="_blank" rel="noopener">@dianamarcela_ramirez</a></span></div>
+        </div>
+      </div>
+    </div>
+    <p class="rev-note">Reseñas reales de clientes, compartidas con su permiso y en sus propias palabras (en su idioma original).</p>
+    <p style="text-align:center;margin-top:26px">
+      <a class="btn btn-ghost" href="review.html">¿Ya viviste una sesión? Comparte tu experiencia →</a>
+    </p>
+    <div class="sec-fb">
+      <button class="fav-btn" data-id="sec-reviews" data-name="Reseñas · Lo que dicen (ES)" data-group="Website ES">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Tus notas sobre esta sección · Reseñas</span>
+        <input class="fav-note" data-id="sec-reviews" data-name="Reseñas · Lo que dicen (ES)" data-group="Website ES" placeholder="El diseño de las reseñas (palabras de muestra por ahora) (opcional)" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESET GRATIS ===== -->
+<section class="reset" id="reset">
+  <div class="wrap-narrow">
+    <div class="eyebrow" style="color:var(--ochre)">Empieza aquí · gratis</div>
+    <h2>Tu reset de respiración gratis.</h2>
+    <p>Si todavía no te sientes con ganas de una sesión completa, este es un lugar suave para empezar. Una práctica guiada y gratuita para bajar el ritmo, reconectar con tu respiración y probar una pequeña muestra de este trabajo, estés donde estés. Déjame tu correo y te la envío.</p>
+    <form class="reset-form" onsubmit="return false">
+      <input type="email" placeholder="tu@correo.com" aria-label="correo">
+      <button class="btn btn-primary" type="submit">Envíame el reset</button>
+    </form>
+    <div class="sec-fb narrow">
+      <button class="fav-btn" data-id="sec-reset" data-name="Reset de respiración gratis (ES)" data-group="Website ES">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Tus notas sobre esta sección · Reset gratis</span>
+        <input class="fav-note" data-id="sec-reset" data-name="Reset de respiración gratis (ES)" data-group="Website ES" placeholder="La oferta del reset gratis (opcional)" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== RESERVA / FAQ ===== -->
+<section id="book">
+  <div class="wrap">
+    <div class="eyebrow">Trabaja conmigo</div>
+    <h2 class="sec">Empieza tu camino.</h2>
+    <p class="lead muted" style="margin-bottom:6px">Toda sesión comienza con una llamada gratuita de 15 minutos, para asegurarnos de que es lo indicado para ti, resolver tus preguntas y encontrar un horario. La sesión se reserva en esa llamada.</p>
+    <div class="book-grid">
+      <div class="price-card">
+        <div class="label">Sesión privada de rebirthing 1:1</div>
+        <div class="amt-note">Qué incluye</div>
+        <ul>
+          <li>2 a 3 horas, acompañamiento completo de principio a fin</li>
+          <li>Conversación previa a la sesión</li>
+          <li>Apoyo y seguimiento en los días siguientes</li>
+          <li>Presencial o en línea, donde estés</li>
+        </ul>
+        <a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener" style="width:100%;text-align:center">Reserva tu llamada gratis de 15 min</a>
+        <p class="muted" style="font-size:13px;margin-top:16px;text-align:center">¿Prefieres escribirme primero? <a href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener" style="color:var(--terracotta)">Escríbeme por WhatsApp</a>.</p>
+      </div>
+      <div>
+        <details open><summary>¿Necesito experiencia?</summary><p>Para nada. La mayoría de las personas que llegan a mí nunca han vivido un rebirthing. Te guío en cada paso, y no necesitas saber respirar &ldquo;correctamente&rdquo;. Simplemente empezamos, tú y yo.</p></details>
+        <details><summary>¿Voy a sentirme en calma después?</summary><p>A veces, pero la calma no es la promesa. El rebirthing tiende a mover la emoción más que a calmarla. Muchas personas se sienten cansadas y sensibles justo después, y más livianas al día siguiente.</p></details>
+        <details><summary>¿Esto es terapia?</summary><p>No. Es un complemento del trabajo interior, no un reemplazo de la terapia ni de la atención médica. Si estás en tratamiento, mantén a tu terapeuta al tanto.</p></details>
+        <details><summary>¿Podemos hacerlo en línea?</summary><p>Sí. Las sesiones en línea funcionan muy bien por video, después de una llamada corta para preparar tu espacio de forma segura.</p></details>
+        <details><summary>¿Y si necesito reprogramar?</summary><p>La vida pasa. Avísame con 24 horas de anticipación y encontramos un nuevo horario.</p></details>
+      </div>
+    </div>
+    <div class="sec-fb">
+      <button class="fav-btn" data-id="sec-book" data-name="Reserva · Qué incluye y FAQ (ES)" data-group="Website ES">♥</button>
+      <div class="sec-fb-main">
+        <span class="sec-fb-label">Tus notas sobre esta sección · Reserva y FAQ</span>
+        <input class="fav-note" data-id="sec-book" data-name="Reserva · Qué incluye y FAQ (ES)" data-group="Website ES" placeholder="Qué incluye, las respuestas del FAQ, el flujo de reserva (opcional)" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= ZONA DE REVISIÓN (para Diana) ========== -->
+<section class="review-zone" id="review">
+  <div class="wrap-narrow">
+    <div class="eyebrow">Para ti, Diana · tu página en español</div>
+    <h2 class="rz-h">Esta parte no es la página.</h2>
+    <p class="rz-lead">Todo lo de arriba es tu página en español, nueva de hoy. No es una traducción literal: la adapté desde la versión en inglés y usé tus propias palabras en español donde las tenía (las de tu documento &ldquo;Crafting my brand identity&rdquo; en el Drive). Tú eres la hablante nativa: si una frase no suena a ti, esa es exactamente la nota que necesito.</p>
+    <p class="rz-lead">Cada sección tiene su cajita: marca el corazón en lo que amas, escribe lo que cambiarías, y al final toca <b>Send feedback</b> (abajo en la esquina) para enviármelo todo.</p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <img id="footmark" src="logo-mark-dark.svg" alt="Breathe with Diana" />
+    </div>
+    <div>
+      <h5>Explora</h5>
+      <a href="#doors">El trabajo</a>
+      <a href="#session">Qué esperar</a>
+      <a href="#story">Mi camino a casa</a>
+      <a href="#book">Reserva</a>
+    </div>
+    <div>
+      <h5>Encuéntrame</h5>
+      <a href="https://instagram.com/respira.con.diana" target="_blank" rel="noopener">Instagram, @respira.con.diana</a>
+      <a href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener">WhatsApp, escríbeme</a>
+      <a href="mailto:ven@respiracondiana.com">ven@respiracondiana.com</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Respira con Diana · respiracondiana.com</span>
+    <span>El rebirthing breathwork no sustituye la atención médica ni psicológica.</span>
+  </div>
+</footer>
+
+<script src="feedback.js?v=3"></script>
 </body>
 </html>
