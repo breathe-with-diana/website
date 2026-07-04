@@ -90,6 +90,8 @@
       transition:background .15s,transform .05s}
     .send:hover{background:#b86a4b}
     .send:active{transform:translateY(1px)}
+    .send:disabled{opacity:.7;cursor:default}
+    .err{color:#b3503a;font-size:12.5px;text-align:center;margin:10px 0 0;min-height:1px}
     .footnote{font-size:11px;color:var(--muted);text-align:center;margin:16px 0 0;line-height:1.5}
   </style>
 </head>
@@ -107,7 +109,7 @@
     <!-- ===== draft banner, Diana only, not part of the client copy ===== -->
     <div class="draft">
       <b>This is a draft for you, Diana 🤎</b><br>
-      Read it as a client would. The <b>Yes / No</b> buttons show how it will feel to fill in. Tap the <b>♥</b> beside any question you love, and use the <b>Send feedback</b> box (bottom right) to add a question, change wording, or tell me what to drop. Nothing here is sent to a client yet, we finalise together first.
+      Read it as a client would. The <b>Yes / No</b> buttons show how it will feel to fill in. Tap the <b>♥</b> beside any question you love, and use the <b>Send feedback</b> box (bottom right) to add a question, change wording, or tell me what to drop. Tapping <b>Send to Diana</b> now saves a real, private test row so we can check the plumbing works, but this page is not yet shared with real clients.
     </div>
 
     <!-- ===== gentle intro ===== -->
@@ -154,7 +156,7 @@
         <button type="button" class="fav-btn" data-id="q-meds-breathing" data-name="Medication affecting breathing or emotional state" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <input type="text" class="if-yes" placeholder="If yes, please list…">
+      <input type="text" class="if-yes" id="meds-breathing-detail" placeholder="If yes, please list…">
       <input type="text" class="fav-note" data-id="q-meds-breathing" placeholder="Diana's note on this question…">
     </div>
 
@@ -164,7 +166,7 @@
         <button type="button" class="fav-btn" data-id="q-pregnant" data-name="Pregnancy" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-no">No</button><button type="button" class="yn-yes">Yes</button></div>
-      <input type="text" class="if-yes" placeholder="If yes, how many weeks?">
+      <input type="text" class="if-yes" id="pregnant-weeks" placeholder="If yes, how many weeks?">
       <input type="text" class="fav-note" data-id="q-pregnant" placeholder="Diana's note on this question…">
     </div>
 
@@ -174,7 +176,7 @@
         <button type="button" class="fav-btn" data-id="q-allergies" data-name="Allergies or sensitivities" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-no">No</button><button type="button" class="yn-yes">Yes</button></div>
-      <input type="text" class="if-yes" placeholder="If yes, please specify…">
+      <input type="text" class="if-yes" id="allergies-detail" placeholder="If yes, please specify…">
       <input type="text" class="fav-note" data-id="q-allergies" placeholder="Diana's note on this question…">
     </div>
 
@@ -206,7 +208,7 @@
         <button type="button" class="fav-btn" data-id="q-mental-support" data-name="Currently receiving mental or emotional support" data-group="Mind" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <textarea class="if-yes" placeholder="If yes, please briefly explain…" style="min-height:64px"></textarea>
+      <textarea class="if-yes" id="mental-support-detail" placeholder="If yes, please briefly explain…" style="min-height:64px"></textarea>
       <input type="text" class="fav-note" data-id="q-mental-support" placeholder="Diana's note on this question…">
     </div>
 
@@ -269,18 +271,27 @@
       <input type="text" class="fav-note" data-id="q-consent" placeholder="Diana's note on this wording…">
     </div>
 
-    <button type="button" class="send">Send to Diana 🤎</button>
-    <p class="footnote">Draft preview. The Send button is not wired up yet, we will connect it once you are happy with the questions.</p>
+    <input type="text" name="company" id="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+
+    <button type="button" class="send" id="sendBtn">Send to Diana 🤎</button>
+    <p class="err" id="err"></p>
+    <p class="footnote" id="sendFootnote">Your answers are saved privately, only Diana can see them.</p>
 
   </div>
 </div>
 
 <script>
-  // Yes/No toggle, preview only, so Diana feels how it answers.
+  // ====== CONFIG ======
+  // Replace with the Apps Script /exec URL once _build/health-intake/deploy.md is done.
+  const ENDPOINT = "__HEALTH_APPS_SCRIPT_URL__";
+  const SUBMIT_TOKEN = "bwd_hf_7Ln3vPq9"; // must match Code.gs
+
+  // Yes/No toggle. Also records which one is selected, on the .yn container itself,
+  // so the submit handler can read it back (yn.dataset.value).
   document.querySelectorAll('.yn').forEach(function(yn){
     var yes = yn.querySelector('.yn-yes'), no = yn.querySelector('.yn-no');
-    yes.addEventListener('click', function(){ yes.classList.add('sel-yes'); no.classList.remove('sel-no'); });
-    no.addEventListener('click', function(){ no.classList.add('sel-no'); yes.classList.remove('sel-yes'); });
+    yes.addEventListener('click', function(){ yes.classList.add('sel-yes'); no.classList.remove('sel-no'); yn.dataset.value='yes'; });
+    no.addEventListener('click', function(){ no.classList.add('sel-no'); yes.classList.remove('sel-yes'); yn.dataset.value='no'; });
   });
 
   // Checklist "None of the above" clears the other conditions, and vice versa
@@ -295,6 +306,61 @@
       c.addEventListener('change', function(){ if(c.checked) none.checked = false; });
     });
   })();
+
+  // ====== submit ======
+  function val(id){ var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+  function ynVal(qid){ var yn = document.querySelector('.q[data-id="'+qid+'"] .yn'); return yn ? (yn.dataset.value || '') : ''; }
+  function setErr(m){ document.getElementById('err').textContent = m || ''; }
+  function checkedConditions(){
+    return Array.from(document.querySelectorAll('.cond'))
+      .filter(function(c){ return c.checked; })
+      .map(function(c){ return c.nextElementSibling.textContent; });
+  }
+
+  document.getElementById('sendBtn').addEventListener('click', async function(){
+    var btn = this;
+    setErr('');
+    if (val('name') === '' && document.getElementById('company').value) return; // honeypot, do nothing
+    if (!val('name')) return setErr('Please add your name so Diana knows whose answers these are.');
+    if (!document.getElementById('consent').checked) return setErr('Please check the acknowledgement box before sending.');
+    if (ENDPOINT.indexOf('APPS_SCRIPT_URL') !== -1) return setErr('This form is not connected yet. Ask Daniel to finish the one-time setup.');
+
+    var noneChecked = document.getElementById('cond-none').checked;
+    var conds = checkedConditions();
+    var payload = {
+      name: val('name'),
+      sessionDate: val('date'),
+      conditions: conds.length ? conds.join('; ') : (noneChecked ? 'None of the above' : ''),
+      conditionsDetail: val('conditions-detail'),
+      medsBreathing: ynVal('q-meds-breathing'),
+      medsBreathingDetail: val('meds-breathing-detail'),
+      mentalSupport: ynVal('q-mental-support'),
+      mentalSupportDetail: val('mental-support-detail'),
+      anxietyTrauma: ynVal('q-trauma'),
+      bones: ynVal('q-bones'),
+      faint: ynVal('q-faint'),
+      pregnant: ynVal('q-pregnant'),
+      pregnantWeeks: val('pregnant-weeks'),
+      allergies: ynVal('q-allergies'),
+      allergiesDetail: val('allergies-detail'),
+      substances: ynVal('q-substances'),
+      anythingElse: val('anything'),
+      consent: document.getElementById('consent').checked,
+      token: SUBMIT_TOKEN,
+      company: document.getElementById('company').value,
+      page: location.href
+    };
+
+    btn.disabled = true; var old = btn.textContent; btn.textContent = 'Sending…';
+    try {
+      await fetch(ENDPOINT, { method:'POST', mode:'no-cors', body: JSON.stringify(payload) });
+      btn.textContent = 'Sent 🤎';
+      document.getElementById('sendFootnote').textContent = 'Thank you. Your answers have been saved privately, only Diana can see them. She will reach out before your session if anything needs a quick chat.';
+    } catch (err) {
+      btn.disabled = false; btn.textContent = old;
+      setErr('Something went wrong sending this. Please try again in a moment.');
+    }
+  });
 </script>
 <script src="feedback.js?v=3"></script>
 </body>
