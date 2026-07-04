@@ -158,7 +158,15 @@
     /* ===================================================================== REVIEWS */
     .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
     .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:30px 28px;display:flex;flex-direction:column}
-    .rev .quote{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:0 0 22px;flex:1}
+    .rev .rev-body{flex:1;margin-bottom:22px}
+    .rev .quote{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:0}
+    .rev .stars{color:var(--ochre);font-size:12px;letter-spacing:4px;margin-bottom:12px}
+    .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:19px;font-style:italic;color:var(--terracotta);border:1px solid var(--hairline)}
+    .rev-more{margin-top:10px}
+    .rev-more summary{cursor:pointer;font-size:12.5px;color:var(--terracotta);list-style:none;display:inline-block;border-bottom:1px solid currentColor;padding-bottom:1px}
+    .rev-more summary::-webkit-details-marker{display:none}
+    .rev-more[open] summary{display:none}
+    .rev-more .quote-more p{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:12px 0 0}
     .rev .who{display:flex;align-items:center;gap:12px}
     .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
     .rev .av img{width:100%;height:100%;object-fit:cover;display:block}
@@ -514,28 +522,90 @@
   <div class="wrap">
     <div class="rev-grid">
       <div class="rev">
-        <p class="quote">“I'd been ‘fine’ for years, good job, good marriage, completely empty inside. One session, and the next morning I finally did the thing I'd put off for three years. Diana never promised to fix me. Something just moved.”</p>
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“I had wanted to try rebirthing for a long time, but somehow never got around to it. Then I saw Diana's message, and it came at exactly the moment when I needed it most. What I loved most was the way Diana guided the process, with so much care, presence, and attention to every detail. She explained everything clearly beforehand, which helped me feel safe and trust the experience.</p>
+          <details class="rev-more">
+            <summary>Keep reading</summary>
+            <div class="quote-more">
+              <p>“During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</p>
+              <p>“The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through.</p>
+              <p>“By the end of the session, I felt immense gratitude for Diana and the work she does. Honestly, experiences like this are beyond any price tag. The opportunity to reconnect so deeply with your body and quiet the endless stories and noise of the mind is incredibly valuable.</p>
+              <p>“As a therapist myself, I know how important it is to find the right guides and practitioners. I wholeheartedly recommend Diana to anyone who wants to release stored emotions, let go of blocks held in the body, reset their system, and create space for meaningful inner transformation.”</p>
+            </div>
+          </details>
+        </div>
         <div class="who">
-          <div class="av"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt=""></div>
-          <div><b>Sofía, 38</b><span>Madrid · <a href="https://instagram.com/sofia.delmar" target="_blank" rel="noopener">@sofia.delmar</a></span></div>
+          <div class="av"><img src="img/rev-maria.jpg" alt="Maria"></div>
+          <div><b>Maria, 36</b><span><a href="https://instagram.com/art_of_contact" target="_blank" rel="noopener">@art_of_contact</a></span></div>
         </div>
       </div>
       <div class="rev">
-        <p class="quote">“It wasn't gentle, and I'm grateful it wasn't. I cried, I shook, and I left feeling like I'd set down something I'd carried for ten years. She stayed with all of it without ever making me feel watched.”</p>
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“I cannot recommend Diana highly enough. She is a truly 'old soul' whose presence is both grounding and deeply transformative. I have had the pleasure of working with Diana in both group and private breathwork sessions, and she has a remarkable, intuitive ability to hold space.</p>
+          <details class="rev-more">
+            <summary>Keep reading</summary>
+            <div class="quote-more">
+              <p>“In the past, I have struggled with practitioners who lacked the necessary sensitivity, which made it difficult for me to fully let go. With Diana, however, I felt completely safe and supported from the very first moment. Her sensitivity allowed my subconscious mind to relax, enabling me to open up and explore deep, meaningful topics that I hadn't been able to access before.</p>
+              <p>“Every breathwork session with Diana has been a profound journey. Her sessions are truly transformative, and I am incredibly grateful for the healing work we have done together. If you are looking for a guide who is not only skilled but also deeply empathetic and present, Diana is the person to see.”</p>
+            </div>
+          </details>
+        </div>
         <div class="who">
-          <div class="av"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt=""></div>
-          <div><b>Elena, 41</b><span>Lisbon · <a href="https://instagram.com/elena.reads" target="_blank" rel="noopener">@elena.reads</a></span></div>
+          <div class="av av-letter">D</div>
+          <div><b>Doris, 41</b><span><a href="https://instagram.com/doriskemptner_official" target="_blank" rel="noopener">@doriskemptner_official</a></span></div>
         </div>
       </div>
       <div class="rev">
-        <p class="quote">“Llegué sin saber qué esperar y salí habiendo soltado un peso de años. Diana no te promete nada, sólo te acompaña a volver a ti misma. Al día siguiente, por fin actué.”</p>
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“In one of my breathwork sessions with Diana I went into a memory of something from the past and my body went into deep release. Diana held space very well, she has grounded, compassionate presence, she is trauma-informed, is sensitive and has a gentle but strong heart. I felt held and loved, the session was difficult emotionally but my body felt safe and I felt very relaxed and light afterwards.”</p>
+        </div>
         <div class="who">
-          <div class="av"><img src="https://randomuser.me/api/portraits/women/29.jpg" alt=""></div>
-          <div><b>Camila, 35</b><span>Bogotá · <a href="https://instagram.com/cami.respira" target="_blank" rel="noopener">@cami.respira</a></span></div>
+          <div class="av av-letter">S</div>
+          <div><b>Sofia</b><span><a href="https://instagram.com/gypsiefamily" target="_blank" rel="noopener">@gypsiefamily</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“This was my first rebirthing breathwork session with her, although I had experienced rebirthing breath work with someone else about 20 years ago, so I had a general idea of what to expect. From the beginning, she was warm, kind, and consultative, taking the time to understand my experience and helping me feel comfortable throughout the session. Although my experience was neither dramatic nor highly emotional, it was gentle, calming, and felt exactly as it needed to be.</p>
+          <details class="rev-more">
+            <summary>Keep reading</summary>
+            <div class="quote-more">
+              <p>“At one point I may even have drifted into a light sleep despite the intensity of the breathing, which surprised me. While I sensed she may have expected something more profound to emerge, I never felt that my experience was somehow 'less.' I trusted both her guidance and the process, and I left feeling that whatever suppressed or pent-up energy needed to be released had been.</p>
+              <p>“If you're looking for someone who creates a safe, supportive, and non-judgmental space for breathwork, I would happily recommend her.”</p>
+            </div>
+          </details>
+        </div>
+        <div class="who">
+          <div class="av av-letter">S</div>
+          <div><b>Su, 60</b></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“I felt completely safe and supported with Diana :) It was a powerful experience and releasing in a new way for me. The session left me with an understanding about my self set emotional range limitations and how good it is to just feel deeply.”</p>
+        </div>
+        <div class="who">
+          <div class="av av-letter">F</div>
+          <div><b>Fey</b><span><a href="https://instagram.com/aiwithfey" target="_blank" rel="noopener">@aiwithfey</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="stars" aria-label="Rated 5 out of 5">★★★★★</div>
+        <div class="rev-body">
+          <p class="quote">“Wonderful!”</p>
+        </div>
+        <div class="who">
+          <div class="av"><img src="img/rev-marcela.jpg" alt="Marcela"></div>
+          <div><b>Marcela, 36</b><span><a href="https://instagram.com/dianamarcela_ramirez" target="_blank" rel="noopener">@dianamarcela_ramirez</a></span></div>
         </div>
       </div>
     </div>
-    <p class="rev-note">Sample reviews, shown so you can see the layout, your real client words (and faces) will replace these.</p>
+    <p class="rev-note">Real client reviews, shared with their permission, in their own words.</p>
     <p style="text-align:center;margin-top:26px">
       <a class="btn btn-ghost" href="review.html">Been to a session? Share your experience →</a>
     </p>
@@ -543,7 +613,7 @@
       <button class="fav-btn" data-id="sec-reviews" data-name="Reviews · What people say" data-group="Website">♥</button>
       <div class="sec-fb-main">
         <span class="sec-fb-label">Your notes on this section · Reviews</span>
-        <input class="fav-note" data-id="sec-reviews" data-name="Reviews · What people say" data-group="Website" placeholder="The review layout (sample words for now) (optional)" />
+        <input class="fav-note" data-id="sec-reviews" data-name="Reviews · What people say" data-group="Website" placeholder="The reviews section (optional)" />
       </div>
     </div>
   </div>
