@@ -7,7 +7,7 @@
   <title>Breathe with Diana, Website Draft v1 + Logo Lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tokens.css">
   <style>
     /* Recoleta isn't free; Cormorant Garamond stands in for this preview, as in the brand mockup.
@@ -189,12 +189,14 @@
     .rev .rev-body{flex:1;margin-bottom:22px}
     .rev .quote{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:0}
     .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:var(--fs-md);font-style:italic;color:var(--terracotta-deep);border:1px solid var(--hairline)}
-    .rev-more{margin-top:10px}
-    .rev-more summary{cursor:pointer;font-size:var(--fs-xs);color:var(--terracotta-deep);list-style:none;display:inline-block;border-bottom:1px solid currentColor;padding-bottom:1px}
+    .rev-more summary{cursor:pointer;list-style:none;display:block}
     .rev-more summary::-webkit-details-marker{display:none}
-    .rev-more summary::after{content:"Keep reading"}
-    .rev-more[open] summary::after{content:"Show less"}
-    .rev-more .quote-more p{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:12px 0 0}
+    .rev-more .quote-full{display:none}
+    .rev-more[open] .quote-excerpt{display:none}
+    .rev-more[open] .quote-full{display:block}
+    .rev .quote-highlight{font-weight:600}
+    .rev .toggle-cta{font-family:var(--sans);font-style:normal;font-weight:500;font-size:var(--fs-xs);
+      color:var(--terracotta-deep);white-space:nowrap;margin-left:2px}
     .rev .quote + .quote{margin-top:14px}
     .rev .who{display:flex;align-items:center;gap:12px}
     .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
@@ -494,15 +496,20 @@
     <div class="rev-grid">
       <div class="rev">
         <div class="rev-body">
-          <p class="quote">“During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</p>
-          <p class="quote">The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through.</p>
           <details class="rev-more">
-            <summary></summary>
-            <div class="quote-more">
-              <p>“I had wanted to try rebirthing for a long time, but somehow never got around to it. Then I saw Diana's message, and it came at exactly the moment when I needed it most. What I loved most was the way Diana guided the process, with so much care, presence, and attention to every detail. She explained everything clearly beforehand, which helped me feel safe and trust the experience.</p>
-              <p>“By the end of the session, I felt immense gratitude for Diana and the work she does. Honestly, experiences like this are beyond any price tag. The opportunity to reconnect so deeply with your body and quiet the endless stories and noise of the mind is incredibly valuable.</p>
-              <p>“As a therapist myself, I know how important it is to find the right guides and practitioners. I wholeheartedly recommend Diana to anyone who wants to release stored emotions, let go of blocks held in the body, reset their system, and create space for meaningful inner transformation.”</p>
-            </div>
+            <summary>
+              <div class="quote-excerpt">
+                <p class="quote">“[...] During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</p>
+                <p class="quote">The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through. [...] <span class="toggle-cta">Keep reading →</span></p>
+              </div>
+              <div class="quote-full">
+                <p class="quote">“I had wanted to try rebirthing for a long time, but somehow never got around to it. Then I saw Diana's message, and it came at exactly the moment when I needed it most. What I loved most was the way Diana guided the process, with so much care, presence, and attention to every detail. She explained everything clearly beforehand, which helped me feel safe and trust the experience.</p>
+                <p class="quote"><span class="quote-highlight">“During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</span></p>
+                <p class="quote"><span class="quote-highlight">The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through.</span></p>
+                <p class="quote">By the end of the session, I felt immense gratitude for Diana and the work she does. Honestly, experiences like this are beyond any price tag. The opportunity to reconnect so deeply with your body and quiet the endless stories and noise of the mind is incredibly valuable.</p>
+                <p class="quote">As a therapist myself, I know how important it is to find the right guides and practitioners. I wholeheartedly recommend Diana to anyone who wants to release stored emotions, let go of blocks held in the body, reset their system, and create space for meaningful inner transformation.” <span class="toggle-cta">Show less</span></p>
+              </div>
+            </summary>
           </details>
         </div>
         <div class="who">
@@ -512,13 +519,17 @@
       </div>
       <div class="rev">
         <div class="rev-body">
-          <p class="quote">“I cannot recommend Diana highly enough. She is a truly 'old soul' whose presence is both grounding and deeply transformative. I have had the pleasure of working with Diana in both group and private breathwork sessions, and she has a remarkable, intuitive ability to hold space.</p>
           <details class="rev-more">
-            <summary></summary>
-            <div class="quote-more">
-              <p>“In the past, I have struggled with practitioners who lacked the necessary sensitivity, which made it difficult for me to fully let go. With Diana, however, I felt completely safe and supported from the very first moment. Her sensitivity allowed my subconscious mind to relax, enabling me to open up and explore deep, meaningful topics that I hadn't been able to access before.</p>
-              <p>“Every breathwork session with Diana has been a profound journey. Her sessions are truly transformative, and I am incredibly grateful for the healing work we have done together. If you are looking for a guide who is not only skilled but also deeply empathetic and present, Diana is the person to see.”</p>
-            </div>
+            <summary>
+              <div class="quote-excerpt">
+                <p class="quote">“I cannot recommend Diana highly enough. She is a truly 'old soul' whose presence is both grounding and deeply transformative. I have had the pleasure of working with Diana in both group and private breathwork sessions, and she has a remarkable, intuitive ability to hold space. [...] <span class="toggle-cta">Keep reading →</span></p>
+              </div>
+              <div class="quote-full">
+                <p class="quote"><span class="quote-highlight">“I cannot recommend Diana highly enough. She is a truly 'old soul' whose presence is both grounding and deeply transformative. I have had the pleasure of working with Diana in both group and private breathwork sessions, and she has a remarkable, intuitive ability to hold space.</span></p>
+                <p class="quote">In the past, I have struggled with practitioners who lacked the necessary sensitivity, which made it difficult for me to fully let go. With Diana, however, I felt completely safe and supported from the very first moment. Her sensitivity allowed my subconscious mind to relax, enabling me to open up and explore deep, meaningful topics that I hadn't been able to access before.</p>
+                <p class="quote">Every breathwork session with Diana has been a profound journey. Her sessions are truly transformative, and I am incredibly grateful for the healing work we have done together. If you are looking for a guide who is not only skilled but also deeply empathetic and present, Diana is the person to see.” <span class="toggle-cta">Show less</span></p>
+              </div>
+            </summary>
           </details>
         </div>
         <div class="who">
@@ -537,13 +548,17 @@
       </div>
       <div class="rev">
         <div class="rev-body">
-          <p class="quote">“This was my first rebirthing breathwork session with her, although I had experienced rebirthing breath work with someone else about 20 years ago, so I had a general idea of what to expect. From the beginning, she was warm, kind, and consultative, taking the time to understand my experience and helping me feel comfortable throughout the session. Although my experience was neither dramatic nor highly emotional, it was gentle, calming, and felt exactly as it needed to be.</p>
           <details class="rev-more">
-            <summary></summary>
-            <div class="quote-more">
-              <p>“At one point I may even have drifted into a light sleep despite the intensity of the breathing, which surprised me. I trusted both her guidance and the process, and I left feeling that whatever suppressed or pent-up energy needed to be released had been.</p>
-              <p>“If you're looking for someone who creates a safe, supportive, and non-judgmental space for breathwork, I would happily recommend her.”</p>
-            </div>
+            <summary>
+              <div class="quote-excerpt">
+                <p class="quote">“This was my first rebirthing breathwork session with her, although I had experienced rebirthing breath work with someone else about 20 years ago, so I had a general idea of what to expect. From the beginning, she was warm, kind, and consultative, taking the time to understand my experience and helping me feel comfortable throughout the session. Although my experience was neither dramatic nor highly emotional, it was gentle, calming, and felt exactly as it needed to be. [...] <span class="toggle-cta">Keep reading →</span></p>
+              </div>
+              <div class="quote-full">
+                <p class="quote"><span class="quote-highlight">“This was my first rebirthing breathwork session with her, although I had experienced rebirthing breath work with someone else about 20 years ago, so I had a general idea of what to expect. From the beginning, she was warm, kind, and consultative, taking the time to understand my experience and helping me feel comfortable throughout the session. Although my experience was neither dramatic nor highly emotional, it was gentle, calming, and felt exactly as it needed to be.</span></p>
+                <p class="quote">At one point I may even have drifted into a light sleep despite the intensity of the breathing, which surprised me. I trusted both her guidance and the process, and I left feeling that whatever suppressed or pent-up energy needed to be released had been.</p>
+                <p class="quote">If you're looking for someone who creates a safe, supportive, and non-judgmental space for breathwork, I would happily recommend her.” <span class="toggle-cta">Show less</span></p>
+              </div>
+            </summary>
           </details>
         </div>
         <div class="who">
