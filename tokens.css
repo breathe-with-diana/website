@@ -1,0 +1,45 @@
+/* Shared design tokens for breathe-with-diana.
+   Single source of truth for the palette (unchanged, still the locked
+   beige/terracotta/ochre/sage/umber system), the type scale, and radii,
+   so index/es/ru/review/health-form/media-consent stop drifting from
+   hand-copied :root blocks. Added as part of the round-1 design-review pass. */
+:root{
+  /* ---- palette (hex values are the locked brand palette, untouched) ---- */
+  --bone:#F4EFE6;
+  --cream:#EFE7D8;
+  --terracotta:#C97B5A;
+  /* text-safe darkened terracotta for text/labels on bone or cream:
+     ~5:1 contrast (WCAG AA) vs. the base terracotta's 2.6-2.8:1. Use this,
+     not --terracotta, for any terracotta text/label/button-label role. */
+  --terracotta-deep:#905840;
+  --sage:#8A8C6E;
+  --umber:#5B4636;
+  --ochre:#D4A24C;
+  --muted:rgba(91,70,54,.62);
+  --hairline:rgba(91,70,54,.14);
+  /* one shared error-state color, replacing two hand-typed near-duplicates
+     (#a8442a on review.html, #b3503a on health-form/media-consent) */
+  --error:#a8442a;
+
+  /* ---- type ---- */
+  --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+
+  /* ---- type scale: 9 steps, each with one job. replaces ~35 ad hoc
+     hand-tuned font-size values that had no consistent ratio. ---- */
+  --fs-2xs:11px;   /* fine print, footer legal, small-caps labels */
+  --fs-xs:12px;    /* primary section eyebrows */
+  --fs-sm:14px;    /* secondary/supporting body copy, captions */
+  --fs-base:16px;  /* default body/UI text */
+  --fs-md:18px;    /* lead paragraphs */
+  --fs-lg:22px;    /* pull-quotes, card sub-headings, numerals */
+  --fs-xl:28px;    /* h3-tier headings (door titles, honest-box heading) */
+  --fs-2xl:40px;   /* h2 section headings */
+  --fs-3xl:56px;   /* hero headline */
+
+  /* ---- radius: one tier per role ---- */
+  --radius-sm:10px;   /* small chips / tags */
+  --radius-md:14px;   /* the dominant card/photo radius */
+  --radius-lg:16px;   /* feature cards (price card etc.) */
+  --radius-pill:999px; /* buttons, pills, inputs */
+}
