@@ -41,7 +41,7 @@
     .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px}
     .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
     #navmark{height:72px;width:auto;display:block}
-    #footmark{height:150px;width:auto;display:block}
+    #footmark{height:auto;width:auto;max-height:150px;max-width:100%;display:block}
     .logo-word{font-family:var(--serif);font-size:23px;font-weight:500;color:var(--umber);letter-spacing:.01em;line-height:1}
     .logo-word small{display:block;font-family:var(--sans);font-size:8.5px;font-weight:500;letter-spacing:.32em;
       text-transform:uppercase;color:var(--muted);margin-top:3px}
@@ -267,6 +267,7 @@
     @media(max-width:880px){
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
       .door-grid,.rev-grid,.logo-grid,.foot-grid{grid-template-columns:1fr}
+      .rev-grid .rev:last-child:nth-child(3n+1){grid-column:auto}
       .hero h1{font-size:48px}.nav a.link{display:none}.srow{grid-template-columns:1fr;gap:4px}
       .srow .si{display:none}
       .story-photo{position:static;top:auto}
