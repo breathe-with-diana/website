@@ -167,12 +167,15 @@
 
     /* ===================================================================== BOOK */
     .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
-    .price-card{background:var(--bone);border:1px solid var(--terracotta);box-shadow:0 0 0 1px var(--terracotta);
+    .price-card{background:var(--sage);border:1px solid var(--sage);
       border-radius:var(--radius-lg);padding:38px 34px}
-    .price-card .label{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .price-card .label{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.75)}
+    .price-card .amt-note{color:var(--bone)}
     .price-card ul{list-style:none;padding:0;margin:22px 0 26px}
-    .price-card li{font-size:var(--fs-sm);padding:9px 0;border-bottom:1px solid var(--hairline);display:flex;gap:10px}
-    .price-card li::before{content:"·";color:var(--umber);font-weight:700}
+    .price-card li{font-size:var(--fs-sm);padding:9px 0;border-bottom:1px solid rgba(244,239,230,.22);display:flex;gap:10px;color:rgba(244,239,230,.92)}
+    .price-card li::before{content:"·";color:var(--bone);font-weight:700}
+    .price-card p.muted{color:rgba(244,239,230,.75)}
+    .price-card p.muted a{color:var(--bone);white-space:nowrap}
     details{border-bottom:1px solid var(--hairline);padding:16px 0}
     details summary{font-family:var(--sans);font-weight:500;font-size:var(--fs-md);cursor:pointer;list-style:none;display:flex;justify-content:space-between}
     details summary::-webkit-details-marker{display:none}
@@ -545,7 +548,7 @@
           <li>Очно или онлайн, в любой точке мира</li>
         </ul>
         <a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener" style="width:100%;text-align:center">Записаться на бесплатную консультацию</a>
-        <p class="muted" style="font-size:var(--fs-sm);margin-top:16px;text-align:center">Хотите сначала просто написать? <a href="https://wa.me/66631259588?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%94%D0%B8%D0%B0%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D1%81%D0%B5%D1%81%D1%81%D0%B8%D1%8E." target="_blank" rel="noopener" style="color:var(--terracotta-deep)">Напишите мне в WhatsApp</a>.</p>
+        <p class="muted" style="font-size:var(--fs-sm);margin-top:16px;text-align:center">Хотите сначала просто написать? <a href="https://wa.me/66631259588?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%94%D0%B8%D0%B0%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D1%81%D0%B5%D1%81%D1%81%D0%B8%D1%8E." target="_blank" rel="noopener">Напишите мне в WhatsApp</a>.</p>
       </div>
       <div>
         <details open><summary>Нужен ли опыт?</summary><p>Совсем нет. Большинство людей, которые приходят ко мне, никогда раньше не пробовали ребёфинг. Я проведу вас через каждый шаг, и не нужно уметь дышать «правильно». Мы просто начинаем вместе.</p></details>
