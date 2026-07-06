@@ -10,7 +10,9 @@
 
   var CSS = '' +
     '#fb-bar{position:fixed;right:20px;bottom:20px;z-index:9999;font-family:Inter,system-ui,sans-serif}' +
-    '#fb-toggle{background:#C97B5A;color:#F4EFE6;border:none;border-radius:999px;padding:13px 20px;font-size:14px;cursor:pointer;box-shadow:0 6px 22px rgba(91,70,54,.28)}' +
+    /* #905840, not the base terracotta #C97B5A: bone-on-terracotta measures 2.84:1 and
+       fails WCAG AA, the same contrast fix already applied to every .btn-primary. */
+    '#fb-toggle{background:#905840;color:#F4EFE6;border:none;border-radius:999px;padding:13px 20px;font-size:14px;cursor:pointer;box-shadow:0 6px 22px rgba(91,70,54,.28)}' +
     '#fb-toggle b{font-weight:600}#fb-count{font-weight:600}' +
     '#fb-panel{position:absolute;right:0;bottom:56px;width:330px;max-width:88vw;background:#F4EFE6;border:1px solid rgba(91,70,54,.18);border-radius:16px;box-shadow:0 14px 40px rgba(91,70,54,.3);padding:18px}' +
     '#fb-head{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;color:#5B4636;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}' +

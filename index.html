@@ -18,7 +18,7 @@
     body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
 
     /* ===== promotion bar (real website element; the site's one deliberate ochre moment) ===== */
-    .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:12.5px;font-weight:500;
+    .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;
       letter-spacing:.03em;padding:10px 20px;text-align:center;position:sticky;top:0;z-index:200}
     .promo-bar b{font-weight:700}
     .promo-bar a{color:var(--umber);text-decoration:underline;font-weight:700;white-space:nowrap}
@@ -50,6 +50,10 @@
     .wrap{max-width:1140px;margin:0 auto}
     .wrap-narrow{max-width:760px;margin:0 auto}
     /* the shared "eyebrow" label role: one size, one tracking, one (context-appropriate) color */
+    /* .eyebrow is the primary section label (one size up, --fs-xs) from its five siblings
+       below (.tagword, .price-card .label, footer h5, .fc-head span, all --fs-2xs) -
+       deliberately: it's the lead label for a whole section, they're subordinate tags
+       inside a card. All six share weight:600 and .18em tracking. */
     .eyebrow{font-family:var(--sans);font-size:var(--fs-xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
       color:var(--umber);margin-bottom:22px}
     h2.sec{font-family:var(--serif);font-weight:500;font-size:var(--fs-2xl);line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}
@@ -126,7 +130,7 @@
     .door h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;margin:0 0 10px}
     .door p{font-size:var(--fs-md);color:var(--umber);margin:0 0 6px}
     .door .door-cta{margin-top:auto;padding-top:26px}
-    .door .tagword{font-family:var(--sans);font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
+    .door .tagword{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
     .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber)}
 
     /* ===================================================================== SESSION / WHAT IT IS */
@@ -207,7 +211,7 @@
     .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
     .price-card{background:var(--bone);border:1px solid var(--terracotta);box-shadow:0 0 0 1px var(--terracotta);
       border-radius:var(--radius-lg);padding:38px 34px}
-    .price-card .label{font-family:var(--sans);font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .price-card .label{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
     .price-card ul{list-style:none;padding:0;margin:22px 0 26px}
     .price-card li{font-size:var(--fs-sm);padding:9px 0;border-bottom:1px solid var(--hairline);display:flex;gap:10px}
     .price-card li::before{content:"·";color:var(--umber);font-weight:700}
@@ -223,7 +227,7 @@
     .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
     /* footer sits on the dark --umber background, so its labels/icons move to a soft
        bone tone (not ochre, not umber-on-umber) when converging off the old accent */
-    footer h5{font-family:var(--sans);font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.85);margin:0 0 16px}
+    footer h5{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.85);margin:0 0 16px}
     footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:var(--fs-sm)}
     footer a:hover{color:var(--bone)}
     footer a.social-link{display:flex;align-items:center;gap:10px}
@@ -691,7 +695,7 @@
     </div>
     <div>
       <h5>Find me</h5>
-      <a class="social-link" href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="var(--ochre)" stroke="none"/></svg>@breathe.with.diana</a>
+      <a class="social-link" href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="rgba(244,239,230,.85)" stroke="none"/></svg>@breathe.with.diana</a>
       <a class="social-link" href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener"><svg class="brand-wa" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>+66 63 125 9588</a>
       <a class="social-link" href="mailto:Iwantto@breathe-with-diana.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Iwantto@breathe-with-diana.com</a>
     </div>
