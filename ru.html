@@ -8,67 +8,67 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
   <style>
-    /* Recoleta isn't free; Cormorant Garamond stands in for this preview (it carries Cyrillic). */
-    :root{
-      --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
-      --umber:#5B4636; --ochre:#D4A24C;
-      --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
-      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
-      --sans:'Inter',system-ui,-apple-system,sans-serif;
-    }
+    /* Recoleta isn't free; Cormorant Garamond stands in for this preview (it carries Cyrillic).
+       Palette/type-scale tokens live in tokens.css, shared with index/es/review/health-form/media-consent. */
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;scroll-behavior:smooth}
     body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
 
-    /* ===== promotion bar ===== */
-    .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:12.5px;font-weight:500;
+    /* ===== promotion bar (real website element; the site's one deliberate ochre moment) ===== */
+    .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;
       letter-spacing:.03em;padding:10px 20px;text-align:center;position:sticky;top:0;z-index:200}
     .promo-bar b{font-weight:700}
     .promo-bar a{color:var(--umber);text-decoration:underline;font-weight:700;white-space:nowrap}
 
     /* ============================================================= SITE NAV */
-    .site{max-width:100%;}
     .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
       border-bottom:1px solid var(--hairline)}
     .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;row-gap:10px}
     .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
     #navmark{height:72px;width:auto;display:block}
     #footmark{height:auto;width:auto;max-height:150px;max-width:100%;display:block}
-    .nav a.link{font-family:var(--sans);font-size:13.5px;color:var(--umber);text-decoration:none;opacity:.82}
+    .nav a.link{font-family:var(--sans);font-size:var(--fs-sm);color:var(--umber);text-decoration:none;opacity:.82}
     .nav a.link:hover{opacity:1}
-    .lang{display:flex;align-items:flex-start;gap:12px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;
-      color:var(--muted);border:1px solid var(--hairline);border-radius:999px;padding:6px 14px}
+    .lang{display:flex;align-items:flex-start;gap:12px;font-family:var(--sans);font-size:var(--fs-xs);letter-spacing:.08em;
+      color:var(--muted);border:1px solid var(--hairline);border-radius:var(--radius-pill);padding:6px 14px}
     .lang a,.lang b{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--muted)}
     .lang b{color:var(--umber)}
     .lang a:hover{color:var(--umber)}
-    .lang .flag{font-size:10px;line-height:1}
-    .btn{font-family:var(--sans);font-size:13.5px;font-weight:500;text-decoration:none;border-radius:999px;
+    .lang .flag{font-size:var(--fs-2xs);line-height:1}
+    .btn{font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;text-decoration:none;border-radius:var(--radius-pill);
       padding:10px 20px;display:inline-block;transition:.15s}
-    .btn-primary{background:var(--terracotta);color:var(--bone)}
-    .btn-primary:hover{background:#b86a4b}
+    /* terracotta-deep, not terracotta: the CTA's own label text needs to clear WCAG AA */
+    .btn-primary{background:var(--terracotta-deep);color:var(--bone)}
+    .btn-primary:hover{background:#7A4A36}
     .btn-ghost{border:1px solid var(--umber);color:var(--umber)}
     .btn-ghost:hover{background:var(--umber);color:var(--bone)}
 
     section{padding:104px 32px}
     .wrap{max-width:1140px;margin:0 auto}
     .wrap-narrow{max-width:760px;margin:0 auto}
-    .eyebrow{font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
-      color:var(--terracotta);margin-bottom:22px}
-    h2.sec{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}
-    .lead{font-size:17px;color:var(--umber);max-width:620px}
+    /* the shared "eyebrow" label role: one size, one tracking, one (context-appropriate) color */
+    /* .eyebrow is the primary section label (one size up, --fs-xs) from its five siblings
+       below (.tagword, .price-card .label, footer h5, .fc-head span, all --fs-2xs) -
+       deliberately: it's the lead label for a whole section, they're subordinate tags
+       inside a card. All six share weight:600 and .18em tracking. */
+    .eyebrow{font-family:var(--sans);font-size:var(--fs-xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--umber);margin-bottom:22px}
+    h2.sec{font-family:var(--serif);font-weight:500;font-size:var(--fs-2xl);line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}
+    .lead{font-size:var(--fs-md);color:var(--umber);max-width:620px}
     .muted{color:var(--muted)}
 
     /* ===================================================================== HERO */
-    .hero{padding:92px 32px 96px;background:
+    .hero{padding:44px 32px 96px;background:
       radial-gradient(at 78% 18%,rgba(212,162,76,.16),transparent 46%),
       radial-gradient(at 12% 92%,rgba(201,123,90,.14),transparent 50%),var(--bone)}
     .hero-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
-    .hero h1{font-family:var(--serif);font-weight:500;font-size:62px;line-height:1.04;letter-spacing:-.015em;margin:18px 0 22px}
-    .hero h1 em{font-style:italic;color:var(--terracotta)}
-    .hero p.sub{font-size:18.5px;line-height:1.6;color:var(--umber);max-width:500px;margin:0 0 34px}
+    .hero h1{font-family:var(--serif);font-weight:500;font-size:var(--fs-3xl);line-height:1.04;letter-spacing:-.015em;margin:18px 0 22px}
+    .hero h1 em{font-style:italic;color:var(--terracotta-deep)}
+    .hero p.sub{font-size:var(--fs-md);line-height:1.6;color:var(--umber);max-width:500px;margin:0 0 34px}
     .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-    .hero-photo{aspect-ratio:4/5;border-radius:10px;position:relative;overflow:hidden;
+    .hero-photo{aspect-ratio:4/5;border-radius:var(--radius-md);position:relative;overflow:hidden;
       background:radial-gradient(at 35% 28%,rgba(212,162,76,.5),transparent 55%),
                  radial-gradient(at 72% 78%,rgba(201,123,90,.55),transparent 60%),
                  linear-gradient(160deg,var(--cream),#Dcd2bf)}
@@ -76,84 +76,88 @@
     /* ===================================================================== THE PRACTICE */
     .practice{background:var(--bone);text-align:center;padding-top:20px}
     .practice .wrap-narrow{max-width:800px}
-    .practice .lead{font-size:18px;color:var(--umber);max-width:660px;margin:0 auto 16px}
+    .practice .lead{font-size:var(--fs-md);color:var(--umber);max-width:660px;margin:0 auto 16px}
     .facets{display:grid;grid-template-columns:repeat(3,1fr);gap:44px;margin:56px auto 0;max-width:880px;text-align:center}
     .facet .fic{width:52px;height:52px;margin:0 auto 18px;display:block}
-    .facet h4{font-family:var(--sans);font-weight:600;font-size:14.5px;margin:0 0 8px}
-    .facet p{font-size:14px;color:var(--muted);margin:0;line-height:1.6}
-    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--muted);
+    .facet h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-sm);margin:0 0 8px}
+    .facet p{font-size:var(--fs-sm);color:var(--muted);margin:0;line-height:1.6}
+    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--terracotta-deep);
       max-width:600px;margin:48px auto 0}
 
     /* ===================================================================== TWO DOORS */
     .doors{background:var(--cream)}
     .door-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:42px}
-    .door{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:38px 34px;display:flex;flex-direction:column}
+    .door{background:var(--bone);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:38px 34px;display:flex;flex-direction:column}
     .door .ix{width:46px;height:46px;margin-bottom:20px}
-    .door h3{font-family:var(--serif);font-size:27px;font-weight:500;margin:0 0 10px}
-    .door p{font-size:15px;color:var(--umber);margin:0 0 6px}
+    .door h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;margin:0 0 10px}
+    .door p{font-size:var(--fs-md);color:var(--umber);margin:0 0 6px}
     .door .door-cta{margin-top:auto;padding-top:26px}
-    .door .tagword{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--terracotta)}
-    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:23px;color:var(--umber)}
+    .door .tagword{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
+    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber)}
 
     /* ===================================================================== SESSION */
-    .session-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:18px}
+    .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:18px}
+    .session-grid .steps-col{display:flex;flex-direction:column;justify-content:center}
     .step{display:flex;gap:18px;margin-bottom:26px}
-    .step .n{font-family:var(--serif);font-style:italic;font-size:26px;color:var(--terracotta);line-height:1;flex-shrink:0;width:34px}
-    .step h4{font-family:var(--sans);font-weight:600;font-size:15px;margin:2px 0 4px}
-    .step p{font-size:14.5px;color:var(--muted);margin:0}
-    .honest{background:var(--umber);color:var(--bone);border-radius:14px;padding:38px 36px}
-    .honest h3{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--bone);margin:0 0 16px}
-    .honest p{font-size:15px;color:rgba(244,239,230,.85);margin:0 0 14px}
-    .honest .pull{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ochre);margin-top:22px}
+    .step .n{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber);line-height:1;flex-shrink:0;width:34px}
+    .step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-md);margin:2px 0 4px}
+    .step p{font-size:var(--fs-sm);color:var(--muted);margin:0}
+    .honest{background:var(--umber);color:var(--bone);border-radius:var(--radius-md);padding:38px 36px;
+      display:flex;flex-direction:column;justify-content:center}
+    .honest h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--bone);margin:0 0 16px}
+    .honest p{font-size:var(--fs-md);color:rgba(244,239,230,.85);margin:0 0 14px}
+    .honest .pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:rgba(244,239,230,.85);margin-top:22px}
 
     /* ===================================================================== STORY */
     .story{background:var(--cream)}
     .story-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
-    .story-photo{aspect-ratio:1/1;border-radius:10px;position:sticky;top:150px;overflow:hidden;
+    .story-photo{aspect-ratio:1/1;border-radius:var(--radius-md);position:sticky;top:150px;overflow:hidden;
       background:radial-gradient(at 60% 35%,rgba(201,123,90,.5),transparent 55%),linear-gradient(160deg,var(--bone),#ddd2bf)}
-    .story blockquote{font-family:var(--serif);font-size:30px;line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
-    .story p{font-size:15.5px;color:var(--umber);max-width:560px}
+    .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
+    .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
     .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
     .hero-photo img{object-position:50% 30%}
     .story-more{margin-top:6px}
     .story-more[open] .story-more-toggle::after{content:"  Свернуть"}
-    .story-more-toggle{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--terracotta);cursor:pointer;
+    .story-more-toggle{font-family:var(--sans);font-weight:500;font-size:var(--fs-sm);color:var(--terracotta-deep);cursor:pointer;
       list-style:none;display:inline-block;margin-top:4px}
     .story-more-toggle::-webkit-details-marker{display:none}
     .story-more-toggle::after{content:"  Читать мою историю дальше →"}
     .story-more .more-body{margin-top:14px}
     .story-more .more-body p{margin:0 0 14px}
-    .story-sig{font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.3;color:var(--terracotta);margin-top:22px}
+    .story p.story-sig{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);line-height:1.3;color:var(--terracotta-deep);margin-top:22px}
     .space-band{position:relative;height:clamp(220px,38vw,440px);overflow:hidden}
     .space-band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
-    .amt-note{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--umber);margin:6px 0 2px}
+    .amt-note{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--umber);margin:6px 0 2px}
 
     /* ===================================================================== REVIEWS */
     .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
-    .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:30px 28px;display:flex;flex-direction:column}
+    .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:30px 28px;display:flex;flex-direction:column}
     .rev .rev-body{flex:1;margin-bottom:22px}
-    .rev .quote{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:0}
-    .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:19px;font-style:italic;color:var(--terracotta);border:1px solid var(--hairline)}
+    .rev .quote{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:0}
+    .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:var(--fs-md);font-style:italic;color:var(--terracotta-deep);border:1px solid var(--hairline)}
     .rev-more{margin-top:10px}
-    .rev-more summary{cursor:pointer;font-size:12.5px;color:var(--terracotta);list-style:none;display:inline-block;border-bottom:1px solid currentColor;padding-bottom:1px}
+    .rev-more summary{cursor:pointer;font-size:var(--fs-xs);color:var(--terracotta-deep);list-style:none;display:inline-block;border-bottom:1px solid currentColor;padding-bottom:1px}
     .rev-more summary::-webkit-details-marker{display:none}
-    .rev-more[open] summary{display:none}
-    .rev-more .quote-more p{font-family:var(--serif);font-size:18.5px;line-height:1.4;font-style:italic;color:var(--umber);margin:12px 0 0}
+    .rev-more summary::after{content:"Читать дальше"}
+    .rev-more[open] summary::after{content:"Свернуть"}
+    .rev-more .quote-more p{font-family:var(--serif);font-size:var(--fs-md);line-height:1.4;font-style:italic;color:var(--umber);margin:12px 0 0}
+    .rev .quote + .quote{margin-top:14px}
     .rev .who{display:flex;align-items:center;gap:12px}
     .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
     .rev .av img{width:100%;height:100%;object-fit:cover;display:block}
-    .rev .who b{font-size:13.5px;font-weight:600}
-    .rev .who span{font-size:12px;color:var(--muted);display:block;margin-top:1px}
-    .rev .who a{color:var(--terracotta);text-decoration:none}
+    .rev .who b{font-size:var(--fs-sm);font-weight:600}
+    .rev .who span{font-size:var(--fs-xs);color:var(--muted);display:block;margin-top:1px}
+    .rev .who a{color:var(--terracotta-deep);text-decoration:none}
     .rev .who a:hover{text-decoration:underline}
-    .rev-note{text-align:center;font-size:12.5px;color:var(--muted);font-style:italic;margin-top:26px}
+    .rev-note{text-align:center;font-size:var(--fs-xs);color:var(--muted);font-style:italic;margin-top:26px}
 
     /* ===================================================================== RESET BAND */
     .reset{background:var(--sage);color:var(--bone);text-align:center}
-    .reset h2{font-family:var(--serif);font-weight:500;font-size:40px;color:var(--bone);margin:0 0 14px}
-    .reset p{color:rgba(244,239,230,.9);max-width:480px;margin:0 auto 28px;font-size:16px}
+    .reset h2{font-family:var(--serif);font-weight:500;font-size:var(--fs-2xl);color:var(--bone);margin:0 0 14px}
+    .reset p{color:rgba(244,239,230,.9);max-width:480px;margin:0 auto 28px;font-size:var(--fs-base)}
     .reset-form{display:flex;gap:10px;max-width:430px;margin:0 auto;justify-content:center;flex-wrap:wrap}
-    .reset-form input{font-family:var(--sans);font-size:14px;padding:13px 18px;border-radius:999px;border:none;
+    .reset-form input{font-family:var(--sans);font-size:var(--fs-sm);padding:13px 18px;border-radius:var(--radius-pill);border:none;
       flex:1;min-width:220px;color:var(--umber)}
     .reset-form .btn-primary{background:var(--umber)}
     .reset-form .btn-primary:hover{background:#43332628}
@@ -161,37 +165,43 @@
     /* ===================================================================== BOOK */
     .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
     .price-card{background:var(--bone);border:1px solid var(--terracotta);box-shadow:0 0 0 1px var(--terracotta);
-      border-radius:16px;padding:38px 34px}
-    .price-card .label{font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+      border-radius:var(--radius-lg);padding:38px 34px}
+    .price-card .label{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
     .price-card ul{list-style:none;padding:0;margin:22px 0 26px}
-    .price-card li{font-size:14.5px;padding:9px 0;border-bottom:1px solid var(--hairline);display:flex;gap:10px}
-    .price-card li::before{content:"·";color:var(--terracotta);font-weight:700}
+    .price-card li{font-size:var(--fs-sm);padding:9px 0;border-bottom:1px solid var(--hairline);display:flex;gap:10px}
+    .price-card li::before{content:"·";color:var(--umber);font-weight:700}
     details{border-bottom:1px solid var(--hairline);padding:16px 0}
-    details summary{font-family:var(--sans);font-weight:500;font-size:15px;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+    details summary{font-family:var(--sans);font-weight:500;font-size:var(--fs-md);cursor:pointer;list-style:none;display:flex;justify-content:space-between}
     details summary::-webkit-details-marker{display:none}
-    details summary::after{content:"+";color:var(--terracotta);font-size:20px}
+    details summary::after{content:"+";color:var(--terracotta-deep);font-size:var(--fs-lg)}
     details[open] summary::after{content:"-"}
-    details p{font-size:14px;color:var(--muted);margin:12px 0 2px}
+    details p{font-size:var(--fs-sm);color:var(--muted);margin:12px 0 2px}
     .story-more summary::after{content:none}
     .story-more{border-bottom:none;padding:0}
 
     /* ===================================================================== FOOTER */
     footer{background:var(--umber);color:var(--bone);padding:40px 32px 28px}
     .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
-    footer h5{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
-    footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:14px}
+    /* footer sits on the dark --umber background, so its labels/icons move to a soft
+       bone tone (not ochre, not umber-on-umber) when converging off the old accent */
+    footer h5{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
+    footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:var(--fs-sm)}
     footer a:hover{color:var(--bone)}
     footer a.social-link{display:flex;align-items:center;gap:10px}
     footer a.social-link svg{width:18px;height:18px;flex-shrink:0;stroke:var(--ochre)}
     footer a.social-link svg.brand-wa{stroke:none}
-    .foot-bottom{max-width:1140px;margin:28px auto 0;padding-top:22px;border-top:1px solid rgba(244,239,230,.18);
-      font-size:12px;color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .foot-bottom{max-width:1140px;margin:18px auto 0;padding-top:14px;border-top:1px solid rgba(244,239,230,.18);
+      font-size:var(--fs-xs);color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
     @media(max-width:880px){
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
       .door-grid,.rev-grid,.foot-grid,.facets{grid-template-columns:1fr}
-      .hero h1{font-size:44px}.nav a.link{display:none}
+      .hero h1{font-size:48px}.nav a.link{display:none}
       .story-photo{position:static;top:auto}
+    }
+    /* a further step-down for small phones (iPhone SE-class, <=360px), matching index.html/es.html */
+    @media(max-width:360px){
+      .hero h1{font-size:38px}
     }
 
     /* short-but-wide viewports (laptop windows, browser chrome eating vertical space):
@@ -250,7 +260,7 @@
       <a href="es.html">ES<span class="flag" aria-hidden="true">🇪🇸</span></a>
       <b>RU<span class="flag" aria-hidden="true">🇷🇺</span></b>
     </span>
-    <a class="btn btn-primary" href="#book">Записаться на сессию</a>
+    <a class="btn btn-primary" href="#book">Записаться на бесплатную консультацию</a>
   </div>
 </header>
 
@@ -263,7 +273,7 @@
       <h1>Вернуться домой,<br>к своему <em>телу</em>.</h1>
       <p class="sub">Для тех, кто годами делал всё «как положено» и всё равно чувствует, что потерял связь с собой. Это приглашение замедлиться, вернуться в своё тело и начать выстраивать более добрые отношения с собой: не становясь кем-то новым, а <em>вспоминая, кем вы были всегда</em>.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#book">Записаться на сессию</a>
+        <a class="btn btn-primary" href="#book">Записаться на бесплатную консультацию</a>
         <a class="btn btn-ghost" href="#reset">Начать с бесплатной практики</a>
       </div>
     </div>
@@ -348,7 +358,7 @@
         <div class="tagword">Глубокая работа</div>
         <h3>Идите глубже</h3>
         <p>Ребёфинг помогает отпустить то, до чего не дотянуться словами. Он работает глубже истории, освобождая эмоции, которые тело держало годами, и паттерны, которые вы носили с собой, наконец ослабляют хватку. Вы уходите легче, яснее, ближе к себе.</p>
-        <div class="door-cta"><a class="btn btn-primary" href="#book">Записаться на бесплатный 15-минутный звонок</a></div>
+        <div class="door-cta"><a class="btn btn-primary" href="#book">Записаться на бесплатную консультацию</a></div>
       </div>
     </div>
     <p class="doors-note">«Дело не в том, чтобы вас чинить. Дело в том, чтобы вернуться к тому, что уже есть внутри.»</p>
@@ -369,7 +379,7 @@
     <h2 class="sec">Каждая сессия проходит по-разному, потому что каждый человек разный.</h2>
     <p class="lead muted" style="max-width:none">Кто-то смеётся. Кто-то плачет. К кому-то возвращаются воспоминания. Кто-то просто чувствует глубокий покой. Не существует «правильного» переживания, и ничего не нужно форсировать. Моя задача в том, чтобы создать пространство, в котором вам достаточно безопасно быть собой: достаточно безопасно, чтобы смягчиться и позволить телу вести процесс в его собственном темпе.</p>
     <div class="session-grid">
-      <div>
+      <div class="steps-col">
         <div class="step"><div class="n">1</div><div><h4>Мы начинаем с разговора</h4><p>Прежде чем дышать, мы знакомимся. Говорим о том, что привело вас сюда, что сейчас происходит в вашей жизни, о ваших намерениях на сессию и обо всём важном, что касается вашего физического и эмоционального здоровья. Я подробно объясняю, как устроен процесс, отвечаю на вопросы и убеждаюсь, что вам спокойно, прежде чем мы начнём.</p></div></div>
         <div class="step"><div class="n">2</div><div><h4>Потом мы дышим</h4><p>Вы удобно ложитесь, а я веду вас через связный дыхательный ритм, который используется в ребёфинге. Всё это время я полностью с вами: слушаю ваше дыхание, замечаю, как откликается тело, мягко поддерживаю, когда это нужно, и оставляю пространство, когда важнее всего тишина. Здесь не нужно держать себя в руках. Я буду рядом на каждом шаге.</p></div></div>
         <div class="step"><div class="n">3</div><div><h4>Потом мы доверяем вашему телу</h4><p>Кто-то отпускает эмоции, которые держал годами. Кто-то чувствует тепло, покалывание, волны энергии, глубокий покой или полную тишину. Многие удивляются тому, как глубоко они способны чувствовать, сколько в них любви к себе и как естественно приходит ясность. Ничего не нужно достигать. Мы просто принимаем то, что ваше тело готово показать.</p></div></div>
@@ -423,7 +433,7 @@
             <p class="story-sig">«Самый большой риск в моей жизни был не в переезде на другой конец света. А в том, чтобы довериться себе.»</p>
           </div>
         </details>
-        <p style="margin-top:22px"><a class="btn btn-ghost" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Записаться на бесплатный звонок</a></p>
+        <p style="margin-top:22px"><a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Записаться на бесплатную консультацию</a></p>
       </div>
     </div>
     <div class="sec-fb">
@@ -449,7 +459,7 @@
         <div class="rev-body">
           <p class="quote">«Пришли очень ценные видения, ощущения и осознания. Я не знала чего ожидать, но доверилась процессу. Вся сессия прошла в заботливом, бережном формате. Благодарю Диану за безопасное пространство, за доброту, теплоту и заботу. Прошло несколько дней, а я всё ещё интегрирую ощущения после сессии. Мне пришли ощущения, которые помогли мне прожить некоторые моменты и отпустить их. А также я увидела и ощутила один из источников своей внутренней силы, на который я могу каждый день опираться.</p>
           <details class="rev-more">
-            <summary>Читать дальше</summary>
+            <summary></summary>
             <div class="quote-more">
               <p>«По окончании сессии мне захотелось зарисовать видение, которое мне пришло. Это напоминает мне об источнике моей силы и поддержки высших сил.</p>
               <p>«Благодарю искренне 🙏»</p>
@@ -463,13 +473,13 @@
       </div>
       <div class="rev">
         <div class="rev-body">
-          <p class="quote">«Я давно хотела попробовать ребёрфинг, но всё как-то не складывалось. И когда увидела сообщение Дианы, почувствовала, что это пришло именно в тот момент, когда мне это было очень нужно.</p>
+          <p class="quote">«Во время практики я очень ярко чувствовала своё тело. Горели губы, руки, область таза, ощущался мощный прилив энергии. А потом началось глубокое эмоциональное освобождение. Я плакала, рыдала, и именно это мне было нужно.</p>
+          <p class="quote">«В процессе я увидела, где сейчас предаю себя и свои желания, что хочу изменить в отношениях с собой, с партнёром и с другими людьми. Пришли очень важные осознания.</p>
           <details class="rev-more">
-            <summary>Читать дальше</summary>
+            <summary></summary>
             <div class="quote-more">
+              <p>«Я давно хотела попробовать ребёрфинг, но всё как-то не складывалось. И когда увидела сообщение Дианы, почувствовала, что это пришло именно в тот момент, когда мне это было очень нужно.</p>
               <p>«Мне очень понравилось, как Диана ведёт процесс, бережно, внимательно, с заботой о каждой детали. Она подробно объясняла, что будет происходить, и для меня это создало ощущение безопасности и доверия.</p>
-              <p>«Во время практики я очень ярко чувствовала своё тело. Горели губы, руки, область таза, ощущался мощный прилив энергии. А потом началось глубокое эмоциональное освобождение. Я плакала, рыдала, и именно это мне было нужно.</p>
-              <p>«В процессе я увидела, где сейчас предаю себя и свои желания, что хочу изменить в отношениях с собой, с партнёром и с другими людьми. Пришли очень важные осознания.</p>
               <p>«После практики я почувствовала огромную благодарность Диане за то, что она делает. Честно, такие процессы сложно измерить деньгами. Это невероятно ценно, настолько глубоко соединиться со своим телом и на время выключить бесконечный поток мыслей и историй в голове.</p>
               <p>«Я сама работаю с людьми и знаю, насколько важно находить своих проводников и мастеров. Поэтому искренне рекомендую Диану тем, кто хочет освободить зажатые эмоции, снять телесные блоки, перезагрузиться и создать пространство для глубоких внутренних изменений.»</p>
             </div>
@@ -498,7 +508,7 @@
 <!-- ===== БЕСПЛАТНАЯ ПРАКТИКА ===== -->
 <section class="reset" id="reset">
   <div class="wrap-narrow">
-    <div class="eyebrow" style="color:var(--ochre)">Начните здесь · бесплатно</div>
+    <div class="eyebrow" style="color:var(--bone)">Начните здесь · бесплатно</div>
     <h2>Ваша бесплатная дыхательная практика.</h2>
     <p>Если вы пока не готовы к полной сессии, это мягкое место для начала. Бесплатная практика с моим голосом: она помогает замедлиться, снова почувствовать дыхание и попробовать маленький кусочек этой работы, где бы вы ни были. Оставьте почту, и я пришлю её вам.</p>
     <form class="reset-form" onsubmit="return false">
@@ -531,8 +541,8 @@
           <li>Поддержка и связь в последующие дни</li>
           <li>Очно или онлайн, в любой точке мира</li>
         </ul>
-        <a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener" style="width:100%;text-align:center">Записаться на бесплатный 15-минутный звонок</a>
-        <p class="muted" style="font-size:13px;margin-top:16px;text-align:center">Хотите сначала просто написать? <a href="https://wa.me/66631259588?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%94%D0%B8%D0%B0%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D1%81%D0%B5%D1%81%D1%81%D0%B8%D1%8E." target="_blank" rel="noopener" style="color:var(--terracotta)">Напишите мне в WhatsApp</a>.</p>
+        <a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener" style="width:100%;text-align:center">Записаться на бесплатную консультацию</a>
+        <p class="muted" style="font-size:var(--fs-sm);margin-top:16px;text-align:center">Хотите сначала просто написать? <a href="https://wa.me/66631259588?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%94%D0%B8%D0%B0%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D1%81%D0%B5%D1%81%D1%81%D0%B8%D1%8E." target="_blank" rel="noopener" style="color:var(--terracotta-deep)">Напишите мне в WhatsApp</a>.</p>
       </div>
       <div>
         <details open><summary>Нужен ли опыт?</summary><p>Совсем нет. Большинство людей, которые приходят ко мне, никогда раньше не пробовали ребёфинг. Я проведу вас через каждый шаг, и не нужно уметь дышать «правильно». Мы просто начинаем вместе.</p></details>
