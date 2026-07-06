@@ -8,14 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
   <style>
-    :root{
-      --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
-      --umber:#5B4636; --ochre:#D4A24C;
-      --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
-      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
-      --sans:'Inter',system-ui,-apple-system,sans-serif;
-    }
     *{box-sizing:border-box}
     html,body{margin:0}
     body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;
@@ -28,71 +22,73 @@
 
     /* draft banner, for Diana's review only */
     .draft{background:rgba(138,140,110,.14);border:1px solid rgba(138,140,110,.4);border-radius:12px;
-      padding:13px 15px;font-size:12.5px;line-height:1.55;color:var(--umber);margin:0 0 24px}
+      padding:13px 15px;font-size:var(--fs-xs);line-height:1.55;color:var(--umber);margin:0 0 24px}
     .draft b{font-weight:600}
 
-    .intro{font-family:var(--serif);font-size:25px;line-height:1.24;color:var(--umber);margin:0 0 12px;font-weight:500}
-    .sub{font-size:14px;color:var(--muted);margin:0 0 16px;line-height:1.55}
+    .intro{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.24;color:var(--umber);margin:0 0 12px;font-weight:500}
+    .sub{font-size:var(--fs-base);color:var(--muted);margin:0 0 16px;line-height:1.55}
     .reassure{background:rgba(201,123,90,.1);border:1px solid rgba(201,123,90,.28);border-radius:12px;
-      padding:13px 15px;font-size:13px;line-height:1.55;color:var(--umber);margin:0 0 28px}
+      padding:13px 15px;font-size:var(--fs-sm);line-height:1.55;color:var(--umber);margin:0 0 28px}
 
-    .sectionhead{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--umber);
+    .sectionhead{font-family:var(--serif);font-size:var(--fs-md);font-weight:600;color:var(--umber);
       margin:30px 0 4px;padding-top:18px;border-top:1px solid var(--hairline)}
     .sectionhead:first-of-type{border-top:none;padding-top:0;margin-top:8px}
-    .sectionsub{font-size:12.5px;color:var(--muted);margin:0 0 16px;line-height:1.5}
+    .sectionsub{font-size:var(--fs-xs);color:var(--muted);margin:0 0 16px;line-height:1.5}
 
     /* a question row */
     .q{margin:0 0 16px}
     .q-top{display:flex;align-items:flex-start;gap:10px}
-    .q-text{flex:1;font-size:14.5px;color:var(--umber);line-height:1.45}
-    .q-help{display:block;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45}
+    .q-text{flex:1;font-size:var(--fs-sm);color:var(--umber);line-height:1.45}
+    .q-help{display:block;font-size:var(--fs-xs);color:var(--muted);margin-top:3px;line-height:1.45}
     .yn{display:flex;gap:8px;margin-top:10px}
-    .yn button{flex:1;border-radius:999px;padding:9px;font-family:var(--sans);font-size:13.5px;
+    .yn button{flex:1;border-radius:999px;padding:9px;font-family:var(--sans);font-size:var(--fs-sm);
       font-weight:500;cursor:pointer;border:1px solid var(--umber);background:none;color:var(--umber);
       transition:background .15s,color .15s,transform .05s}
     .yn button:active{transform:translateY(1px)}
-    .yn button.sel-yes{background:var(--terracotta);border-color:var(--terracotta);color:#fff}
-    .yn button.sel-no{background:var(--sage);border-color:var(--sage);color:#fff}
+    /* Yes/No are neutral answer choices, not good/bad: both selected-states now share one
+       hue (umber) and differ only by which is currently picked, not by warm-vs-calm color */
+    .yn button.sel-yes,.yn button.sel-no{background:var(--umber);border-color:var(--umber);color:var(--bone)}
 
     /* per-question heart, the feedback widget wires these for Diana */
-    .fav-btn{background:none;border:none;cursor:pointer;font-size:18px;line-height:1;
+    .fav-btn{background:none;border:none;cursor:pointer;font-size:var(--fs-md);line-height:1;
       color:rgba(91,70,54,.28);padding:2px 0 0;transition:transform .1s,color .15s;flex-shrink:0}
     .fav-btn:hover{transform:scale(1.18)}
-    .fav-btn.on{color:var(--terracotta)}
-    .fav-note{width:100%;box-sizing:border-box;font-family:var(--sans);font-size:12px;
+    .fav-btn.on{color:var(--terracotta-deep)}
+    .fav-note{width:100%;box-sizing:border-box;font-family:var(--sans);font-size:var(--fs-xs);
       border:1px solid rgba(91,70,54,.16);border-radius:8px;padding:6px 9px;margin-top:8px;
       color:var(--umber);background:#FCFAF5}
 
-    label.fld{display:block;font-size:13.5px;font-weight:500;color:var(--umber);margin-bottom:7px}
-    .fld .opt{font-weight:400;color:var(--muted);font-size:11.5px}
+    label.fld{display:block;font-size:var(--fs-sm);font-weight:500;color:var(--umber);margin-bottom:7px}
+    .fld .opt{font-weight:400;color:var(--muted);font-size:var(--fs-2xs)}
 
     /* checklist question, tick-any-that-apply */
     .checklist{margin-top:10px;display:flex;flex-direction:column;gap:9px}
-    .chk{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;color:var(--umber);line-height:1.4;cursor:pointer}
+    .chk{display:flex;align-items:flex-start;gap:9px;font-size:var(--fs-sm);color:var(--umber);line-height:1.4;cursor:pointer}
     .chk input{width:16px;height:16px;margin-top:1px;accent-color:var(--terracotta);flex-shrink:0}
     .chk-none{padding-top:8px;margin-top:2px;border-top:1px solid var(--hairline);font-weight:500}
     .if-yes{margin-top:10px}
     input[type=text]{width:100%;border:1px solid var(--hairline);border-radius:9px;background:#FCFAF5;
-      padding:11px 13px;font-family:var(--sans);font-size:14px;color:var(--umber);outline:none;transition:border-color .15s,background .15s}
+      padding:11px 13px;font-family:var(--sans);font-size:var(--fs-sm);color:var(--umber);outline:none;transition:border-color .15s,background .15s}
     textarea{width:100%;border:1px solid var(--hairline);border-radius:9px;background:#FCFAF5;
-      padding:11px 13px;font-family:var(--sans);font-size:14px;color:var(--umber);outline:none;
+      padding:11px 13px;font-family:var(--sans);font-size:var(--fs-sm);color:var(--umber);outline:none;
       resize:vertical;min-height:84px;transition:border-color .15s,background .15s}
     input:focus,textarea:focus{border-color:var(--terracotta);background:#fff}
     input::placeholder,textarea::placeholder{color:rgba(91,70,54,.38)}
 
     .consent{background:rgba(212,162,76,.12);border:1px solid rgba(212,162,76,.34);border-radius:12px;
-      padding:15px 16px;font-size:13px;line-height:1.55;color:var(--umber);margin:8px 0 8px}
+      padding:15px 16px;font-size:var(--fs-sm);line-height:1.55;color:var(--umber);margin:8px 0 8px}
     .consent label{display:flex;align-items:flex-start;gap:9px;cursor:pointer}
     .consent input{width:16px;height:16px;margin-top:2px;accent-color:var(--terracotta);flex-shrink:0}
 
-    .send{margin-top:18px;width:100%;background:var(--terracotta);color:#fff;border:none;cursor:pointer;
-      border-radius:999px;padding:15px;font-family:var(--sans);font-size:15px;font-weight:500;
+    /* same AA fix as review.html: white/bone label on terracotta fails ~3.25:1, terracotta-deep clears it */
+    .send{margin-top:18px;width:100%;background:var(--terracotta-deep);color:var(--bone);border:none;cursor:pointer;
+      border-radius:999px;padding:15px;font-family:var(--sans);font-size:var(--fs-base);font-weight:500;
       transition:background .15s,transform .05s}
-    .send:hover{background:#b86a4b}
+    .send:hover{background:#7A4A36}
     .send:active{transform:translateY(1px)}
     .send:disabled{opacity:.7;cursor:default}
-    .err{color:#b3503a;font-size:12.5px;text-align:center;margin:10px 0 0;min-height:1px}
-    .footnote{font-size:11px;color:var(--muted);text-align:center;margin:16px 0 0;line-height:1.5}
+    .err{color:var(--error);font-size:var(--fs-xs);text-align:center;margin:10px 0 0;min-height:1px}
+    .footnote{font-size:var(--fs-2xs);color:var(--muted);text-align:center;margin:16px 0 0;line-height:1.5}
   </style>
 </head>
 <body
@@ -107,6 +103,7 @@
     <img class="logo" src="img/logo-site.svg" alt="Breathe with Diana">
 
     <!-- ===== draft banner, Diana only, not part of the client copy ===== -->
+    <!-- STRIP-BEFORE-LAUNCH -->
     <div class="draft">
       <b>This is a draft for you, Diana 🤎</b><br>
       Read it as a client would. The <b>Yes / No</b> buttons show how it will feel to fill in. Tap the <b>♥</b> beside any question you love, and use the <b>Send feedback</b> box (bottom right) to add a question, change wording, or tell me what to drop. Tapping <b>Send to Diana</b> now saves a real, private test row so we can check the plumbing works, but this page is not yet shared with real clients.
@@ -124,6 +121,7 @@
     <div class="q" data-id="q-conditions" data-name="Health conditions checklist" data-group="Body">
       <div class="q-top">
         <div class="q-text">Do you currently have any of the following? <span class="q-help">Please check any that apply.</span></div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-conditions" data-name="Health conditions checklist" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="checklist">
@@ -138,63 +136,76 @@
         <label class="chk"><input type="checkbox" class="cond"><span>Severe mental health condition (such as psychosis, schizophrenia, bipolar disorder, or severe PTSD)</span></label>
         <label class="chk chk-none"><input type="checkbox" id="cond-none"><span>None of the above</span></label>
       </div>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-conditions" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-conditions-detail" data-name="Tell me more about checked conditions" data-group="Body">
       <div class="q-top">
         <label class="fld" for="conditions-detail" style="margin-bottom:0">If you checked any of the above, please tell me more <span class="opt">· optional</span></label>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-conditions-detail" data-name="Tell me more about checked conditions" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <textarea id="conditions-detail" placeholder="Whatever feels relevant…" style="margin-top:8px"></textarea>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-conditions-detail" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-meds-breathing" data-name="Medication affecting breathing or emotional state" data-group="Body">
       <div class="q-top">
         <div class="q-text">Are you currently taking any medication that may affect your breathing or emotional state?</div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-meds-breathing" data-name="Medication affecting breathing or emotional state" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
       <input type="text" class="if-yes" id="meds-breathing-detail" placeholder="If yes, please list…">
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-meds-breathing" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-pregnant" data-name="Pregnancy" data-group="Body">
       <div class="q-top">
         <div class="q-text">Are you pregnant?</div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-pregnant" data-name="Pregnancy" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-no">No</button><button type="button" class="yn-yes">Yes</button></div>
       <input type="text" class="if-yes" id="pregnant-weeks" placeholder="If yes, how many weeks?">
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-pregnant" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-allergies" data-name="Allergies or sensitivities" data-group="Body">
       <div class="q-top">
         <div class="q-text">Do you have any allergies or sensitivities? <span class="q-help">e.g. essential oils, scents</span></div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-allergies" data-name="Allergies or sensitivities" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-no">No</button><button type="button" class="yn-yes">Yes</button></div>
       <input type="text" class="if-yes" id="allergies-detail" placeholder="If yes, please specify…">
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-allergies" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-bones" data-name="Osteoporosis or fragile bones" data-group="Body">
       <div class="q-top">
         <div class="q-text">Do you have osteoporosis or fragile bones?</div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-bones" data-name="Osteoporosis or fragile bones" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-bones" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-faint" data-name="Fainting or dizziness" data-group="Body">
       <div class="q-top">
         <div class="q-text">Do you faint easily, or feel dizzy or light-headed often?</div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-faint" data-name="Fainting or dizziness" data-group="Body" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-faint" placeholder="Diana's note on this question…">
     </div>
 
@@ -205,19 +216,23 @@
     <div class="q" data-id="q-mental-support" data-name="Currently receiving mental or emotional support" data-group="Mind">
       <div class="q-top">
         <div class="q-text">Are you currently receiving treatment or support for your mental or emotional wellbeing?</div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-mental-support" data-name="Currently receiving mental or emotional support" data-group="Mind" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
       <textarea class="if-yes" id="mental-support-detail" placeholder="If yes, please briefly explain…" style="min-height:64px"></textarea>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-mental-support" placeholder="Diana's note on this question…">
     </div>
 
     <div class="q" data-id="q-trauma" data-name="Severe anxiety, panic, recent trauma" data-group="Mind">
       <div class="q-top">
         <div class="q-text">Are you living with severe anxiety or panic attacks, or moving through a recent trauma?</div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-trauma" data-name="Severe anxiety, panic, recent trauma" data-group="Mind" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-trauma" placeholder="Diana's note on this question…">
     </div>
 
@@ -228,9 +243,11 @@
     <div class="q" data-id="q-substances" data-name="Alcohol or recreational substances today" data-group="Today">
       <div class="q-top">
         <div class="q-text">Have you had any alcohol or recreational substances today?<span class="q-help">It is best to arrive clear and unhurried, and to eat only lightly beforehand.</span></div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-substances" data-name="Alcohol or recreational substances today" data-group="Today" aria-label="mark this question">♥</button>
       </div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-substances" placeholder="Diana's note on this question…">
     </div>
 
@@ -240,9 +257,11 @@
       <div class="q-top">
         <label class="fld" for="anything">Is there anything else, in your body or your life right now, that you would like me to know? <span class="opt">· optional</span>
           <span class="q-help" style="font-weight:400">Anything that feels tender or relevant. This is just between us.</span></label>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-freetext" data-name="Anything else you'd like me to know" data-group="Open" aria-label="mark this question">♥</button>
       </div>
       <textarea id="anything" placeholder="Whatever you'd like to share…"></textarea>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-freetext" placeholder="Diana's note on this question…">
     </div>
 
@@ -260,6 +279,7 @@
     <div class="q" data-id="q-consent" data-name="Consent and acknowledgement line" data-group="Consent">
       <div class="q-top" style="margin-bottom:8px">
         <div class="q-text" style="font-weight:500">A gentle acknowledgement</div>
+        <!-- STRIP-BEFORE-LAUNCH -->
         <button type="button" class="fav-btn" data-id="q-consent" data-name="Consent and acknowledgement line" data-group="Consent" aria-label="mark this question">♥</button>
       </div>
       <div class="consent">
@@ -268,6 +288,7 @@
           <span>I have answered as honestly as I can. I understand that breathwork is not a substitute for medical or psychological care, and that Diana is not a medical professional. If anything I have shared would benefit from a closer look, I am happy to have a gentle chat with Diana before we begin. I am choosing to take part of my own free will.</span>
         </label>
       </div>
+      <!-- STRIP-BEFORE-LAUNCH -->
       <input type="text" class="fav-note" data-id="q-consent" placeholder="Diana's note on this wording…">
     </div>
 
@@ -362,6 +383,7 @@
     }
   });
 </script>
+<!-- STRIP-BEFORE-LAUNCH -->
 <script src="feedback.js?v=3"></script>
 </body>
 </html>

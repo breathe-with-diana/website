@@ -8,14 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
   <style>
-    :root{
-      --bone:#F4EFE6; --cream:#EFE7D8; --terracotta:#C97B5A; --sage:#8A8C6E;
-      --umber:#5B4636; --ochre:#D4A24C;
-      --muted:rgba(91,70,54,.62); --hairline:rgba(91,70,54,.14);
-      --serif:'Cormorant Garamond','Recoleta',Georgia,serif;
-      --sans:'Inter',system-ui,-apple-system,sans-serif;
-    }
     *{box-sizing:border-box}
     html,body{margin:0}
     body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;
@@ -25,76 +19,81 @@
     .top{height:7px;background:linear-gradient(90deg,var(--terracotta),var(--ochre))}
     .inner{padding:30px 28px 34px}
     .logo{display:block;width:188px;max-width:62%;height:auto;margin:0 0 20px}
-    .intro{font-family:var(--serif);font-size:25px;line-height:1.22;color:var(--umber);margin:0 0 8px;font-weight:500}
-    .sub{font-size:13.5px;color:var(--muted);margin:0 0 24px;line-height:1.5}
+    .intro{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.22;color:var(--umber);margin:0 0 8px;font-weight:500}
+    .sub{font-size:var(--fs-sm);color:var(--muted);margin:0 0 24px;line-height:1.5}
 
     /* gate */
-    .gate-q{font-size:14.5px;color:var(--umber);background:rgba(212,162,76,.14);border:1px solid rgba(212,162,76,.32);
+    .gate-q{font-size:var(--fs-sm);color:var(--umber);background:rgba(212,162,76,.14);border:1px solid rgba(212,162,76,.32);
       border-radius:12px;padding:15px 16px;margin:0 0 20px;line-height:1.5}
-    .gate-btn{display:block;width:100%;border-radius:999px;padding:15px;font-family:var(--sans);font-size:15px;
+    .gate-btn{display:block;width:100%;border-radius:999px;padding:15px;font-family:var(--sans);font-size:var(--fs-base);
       font-weight:500;cursor:pointer;border:none;margin-bottom:11px;transition:background .15s,transform .05s}
     .gate-btn:active{transform:translateY(1px)}
-    .gate-btn.yes{background:var(--terracotta);color:#fff}
-    .gate-btn.yes:hover{background:#b86a4b}
+    /* white label on base --terracotta measures ~3.25:1, fails WCAG AA (4.5:1) for text;
+       terracotta-deep clears ~5.7:1, so the fill moves there for this label/background combo */
+    .gate-btn.yes{background:var(--terracotta-deep);color:var(--bone)}
+    .gate-btn.yes:hover{background:#7A4A36}
     .gate-btn.no{background:none;border:1px solid var(--umber);color:var(--umber)}
     .gate-btn.no:hover{background:var(--umber);color:#fff}
-    .gate-fine{font-size:11.5px;color:var(--muted);text-align:center;margin:12px 0 0;line-height:1.55}
-    .backlink{font-size:12.5px;color:var(--terracotta);cursor:pointer;background:none;border:none;padding:0;
+    .gate-fine{font-size:var(--fs-2xs);color:var(--muted);text-align:center;margin:12px 0 0;line-height:1.55}
+    /* terracotta TEXT on white card: needs the WCAG-safe deep variant */
+    .backlink{font-size:var(--fs-xs);color:var(--terracotta-deep);cursor:pointer;background:none;border:none;padding:0;
       margin:0 0 18px;display:inline-flex;align-items:center;gap:5px;font-family:var(--sans)}
     .backlink:hover{text-decoration:underline}
 
     .q{margin:0 0 19px}
-    .q > label{display:block;font-size:13.5px;font-weight:500;color:var(--umber);margin-bottom:7px}
-    .q .opt{font-weight:400;color:var(--muted);font-size:11.5px}
-    .req{font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#fff;
-      background:var(--terracotta);border-radius:999px;padding:2px 8px;margin-left:5px;vertical-align:middle}
+    .q > label{display:block;font-size:var(--fs-sm);font-weight:500;color:var(--umber);margin-bottom:7px}
+    .q .opt{font-weight:400;color:var(--muted);font-size:var(--fs-2xs)}
+    /* small white-on-fill label: base terracotta fails AA here too, same fix as the buttons */
+    .req{font-size:var(--fs-2xs);font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--bone);
+      background:var(--terracotta-deep);border-radius:999px;padding:2px 8px;margin-left:5px;vertical-align:middle}
     input[type=text],input[type=email],input[type=number],textarea{
       width:100%;border:1px solid var(--hairline);border-radius:9px;background:#FCFAF5;
-      padding:11px 13px;font-family:var(--sans);font-size:14px;color:var(--umber);outline:none;transition:border-color .15s,background .15s}
+      padding:11px 13px;font-family:var(--sans);font-size:var(--fs-sm);color:var(--umber);outline:none;transition:border-color .15s,background .15s}
     input:focus,textarea:focus{border-color:var(--terracotta);background:#fff}
     input::placeholder,textarea::placeholder{color:rgba(91,70,54,.38)}
     textarea{resize:vertical;min-height:84px}
     input[type=number]{max-width:110px}
 
     /* stars */
-    .stars{display:inline-flex;gap:4px;font-size:30px;line-height:1;cursor:pointer;user-select:none}
+    .stars{display:inline-flex;gap:4px;font-size:var(--fs-xl);line-height:1;cursor:pointer;user-select:none}
     .stars span{color:rgba(91,70,54,.2);transition:color .1s}
     .stars span.on{color:var(--ochre)}
 
     .auth{background:rgba(201,123,90,.12);border:1px solid rgba(201,123,90,.32);border-radius:11px;
-      padding:12px 14px;font-size:12.5px;line-height:1.5;color:var(--umber);margin:4px 0 19px}
+      padding:12px 14px;font-size:var(--fs-xs);line-height:1.5;color:var(--umber);margin:4px 0 19px}
 
     .upload{position:relative;border:1.5px dashed rgba(91,70,54,.28);border-radius:11px;padding:16px;
-      text-align:center;font-size:13px;color:var(--muted);background:#FCFAF5;cursor:pointer;transition:border-color .15s}
+      text-align:center;font-size:var(--fs-sm);color:var(--muted);background:#FCFAF5;cursor:pointer;transition:border-color .15s}
     .upload:hover{border-color:var(--terracotta)}
     .upload input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
     .upload.has{border-color:var(--sage);color:var(--umber)}
-    .or{font-size:11.5px;color:var(--muted);text-align:center;margin:7px 0}
+    .or{font-size:var(--fs-2xs);color:var(--muted);text-align:center;margin:7px 0}
 
-    .optout{font-size:12px;color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:7px;cursor:pointer}
+    .optout{font-size:var(--fs-xs);color:var(--muted);margin-top:8px;display:flex;align-items:center;gap:7px;cursor:pointer}
     .optout input{width:15px;height:15px;accent-color:var(--sage);flex-shrink:0}
     .q.muted-off > label,.q.muted-off .upload,.q.muted-off input[type=text]{opacity:.42}
 
     .appear{background:#FCFAF5;border:1px dashed var(--hairline);border-radius:9px;padding:10px 13px;
-      font-size:12.5px;color:var(--muted);margin:2px 0 18px}
+      font-size:var(--fs-xs);color:var(--muted);margin:2px 0 18px}
     .appear b{color:var(--umber);font-weight:600}
 
-    .send{margin-top:8px;width:100%;background:var(--terracotta);color:#fff;border:none;cursor:pointer;
-      border-radius:999px;padding:15px;font-family:var(--sans);font-size:15px;font-weight:500;letter-spacing:.01em;
+    /* same AA fix as .gate-btn.yes: terracotta-deep fill for a white/bone label */
+    .send{margin-top:8px;width:100%;background:var(--terracotta-deep);color:var(--bone);border:none;cursor:pointer;
+      border-radius:999px;padding:15px;font-family:var(--sans);font-size:var(--fs-base);font-weight:500;letter-spacing:.01em;
       transition:background .15s,transform .05s}
-    .send:hover{background:#b86a4b}
+    .send:hover{background:#7A4A36}
     .send:active{transform:translateY(1px)}
     .send:disabled{opacity:.6;cursor:default}
-    .err{color:#a8442a;font-size:12.5px;margin-top:10px;text-align:center;min-height:16px}
+    .err{color:var(--error);font-size:var(--fs-xs);margin-top:10px;text-align:center;min-height:16px}
 
     .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
     .thanks{display:none;text-align:center;padding:18px 6px 8px}
     .thanks .tlogo{width:56px;height:56px;margin:0 auto 16px;border-radius:50%;
-      background:rgba(138,140,110,.16);display:flex;align-items:center;justify-content:center;font-size:26px}
-    .thanks h2{font-family:var(--serif);font-weight:500;font-size:27px;color:var(--umber);margin:0 0 10px}
-    .thanks p{font-size:14px;color:var(--muted);max-width:330px;margin:0 auto;line-height:1.55}
-    .privacy{font-size:11px;color:var(--muted);text-align:center;margin:18px 0 0;line-height:1.5}
+      background:rgba(138,140,110,.16);display:flex;align-items:center;justify-content:center;font-size:var(--fs-xl)}
+    .thanks h2{font-family:var(--serif);font-weight:500;font-size:var(--fs-xl);color:var(--umber);margin:0 0 10px}
+    .thanks p{font-size:var(--fs-sm);color:var(--muted);max-width:330px;margin:0 auto;line-height:1.55}
+    .privacy{font-size:var(--fs-2xs);color:var(--muted);text-align:center;margin:18px 0 0;line-height:1.5}
   </style>
 </head>
 <body>
@@ -112,8 +111,8 @@
     <div id="gate">
       <p class="intro">Thank you for your trust, and for breathing with me 🤎</p>
       <p class="sub">Breathwork has transformed my life, and sharing this work has become my mission. If this session felt meaningful or supportive for you, I’d be deeply grateful if you shared a few words about your experience. First, one quick question:</p>
-      <div class="gate-q">Would you be happy for me to share your words (your name, your photo, your Instagram) here on my website and on Instagram?<br><span style="font-size:11.5px;color:var(--muted)">Only ever what you choose here. Your email and any private details are never shared with anyone.</span></div>
-      <p style="font-size:13px;color:var(--umber);line-height:1.55;margin:0 0 16px">Your words help others feel more confident in taking their own journey, and they help this work grow and quietly find its way to the next person who’s aching for it. If you feel able to share, I’d be endlessly grateful. 🤎</p>
+      <div class="gate-q">Would you be happy for me to share your words (your name, your photo, your Instagram) here on my website and on Instagram?<br><span style="font-size:var(--fs-2xs);color:var(--muted)">Only ever what you choose here. Your email and any private details are never shared with anyone.</span></div>
+      <p style="font-size:var(--fs-sm);color:var(--umber);line-height:1.55;margin:0 0 16px">Your words help others feel more confident in taking their own journey, and they help this work grow and quietly find its way to the next person who’s aching for it. If you feel able to share, I’d be endlessly grateful. 🤎</p>
       <button type="button" class="gate-btn yes" id="goPublic">Yes, I’d love to share 🤎</button>
       <button type="button" class="gate-btn no" id="goPrivate">I’d rather keep it just for you</button>
       <p class="gate-fine">Either way, your words come straight to me. “Just for you” simply means they’re for my eyes only, never shared anywhere.</p>
@@ -188,7 +187,7 @@
       <div class="q">
         <label for="videoLink">A short video review <span class="opt">· optional</span></label>
         <input type="text" id="videoLink" placeholder="paste a link, YouTube, Drive, Instagram…">
-        <p style="font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.5">Video says so much. Easiest is to paste a link, or just send it to me on WhatsApp 🤎</p>
+        <p style="font-size:var(--fs-xs);color:var(--muted);margin:8px 0 0;line-height:1.5">Video says so much. Easiest is to paste a link, or just send it to me on WhatsApp 🤎</p>
       </div>
 
       <div class="q">
