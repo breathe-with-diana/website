@@ -37,8 +37,7 @@
 
     /* a question row */
     .q{margin:0 0 16px}
-    .q-top{display:flex;align-items:flex-start;gap:10px}
-    .q-text{flex:1;font-size:var(--fs-sm);color:var(--umber);line-height:1.45}
+    .q-text{font-size:var(--fs-sm);color:var(--umber);line-height:1.45}
     .q-help{display:block;font-size:var(--fs-xs);color:var(--muted);margin-top:3px;line-height:1.45}
     .yn{display:flex;gap:8px;margin-top:10px}
     .yn button{flex:1;border-radius:999px;padding:9px;font-family:var(--sans);font-size:var(--fs-sm);
@@ -48,15 +47,6 @@
     /* same convergence as health-form.html: Yes/No here are neutral consent choices too
        (share vs don't share), so both selected-states share one neutral hue (umber) */
     .yn button.sel-yes,.yn button.sel-no{background:var(--umber);border-color:var(--umber);color:var(--bone)}
-
-    /* per-question heart, the feedback widget wires these for Diana */
-    .fav-btn{background:none;border:none;cursor:pointer;font-size:var(--fs-md);line-height:1;
-      color:rgba(91,70,54,.28);padding:2px 0 0;transition:transform .1s,color .15s;flex-shrink:0}
-    .fav-btn:hover{transform:scale(1.18)}
-    .fav-btn.on{color:var(--terracotta-deep)}
-    .fav-note{width:100%;box-sizing:border-box;font-family:var(--sans);font-size:var(--fs-xs);
-      border:1px solid rgba(91,70,54,.16);border-radius:8px;padding:6px 9px;margin-top:8px;
-      color:var(--umber);background:#FCFAF5}
 
     label.fld{display:block;font-size:var(--fs-sm);font-weight:500;color:var(--umber);margin-bottom:7px}
     .fld .opt{font-weight:400;color:var(--muted);font-size:var(--fs-2xs)}
@@ -82,11 +72,7 @@
     .footnote{font-size:var(--fs-2xs);color:var(--muted);text-align:center;margin:16px 0 0;line-height:1.5}
   </style>
 </head>
-<body
-  data-fb-key="media-consent"
-  data-fb-page="Photo and video consent, Breathe with Diana"
-  data-fb-email="d.blaecker@gmail.com"
-  data-fb-noun="clause">
+<body>
 <div class="card">
   <div class="top"></div>
   <div class="inner">
@@ -97,7 +83,7 @@
     <!-- STRIP-BEFORE-LAUNCH -->
     <div class="draft">
       <b>This is a draft for you, Diana 🤎</b><br>
-      This is the form you send to anyone whose photos or videos you would love to share. Read it as they would. The <b>Yes / No</b> buttons show how it will feel to fill in. Tap the <b>♥</b> beside any line you love, and use the <b>Send feedback</b> box (bottom right) to change wording, add or drop something. Nothing here goes out yet, we finalise together first.
+      This is the form you send to anyone whose photos or videos you would love to share. Read it as they would. The <b>Yes / No</b> buttons show how it will feel to fill in. Nothing here goes out yet, let me know if anything needs to change.
     </div>
 
     <!-- ===== gentle intro ===== -->
@@ -124,144 +110,53 @@
 
     <!-- ===== Section: where ===== -->
     <div class="sectionhead">Where I may share</div>
-    <p class="sectionsub">Tap Yes for each place you are happy for me to share photos or videos that include you. No is just as welcome.</p>
+    <p class="sectionsub">This may include my website, breathe-with-diana.com, Instagram, Facebook and other social media, YouTube, TikTok and other video platforms, and printed materials like flyers, posters or a workshop brochure.</p>
 
-    <div class="q" data-id="c-website" data-name="May share on website" data-group="Where">
-      <div class="q-top">
-        <div class="q-text">On my website, breathe-with-diana.com</div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-website" data-name="May share on website" data-group="Where" aria-label="mark this line">♥</button>
-      </div>
+    <div class="q">
+      <div class="q-text">May I share photos or videos that include you in these places?</div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-website" placeholder="Diana's note on this line…">
-    </div>
-
-    <div class="q" data-id="c-instagram" data-name="May share on Instagram" data-group="Where">
-      <div class="q-top">
-        <div class="q-text">On Instagram, in posts, reels or stories</div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-instagram" data-name="May share on Instagram" data-group="Where" aria-label="mark this line">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-instagram" placeholder="Diana's note on this line…">
-    </div>
-
-    <div class="q" data-id="c-facebook" data-name="May share on Facebook" data-group="Where">
-      <div class="q-top">
-        <div class="q-text">On Facebook</div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-facebook" data-name="May share on Facebook" data-group="Where" aria-label="mark this line">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-facebook" placeholder="Diana's note on this line…">
-    </div>
-
-    <div class="q" data-id="c-video" data-name="May share on YouTube, TikTok and other video" data-group="Where">
-      <div class="q-top">
-        <div class="q-text">On YouTube, TikTok and other video platforms</div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-video" data-name="May share on YouTube, TikTok and other video" data-group="Where" aria-label="mark this line">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-video" placeholder="Diana's note on this line…">
-    </div>
-
-    <div class="q" data-id="c-promo" data-name="May share in printed and promotional materials" data-group="Where">
-      <div class="q-top">
-        <div class="q-text">In printed pieces and promotional materials<span class="q-help">Flyers, posters, a brochure for a workshop or retreat.</span></div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-promo" data-name="May share in printed and promotional materials" data-group="Where" aria-label="mark this line">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-promo" placeholder="Diana's note on this line…">
     </div>
 
     <!-- ===== Section: your name ===== -->
     <div class="sectionhead">Your name with it</div>
     <p class="sectionsub">If you share words or a story with me too, may I use your name beside them?</p>
 
-    <div class="q" data-id="c-firstname" data-name="May use first name" data-group="Name">
-      <div class="q-top">
-        <div class="q-text">Yes, you may use my first name</div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-firstname" data-name="May use first name" data-group="Name" aria-label="mark this line">♥</button>
-      </div>
+    <div class="q">
+      <div class="q-text">Yes, you may use my first name</div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-firstname" placeholder="Diana's note on this line…">
     </div>
 
-    <div class="q" data-id="c-anon" data-name="Prefers to stay anonymous" data-group="Name">
-      <div class="q-top">
-        <div class="q-text">I would rather stay anonymous<span class="q-help">No name shown, just the image or the words.</span></div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-anon" data-name="Prefers to stay anonymous" data-group="Name" aria-label="mark this line">♥</button>
-      </div>
+    <div class="q">
+      <div class="q-text">I would rather stay anonymous<span class="q-help">No name shown, just the image or the words.</span></div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-anon" placeholder="Diana's note on this line…">
     </div>
 
     <!-- ===== Section: a couple of gentle things ===== -->
     <div class="sectionhead">A couple of gentle things</div>
 
-    <div class="q" data-id="c-preview" data-name="Would like to see before it goes out" data-group="Care">
-      <div class="q-top">
-        <div class="q-text">I would love to see anything before it goes out<span class="q-help">If yes, I will always show you first and wait for your nod.</span></div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-preview" data-name="Would like to see before it goes out" data-group="Care" aria-label="mark this line">♥</button>
-      </div>
+    <div class="q">
+      <div class="q-text">I would love to see anything before it goes out<span class="q-help">If yes, I will always show you first and wait for your nod.</span></div>
       <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-preview" placeholder="Diana's note on this line…">
-    </div>
-
-    <div class="q" data-id="c-adult" data-name="Confirms 18 or older" data-group="Care">
-      <div class="q-top">
-        <div class="q-text">I am 18 or older<span class="q-help">If this is about a child, a parent or guardian fills this in for them.</span></div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-adult" data-name="Confirms 18 or older" data-group="Care" aria-label="mark this line">♥</button>
-      </div>
-      <div class="yn"><button type="button" class="yn-yes">Yes</button><button type="button" class="yn-no">No</button></div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-adult" placeholder="Diana's note on this line…">
     </div>
 
     <!-- ===== free text ===== -->
     <div class="sectionhead">Anything else</div>
-    <div class="q" data-id="c-freetext" data-name="Anything else about what feels right to share" data-group="Open">
-      <div class="q-top">
-        <label class="fld" for="anything">Is there anything you would like me to keep in mind, or any limit that feels right for you? <span class="opt">· optional</span>
-          <span class="q-help" style="font-weight:400">For example, a photo you would rather I did not use, or a way you would like to be shown.</span></label>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-freetext" data-name="Anything else about what feels right to share" data-group="Open" aria-label="mark this line">♥</button>
-      </div>
+    <div class="q">
+      <label class="fld" for="anything">Is there anything you would like me to keep in mind, or any limit that feels right for you? <span class="opt">· optional</span>
+        <span class="q-help" style="font-weight:400">For example, a photo you would rather I did not use, or a way you would like to be shown.</span></label>
       <textarea id="anything" placeholder="Whatever you'd like to share…"></textarea>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-freetext" placeholder="Diana's note on this line…">
     </div>
 
     <!-- ===== the agreement ===== -->
     <div class="sectionhead">Your blessing</div>
-    <div class="q" data-id="c-consent" data-name="The consent and permission wording" data-group="Consent">
-      <div class="q-top" style="margin-bottom:8px">
-        <div class="q-text" style="font-weight:500">A warm yes</div>
-        <!-- STRIP-BEFORE-LAUNCH -->
-        <button type="button" class="fav-btn" data-id="c-consent" data-name="The consent and permission wording" data-group="Consent" aria-label="mark this line">♥</button>
-      </div>
+    <div class="q">
+      <div class="q-text" style="font-weight:500;margin-bottom:8px">A warm yes</div>
       <div class="consent">
         <label>
           <input type="checkbox" id="consent">
-          <span>I give Diana, Breathe with Diana, permission to use photos and videos that include me, in the places I have chosen above. I understand they may be gently edited, and shared online where others can see, save or reshare them. I am sharing this freely and do not expect payment. I know I can change my mind at any time, and Diana will take down anything still within her control as soon as she can.</span>
+          <span>I give Diana, Breathe with Diana, permission to use photos and videos that include me, in the places I have chosen above. I understand they may be gently edited and shared online. I am sharing this freely and do not expect payment. I know I can change my mind at any time, and Diana will take down anything still within her control as soon as she can.</span>
         </label>
       </div>
-      <!-- STRIP-BEFORE-LAUNCH -->
-      <input type="text" class="fav-note" data-id="c-consent" placeholder="Diana's note on this wording…">
     </div>
 
     <!-- ===== signature + date ===== -->
@@ -288,7 +183,5 @@
     no.addEventListener('click', function(){ no.classList.add('sel-no'); yes.classList.remove('sel-yes'); });
   });
 </script>
-<!-- STRIP-BEFORE-LAUNCH -->
-<script src="feedback.js?v=3"></script>
 </body>
 </html>
