@@ -84,7 +84,7 @@
     .facet .fic{width:52px;height:52px;margin:0 auto 18px;display:block}
     .facet h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-sm);margin:0 0 8px}
     .facet p{font-size:var(--fs-sm);color:var(--muted);margin:0;line-height:1.6}
-    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--terracotta-deep);
+    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
       max-width:600px;margin:48px auto 0}
 
     /* ===================================================================== TWO DOORS */
@@ -96,7 +96,7 @@
     .door p{font-size:var(--fs-md);color:var(--umber);margin:0 0 6px}
     .door .door-cta{margin-top:auto;padding-top:26px}
     .door .tagword{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
-    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber)}
+    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep)}
 
     /* ===================================================================== SESSION */
     .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:18px}
@@ -110,6 +110,8 @@
     .honest h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--bone);margin:0 0 16px}
     .honest p{font-size:var(--fs-md);color:rgba(244,239,230,.85);margin:0 0 14px}
     .honest .pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:rgba(244,239,230,.85);margin-top:22px}
+    .lead-strong{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
+      text-align:center;margin:40px auto 0}
 
     /* ===================================================================== STORY */
     .story{background:var(--cream)}
@@ -117,6 +119,7 @@
     .story-photo{aspect-ratio:1/1;border-radius:var(--radius-md);position:sticky;top:150px;overflow:hidden;
       background:radial-gradient(at 60% 35%,rgba(201,123,90,.5),transparent 55%),linear-gradient(160deg,var(--bone),#ddd2bf)}
     .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
+    .story blockquote.long{font-size:var(--fs-lg);line-height:1.4;font-weight:600}
     .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
     .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
     .hero-photo img{object-position:50% 30%}
@@ -221,29 +224,9 @@
       .hero-photo{aspect-ratio:4/3.2}
     }
 
-    /* ===================================================================== REVIEW ZONE (для Дианы, не часть сайта) */
-    .review-zone{background:#E7E4D7;background-image:linear-gradient(180deg,#E9E2CF,#E4E5DA);
-      border-top:1px solid var(--hairline);padding:74px 32px 88px}
-    .review-zone .eyebrow{color:var(--sage)}
-    .rz-h{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.12;margin:0 0 14px;color:var(--umber)}
-    .rz-lead{font-size:16px;color:var(--umber);max-width:640px;margin:0 0 8px}
-
-    /* ===== per-section feedback boxes ===== */
-    /* STRIP-BEFORE-LAUNCH: whole .sec-fb layer below, plus feedback.js, before this page goes public */
-    .sec-fb{max-width:1140px;margin:42px auto 0;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;
-      background:rgba(138,140,110,.10);border:1px dashed rgba(138,140,110,.55);border-radius:12px}
-    .sec-fb.narrow{max-width:760px}
-    .sec-fb .fav-btn{margin-top:1px;color:rgba(91,70,54,.4)}
-    .sec-fb-main{flex:1;min-width:0}
-    .sec-fb-label{display:block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.16em;
-      text-transform:uppercase;color:var(--sage);margin:0 0 7px}
-    .sec-fb .fav-note{margin-top:0}
-    .reset .sec-fb{background:rgba(244,239,230,.08);border-color:rgba(244,239,230,.3)}
-    .reset .sec-fb-label{color:rgba(244,239,230,.7)}
-    .reset .sec-fb .fav-btn{color:rgba(244,239,230,.5)}
   </style>
 </head>
-<body data-fb-noun="секция" data-fb-key="website-ru" data-fb-page="Website RU · Breathe with Diana" data-fb-email="d.blaecker@gmail.com">
+<body>
 
 <!-- ============================ PROMOTION BAR ============================ -->
 <div class="promo-bar">
@@ -285,14 +268,6 @@
     </div>
     <div class="hero-photo"><img src="img/diana-hero.jpg" alt="Диана ведёт индивидуальную сессию ребёфинга"></div>
   </div>
-  <!-- STRIP-BEFORE-LAUNCH -->
-  <div class="sec-fb">
-    <button class="fav-btn" data-id="sec-hero" data-name="Hero RU · Вернуться домой, к своему телу" data-group="Website RU">♥</button>
-    <div class="sec-fb-main">
-      <span class="sec-fb-label">Твои заметки об этой секции · Hero</span>
-      <input class="fav-note" data-id="sec-hero" data-name="Hero RU · Вернуться домой, к своему телу" data-group="Website RU" placeholder="Заголовок, фото, первые слова (по желанию)" />
-    </div>
-  </div>
 </section>
 
 <!-- ===== ПРАКТИКА ===== -->
@@ -329,15 +304,7 @@
         <p>Бережно и с учётом травматического опыта. Выбор всегда за вами, и мы идём ровно настолько глубоко, насколько это ощущается безопасным.</p>
       </div>
     </div>
-    <p class="boundary">Это не терапия и не медицинское лечение, и здесь никто не гонится за ярким переживанием. Это способ вернуться домой, к себе, вдох за вдохом.</p>
-  </div>
-  <!-- STRIP-BEFORE-LAUNCH -->
-  <div class="sec-fb narrow">
-    <button class="fav-btn" data-id="sec-practice" data-name="Практика · Что такое ребёфинг" data-group="Website RU">♥</button>
-    <div class="sec-fb-main">
-      <span class="sec-fb-label">Твои заметки об этой секции · Что это</span>
-      <input class="fav-note" data-id="sec-practice" data-name="Практика · Что такое ребёфинг" data-group="Website RU" placeholder="Так ли ты сказала бы это по-русски? (по желанию)" />
-    </div>
+    <p class="boundary">Дело не в том, чтобы изменить то, кто вы есть. Дело в том, чтобы дать телу пространство отпустить то, что вам больше не принадлежит.</p>
   </div>
 </section>
 
@@ -371,14 +338,6 @@
     </div>
     <p class="doors-note">«Дело не в том, чтобы вас чинить. Дело в том, чтобы вернуться к тому, что уже есть внутри.»</p>
   </div>
-  <!-- STRIP-BEFORE-LAUNCH -->
-  <div class="sec-fb">
-    <button class="fav-btn" data-id="sec-doors" data-name="Два пути · Мягко или глубже" data-group="Website RU">♥</button>
-    <div class="sec-fb-main">
-      <span class="sec-fb-label">Твои заметки об этой секции · Два пути</span>
-      <input class="fav-note" data-id="sec-doors" data-name="Два пути · Мягко или глубже" data-group="Website RU" placeholder="Два пути и как они описаны (по желанию)" />
-    </div>
-  </div>
 </section>
 
 <!-- ===== ЧЕГО ОЖИДАТЬ ===== -->
@@ -399,18 +358,11 @@
         <p>Ребёфинг не про погоню за необыкновенными переживаниями и не про побег от себя. Он про условия, в которых можно встретиться с собой честно и с состраданием.</p>
         <p>Сессия обычно длится около двух с половиной часов и может быть эмоционально и физически интенсивной. Кто-то уходит лёгким и полным энергии. Кто-то чувствует глубокое расслабление, чувствительность или приятную усталость.</p>
         <p>Я не обещаю исцелить вас или изменить вашу жизнь за одну сессию. Что я обещаю, так это безопасное, устойчивое пространство с бережным отношением к травматическому опыту, где вы можете исследовать всё, что поднимается, в своём темпе.</p>
-        <p>Ничего не нужно форсировать и ничего не нужно доказывать. Я доверяю мудрости вашего тела и его срокам, и я буду рядом, чтобы поддержать вас, а не подталкивать к прорыву. Потому что когда нам по-настоящему безопасно, тело часто само знает, что ему нужно делать.</p>
+        <p>Ничего не нужно форсировать и ничего не нужно доказывать. Я доверяю мудрости вашего тела и его срокам, и я буду рядом, чтобы поддержать вас, а не подталкивать к прорыву. Потому что <em>когда нам по-настоящему безопасно, тело часто само знает, что ему нужно делать.</em></p>
         <div class="pull">Здесь не нужно держать себя в руках.<br>Я буду&nbsp;рядом.</div>
       </div>
     </div>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb">
-      <button class="fav-btn" data-id="sec-session" data-name="Чего ожидать от сессии (RU)" data-group="Website RU">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Твои заметки об этой секции · Чего ожидать</span>
-        <input class="fav-note" data-id="sec-session" data-name="Чего ожидать от сессии (RU)" data-group="Website RU" placeholder="Четыре шага и честный блок, звучит ли это как ты? (по желанию)" />
-      </div>
-    </div>
+    <p class="lead-strong">Плачете ли вы, смеётесь, кричите, молчите или просто дышите, вы желанны именно такой, какая вы есть.</p>
   </div>
 </section>
 
@@ -424,7 +376,7 @@
       <div class="story-photo"><img src="img/diana-meditating-beach.jpg" alt="Диана медитирует в позе молитвы на камне у моря"></div>
       <div>
         <div class="eyebrow">Мой путь домой</div>
-        <blockquote>Не то чтобы моя жизнь была неправильной.<br>Она просто была не совсем моей.</blockquote>
+        <blockquote class="long">Я перестала пытаться стать женщиной, которой все восхищались,<br>и начала становиться той, кого могла узнать в зеркале.</blockquote>
         <p>Долгое время я верила: если принимать правильные решения, счастье придёт само. И я делала всё, что «положено».</p>
         <p>Я выучилась на инженера, потому что это обещало будущее, которого хотели для меня родители: надёжную профессию, хорошие деньги, стабильность. Я переехала на другой конец света строить успешную карьеру. Получала стипендии, учила новые языки, строила бизнес, вышла замуж и продолжала брать высоты, которые со стороны выглядели впечатляюще.</p>
         <details class="story-more">
@@ -444,14 +396,6 @@
           </div>
         </details>
         <p style="margin-top:22px"><a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Записаться на бесплатную консультацию</a></p>
-      </div>
-    </div>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb">
-      <button class="fav-btn" data-id="sec-story" data-name="Мой путь домой (RU)" data-group="Website RU">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Твои заметки об этой секции · Мой путь домой</span>
-        <input class="fav-note" data-id="sec-story" data-name="Мой путь домой (RU)" data-group="Website RU" placeholder="Твоя история по-русски. Что изменить? (по желанию)" />
       </div>
     </div>
   </div>
@@ -506,14 +450,6 @@
     <p style="text-align:center;margin-top:26px">
       <a class="btn btn-ghost" href="review.html">Были на сессии? Поделитесь опытом →</a>
     </p>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb">
-      <button class="fav-btn" data-id="sec-reviews" data-name="Отзывы · Что говорят (RU)" data-group="Website RU">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Твои заметки об этой секции · Отзывы</span>
-        <input class="fav-note" data-id="sec-reviews" data-name="Отзывы · Что говорят (RU)" data-group="Website RU" placeholder="Дизайн отзывов (пока это примеры) (по желанию)" />
-      </div>
-    </div>
   </div>
 </section>
 
@@ -527,14 +463,6 @@
       <input type="email" placeholder="ваша@почта.com" aria-label="почта">
       <button class="btn btn-primary" type="submit">Прислать практику</button>
     </form>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb narrow">
-      <button class="fav-btn" data-id="sec-reset" data-name="Бесплатная практика (RU)" data-group="Website RU">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Твои заметки об этой секции · Бесплатная практика</span>
-        <input class="fav-note" data-id="sec-reset" data-name="Бесплатная практика (RU)" data-group="Website RU" placeholder="Предложение бесплатной практики (по желанию)" />
-      </div>
-    </div>
   </div>
 </section>
 
@@ -565,25 +493,6 @@
         <details><summary>А если нужно перенести?</summary><p>Всякое бывает. Предупредите меня за 24 часа, и мы найдём новое время.</p></details>
       </div>
     </div>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb">
-      <button class="fav-btn" data-id="sec-book" data-name="Запись · Что входит и FAQ (RU)" data-group="Website RU">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Твои заметки об этой секции · Запись и FAQ</span>
-        <input class="fav-note" data-id="sec-book" data-name="Запись · Что входит и FAQ (RU)" data-group="Website RU" placeholder="Что входит, ответы FAQ, процесс записи (по желанию)" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================= ЗОНА ДЛЯ ДИАНЫ ========== -->
-<section class="review-zone" id="review">
-  <div class="wrap-narrow">
-    <div class="eyebrow">Для тебя, Диана · твоя страница на русском</div>
-    <h2 class="rz-h">Здесь сайт заканчивается.</h2>
-    <p class="rz-lead">Выше ты видела свою страницу на русском, она новая, с сегодняшнего дня. Я адаптировал её с английской версии, а не переводил дословно. Все русские формулировки, включая фирменные фразы вроде «Вернуться домой, к своему телу», предложены тебе на подтверждение: ты свободно говоришь по-русски, поэтому последнее слово за тобой.</p>
-    <p class="rz-lead">Один открытый вопрос: сейчас страница обращается к читателю на «вы». Если тебе ближе «ты», просто напиши это в заметке, и я поменяю.</p>
-    <p class="rz-lead">Отмечай сердечком то, что нравится, пиши заметки в каждой секции и в конце нажми <b>Send feedback</b> внизу в углу.</p>
   </div>
 </section>
 
@@ -613,7 +522,5 @@
   </div>
 </footer>
 
-<!-- STRIP-BEFORE-LAUNCH -->
-<script src="feedback.js?v=3"></script>
 </body>
 </html>

@@ -83,7 +83,7 @@
     .facet .fic{width:52px;height:52px;margin:0 auto 18px;display:block}
     .facet h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-sm);margin:0 0 8px}
     .facet p{font-size:var(--fs-sm);color:var(--muted);margin:0;line-height:1.6}
-    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--muted);
+    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
       max-width:600px;margin:48px auto 0}
 
     /* ===================================================================== TWO DOORS */
@@ -95,7 +95,7 @@
     .door p{font-size:var(--fs-md);color:var(--umber);margin:0 0 6px}
     .door .door-cta{margin-top:auto;padding-top:26px}
     .door .tagword{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
-    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber)}
+    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep)}
 
     /* ===================================================================== SESSION */
     .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:18px}
@@ -109,6 +109,8 @@
     .honest h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--bone);margin:0 0 16px}
     .honest p{font-size:var(--fs-md);color:rgba(244,239,230,.85);margin:0 0 14px}
     .honest .pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:rgba(244,239,230,.85);margin-top:22px}
+    .lead-strong{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
+      text-align:center;margin:40px auto 0}
 
     /* ===================================================================== STORY */
     .story{background:var(--cream)}
@@ -116,6 +118,7 @@
     .story-photo{aspect-ratio:1/1;border-radius:var(--radius-md);position:sticky;top:150px;overflow:hidden;
       background:radial-gradient(at 60% 35%,rgba(201,123,90,.5),transparent 55%),linear-gradient(160deg,var(--bone),#ddd2bf)}
     .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
+    .story blockquote.long{font-size:var(--fs-lg);line-height:1.4;font-weight:600}
     .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
     .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
     .hero-photo img{object-position:50% 30%}
@@ -219,23 +222,9 @@
       .hero p.sub{margin:0 0 18px}
       .hero-photo{aspect-ratio:4/3.2}
     }
-
-    /* ===== per-section feedback boxes (capa de revisión, no la página real) ===== */
-    /* STRIP-BEFORE-LAUNCH: whole .sec-fb layer below, plus feedback.js, before this page goes public */
-    .sec-fb{max-width:1140px;margin:42px auto 0;padding:13px 16px;display:flex;gap:12px;align-items:flex-start;
-      background:rgba(138,140,110,.10);border:1px dashed rgba(138,140,110,.55);border-radius:12px}
-    .sec-fb.narrow{max-width:760px}
-    .sec-fb .fav-btn{margin-top:1px;color:rgba(91,70,54,.4)}
-    .sec-fb-main{flex:1;min-width:0}
-    .sec-fb-label{display:block;font-family:var(--sans);font-size:10px;font-weight:600;letter-spacing:.16em;
-      text-transform:uppercase;color:var(--sage);margin:0 0 7px}
-    .sec-fb .fav-note{margin-top:0}
-    .reset .sec-fb{background:rgba(244,239,230,.08);border-color:rgba(244,239,230,.3)}
-    .reset .sec-fb-label{color:rgba(244,239,230,.7)}
-    .reset .sec-fb .fav-btn{color:rgba(244,239,230,.5)}
   </style>
 </head>
-<body data-fb-noun="sección" data-fb-key="website-es" data-fb-page="Website ES · Respira con Diana" data-fb-email="d.blaecker@gmail.com">
+<body>
 
 <!-- ============================ PROMOTION BAR ============================ -->
 <div class="promo-bar">
@@ -277,14 +266,6 @@
     </div>
     <div class="hero-photo"><img src="img/diana-hero.jpg" alt="Diana guiando una sesión privada de rebirthing breathwork"></div>
   </div>
-  <!-- STRIP-BEFORE-LAUNCH -->
-  <div class="sec-fb">
-    <button class="fav-btn" data-id="sec-hero" data-name="Hero ES · Volver a casa, a tu cuerpo" data-group="Website ES">♥</button>
-    <div class="sec-fb-main">
-      <span class="sec-fb-label">Tus notas sobre esta sección · Hero</span>
-      <input class="fav-note" data-id="sec-hero" data-name="Hero ES · Volver a casa, a tu cuerpo" data-group="Website ES" placeholder="El titular, la foto, las primeras palabras (opcional)" />
-    </div>
-  </div>
 </section>
 
 <!-- ===== LA PRÁCTICA ===== -->
@@ -321,15 +302,7 @@
         <p>Con los pies en la tierra y con un enfoque informado en trauma. Tú siempre eliges, y solo vamos tan lejos como se sienta seguro.</p>
       </div>
     </div>
-    <p class="boundary">No es terapia ni tratamiento médico, y no se trata de perseguir una gran experiencia. Es una forma de volver a casa, a ti, respiración a respiración.</p>
-  </div>
-  <!-- STRIP-BEFORE-LAUNCH -->
-  <div class="sec-fb narrow">
-    <button class="fav-btn" data-id="sec-practice" data-name="La práctica · Qué es el rebirthing" data-group="Website ES">♥</button>
-    <div class="sec-fb-main">
-      <span class="sec-fb-label">Tus notas sobre esta sección · Qué es</span>
-      <input class="fav-note" data-id="sec-practice" data-name="La práctica · Qué es el rebirthing" data-group="Website ES" placeholder="¿Así lo dirías tú en español? (opcional)" />
-    </div>
+    <p class="boundary">No se trata de cambiar quién eres. Se trata de crear espacio para que tu cuerpo suelte lo que ya no te pertenece.</p>
   </div>
 </section>
 
@@ -363,14 +336,6 @@
     </div>
     <p class="doors-note">«No se trata de arreglarte. Se trata de volver a casa, a lo que ya está dentro de ti.»</p>
   </div>
-  <!-- STRIP-BEFORE-LAUNCH -->
-  <div class="sec-fb">
-    <button class="fav-btn" data-id="sec-doors" data-name="Dos caminos · Suave o profundo" data-group="Website ES">♥</button>
-    <div class="sec-fb-main">
-      <span class="sec-fb-label">Tus notas sobre esta sección · Dos caminos</span>
-      <input class="fav-note" data-id="sec-doors" data-name="Dos caminos · Suave o profundo" data-group="Website ES" placeholder="Los dos caminos y cómo están descritos (opcional)" />
-    </div>
-  </div>
 </section>
 
 <!-- ===== QUÉ ESPERAR ===== -->
@@ -391,18 +356,11 @@
         <p>El rebirthing no se trata de perseguir experiencias extraordinarias ni de escapar de ti. Se trata de crear las condiciones para que puedas encontrarte contigo con honestidad y compasión.</p>
         <p>Las sesiones suelen durar alrededor de dos horas y media y pueden ser intensas, física y emocionalmente. Algunas personas salen sintiéndose livianas y con energía. Otras se sienten profundamente relajadas, sensibles o agradablemente cansadas.</p>
         <p>No te voy a prometer transformar tu vida en una sesión. Lo que sí te prometo es un espacio seguro, con los pies en la tierra e informado en trauma, donde puedes explorar lo que surja a tu propio ritmo.</p>
-        <p>No hay nada que necesites forzar, ni nada que necesites demostrar. Confío en la sabiduría y en los tiempos de tu cuerpo, y estaré ahí para apoyarte, no para empujarte hacia un gran momento. Porque cuando nos sentimos realmente seguros, el cuerpo suele saber exactamente lo que necesita hacer.</p>
+        <p>No hay nada que necesites forzar, ni nada que necesites demostrar. Confío en la sabiduría y en los tiempos de tu cuerpo, y estaré ahí para apoyarte, no para empujarte hacia un gran momento. Porque <em>cuando nos sentimos realmente seguros, el cuerpo suele saber exactamente lo que necesita hacer.</em></p>
         <div class="pull">Aquí no tienes que sostenerlo todo.<br>Estaré justo a&nbsp;tu&nbsp;lado.</div>
       </div>
     </div>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb">
-      <button class="fav-btn" data-id="sec-session" data-name="Qué esperar de una sesión (ES)" data-group="Website ES">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Tus notas sobre esta sección · Qué esperar</span>
-        <input class="fav-note" data-id="sec-session" data-name="Qué esperar de una sesión (ES)" data-group="Website ES" placeholder="Los cuatro pasos y la caja de honestidad, ¿suenan a ti? (opcional)" />
-      </div>
-    </div>
+    <p class="lead-strong">Ya sea que llores, rías, grites, te quedes en silencio o simplemente respires, eres bienvenida tal como eres.</p>
   </div>
 </section>
 
@@ -416,7 +374,7 @@
       <div class="story-photo"><img src="img/diana-meditating-beach.jpg" alt="Diana meditando en posición de oración sobre una roca en la playa"></div>
       <div>
         <div class="eyebrow">Mi camino a casa</div>
-        <blockquote>No es que mi vida estuviera mal.<br>Es que no era del todo mía.</blockquote>
+        <blockquote class="long">Dejé de esforzarme por ser la mujer que todos admiraban,<br>y empecé a convertirme en la mujer que podía reconocer en el espejo.</blockquote>
         <p>Durante mucho tiempo creí que si tomaba las decisiones correctas, la felicidad llegaría por sí sola. Así que hice lo que &ldquo;se suponía que debía hacer&rdquo;.</p>
         <p>Estudié ingeniería porque prometía el futuro que mis padres querían para mí: una carrera sólida, buen dinero, seguridad. Me mudé al otro lado del mundo para construir una carrera exitosa. Gané becas, aprendí nuevos idiomas, construí negocios, me casé, y seguí alcanzando las metas que desde afuera se veían impresionantes.</p>
         <details class="story-more">
@@ -436,14 +394,6 @@
           </div>
         </details>
         <p style="margin-top:22px"><a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una consulta gratuita</a></p>
-      </div>
-    </div>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb">
-      <button class="fav-btn" data-id="sec-story" data-name="Mi camino a casa (ES)" data-group="Website ES">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Tus notas sobre esta sección · Mi camino a casa</span>
-        <input class="fav-note" data-id="sec-story" data-name="Mi camino a casa (ES)" data-group="Website ES" placeholder="Tu historia contada aquí, en tu español. ¿Cambiarías algo? (opcional)" />
       </div>
     </div>
   </div>
@@ -500,14 +450,6 @@
     <p style="text-align:center;margin-top:26px">
       <a class="btn btn-ghost" href="review.html">¿Ya viviste una sesión? Comparte tu experiencia →</a>
     </p>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb">
-      <button class="fav-btn" data-id="sec-reviews" data-name="Reseñas · Lo que dicen (ES)" data-group="Website ES">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Tus notas sobre esta sección · Reseñas</span>
-        <input class="fav-note" data-id="sec-reviews" data-name="Reseñas · Lo que dicen (ES)" data-group="Website ES" placeholder="El diseño de las reseñas (palabras de muestra por ahora) (opcional)" />
-      </div>
-    </div>
   </div>
 </section>
 
@@ -521,14 +463,6 @@
       <input type="email" placeholder="tu@correo.com" aria-label="correo">
       <button class="btn btn-primary" type="submit">Envíame el reset</button>
     </form>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb narrow">
-      <button class="fav-btn" data-id="sec-reset" data-name="Reset de respiración gratis (ES)" data-group="Website ES">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Tus notas sobre esta sección · Reset gratis</span>
-        <input class="fav-note" data-id="sec-reset" data-name="Reset de respiración gratis (ES)" data-group="Website ES" placeholder="La oferta del reset gratis (opcional)" />
-      </div>
-    </div>
   </div>
 </section>
 
@@ -557,14 +491,6 @@
         <details><summary>¿Esto es terapia?</summary><p>No. Es un complemento del trabajo interior, no un reemplazo de la terapia ni de la atención médica. Si estás en tratamiento, mantén a tu terapeuta al tanto.</p></details>
         <details><summary>¿Podemos hacerlo en línea?</summary><p>Sí. Las sesiones en línea funcionan muy bien por video, después de una llamada corta para preparar tu espacio de forma segura.</p></details>
         <details><summary>¿Y si necesito reprogramar?</summary><p>La vida pasa. Avísame con 24 horas de anticipación y encontramos un nuevo horario.</p></details>
-      </div>
-    </div>
-    <!-- STRIP-BEFORE-LAUNCH -->
-    <div class="sec-fb">
-      <button class="fav-btn" data-id="sec-book" data-name="Reserva · Qué incluye y FAQ (ES)" data-group="Website ES">♥</button>
-      <div class="sec-fb-main">
-        <span class="sec-fb-label">Tus notas sobre esta sección · Reserva y FAQ</span>
-        <input class="fav-note" data-id="sec-book" data-name="Reserva · Qué incluye y FAQ (ES)" data-group="Website ES" placeholder="Qué incluye, las respuestas del FAQ, el flujo de reserva (opcional)" />
       </div>
     </div>
   </div>
@@ -596,7 +522,5 @@
   </div>
 </footer>
 
-<!-- STRIP-BEFORE-LAUNCH -->
-<script src="feedback.js?v=3"></script>
 </body>
 </html>
