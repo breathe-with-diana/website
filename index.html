@@ -89,8 +89,10 @@
     .practice{background:var(--bone);text-align:center;padding-top:20px}
     .practice .wrap-narrow{max-width:800px}
     .practice .lead{font-size:18px;color:var(--umber);max-width:660px;margin:0 auto 16px}
-    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--muted);
+    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--terracotta);
       max-width:600px;margin:48px auto 0}
+    .practice .squiggle{display:block;width:72px;height:13px;margin:10px auto 26px;stroke:#8D4A28;
+      fill:none;stroke-width:1.6;stroke-linecap:round}
     .alt-label{font-family:var(--sans);font-size:11.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
       color:var(--sage);margin-bottom:30px}
 
@@ -99,25 +101,36 @@
     .process-block .alt-label{margin-bottom:8px}
     .process-block .proc-lead{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--umber);
       max-width:560px;margin:0 auto 44px}
-    .proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:0 auto 52px;max-width:920px}
+    .proc-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:start;
+      gap:18px;margin:0 auto 52px;max-width:920px}
     .proc-step{padding:0 6px}
-    .proc-step .n{display:block;font-family:var(--serif);font-style:italic;font-weight:500;font-size:22px;
-      color:var(--terracotta);line-height:1;margin-bottom:4px}
     .proc-step .ic{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
       margin:0 auto 16px}
     .proc-step .ic svg{width:27px;height:27px}
-    .proc-step h4{font-family:var(--sans);font-weight:600;font-size:14px;margin:0 0 7px}
+    .proc-step .ic img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+    .proc-step h4{font-family:var(--sans);font-weight:600;font-size:12.5px;margin:0 0 7px;
+      text-transform:uppercase;letter-spacing:.04em}
     .proc-step p{font-size:13px;color:var(--muted);margin:0;line-height:1.55}
-    .fact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:0 auto 40px;max-width:920px;text-align:left}
-    .fact-card{background:var(--cream);border:1px solid var(--hairline);border-radius:14px;padding:24px 22px}
-    .fact-card .fc-head{display:flex;align-items:center;gap:9px;margin-bottom:9px}
-    .fact-card .fc-head svg{width:18px;height:18px;color:var(--terracotta);flex-shrink:0}
-    .fact-card .fc-head span{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.12em;
-      text-transform:uppercase;color:var(--umber)}
-    .fact-card p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.6}
-    @media (max-width:820px){.proc-grid{grid-template-columns:1fr 1fr;row-gap:36px;max-width:460px}}
-    @media (max-width:820px){.fact-grid{grid-template-columns:1fr;max-width:460px;text-align:center}
-      .fact-card .fc-head{justify-content:center}}
+    .proc-arrow{display:flex;align-items:center;justify-content:center;padding-top:29px}
+    .proc-arrow svg{width:26px;height:11px;stroke:#8D4A28;stroke-width:1.6;
+      stroke-linecap:round;stroke-linejoin:round;fill:none}
+    .fact-card-unified{display:grid;grid-template-columns:repeat(3,1fr);margin:0 auto 40px;
+      max-width:920px;text-align:left;background:var(--cream);border:1px solid var(--hairline);border-radius:14px}
+    .fact-col{padding:24px 22px;border-left:1px solid var(--hairline);display:flex;flex-direction:column}
+    .fact-col:first-child{border-left:none}
+    .fact-col .fc-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;min-height:36px}
+    .fact-col .fc-head svg{width:18px;height:18px;color:var(--terracotta);flex-shrink:0}
+    .fact-col .fc-head span{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.12em;
+      text-transform:uppercase;color:var(--umber);line-height:1.35}
+    .fact-col p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.6}
+    @media (max-width:820px){
+      .proc-grid{grid-template-columns:1fr 1fr;row-gap:36px;max-width:460px}
+      .proc-arrow{display:none}
+      .fact-card-unified{grid-template-columns:1fr;max-width:460px;text-align:center}
+      .fact-col{border-left:none;border-top:1px solid var(--hairline)}
+      .fact-col:first-child{border-top:none}
+      .fact-col .fc-head{justify-content:center}
+    }
     @media (max-width:480px){.proc-grid{grid-template-columns:1fr;max-width:280px}}
 
     /* ===================================================================== TWO DOORS */
@@ -387,93 +400,62 @@
   <div class="wrap-narrow">
     <div class="eyebrow">The practice</div>
     <h2 class="sec">So, what is rebirthing breathwork?</h2>
-    <p class="lead">Rebirthing is a specific lineage of conscious, connected breathwork. It's a gentle way of breathing that helps your body let go of what it has been holding. There are no pauses between the inhale and the exhale, just one soft, continuous circle of breath. That simple rhythm signals to your nervous system that it's safe to soften, and lets feeling move through you, often without needing to explain or talk it through.</p>
-    <p class="lead">We carry so much in the body that words never quite reach. This breath works underneath the story, so old emotion can surface, be felt, and finally loosen its grip.</p>
-    <p class="boundary">It isn't therapy or medical treatment, and it isn't about chasing a big experience. It's a way of coming home to yourself, breath by breath.</p>
+    <svg class="squiggle" viewBox="0 0 90 16" aria-hidden="true"><path d="M2 8c6-7 12-7 18 0s12 7 18 0 12-7 18 0 12 7 18 0 12-7 16-2"/></svg>
+    <p class="lead">Rebirthing is a specific lineage of conscious, connected breathwork: one soft, continuous circle of breath, with no pause between the inhale and the exhale. That simple rhythm signals to your nervous system that it's safe to soften, so old emotion can surface and finally loosen its grip, often without needing to explain or talk it through.</p>
 
     <div class="process-block">
-      <div class="alt-label">The process, step by step</div>
+      <div class="alt-label">The process</div>
       <p class="proc-lead">Rebirthing Breathwork was created by <b>Dr. Leonard Orr</b> in the 1970s. Here's how the continuous circular breath moves through a session, from the first inhale to the quiet after.</p>
 
       <div class="proc-grid">
         <div class="proc-step">
-          <span class="n">1</span>
-          <div class="ic" style="background:rgba(138,140,110,.18)">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#8A8C6E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M10 24 C10 15 24 15 24 24 C24 33 38 33 38 24 C38 15 24 15 24 24 C24 33 10 33 10 24 Z"/>
-            </svg>
-          </div>
+          <div class="ic"><img src="img/proc-active-breathing.png" alt="" width="58" height="58"></div>
           <h4>Active breathing</h4>
           <p>You breathe deep and connected. The breath fills the body with energy and activates the nervous system.</p>
         </div>
 
+        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
+
         <div class="proc-step">
-          <span class="n">2</span>
-          <div class="ic" style="background:rgba(201,123,90,.16)">
-            <svg viewBox="0 0 48 48" fill="none" stroke="#C97B5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M8 34 Q16 28 24 34 T40 34"/>
-              <path d="M10 26 Q18 18 26 26 T42 26" opacity=".8"/>
-              <path d="M13 17 Q20 10 27 17" opacity=".55"/>
-              <circle cx="35" cy="11" r="1.6" fill="#C97B5A" stroke="none"/>
-              <circle cx="41" cy="17" r="1.2" fill="#C97B5A" stroke="none" opacity=".7"/>
-            </svg>
-          </div>
+          <div class="ic"><img src="img/proc-energy-motion.png" alt="" width="58" height="58"></div>
           <h4>Energy in motion</h4>
           <p>This energy moves through the body and brings to the surface what is stored: tension, emotions, memories or even trauma.</p>
         </div>
 
+        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
+
         <div class="proc-step">
-          <span class="n">3</span>
-          <div class="ic" style="background:rgba(212,162,76,.18)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#946a1f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M16 7h.01"/>
-              <path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/>
-              <path d="m20 7 2 .5-2 .5"/>
-              <path d="M10 18v3"/>
-              <path d="M14 17.75V21"/>
-              <path d="M7 18a6 6 0 0 0 3.84-10.61"/>
-            </svg>
-          </div>
+          <div class="ic"><img src="img/proc-release.png" alt="" width="58" height="58"></div>
           <h4>Release</h4>
           <p>What is ready to be felt, comes up. It may bring emotions, physical sensations, insights or simply a deep letting go.</p>
         </div>
 
+        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
+
         <div class="proc-step">
-          <span class="n">4</span>
-          <div class="ic" style="background:rgba(91,70,54,.1)">
-            <svg viewBox="0 -960 960 960" aria-hidden="true">
-              <g fill="#5B4636">
-                <path d="M480 -935 C500 -898 500 -827 480 -790 C460 -827 460 -898 480 -935 Z"/>
-                <path d="M480 -935 C500 -898 500 -827 480 -790 C460 -827 460 -898 480 -935 Z" transform="rotate(-35 480 -790)"/>
-                <path d="M480 -935 C500 -898 500 -827 480 -790 C460 -827 460 -898 480 -935 Z" transform="rotate(35 480 -790)"/>
-                <path d="M480 -935 C500 -898 500 -827 480 -790 C460 -827 460 -898 480 -935 Z" transform="rotate(-65 480 -790)"/>
-                <path d="M480 -935 C500 -898 500 -827 480 -790 C460 -827 460 -898 480 -935 Z" transform="rotate(65 480 -790)"/>
-              </g>
-              <path fill="#5B4636" d="M272-160q-30 0-51-21t-21-51q0-21 12-39.5t32-26.5l156-62v-90q-54 63-125.5 96.5T120-320v-80q68 0 123.5-28T344-508l54-64q12-14 28-21t34-7h40q18 0 34 7t28 21l54 64q45 52 100.5 80T840-400v80q-83 0-154.5-33.5T560-450v90l156 62q20 8 32 26.5t12 39.5q0 30-21 51t-51 21H400v-20q0-26 17-43t43-17h120q9 0 14.5-5.5T600-260q0-9-5.5-14.5T580-280H460q-42 0-71 29t-29 71v20h-88Zm151.5-503.5Q400-687 400-720t23.5-56.5Q447-800 480-800t56.5 23.5Q560-753 560-720t-23.5 56.5Q513-640 480-640t-56.5-23.5Z"/>
-            </svg>
-          </div>
+          <div class="ic"><img src="img/proc-integration.png" alt="" width="58" height="58"></div>
           <h4>Integration</h4>
           <p>The body rests, absorbs and integrates. This is where clarity, peace, insights or deep relaxation naturally arise.</p>
         </div>
       </div>
 
-      <div class="fact-grid">
-        <div class="fact-card">
-          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>How long do we breathe?</span></div>
-          <p>We breathe together for around 90 minutes. Add the conversation we start with and the time we take to rest and integrate afterward, and plan for about 2.5 to 3 hours together in total.</p>
+      <div class="fact-card-unified">
+        <div class="fact-col">
+          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>How long together?</span></div>
+          <p>The breathing itself takes around 90 minutes. With the conversation before and time to integrate after, plan for about 2.5 to 3 hours together.</p>
         </div>
-        <div class="fact-card">
-          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.8L21 9.6l-4.5 4.2L17.6 21 12 17.8 6.4 21l1.1-7.2L3 9.6l6.4-.8z"/></svg><span>What you might feel</span></div>
-          <p>Lightheadedness, tingling, warmth, emotional release, spontaneous movement, insight, bliss or deep calm. Every experience is unique.</p>
+        <div class="fact-col">
+          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.8L21 9.6l-4.5 4.2L17.6 21 12 17.8 6.4 21l1.1-7.2L3 9.6l6.4-.8z"/></svg><span>What you might experience</span></div>
+          <p>Lightheadedness, tingling, warmth, emotional release, body sensations, spontaneous movements, insights, bliss or deep calm. Every experience is unique.</p>
         </div>
-        <div class="fact-card">
+        <div class="fact-col">
           <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.35-9.3-9.3C1.4 8.4 3.2 5 6.6 5c2 0 3.4 1.1 4 2.2C11.2 6.1 12.6 5 14.6 5c3.4 0 5.2 3.4 3.9 6.7C16.3 16.65 12 21 12 21z"/></svg><span>Safe &amp; supported</span></div>
-          <p>You are always in control. Intensity can be adjusted through your breath, and you are held with care the entire time.</p>
+          <p>You are always in control. The intensity can be adjusted through your breath, and you are held with care the entire time.</p>
         </div>
       </div>
-
-      <p class="boundary" style="margin-top:0">No two sessions are the same. Your body always knows what it's ready to release and heal.</p>
     </div>
+
+    <p class="boundary" style="margin-top:0">It isn't therapy or medical treatment, and it isn't about chasing a big experience, it's a way of coming home to yourself, breath by breath. No two sessions are the same; your body always knows what it's ready to release and heal.</p>
   </div>
   <div class="sec-fb narrow">
     <button class="fav-btn" data-id="sec-practice" data-name="The practice · What rebirthing breathwork is" data-group="Website">♥</button>
