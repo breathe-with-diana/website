@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Breathe with Diana, Website Draft v1 + Logo Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* Recoleta isn't free; Cormorant Garamond stands in for this preview, as in the brand mockup.
+       In production the headline face would be Recoleta (or Canela). Palette/type-scale tokens
+       live in tokens.css, shared with es/ru/review/health-form/media-consent. */
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;scroll-behavior:smooth}
+    body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+    /* ===== promotion bar (real website element; the site's one deliberate ochre moment) ===== */
+    .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;
+      letter-spacing:.03em;padding:10px 20px;text-align:center;position:sticky;top:0;z-index:200}
+    .promo-bar b{font-weight:700}
+    .promo-bar a{color:var(--umber);text-decoration:underline;font-weight:700;white-space:nowrap}
+
+    /* ============================================================= SITE NAV */
+    .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--hairline)}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px}
+    .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
+    #navmark{height:72px;width:auto;display:block}
+    #footmark{height:auto;width:auto;max-height:150px;max-width:100%;display:block}
+    .nav a.link{font-family:var(--sans);font-size:var(--fs-sm);color:var(--umber);text-decoration:none;opacity:.82;
+      white-space:nowrap;flex-shrink:0}
+    .nav a.link:hover{opacity:1}
+    .lang{display:flex;align-items:flex-start;gap:12px;font-family:var(--sans);font-size:var(--fs-xs);letter-spacing:.08em;
+      color:var(--muted);border:1px solid var(--hairline);border-radius:var(--radius-pill);padding:6px 14px;
+      white-space:nowrap;flex-shrink:0}
+    .lang a,.lang b{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--muted)}
+    .lang b{color:var(--umber)}
+    .lang a:hover{color:var(--umber)}
+    .lang .flag{display:block;width:16px;height:11px;border-radius:2px;overflow:hidden}
+    .lang .flag svg{display:block;width:100%;height:100%}
+    .btn{font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;text-decoration:none;border-radius:var(--radius-pill);
+      padding:10px 20px;display:inline-block;transition:.15s;white-space:nowrap;flex-shrink:0;border:none;cursor:pointer;box-shadow:none}
+    /* terracotta-deep, not terracotta: the CTA's own label text needs to clear WCAG AA */
+    .btn-primary{background:var(--terracotta-deep);color:var(--bone)}
+    .btn-primary:hover{background:#7A4A36}
+    .btn-ghost{border:1px solid var(--umber);color:var(--umber)}
+    .btn-ghost:hover{background:var(--umber);color:var(--bone)}
+
+    section{padding:104px 32px}
+    .wrap{max-width:1140px;margin:0 auto}
+    .wrap-narrow{max-width:760px;margin:0 auto}
+    /* the shared "eyebrow" label role: one size, one tracking, one (context-appropriate) color */
+    /* .eyebrow is the primary section label (one size up, --fs-xs) from its five siblings
+       below (.tagword, .price-card .label, footer h5, .fc-head span, all --fs-2xs) -
+       deliberately: it's the lead label for a whole section, they're subordinate tags
+       inside a card. All six share weight:600 and .18em tracking. */
+    .eyebrow{font-family:var(--sans);font-size:var(--fs-xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--terracotta-deep);margin-bottom:22px}
+    h2.sec{font-family:var(--serif);font-weight:500;font-size:var(--fs-2xl);line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}
+    .lead{font-size:var(--fs-md);color:var(--umber);max-width:620px}
+    .muted{color:var(--muted)}
+
+    /* ===================================================================== HERO */
+    .hero{padding:44px 32px 96px;background:
+      radial-gradient(at 78% 18%,rgba(212,162,76,.16),transparent 46%),
+      radial-gradient(at 12% 92%,rgba(201,123,90,.14),transparent 50%),var(--bone)}
+    .hero-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+    .hero h1{font-family:var(--serif);font-weight:500;font-size:var(--fs-3xl);line-height:1.04;letter-spacing:-.015em;margin:18px 0 22px}
+    .hero h1 em{font-style:italic;color:var(--terracotta-deep)}
+    .hero p.sub{font-size:var(--fs-md);line-height:1.6;color:var(--umber);max-width:500px;margin:0 0 34px}
+    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .hero-photo{aspect-ratio:4/5;border-radius:var(--radius-md);position:relative;overflow:hidden;
+      background:radial-gradient(at 35% 28%,rgba(212,162,76,.5),transparent 55%),
+                 radial-gradient(at 72% 78%,rgba(201,123,90,.55),transparent 60%),
+                 linear-gradient(160deg,var(--cream),#Dcd2bf)}
+
+    /* ===================================================================== THE PRACTICE (what it is) */
+    .practice{background:var(--bone);text-align:center;padding-top:20px}
+    .practice .wrap-narrow{max-width:800px}
+    .practice .lead{font-size:var(--fs-md);color:var(--umber);max-width:660px;margin:0 auto 16px}
+    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
+      max-width:600px;margin:48px auto 0}
+    .practice .squiggle{display:block;width:72px;height:13px;margin:10px auto 26px;stroke:#8D4A28;
+      fill:none;stroke-width:1.6;stroke-linecap:round}
+    .alt-label{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--terracotta-deep);margin-bottom:30px}
+
+    /* ----- the process + practical facts (extends The Practice section) ----- */
+    .process-block{margin:70px auto 0;max-width:960px;border-top:1px dashed var(--hairline);padding-top:48px}
+    .process-block .alt-label{margin-bottom:8px}
+    .process-block .proc-lead{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--umber);
+      max-width:560px;margin:0 auto 44px}
+    .proc-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:start;
+      gap:18px;margin:0 auto 52px;max-width:920px}
+    .proc-step{padding:0 6px}
+    .proc-step .ic{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      margin:0 auto 16px}
+    .proc-step .ic svg{width:27px;height:27px}
+    .proc-step .ic img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+    .proc-step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-xs);margin:0 0 7px;
+      text-transform:uppercase;letter-spacing:.04em}
+    .proc-step p{font-size:var(--fs-sm);color:var(--muted);margin:0;line-height:1.55}
+    .proc-arrow{display:flex;align-items:center;justify-content:center;padding-top:29px}
+    .proc-arrow svg{width:26px;height:11px;stroke:#8D4A28;stroke-width:1.6;
+      stroke-linecap:round;stroke-linejoin:round;fill:none}
+    .fact-card-unified{display:grid;grid-template-columns:repeat(3,1fr);margin:0 auto 40px;
+      max-width:920px;text-align:left;background:var(--cream);border:1px solid var(--hairline);border-radius:var(--radius-md)}
+    .fact-col{padding:24px 22px;border-left:1px solid var(--hairline);display:flex;flex-direction:column}
+    .fact-col:first-child{border-left:none}
+    .fact-col .fc-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;min-height:36px}
+    .fact-col .fc-head svg{width:18px;height:18px;color:var(--terracotta-deep);flex-shrink:0}
+    .fact-col .fc-head span{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;letter-spacing:.18em;
+      text-transform:uppercase;color:var(--umber);line-height:1.35}
+    .fact-col p{font-size:var(--fs-sm);color:var(--muted);margin:0;line-height:1.6}
+    @media (max-width:820px){
+      .proc-grid{grid-template-columns:1fr 1fr;row-gap:36px;max-width:460px}
+      .proc-arrow{display:none}
+      .fact-card-unified{grid-template-columns:1fr;max-width:460px;text-align:center}
+      .fact-col{border-left:none;border-top:1px solid var(--hairline)}
+      .fact-col:first-child{border-top:none}
+      .fact-col .fc-head{justify-content:center}
+    }
+    @media (max-width:480px){.proc-grid{grid-template-columns:1fr;max-width:280px}}
+
+    /* ===================================================================== TWO DOORS */
+    .doors{background:var(--cream)}
+    .door-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:42px}
+    .door{background:var(--bone);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:38px 34px;display:flex;flex-direction:column}
+    .door .ix{width:46px;height:46px;margin-bottom:20px}
+    .door h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;margin:0 0 10px}
+    .door p{font-size:var(--fs-md);color:var(--umber);margin:0 0 6px}
+    .door .door-cta{margin-top:auto;padding-top:26px}
+    .door .tagword{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
+    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep)}
+
+    /* ===================================================================== SESSION / WHAT IT IS */
+    .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:56px}
+    .session-grid .steps-col{display:flex;flex-direction:column;justify-content:center}
+    .step{display:flex;gap:18px;margin-bottom:48px}
+    .session-grid .step:last-child{margin-bottom:0}
+    /* single declaration now (was split across a base rule + a #session ID override
+       that silently detached it whenever it was actually used) */
+    .lead-strong{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
+      text-align:center;margin:40px auto 0}
+    #session .lead.muted{margin:0 0 8px}
+    .step .step-pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--terracotta-deep);margin-top:10px}
+    .step .n{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber);line-height:1;flex-shrink:0;width:34px}
+    .step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-md);margin:2px 0 4px}
+    .step p{font-size:var(--fs-sm);color:var(--muted);margin:0}
+    .honest{background:var(--umber);color:var(--bone);border-radius:var(--radius-md);padding:37px 32px;
+      display:flex;flex-direction:column;justify-content:center}
+    .honest h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--bone);margin:0 0 16px}
+    .honest p{font-size:var(--fs-md);color:rgba(244,239,230,.85);margin:0 0 14px}
+
+    /* ===================================================================== STORY */
+    .story{background:var(--cream)}
+    .story-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
+    .story-photo{aspect-ratio:1/1;border-radius:var(--radius-md);position:sticky;top:150px;overflow:hidden;
+      background:radial-gradient(at 60% 35%,rgba(201,123,90,.5),transparent 55%),linear-gradient(160deg,var(--bone),#ddd2bf)}
+    .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
+    .story blockquote.long{font-size:var(--fs-lg);line-height:1.4;font-weight:600}
+    .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
+    /* real photos fill their placeholder frames */
+    .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .hero-photo img{object-position:50% 30%}
+    /* the story long-read expander */
+    .story-more{margin-top:6px}
+    .story-more[open] .story-more-toggle::after{content:"  Show less"}
+    .story-more-toggle{font-family:var(--sans);font-weight:500;font-size:var(--fs-sm);color:var(--terracotta-deep);cursor:pointer;
+      list-style:none;display:inline-block;margin-top:4px}
+    .story-more-toggle::-webkit-details-marker{display:none}
+    .story-more-toggle::after{content:"  Read more of my story →"}
+    .story-more .more-body{margin-top:14px}
+    .story-more .more-body p{margin:0 0 14px}
+    .story p.story-sig{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);line-height:1.3;color:var(--terracotta-deep);margin-top:22px}
+    /* full-width "the space" band */
+    .space-band{position:relative;height:clamp(220px,38vw,440px);overflow:hidden}
+    .space-band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
+    /* book card without a price */
+    .amt-note{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--umber);margin:6px 0 2px}
+
+    /* ===================================================================== REVIEWS */
+    .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
+    .rev-grid .rev:last-child:nth-child(3n+1){grid-column:2}
+    .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:30px 28px;display:flex;flex-direction:column}
+    .rev .rev-body{flex:1;margin-bottom:22px}
+    .rev .quote{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:0}
+    .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:var(--fs-md);font-style:italic;color:var(--terracotta-deep);border:1px solid var(--hairline)}
+    .rev-more summary{cursor:pointer;list-style:none;display:block;font-weight:400}
+    .rev-more summary::-webkit-details-marker{display:none}
+    .rev-more .quote-full{display:none}
+    .rev-more[open] .quote-excerpt{display:none}
+    .rev-more[open] .quote-full{display:block}
+    .rev .quote-highlight{font-weight:600}
+    .rev .toggle-cta{font-family:var(--sans);font-style:normal;font-weight:500;font-size:var(--fs-xs);
+      color:var(--terracotta-deep);white-space:nowrap;margin-left:2px}
+    .rev .quote + .quote{margin-top:14px}
+    .rev .who{display:flex;align-items:center;gap:12px}
+    .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
+    .rev .av img{width:100%;height:100%;object-fit:cover;display:block}
+    .rev .who b{font-size:var(--fs-sm);font-weight:600}
+    .rev .who span{font-size:var(--fs-xs);color:var(--muted);display:block;margin-top:1px}
+    .rev .who a{color:var(--terracotta-deep);text-decoration:none}
+    .rev .who a:hover{text-decoration:underline}
+    .rev-note{text-align:center;font-size:var(--fs-xs);color:var(--muted);font-style:italic;margin-top:26px}
+
+    /* ===================================================================== RESET BAND */
+    .reset{background:var(--sage);color:var(--bone);text-align:center}
+    .reset h2{font-family:var(--serif);font-weight:500;font-size:var(--fs-2xl);color:var(--bone);margin:0 0 14px}
+    .reset p{color:rgba(244,239,230,.9);max-width:480px;margin:0 auto 28px;font-size:var(--fs-base)}
+    .reset-form{display:flex;gap:10px;max-width:430px;margin:0 auto;justify-content:center;flex-wrap:wrap}
+    .reset-form input{font-family:var(--sans);font-size:var(--fs-sm);padding:13px 18px;border-radius:var(--radius-pill);border:none;
+      flex:1;min-width:220px;color:var(--umber)}
+
+    /* ===================================================================== BOOK */
+    .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
+    .price-card{background:var(--sage);border:1px solid var(--sage);
+      border-radius:var(--radius-lg);padding:38px 34px}
+    .price-card .label{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.75)}
+    .price-card .amt-note{color:var(--bone)}
+    .price-card ul{list-style:none;padding:0;margin:22px 0 26px}
+    .price-card li{font-size:var(--fs-sm);padding:9px 0;border-bottom:1px solid rgba(244,239,230,.22);display:flex;gap:10px;color:rgba(244,239,230,.92)}
+    .price-card li::before{content:"·";color:var(--bone);font-weight:700}
+    .price-card p.muted{color:rgba(244,239,230,.75)}
+    .price-card p.muted a{color:var(--bone);white-space:nowrap}
+    details{border-bottom:1px solid var(--hairline);padding:16px 0}
+    details summary{font-family:var(--sans);font-weight:500;font-size:var(--fs-md);cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+    details summary::-webkit-details-marker{display:none}
+    details summary::after{content:"+";color:var(--terracotta-deep);font-size:var(--fs-lg)}
+    details[open] summary::after{content:"-"}
+    details p{font-size:var(--fs-sm);color:var(--muted);margin:12px 0 2px}
+
+    /* ===================================================================== FOOTER */
+    footer{background:var(--umber);color:var(--bone);padding:40px 32px 28px}
+    .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
+    /* footer sits on the dark --umber background; headings/icons use --ochre (its one other
+       deliberate appearance besides the promo bar) so they read as colored, not washed out */
+    footer h5{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
+    footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:var(--fs-sm)}
+    footer a:hover{color:var(--bone)}
+    footer a.social-link{display:flex;align-items:center;gap:10px}
+    footer a.social-link svg{width:18px;height:18px;flex-shrink:0;stroke:var(--ochre)}
+    footer a.social-link svg.brand-wa{stroke:none}
+    .foot-bottom{max-width:1140px;margin:18px auto 0;padding-top:14px;border-top:1px solid rgba(244,239,230,.18);
+      font-size:var(--fs-xs);color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+    @media(max-width:880px){
+      .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
+      .door-grid,.rev-grid,.foot-grid{grid-template-columns:1fr}
+      .rev-grid .rev:last-child:nth-child(3n+1){grid-column:auto}
+      .hero h1{font-size:48px}.nav a.link{display:none}
+      .story-photo{position:static;top:auto}
+    }
+
+    /* short-but-wide viewports (laptop windows, browser chrome eating vertical space):
+       the hero was sized for tall screens only and got cropped with no scroll cue. */
+    @media (max-height:900px) and (min-width:881px){
+      .promo-bar{padding:6px 20px}
+      .nav-inner{padding:10px 32px}
+      #navmark{height:52px}
+      .hero{padding:20px 32px 40px}
+      .hero h1{font-size:44px;margin:8px 0 12px}
+      .hero p.sub{margin:0 0 18px}
+      .hero-photo{aspect-ratio:4/3.2}
+    }
+
+    @media(max-width:520px){
+      .nav-inner{flex-wrap:wrap;row-gap:10px;justify-content:flex-end}
+      .logo-lockup{flex:0 0 100%;margin-right:0}
+      #navmark{height:44px}
+      .lang{white-space:nowrap;font-size:var(--fs-2xs);padding:4px 10px}
+      .nav .btn-primary{padding:9px 16px;font-size:var(--fs-xs)}
+    }
+    /* a further step-down for small phones (iPhone SE-class, <=360px): 48px Cormorant
+       Garamond across two lines was the only breakpoint the hero h1 had below 880px */
+    @media(max-width:360px){
+      .hero h1{font-size:38px}
+    }
+
+  </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="rblur2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.05"/></filter>
+</defs></svg>
+
+<!-- ============================ PROMOTION BAR (real website element) ============================ -->
+<div class="promo-bar">
+  ✦&nbsp;&nbsp;<b>New here?</b> Come breathe with me, start with a free reset.&nbsp;&nbsp;<a href="#reset">Get it →</a>
+</div>
+
+<!-- ============================================================= THE WEBSITE STARTS HERE ========= -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo-lockup" href="#top" aria-label="Breathe with Diana, home">
+      <!-- final chosen mark, outlined compact lockup (figure + seeds + wordmark) -->
+      <img id="navmark" src="logo-mark.svg" alt="Breathe with Diana" />
+    </a>
+    <a class="link" href="#practice">What it is</a>
+    <a class="link" href="#doors">The work</a>
+    <a class="link" href="#session">What to expect</a>
+    <a class="link" href="#story">My journey home</a>
+    <a class="link" href="#reviews">Reviews</a>
+    <span class="lang" title="Language">
+      <b>EN<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="4"/><path d="M30,0 V40 M0,20 H60" stroke="#fff" stroke-width="14"/><path d="M30,0 V40 M0,20 H60" stroke="#C8102E" stroke-width="8"/></svg></span></b>
+      <a href="es.html">ES<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#AA151B"/><rect y="10" width="60" height="20" fill="#F1BF00"/></svg></span></a>
+      <a href="ru.html">RU<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><rect y="13.33" width="60" height="13.34" fill="#0039A6"/><rect y="26.67" width="60" height="13.33" fill="#D52B1E"/></svg></span></a>
+    </span>
+    <a class="btn btn-primary" href="#book">Book a free consultation</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<a id="top"></a>
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Rebirthing breathwork · In person &amp; online</div>
+      <h1>Coming home<br>to your <em>body</em>.</h1>
+      <p class="sub">For people who have spent years doing everything &ldquo;they were supposed to do,&rdquo; yet still feel disconnected from themselves. This is an invitation to slow down, return to your body, and begin building a kinder relationship with yourself, not by becoming someone new, but by <em>remembering who you've always been</em>.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#book">Book a free consultation</a>
+        <a class="btn btn-ghost" href="#reset">Start with a free reset</a>
+      </div>
+    </div>
+    <div class="hero-photo"><img src="img/diana-hero.jpg" alt="Diana guiding a one-to-one rebirthing breathwork session"></div>
+  </div>
+</section>
+
+<!-- ===== THE PRACTICE (what rebirthing breathwork actually is) ===== -->
+<section class="practice" id="practice">
+  <div class="wrap-narrow">
+    <div class="eyebrow">The practice</div>
+    <h2 class="sec">So, what is rebirthing breathwork?</h2>
+    <svg class="squiggle" viewBox="0 0 90 16" aria-hidden="true"><path d="M2 8c6-7 12-7 18 0s12 7 18 0 12-7 18 0 12 7 18 0 12-7 16-2"/></svg>
+    <p class="lead">A simple yet powerful breathing practice that helps your body release stress, emotions, and tension it no longer needs to carry.</p>
+    <p class="lead">Using one continuous, connected breath, Rebirthing creates the conditions for your body to gently let go of what has been held beneath the surface, so you can experience greater clarity, freedom, and connection with yourself.</p>
+
+    <div class="process-block">
+      <div class="alt-label">The process</div>
+
+      <div class="proc-grid">
+        <div class="proc-step">
+          <div class="ic"><img src="img/proc-active-breathing.png" alt="" width="58" height="58"></div>
+          <h4>Active breathing</h4>
+          <p>You breathe deep and connected. The breath fills the body with energy and activates the nervous system.</p>
+        </div>
+
+        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
+
+        <div class="proc-step">
+          <div class="ic"><img src="img/proc-energy-motion.png" alt="" width="58" height="58"></div>
+          <h4>Energy in motion</h4>
+          <p>This energy moves through the body and brings to the surface what is stored: tension, emotions, memories or even trauma.</p>
+        </div>
+
+        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
+
+        <div class="proc-step">
+          <div class="ic"><img src="img/proc-release.png" alt="" width="58" height="58"></div>
+          <h4>Release</h4>
+          <p>What is ready to be felt, comes up. It may bring emotions, physical sensations, insights or simply a deep letting go.</p>
+        </div>
+
+        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
+
+        <div class="proc-step">
+          <div class="ic"><img src="img/proc-integration.png" alt="" width="58" height="58"></div>
+          <h4>Integration</h4>
+          <p>The body rests, absorbs and integrates. This is where clarity, peace, insights or deep relaxation naturally arise.</p>
+        </div>
+      </div>
+
+      <div class="fact-card-unified">
+        <div class="fact-col">
+          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>How long together?</span></div>
+          <p>The breathing itself takes around 90 minutes. With the conversation before and time to integrate after, plan for about 2.5 to 3 hours together.</p>
+        </div>
+        <div class="fact-col">
+          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.8L21 9.6l-4.5 4.2L17.6 21 12 17.8 6.4 21l1.1-7.2L3 9.6l6.4-.8z"/></svg><span>What you might experience</span></div>
+          <p>Lightheadedness, tingling, warmth, emotional release, body sensations, spontaneous movements, insights, bliss or deep calm. Every experience is unique.</p>
+        </div>
+        <div class="fact-col">
+          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.35-9.3-9.3C1.4 8.4 3.2 5 6.6 5c2 0 3.4 1.1 4 2.2C11.2 6.1 12.6 5 14.6 5c3.4 0 5.2 3.4 3.9 6.7C16.3 16.65 12 21 12 21z"/></svg><span>Safe &amp; supported</span></div>
+          <p>You are always in control. The intensity can be adjusted through your breath, and you are held with care the entire time.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="boundary" style="margin-top:0">It isn't about changing who you are. It's about creating space for your body to let go of what no longer belongs to you.</p>
+  </div>
+</section>
+
+<!-- ===== TWO DOORS ===== -->
+<section class="doors" id="doors">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">Two ways in</div>
+    <h2 class="sec">Start gentle. Or go deep.</h2>
+    <p class="lead muted" style="margin:0 auto">There is no right place to begin. Some people start with a simple breathing practice to reconnect with themselves. Others feel ready to explore more deeply. We simply begin where you are.</p>
+  </div>
+  <div class="wrap">
+    <div class="door-grid">
+      <div class="door">
+        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#8A8C6E" stroke-width="2.4" stroke-linecap="round">
+          <path d="M8 30 q16 -14 32 0"/><path d="M12 36 q12 -9 24 0"/>
+        </svg>
+        <div class="tagword">Everyday calm</div>
+        <h3>Start gentle</h3>
+        <p>A simple breathing practice to slow down, drop into your body, and feel what it's like to come home to yourself. No experience needed.</p>
+        <div class="door-cta"><a class="btn btn-ghost" href="#reset">Get the free breath reset</a></div>
+      </div>
+      <div class="door">
+        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#905840" stroke-width="2.4" stroke-linecap="round">
+          <circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="8"/>
+        </svg>
+        <div class="tagword">The deep work</div>
+        <h3>Go deeper</h3>
+        <p>Rebirthing breathwork meets the parts of you that everyday calm doesn't reach. It's more intense: real emotional release, held in a 2-3 hour session, not a 5-minute reset. If the gentle door is a daily practice, this is the one time you go all the way down, with someone steady beside you the whole way.</p>
+        <div class="door-cta"><a class="btn btn-primary" href="#book">Book a free consultation</a></div>
+      </div>
+    </div>
+    <p class="doors-note">“It's not about fixing you. It's about coming home to what's already there.”</p>
+  </div>
+</section>
+
+<!-- ===== WHAT A SESSION IS LIKE (honest explainer) ===== -->
+<section id="session">
+  <div class="wrap">
+    <div class="eyebrow">What to expect</div>
+    <h2 class="sec">Every rebirthing session is different, because every person is different.</h2>
+    <p class="lead muted" style="max-width:none">There is no right experience, and nothing you need to force. My role is to create a space where you feel safe enough to be yourself: to soften, to breathe, and to let your body guide the experience at its own pace.</p>
+    <div class="session-grid">
+      <div class="steps-col">
+        <div class="step"><div class="n">1</div><div><h4>We begin with a conversation</h4><p>Before we breathe, we'll talk about what has brought you here, your intentions, and anything important about your physical or emotional wellbeing. I'll answer your questions and make sure you feel comfortable before we begin.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Then we breathe</h4><p>I'll guide you through the connected breathing pattern while staying fully present with you from beginning to end. I'm listening, observing, encouraging when needed, and giving you space when that's what's needed most.</p><p class="step-pull">You don't have to hold yourself together here. I'll be right beside you.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>We integrate</h4><p>After the breathing, we slow down together, reflect on what came up, and allow your nervous system to settle before you leave. I'll also check in with you afterwards, because integration continues beyond the session.</p></div></div>
+      </div>
+      <div class="honest">
+        <h3>A little honesty before you book</h3>
+        <p>Rebirthing isn't about chasing extraordinary experiences. It's about creating the conditions where you can meet yourself with honesty and compassion.</p>
+        <p>Sessions last around two and a half hours and can be emotionally and physically intense. Some people leave energized. Others feel emotional, deeply relaxed, or pleasantly tired.</p>
+        <p>I won't promise to heal you or transform your life. What I do promise is a safe, grounded, trauma-informed space where there's nothing you need to force and nothing you need to prove.</p>
+        <p>I trust your body's own wisdom and timing, and I'll be there to support you, not to push you toward a breakthrough. Because <em>when we feel truly safe, the body often knows exactly what it needs to do.</em></p>
+      </div>
+    </div>
+    <p class="lead-strong">Whether you cry, laugh, scream, stay quiet, or simply breathe, you are welcome exactly as you are.</p>
+  </div>
+</section>
+
+<!-- ===== THE SPACE (full-width photo band) ===== -->
+<div class="space-band"><img src="img/studio-space.jpg" alt="The quiet, light-filled space where sessions are held"></div>
+
+<!-- ===== STORY ===== -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-photo"><img src="img/diana-meditating-beach.jpg" alt="Diana meditating in prayer pose on a beach rock"></div>
+      <div>
+        <div class="eyebrow">My journey home</div>
+        <blockquote class="long">I stopped trying to become the woman everyone admired,<br>and started becoming the woman I could recognize in the mirror.</blockquote>
+        <p>For a long time, I believed that if I made the right choices, happiness would naturally follow. So I did what I was “supposed to do”.</p>
+        <p>I studied engineering because it promised the kind of future my parents wanted me to have: a solid career, good money, security. I moved across the world to build a successful career. I earned scholarships, learned new languages, built businesses, got married, and kept reaching the milestones that looked impressive from the outside.</p>
+        <details class="story-more">
+          <summary class="story-more-toggle"></summary>
+          <div class="more-body">
+            <p>Each decision made sense. Each one made the people I loved proud. Yet somewhere along the way, I lost the person making those decisions.</p>
+            <p>Looking back, I can see that I'd become very good at listening to everyone except myself. I knew how to be responsible, capable, independent and successful. What I didn't know was how to trust my own inner voice. Though underneath it all, there was always a part of me that questioned the rules. It just took me years to let her lead.</p>
+            <p>Everything began to change after my divorce. For the first time, I stopped asking, “What should I do?” and started asking, “What feels true?” That question changed the direction of my life.</p>
+            <p>It led me to meditation, to psychology, to months of travelling alone, to teachers who challenged the way I saw myself, and eventually to rebirthing breathwork.</p>
+            <p>My first session took me completely by surprise. I cried for almost three hours. My breath kept carrying me back to old moments I thought I had left behind, and somewhere in there, I was able to let something go. The next morning I woke up calmer and surer of myself than I had felt in years.</p>
+            <p>Rebirthing wasn't a quick fix. It didn't magically erase my fears or my old patterns. What it gave me was something much more valuable: a way to reconnect with my body, process emotions I had carried for years, and slowly rebuild the trust I had lost in myself.</p>
+            <p>Breath by breath, I stopped trying to become someone better. I started becoming more myself.</p>
+            <p>Today, I live a life that once felt impossible. Not because it's perfect, but because it's aligned with who I am. I continue to choose curiosity over certainty, authenticity over expectation, and trust over fear.</p>
+            <p>I work with people who have spent years building a life that makes sense, but no longer feels like home. They're intelligent, capable and successful. From the outside, their lives look full. Yet inside, something feels disconnected. They don't need someone to tell them who to become. They need a safe space to remember who they've always been.</p>
+            <p>That's why I do this work. Not because I have all the answers, but because I know what it's like to lose yourself while trying to build a life that makes sense. And I know how powerful it is to find your way back.</p>
+            <p class="story-sig">&ldquo;The biggest risk I ever took wasn't moving across the world. It was trusting myself.&rdquo;</p>
+          </div>
+        </details>
+        <p style="margin-top:22px"><a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free consultation</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section id="reviews">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow">In their words</div>
+    <h2 class="sec">When people feel safe enough to let go.</h2>
+    <p class="lead muted" style="margin:0 auto">Every experience is unique. These stories are shared with permission by people who chose to open their hearts, trust the process, and share what the experience meant to them.</p>
+  </div>
+  <div class="wrap">
+    <div class="rev-grid">
+      <div class="rev">
+        <div class="rev-body">
+          <details class="rev-more">
+            <summary>
+              <div class="quote-excerpt">
+                <p class="quote">“[...] During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</p>
+                <p class="quote">The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through. [...] <span class="toggle-cta">Keep reading →</span></p>
+              </div>
+              <div class="quote-full">
+                <p class="quote">“I had wanted to try rebirthing for a long time, but somehow never got around to it. Then I saw Diana's message, and it came at exactly the moment when I needed it most. What I loved most was the way Diana guided the process, with so much care, presence, and attention to every detail. She explained everything clearly beforehand, which helped me feel safe and trust the experience.</p>
+                <p class="quote"><span class="quote-highlight">“During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</span></p>
+                <p class="quote"><span class="quote-highlight">The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through.</span></p>
+                <p class="quote">By the end of the session, I felt immense gratitude for Diana and the work she does. Honestly, experiences like this are beyond any price tag. The opportunity to reconnect so deeply with your body and quiet the endless stories and noise of the mind is incredibly valuable.</p>
+                <p class="quote">As a therapist myself, I know how important it is to find the right guides and practitioners. I wholeheartedly recommend Diana to anyone who wants to release stored emotions, let go of blocks held in the body, reset their system, and create space for meaningful inner transformation.” <span class="toggle-cta">Show less</span></p>
+              </div>
+            </summary>
+          </details>
+        </div>
+        <div class="who">
+          <div class="av"><img src="img/rev-maria.jpg" alt="Maria"></div>
+          <div><b>Maria, 36</b><span><a href="https://instagram.com/art_of_contact" target="_blank" rel="noopener">@art_of_contact</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="rev-body">
+          <details class="rev-more">
+            <summary>
+              <div class="quote-excerpt">
+                <p class="quote">“I cannot recommend Diana highly enough. She is a truly 'old soul' whose presence is both grounding and deeply transformative. I have had the pleasure of working with Diana in both group and private breathwork sessions, and she has a remarkable, intuitive ability to hold space. [...] <span class="toggle-cta">Keep reading →</span></p>
+              </div>
+              <div class="quote-full">
+                <p class="quote"><span class="quote-highlight">“I cannot recommend Diana highly enough. She is a truly 'old soul' whose presence is both grounding and deeply transformative. I have had the pleasure of working with Diana in both group and private breathwork sessions, and she has a remarkable, intuitive ability to hold space.</span></p>
+                <p class="quote">In the past, I have struggled with practitioners who lacked the necessary sensitivity, which made it difficult for me to fully let go. With Diana, however, I felt completely safe and supported from the very first moment. Her sensitivity allowed my subconscious mind to relax, enabling me to open up and explore deep, meaningful topics that I hadn't been able to access before.</p>
+                <p class="quote">Every breathwork session with Diana has been a profound journey. Her sessions are truly transformative, and I am incredibly grateful for the healing work we have done together. If you are looking for a guide who is not only skilled but also deeply empathetic and present, Diana is the person to see.” <span class="toggle-cta">Show less</span></p>
+              </div>
+            </summary>
+          </details>
+        </div>
+        <div class="who">
+          <div class="av"><img src="img/rev-doris.jpg" alt="Doris"></div>
+          <div><b>Doris, 41</b><span><a href="https://instagram.com/doriskemptner_official" target="_blank" rel="noopener">@doriskemptner_official</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="rev-body">
+          <p class="quote">“In one of my breathwork sessions with Diana I went into a memory of something from the past and my body went into deep release. Diana held space very well, she has grounded, compassionate presence, she is trauma-informed, is sensitive and has a gentle but strong heart. I felt held and loved, the session was difficult emotionally but my body felt safe and I felt very relaxed and light afterwards.”</p>
+        </div>
+        <div class="who">
+          <div class="av"><img src="img/rev-sofia.jpg" alt="Sofia"></div>
+          <div><b>Sofia</b><span><a href="https://instagram.com/gypsiefamily" target="_blank" rel="noopener">@gypsiefamily</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="rev-body">
+          <details class="rev-more">
+            <summary>
+              <div class="quote-excerpt">
+                <p class="quote">“This was my first rebirthing breathwork session with her, although I had experienced rebirthing breath work with someone else about 20 years ago, so I had a general idea of what to expect. From the beginning, she was warm, kind, and consultative, taking the time to understand my experience and helping me feel comfortable throughout the session. Although my experience was neither dramatic nor highly emotional, it was gentle, calming, and felt exactly as it needed to be. [...] <span class="toggle-cta">Keep reading →</span></p>
+              </div>
+              <div class="quote-full">
+                <p class="quote"><span class="quote-highlight">“This was my first rebirthing breathwork session with her, although I had experienced rebirthing breath work with someone else about 20 years ago, so I had a general idea of what to expect. From the beginning, she was warm, kind, and consultative, taking the time to understand my experience and helping me feel comfortable throughout the session. Although my experience was neither dramatic nor highly emotional, it was gentle, calming, and felt exactly as it needed to be.</span></p>
+                <p class="quote">At one point I may even have drifted into a light sleep despite the intensity of the breathing, which surprised me. I trusted both her guidance and the process, and I left feeling that whatever suppressed or pent-up energy needed to be released had been.</p>
+                <p class="quote">If you're looking for someone who creates a safe, supportive, and non-judgmental space for breathwork, I would happily recommend her.” <span class="toggle-cta">Show less</span></p>
+              </div>
+            </summary>
+          </details>
+        </div>
+        <div class="who">
+          <div class="av av-letter">S</div>
+          <div><b>Su, 60</b></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="rev-body">
+          <p class="quote">“I felt completely safe and supported with Diana :) It was a powerful experience and releasing in a new way for me. The session left me with an understanding about my self set emotional range limitations and how good it is to just feel deeply.”</p>
+        </div>
+        <div class="who">
+          <div class="av"><img src="img/rev-fey.jpg" alt="Fey"></div>
+          <div><b>Fey</b><span><a href="https://instagram.com/aiwithfey" target="_blank" rel="noopener">@aiwithfey</a></span></div>
+        </div>
+      </div>
+      <div class="rev">
+        <div class="rev-body">
+          <p class="quote">“Diana is one of those special women with whom you immediately feel safe, something that's tremendously important in a breathwork session. She's calm, patient and professional. She meets you where you are at and gives you the space, trust and support to have the session you need. I would definitely recommend to do a breathwork session with Diana!”</p>
+        </div>
+        <div class="who">
+          <div class="av"><img src="img/rev-lisanne.jpg" alt="Lisanne"></div>
+          <div><b>Lisanne</b><span><a href="https://instagram.com/lisannevanbunderen" target="_blank" rel="noopener">@lisannevanbunderen</a></span></div>
+        </div>
+      </div>
+    </div>
+    <p class="rev-note">Real client reviews, shared with their permission, in their own words.</p>
+    <p style="text-align:center;margin-top:26px">
+      <a class="btn btn-ghost" href="review.html">Been to a session? Share your experience →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ===== FREE RESET BAND ===== -->
+<section class="reset" id="reset">
+  <div class="wrap-narrow">
+    <div class="eyebrow" style="color:var(--bone)">Start here · free</div>
+    <h2>Your free breath reset.</h2>
+    <p>If you're not ready for a full session yet, this is a gentle place to begin. A free guided practice to help you slow down, reconnect with your breath, and experience a small taste of this work, wherever you are. Leave your email and I'll send it straight to you.</p>
+    <form class="reset-form" onsubmit="return false">
+      <input type="email" placeholder="your@email.com" aria-label="email">
+      <button class="btn btn-primary" type="submit">Send me the reset</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===== BOOK / PRICING / FAQ ===== -->
+<section id="book">
+  <div class="wrap">
+    <div class="eyebrow">Work with me</div>
+    <h2 class="sec">Start your journey.</h2>
+    <p class="lead muted" style="max-width:none;margin-bottom:6px">Every session begins with a free 15-minute call, so we can make sure it's right for you and answer any questions. From there, we'll agree together on the time and format that feels right for you.</p>
+    <div class="book-grid">
+      <div class="price-card">
+        <div class="label">Private 1:1 rebirthing session</div>
+        <div class="amt-note">What's included</div>
+        <ul>
+          <li>2-3 hours, fully held start to finish</li>
+          <li>Pre-session conversation beforehand</li>
+          <li>Follow-up support in the days after</li>
+          <li>In person or online worldwide</li>
+        </ul>
+        <a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener" style="width:100%;text-align:center">Book a free consultation</a>
+        <p class="muted" style="font-size:var(--fs-sm);margin-top:16px;text-align:center">Prefer to chat first? <a href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener">Message me on WhatsApp</a>.</p>
+      </div>
+      <div>
+        <details open><summary>Do I need any experience?</summary><p>Not at all. Most people who come to me have never experienced rebirthing before. I'll guide you through every step, and you don't need to know how to breathe “correctly”. We simply begin together.</p></details>
+        <details><summary>Will I feel calm afterward?</summary><p>Sometimes, but calm isn't the promise. Rebirthing tends to move emotion rather than soothe it. Many people feel tired and tender right after, and lighter the next day.</p></details>
+        <details><summary>Is this therapy?</summary><p>No. It's a complement to inner work, not a replacement for therapy or medical care. If you're in treatment, keep your therapist in the loop.</p></details>
+        <details><summary>Can we do it online?</summary><p>Yes. Online sessions work well over video once we've had a short call to set up your space safely.</p></details>
+        <details><summary>What if I need to reschedule?</summary><p>Life happens, just give me 24 hours' notice and we'll find a new time.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <img id="footmark" src="logo-mark-dark.svg" alt="Breathe with Diana" />
+    </div>
+    <div>
+      <h5>Explore</h5>
+      <a href="#doors">The work</a>
+      <a href="#session">What to expect</a>
+      <a href="#story">My journey home</a>
+      <a href="#book">Book</a>
+    </div>
+    <div>
+      <h5>Find me</h5>
+      <a class="social-link" href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="var(--ochre)" stroke="none"/></svg>@breathe.with.diana</a>
+      <a class="social-link" href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener"><svg class="brand-wa" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>+66 63 125 9588</a>
+      <a class="social-link" href="mailto:Iwantto@breathe-with-diana.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Iwantto@breathe-with-diana.com</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Breathe with Diana · breathe-with-diana.com</span>
+    <span>Rebirthing breathwork is not a substitute for medical or psychological care.</span>
+  </div>
+</footer>
+
+</body>
+</html>
