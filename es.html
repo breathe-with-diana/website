@@ -31,10 +31,10 @@
     .site{max-width:100%;}
     .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
       border-bottom:1px solid var(--hairline)}
-    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;row-gap:10px}
     .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
     #navmark{height:72px;width:auto;display:block}
-    #footmark{height:150px;width:auto;display:block}
+    #footmark{height:auto;width:auto;max-height:150px;max-width:100%;display:block}
     .nav a.link{font-family:var(--sans);font-size:13.5px;color:var(--umber);text-decoration:none;opacity:.82}
     .nav a.link:hover{opacity:1}
     .lang{display:flex;align-items:flex-start;gap:12px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;
@@ -177,7 +177,7 @@
 
     /* ===================================================================== FOOTER */
     footer{background:var(--umber);color:var(--bone);padding:40px 32px 28px}
-    .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+    .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
     footer h5{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
     footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:14px}
     footer a:hover{color:var(--bone)}
@@ -192,6 +192,18 @@
       .door-grid,.rev-grid,.foot-grid,.facets{grid-template-columns:1fr}
       .hero h1{font-size:48px}.nav a.link{display:none}
       .story-photo{position:static;top:auto}
+    }
+
+    /* short-but-wide viewports (laptop windows, browser chrome eating vertical space):
+       the hero was sized for tall screens only and got cropped with no scroll cue. */
+    @media (max-height:900px) and (min-width:881px){
+      .promo-bar{padding:6px 20px}
+      .nav-inner{padding:10px 32px}
+      #navmark{height:52px}
+      .hero{padding:20px 32px 40px}
+      .hero h1{font-size:44px;margin:8px 0 12px}
+      .hero p.sub{margin:0 0 18px}
+      .hero-photo{aspect-ratio:4/3.2}
     }
 
     /* ===================================================================== REVIEW ZONE (para Diana, no es parte de la página) */
