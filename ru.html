@@ -125,7 +125,7 @@
     .story-more-toggle::after{content:"  Читать мою историю дальше →"}
     .story-more .more-body{margin-top:14px}
     .story-more .more-body p{margin:0 0 14px}
-    .story-sig{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);line-height:1.3;color:var(--terracotta-deep);margin-top:22px}
+    .story p.story-sig{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);line-height:1.3;color:var(--terracotta-deep);margin-top:22px}
     .space-band{position:relative;height:clamp(220px,38vw,440px);overflow:hidden}
     .space-band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
     .amt-note{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--umber);margin:6px 0 2px}
@@ -139,8 +139,10 @@
     .rev-more{margin-top:10px}
     .rev-more summary{cursor:pointer;font-size:var(--fs-xs);color:var(--terracotta-deep);list-style:none;display:inline-block;border-bottom:1px solid currentColor;padding-bottom:1px}
     .rev-more summary::-webkit-details-marker{display:none}
-    .rev-more[open] summary{display:none}
+    .rev-more summary::after{content:"Читать дальше"}
+    .rev-more[open] summary::after{content:"Свернуть"}
     .rev-more .quote-more p{font-family:var(--serif);font-size:var(--fs-md);line-height:1.4;font-style:italic;color:var(--umber);margin:12px 0 0}
+    .rev .quote + .quote{margin-top:14px}
     .rev .who{display:flex;align-items:center;gap:12px}
     .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
     .rev .av img{width:100%;height:100%;object-fit:cover;display:block}
@@ -182,13 +184,13 @@
     .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
     /* footer sits on the dark --umber background, so its labels/icons move to a soft
        bone tone (not ochre, not umber-on-umber) when converging off the old accent */
-    footer h5{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.85);margin:0 0 16px}
+    footer h5{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
     footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:var(--fs-sm)}
     footer a:hover{color:var(--bone)}
     footer a.social-link{display:flex;align-items:center;gap:10px}
-    footer a.social-link svg{width:18px;height:18px;flex-shrink:0;stroke:rgba(244,239,230,.85)}
+    footer a.social-link svg{width:18px;height:18px;flex-shrink:0;stroke:var(--ochre)}
     footer a.social-link svg.brand-wa{stroke:none}
-    .foot-bottom{max-width:1140px;margin:28px auto 0;padding-top:22px;border-top:1px solid rgba(244,239,230,.18);
+    .foot-bottom{max-width:1140px;margin:18px auto 0;padding-top:14px;border-top:1px solid rgba(244,239,230,.18);
       font-size:var(--fs-xs);color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
     @media(max-width:880px){
@@ -457,7 +459,7 @@
         <div class="rev-body">
           <p class="quote">«Пришли очень ценные видения, ощущения и осознания. Я не знала чего ожидать, но доверилась процессу. Вся сессия прошла в заботливом, бережном формате. Благодарю Диану за безопасное пространство, за доброту, теплоту и заботу. Прошло несколько дней, а я всё ещё интегрирую ощущения после сессии. Мне пришли ощущения, которые помогли мне прожить некоторые моменты и отпустить их. А также я увидела и ощутила один из источников своей внутренней силы, на который я могу каждый день опираться.</p>
           <details class="rev-more">
-            <summary>Читать дальше</summary>
+            <summary></summary>
             <div class="quote-more">
               <p>«По окончании сессии мне захотелось зарисовать видение, которое мне пришло. Это напоминает мне об источнике моей силы и поддержки высших сил.</p>
               <p>«Благодарю искренне 🙏»</p>
@@ -471,13 +473,13 @@
       </div>
       <div class="rev">
         <div class="rev-body">
-          <p class="quote">«Я давно хотела попробовать ребёрфинг, но всё как-то не складывалось. И когда увидела сообщение Дианы, почувствовала, что это пришло именно в тот момент, когда мне это было очень нужно.</p>
+          <p class="quote">«Во время практики я очень ярко чувствовала своё тело. Горели губы, руки, область таза, ощущался мощный прилив энергии. А потом началось глубокое эмоциональное освобождение. Я плакала, рыдала, и именно это мне было нужно.</p>
+          <p class="quote">«В процессе я увидела, где сейчас предаю себя и свои желания, что хочу изменить в отношениях с собой, с партнёром и с другими людьми. Пришли очень важные осознания.</p>
           <details class="rev-more">
-            <summary>Читать дальше</summary>
+            <summary></summary>
             <div class="quote-more">
+              <p>«Я давно хотела попробовать ребёрфинг, но всё как-то не складывалось. И когда увидела сообщение Дианы, почувствовала, что это пришло именно в тот момент, когда мне это было очень нужно.</p>
               <p>«Мне очень понравилось, как Диана ведёт процесс, бережно, внимательно, с заботой о каждой детали. Она подробно объясняла, что будет происходить, и для меня это создало ощущение безопасности и доверия.</p>
-              <p>«Во время практики я очень ярко чувствовала своё тело. Горели губы, руки, область таза, ощущался мощный прилив энергии. А потом началось глубокое эмоциональное освобождение. Я плакала, рыдала, и именно это мне было нужно.</p>
-              <p>«В процессе я увидела, где сейчас предаю себя и свои желания, что хочу изменить в отношениях с собой, с партнёром и с другими людьми. Пришли очень важные осознания.</p>
               <p>«После практики я почувствовала огромную благодарность Диане за то, что она делает. Честно, такие процессы сложно измерить деньгами. Это невероятно ценно, настолько глубоко соединиться со своим телом и на время выключить бесконечный поток мыслей и историй в голове.</p>
               <p>«Я сама работаю с людьми и знаю, насколько важно находить своих проводников и мастеров. Поэтому искренне рекомендую Диану тем, кто хочет освободить зажатые эмоции, снять телесные блоки, перезагрузиться и создать пространство для глубоких внутренних изменений.»</p>
             </div>
@@ -586,7 +588,7 @@
     </div>
     <div>
       <h5>Найти меня</h5>
-      <a class="social-link" href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="rgba(244,239,230,.85)" stroke="none"/></svg>@breathe.with.diana</a>
+      <a class="social-link" href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="var(--ochre)" stroke="none"/></svg>@breathe.with.diana</a>
       <a class="social-link" href="https://wa.me/66631259588?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%94%D0%B8%D0%B0%D0%BD%D0%B0!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%BD%D0%B0%20%D1%81%D0%B5%D1%81%D1%81%D0%B8%D1%8E." target="_blank" rel="noopener"><svg class="brand-wa" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>+66 63 125 9588</a>
       <a class="social-link" href="mailto:Iwantto@breathe-with-diana.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Iwantto@breathe-with-diana.com</a>
     </div>
