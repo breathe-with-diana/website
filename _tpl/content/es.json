@@ -1,28 +1,9 @@
 {
   "lang": "es",
   "title": "Respira con Diana · Volver a casa, a tu cuerpo",
-  "cormorant_weights": "0,400;0,500;0,600;1,400;1,500",
-  "g2": true,
-  "blank_before_style_close": false,
-  "eyebrow_color": "var(--terracotta-deep)",
-
-  "css_comment_top": "    /* Recoleta isn't free; Cormorant Garamond stands in for this preview, as in the brand mockup.\n       Palette/type-scale tokens live in tokens.css, shared with index/ru/review/health-form/media-consent. */",
-  "css_comment_promo": "    /* ===== promotion bar ===== */",
-  "css_comment_eyebrow": "    /* .eyebrow is the primary section label (one size up, --fs-xs) from its five siblings\n       below (.tagword, .price-card .label, footer h5, .fc-head span, all --fs-2xs) -\n       deliberately: it's the lead label for a whole section, they're subordinate tags\n       inside a card. All six share weight:600 and .18em tracking. */",
-  "css_comment_practice": "    /* ===================================================================== THE PRACTICE */",
-  "css_comment_session": "    /* ===================================================================== SESSION */",
-  "css_comment_footer": "    /* footer sits on the dark --umber background, so its labels/icons move to a soft\n       bone tone (not ochre, not umber-on-umber) when converging off the old accent */",
-  "css_comment_360": "    /* a further step-down for small phones (iPhone SE-class, <=360px), matching index.html */",
-
   "story_more_less": "  Mostrar menos",
   "story_more_open": "  Lee más de mi historia →",
-  "rev_more_open": "Seguir leyendo →",
-  "rev_more_less": "Mostrar menos",
-
-  "comment_promo_html": "<!-- ============================ PROMOTION BAR ============================ -->",
   "promo_inner": "✦&nbsp;&nbsp;<b>¿Primera vez aquí?</b> Ven a respirar conmigo, empieza con un reset gratuito.&nbsp;&nbsp;<a href=\"#reset\">Empezar →</a>",
-  "comment_body_start": "<!-- ============================================================= LA PÁGINA EMPIEZA AQUÍ ========= -->",
-
   "nav_aria": "Respira con Diana, inicio",
   "nav_practice": "Qué es",
   "nav_doors": "El trabajo",
@@ -31,25 +12,38 @@
   "nav_reviews": "Reseñas",
   "lang_title": "Idioma",
   "nav_book": "Reserva una consulta gratuita",
-
   "hero_eyebrow": "Rebirthing breathwork · Presencial y en línea",
   "hero_h1": "Volver a casa,<br>a tu <em>cuerpo</em>.",
   "hero_sub": "Para las personas que llevan años haciendo todo lo que &ldquo;se suponía que debían hacer&rdquo; y aun así se sienten desconectadas de sí mismas. Esta es una invitación a bajar el ritmo, volver a tu cuerpo y empezar a construir una relación más amable contigo, no convirtiéndote en alguien nuevo, sino <em>recordando quién has sido siempre</em>.",
   "hero_cta1": "Reserva una consulta gratuita",
   "hero_cta2": "Empieza con un reset gratis",
   "hero_alt": "Diana guiando una sesión privada de rebirthing breathwork",
-
-  "comment_practice_html": "<!-- ===== LA PRÁCTICA ===== -->",
   "practice_eyebrow": "La práctica",
   "practice_h2": "¿Qué es el rebirthing breathwork?",
   "practice_lead1": "Una práctica de respiración simple pero poderosa que ayuda a tu cuerpo a soltar el estrés, las emociones y la tensión que ya no necesita cargar.",
   "practice_lead2": "A través de una respiración continua y conectada, el rebirthing crea las condiciones para que tu cuerpo suelte, con suavidad, lo que ha estado guardado bajo la superficie, para que puedas vivir con más claridad, libertad y conexión contigo.",
   "practice_altlabel": "El proceso",
   "proc_steps": [
-    { "img": "img/proc-active-breathing.png", "h4": "Respiración activa", "p": "Respiras profundo y de forma conectada. La respiración llena el cuerpo de energía y activa el sistema nervioso." },
-    { "img": "img/proc-energy-motion.png", "h4": "Energía en movimiento", "p": "Esa energía se mueve por el cuerpo y trae a la superficie lo que está guardado: tensión, emociones, recuerdos o incluso trauma." },
-    { "img": "img/proc-release.png", "h4": "Liberación", "p": "Lo que está listo para sentirse, sale a flote. Puede traer emociones, sensaciones físicas, comprensiones o simplemente un soltar profundo." },
-    { "img": "img/proc-integration.png", "h4": "Integración", "p": "El cuerpo descansa, absorbe e integra. Aquí surgen, de forma natural, la claridad, la paz, las comprensiones o una relajación profunda." }
+    {
+      "img": "img/proc-active-breathing.png",
+      "h4": "Respiración activa",
+      "p": "Respiras profundo y de forma conectada. La respiración llena el cuerpo de energía y activa el sistema nervioso."
+    },
+    {
+      "img": "img/proc-energy-motion.png",
+      "h4": "Energía en movimiento",
+      "p": "Esa energía se mueve por el cuerpo y trae a la superficie lo que está guardado: tensión, emociones, recuerdos o incluso trauma."
+    },
+    {
+      "img": "img/proc-release.png",
+      "h4": "Liberación",
+      "p": "Lo que está listo para sentirse, sale a flote. Puede traer emociones, sensaciones físicas, comprensiones o simplemente un soltar profundo."
+    },
+    {
+      "img": "img/proc-integration.png",
+      "h4": "Integración",
+      "p": "El cuerpo descansa, absorbe e integra. Aquí surgen, de forma natural, la claridad, la paz, las comprensiones o una relajación profunda."
+    }
   ],
   "fact1_head": "¿Cuánto dura el encuentro?",
   "fact1_p": "La respiración en sí toma alrededor de 90 minutos. Con la conversación previa y el tiempo para integrar después, calcula entre 2.5 y 3 horas en total.",
@@ -57,10 +51,7 @@
   "fact2_p": "Mareo leve, hormigueo, calor, liberación emocional, sensaciones en el cuerpo, movimientos espontáneos, comprensiones, dicha o calma profunda. Cada experiencia es única.",
   "fact3_head": "Seguridad y acompañamiento",
   "fact3_p": "Siempre tienes el control. La intensidad se puede ajustar a través de tu respiración, y te acompaño con cuidado durante todo el proceso.",
-  "boundary_style": "",
   "practice_boundary": "No se trata de cambiar quién eres. Se trata de crear espacio para que tu cuerpo suelte lo que ya no te pertenece.",
-
-  "comment_doors_html": "<!-- ===== DOS CAMINOS ===== -->",
   "doors_eyebrow": "Dos caminos",
   "doors_h2": "Empieza suave. O ve profundo.",
   "doors_lead": "No hay un lugar correcto para empezar. Algunas personas comienzan con una práctica de respiración sencilla para reconectar consigo mismas. Otras se sienten listas para explorar más profundo. Simplemente empezamos donde estás.",
@@ -68,22 +59,31 @@
   "door1_h3": "Empieza suave",
   "door1_p": "Una práctica de respiración sencilla para bajar el ritmo, habitar tu cuerpo y sentir lo que es volver a casa, a ti. No necesitas experiencia.",
   "door1_cta": "Recibe el reset de respiración gratis",
-  "door2_stroke": "#905840",
   "door2_tag": "El trabajo profundo",
   "door2_h3": "Ve más profundo",
   "door2_p": "Rebirthing breathwork para liberar lo que las palabras no alcanzan. Trabaja por debajo de la historia, liberando las emociones que el cuerpo ha estado guardando, para que los patrones que has cargado por años por fin aflojen su agarre. Sales con más ligereza, con más claridad, más tú.",
   "door2_cta": "Reserva una consulta gratuita",
   "doors_note": "«No se trata de arreglarte. Se trata de volver a casa, a lo que ya está dentro de ti.»",
-
-  "comment_session_html": "<!-- ===== QUÉ ESPERAR ===== -->",
   "session_eyebrow": "Qué esperar",
   "session_h2": "Cada sesión es diferente, porque cada persona es diferente.",
   "session_lead": "Algunas personas ríen. Otras lloran. Algunas revisitan recuerdos. Otras simplemente sienten una paz profunda. No existe una experiencia &ldquo;correcta&rdquo;, y no hay nada que necesites forzar. Mi rol es crear un espacio donde te sientas con la seguridad suficiente para ser tú: para ablandarte, y para dejar que tu cuerpo guíe la experiencia a su propio ritmo.",
   "session_steps": [
-    { "n": "1", "body": "<h4>Empezamos con una conversación</h4><p>Antes de respirar, nos tomamos el tiempo de conocernos. Hablamos de lo que te trae aquí, de lo que está presente en tu vida, de tus intenciones para la sesión y de cualquier cosa importante sobre tu salud física o emocional. Te explico exactamente cómo funciona el proceso, respondo tus preguntas y me aseguro de que te sientas en confianza antes de empezar.</p>" },
-    { "n": "2", "body": "<h4>Luego respiramos</h4><p>Te recuestas cómodamente mientras te guío a través del patrón de respiración conectada que se usa en el rebirthing. Durante todo el proceso estoy plenamente presente contigo: escucho tu respiración, observo cómo responde tu cuerpo, te animo con suavidad cuando hace falta y te doy espacio cuando el silencio es lo que más se necesita. Aquí no tienes que sostenerlo todo. Estaré a tu lado en cada paso.</p>" },
-    { "n": "3", "body": "<h4>Luego confiamos en tu cuerpo</h4><p>Algunas personas liberan emociones que han guardado por años. Otras sienten calor, hormigueo, olas de energía, paz profunda o una quietud inmensa. Muchas se sorprenden de cuán profundo pueden sentir, de cuánto amor tienen por sí mismas y de cómo la claridad empieza a emerger de forma natural. No hay nada que necesites lograr. Simplemente recibimos lo que tu cuerpo esté listo para mostrar.</p>" },
-    { "n": "4", "body": "<h4>Nos tomamos el tiempo de integrar</h4><p>La sesión no termina en el momento en que termina la respiración. Bajamos el ritmo, hablamos de lo que surgió y dejamos que tu sistema nervioso se asiente antes de irte. También estaré pendiente de ti en los días siguientes, porque algunas de las comprensiones más profundas siguen llegando mucho después de que la sesión termina.</p>" }
+    {
+      "n": "1",
+      "body": "<h4>Empezamos con una conversación</h4><p>Antes de respirar, nos tomamos el tiempo de conocernos. Hablamos de lo que te trae aquí, de lo que está presente en tu vida, de tus intenciones para la sesión y de cualquier cosa importante sobre tu salud física o emocional. Te explico exactamente cómo funciona el proceso, respondo tus preguntas y me aseguro de que te sientas en confianza antes de empezar.</p>"
+    },
+    {
+      "n": "2",
+      "body": "<h4>Luego respiramos</h4><p>Te recuestas cómodamente mientras te guío a través del patrón de respiración conectada que se usa en el rebirthing. Durante todo el proceso estoy plenamente presente contigo: escucho tu respiración, observo cómo responde tu cuerpo, te animo con suavidad cuando hace falta y te doy espacio cuando el silencio es lo que más se necesita. Aquí no tienes que sostenerlo todo. Estaré a tu lado en cada paso.</p>"
+    },
+    {
+      "n": "3",
+      "body": "<h4>Luego confiamos en tu cuerpo</h4><p>Algunas personas liberan emociones que han guardado por años. Otras sienten calor, hormigueo, olas de energía, paz profunda o una quietud inmensa. Muchas se sorprenden de cuán profundo pueden sentir, de cuánto amor tienen por sí mismas y de cómo la claridad empieza a emerger de forma natural. No hay nada que necesites lograr. Simplemente recibimos lo que tu cuerpo esté listo para mostrar.</p>"
+    },
+    {
+      "n": "4",
+      "body": "<h4>Nos tomamos el tiempo de integrar</h4><p>La sesión no termina en el momento en que termina la respiración. Bajamos el ritmo, hablamos de lo que surgió y dejamos que tu sistema nervioso se asiente antes de irte. También estaré pendiente de ti en los días siguientes, porque algunas de las comprensiones más profundas siguen llegando mucho después de que la sesión termina.</p>"
+    }
   ],
   "honest_h3": "Un poco de honestidad antes de reservar",
   "honest_paras": [
@@ -94,11 +94,7 @@
   ],
   "honest_pull": "Aquí no tienes que sostenerlo todo.<br>Estaré justo a&nbsp;tu&nbsp;lado.",
   "session_leadstrong": "Ya sea que llores, rías, grites, te quedes en silencio o simplemente respires, eres bienvenida tal como eres.",
-
-  "comment_space_html": "<!-- ===== EL ESPACIO ===== -->",
   "space_alt": "El espacio tranquilo y lleno de luz donde se realizan las sesiones",
-
-  "comment_story_html": "<!-- ===== MI HISTORIA ===== -->",
   "story_alt": "Diana meditando en posición de oración sobre una roca en la playa",
   "story_eyebrow": "Mi camino a casa",
   "story_blockquote": "Dejé de esforzarme por ser la mujer que todos admiraban,<br>y empecé a convertirme en la mujer que podía reconocer en el espejo.",
@@ -118,27 +114,20 @@
   ],
   "story_sig": "«El riesgo más grande que he tomado no fue mudarme al otro lado del mundo. Fue confiar en mí misma.»",
   "story_cta": "Reserva una consulta gratuita",
-
-  "comment_reviews_html": "<!-- ===== RESEÑAS ===== -->",
   "reviews_eyebrow": "En sus palabras",
   "reviews_h2": "Cuando las personas se sienten lo bastante seguras para soltar.",
   "reviews_lead": "Cada experiencia es única. Estas historias se comparten con permiso de personas que eligieron abrir su corazón, confiar en el proceso y contar lo que la experiencia significó para ellas.",
   "reviews_intro_note": "Todavía no tenemos reseñas escritas directamente en español. Mientras llegan las primeras, aquí compartimos, traducidas, las palabras de quienes ya vivieron una sesión.",
   "reviews_note": "Reseñas reales de clientes, compartidas con su permiso. Traducidas del inglés mientras reunimos las primeras reseñas escritas en español.",
   "reviews_share_cta": "¿Ya viviste una sesión? Comparte tu experiencia →",
-
-  "comment_reset_html": "<!-- ===== RESET GRATIS ===== -->",
   "reset_eyebrow": "Empieza aquí · gratis",
   "reset_h2": "Tu reset de respiración gratis.",
   "reset_p": "Si todavía no te sientes con ganas de una sesión completa, este es un lugar suave para empezar. Una práctica guiada y gratuita para bajar el ritmo, reconectar con tu respiración y probar una pequeña muestra de este trabajo, estés donde estés. Déjame tu correo y te la envío.",
   "reset_placeholder": "tu@correo.com",
   "reset_aria": "correo",
   "reset_button": "Envíame el reset",
-
-  "comment_book_html": "<!-- ===== RESERVA / FAQ ===== -->",
   "book_eyebrow": "Trabaja conmigo",
   "book_h2": "Empieza tu camino.",
-  "book_lead_style": "margin-bottom:6px",
   "book_lead": "Toda sesión comienza con una llamada gratuita de 15 minutos, para asegurarnos de que es lo indicado para ti y resolver tus preguntas. A partir de ahí, definimos en conjunto el horario y el formato que mejor te funcione.",
   "price_label": "Sesión privada de rebirthing 1:1",
   "price_included_label": "Qué incluye",
@@ -153,13 +142,27 @@
   "wa_href": "https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n",
   "price_wa_label": "Escríbeme por WhatsApp",
   "faqs": [
-    { "q": "¿Necesito experiencia?", "a": "Para nada. La mayoría de las personas que llegan a mí nunca han vivido un rebirthing. Te guío en cada paso, y no necesitas saber respirar &ldquo;correctamente&rdquo;. Simplemente empezamos, tú y yo." },
-    { "q": "¿Voy a sentirme en calma después?", "a": "A veces, pero la calma no es la promesa. El rebirthing tiende a mover la emoción más que a calmarla. Muchas personas se sienten cansadas y sensibles justo después, y más livianas al día siguiente." },
-    { "q": "¿Esto es terapia?", "a": "No. Es un complemento del trabajo interior, no un reemplazo de la terapia ni de la atención médica. Si estás en tratamiento, mantén a tu terapeuta al tanto." },
-    { "q": "¿Podemos hacerlo en línea?", "a": "Sí. Las sesiones en línea funcionan muy bien por video, después de una llamada corta para preparar tu espacio de forma segura." },
-    { "q": "¿Y si necesito reprogramar?", "a": "La vida pasa. Avísame con 24 horas de anticipación y encontramos un nuevo horario." }
+    {
+      "q": "¿Necesito experiencia?",
+      "a": "Para nada. La mayoría de las personas que llegan a mí nunca han vivido un rebirthing. Te guío en cada paso, y no necesitas saber respirar &ldquo;correctamente&rdquo;. Simplemente empezamos, tú y yo."
+    },
+    {
+      "q": "¿Voy a sentirme en calma después?",
+      "a": "A veces, pero la calma no es la promesa. El rebirthing tiende a mover la emoción más que a calmarla. Muchas personas se sienten cansadas y sensibles justo después, y más livianas al día siguiente."
+    },
+    {
+      "q": "¿Esto es terapia?",
+      "a": "No. Es un complemento del trabajo interior, no un reemplazo de la terapia ni de la atención médica. Si estás en tratamiento, mantén a tu terapeuta al tanto."
+    },
+    {
+      "q": "¿Podemos hacerlo en línea?",
+      "a": "Sí. Las sesiones en línea funcionan muy bien por video, después de una llamada corta para preparar tu espacio de forma segura."
+    },
+    {
+      "q": "¿Y si necesito reprogramar?",
+      "a": "La vida pasa. Avísame con 24 horas de anticipación y encontramos un nuevo horario."
+    }
   ],
-
   "footer_explore_h5": "Explora",
   "footer_link_doors": "El trabajo",
   "footer_link_session": "Qué esperar",

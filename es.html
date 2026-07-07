@@ -7,16 +7,17 @@
   <title>Respira con Diana · Volver a casa, a tu cuerpo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tokens.css">
   <style>
     /* Recoleta isn't free; Cormorant Garamond stands in for this preview, as in the brand mockup.
-       Palette/type-scale tokens live in tokens.css, shared with index/ru/review/health-form/media-consent. */
+       In production the headline face would be Recoleta (or Canela). Palette/type-scale tokens
+       live in tokens.css, shared with es/ru/review/health-form/media-consent. */
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;scroll-behavior:smooth}
     body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
 
-    /* ===== promotion bar ===== */
+    /* ===== promotion bar (real website element; the site's one deliberate ochre moment) ===== */
     .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;
       letter-spacing:.03em;padding:10px 20px;text-align:center;position:sticky;top:0;z-index:200}
     .promo-bar b{font-weight:700}
@@ -41,7 +42,7 @@
     .lang .flag{display:block;width:16px;height:11px;border-radius:2px;overflow:hidden}
     .lang .flag svg{display:block;width:100%;height:100%}
     .btn{font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;text-decoration:none;border-radius:var(--radius-pill);
-      padding:10px 20px;display:inline-block;transition:.15s;white-space:nowrap;flex-shrink:0}
+      padding:10px 20px;display:inline-block;transition:.15s;white-space:nowrap;flex-shrink:0;border:none;cursor:pointer;box-shadow:none}
     /* terracotta-deep, not terracotta: the CTA's own label text needs to clear WCAG AA */
     .btn-primary{background:var(--terracotta-deep);color:var(--bone)}
     .btn-primary:hover{background:#7A4A36}
@@ -51,6 +52,7 @@
     section{padding:104px 32px}
     .wrap{max-width:1140px;margin:0 auto}
     .wrap-narrow{max-width:760px;margin:0 auto}
+    /* the shared "eyebrow" label role: one size, one tracking, one color across all three languages */
     /* .eyebrow is the primary section label (one size up, --fs-xs) from its five siblings
        below (.tagword, .price-card .label, footer h5, .fc-head span, all --fs-2xs) -
        deliberately: it's the lead label for a whole section, they're subordinate tags
@@ -75,12 +77,14 @@
                  radial-gradient(at 72% 78%,rgba(201,123,90,.55),transparent 60%),
                  linear-gradient(160deg,var(--cream),#Dcd2bf)}
 
-    /* ===================================================================== THE PRACTICE */
+    /* ===================================================================== THE PRACTICE (what it is) */
     .practice{background:var(--bone);text-align:center;padding-top:20px}
     .practice .wrap-narrow{max-width:800px}
     .practice .lead{font-size:var(--fs-md);color:var(--umber);max-width:660px;margin:0 auto 16px}
     .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
-      max-width:600px;margin:48px auto 0}
+      max-width:600px;margin:0 auto}
+    .alt-label{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--terracotta-deep);margin-bottom:30px}
 
     /* ----- the process + practical facts (extends The Practice section) ----- */
     .process-block{margin:70px auto 0;max-width:960px;border-top:1px dashed var(--hairline);padding-top:48px}
@@ -130,10 +134,13 @@
     .door .tagword{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
     .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep)}
 
-    /* ===================================================================== SESSION */
+    /* ===================================================================== SESSION / WHAT IT IS */
     .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:18px}
     .session-grid .steps-col{display:flex;flex-direction:column;justify-content:center}
     .step{display:flex;gap:18px;margin-bottom:26px}
+    .session-grid .step:last-child{margin-bottom:0}
+    #session .lead.muted{margin:0 0 8px}
+    .step .step-pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--terracotta-deep);margin-top:10px}
     .step .n{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber);line-height:1;flex-shrink:0;width:34px}
     .step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-md);margin:2px 0 4px}
     .step p{font-size:var(--fs-sm);color:var(--muted);margin:0}
@@ -170,15 +177,19 @@
 
     /* ===================================================================== REVIEWS */
     .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
+    .rev-grid .rev:last-child:nth-child(3n+1){grid-column:2}
     .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:30px 28px;display:flex;flex-direction:column}
     .rev .rev-body{flex:1;margin-bottom:22px}
     .rev .quote{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:0}
     .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:var(--fs-md);font-style:italic;color:var(--terracotta-deep);border:1px solid var(--hairline)}
-    .rev-more summary{cursor:pointer;font-family:var(--sans);font-weight:500;font-size:var(--fs-xs);color:var(--terracotta-deep);list-style:none;display:inline-block;margin-top:10px}
+    .rev-more summary{cursor:pointer;list-style:none;display:block;font-weight:400}
     .rev-more summary::-webkit-details-marker{display:none}
-    .rev-more summary::after{content:"Seguir leyendo →"}
-    .rev-more[open] summary::after{content:"Mostrar menos"}
-    .rev-more .quote-more p{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:12px 0 0}
+    .rev-more .quote-full{display:none}
+    .rev-more[open] .quote-excerpt{display:none}
+    .rev-more[open] .quote-full{display:block}
+    .rev .quote-highlight{font-weight:600}
+    .rev .toggle-cta{font-family:var(--sans);font-style:normal;font-weight:500;font-size:var(--fs-xs);
+      color:var(--terracotta-deep);white-space:nowrap;margin-left:2px}
     .rev .quote + .quote{margin-top:14px}
     .rev .who{display:flex;align-items:center;gap:12px}
     .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
@@ -196,8 +207,6 @@
     .reset-form{display:flex;gap:10px;max-width:430px;margin:0 auto;justify-content:center;flex-wrap:wrap}
     .reset-form input{font-family:var(--sans);font-size:var(--fs-sm);padding:13px 18px;border-radius:var(--radius-pill);border:none;
       flex:1;min-width:220px;color:var(--umber)}
-    .reset-form .btn-primary{background:var(--umber)}
-    .reset-form .btn-primary:hover{background:#43332628}
 
     /* ===================================================================== BOOK */
     .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
@@ -216,14 +225,16 @@
     details summary::after{content:"+";color:var(--terracotta-deep);font-size:var(--fs-lg)}
     details[open] summary::after{content:"-"}
     details p{font-size:var(--fs-sm);color:var(--muted);margin:12px 0 2px}
-    .story-more summary::after{content:none}
+    /* the story long-read expander is prose, not a FAQ row: drop the generic details border/padding.
+       (its own .story-more-toggle::after supplies the label, so no content:none override, which would
+       otherwise out-specify and hide that label, as it silently did on es/ru before this normalization) */
     .story-more{border-bottom:none;padding:0}
 
     /* ===================================================================== FOOTER */
     footer{background:var(--umber);color:var(--bone);padding:40px 32px 28px}
     .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
-    /* footer sits on the dark --umber background, so its labels/icons move to a soft
-       bone tone (not ochre, not umber-on-umber) when converging off the old accent */
+    /* footer sits on the dark --umber background; headings/icons use --ochre (its one other
+       deliberate appearance besides the promo bar) so they read as colored, not washed out */
     footer h5{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
     footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:var(--fs-sm)}
     footer a:hover{color:var(--bone)}
@@ -236,12 +247,9 @@
     @media(max-width:880px){
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
       .door-grid,.rev-grid,.foot-grid{grid-template-columns:1fr}
+      .rev-grid .rev:last-child:nth-child(3n+1){grid-column:auto}
       .hero h1{font-size:48px}.nav a.link{display:none}
       .story-photo{position:static;top:auto}
-    }
-    /* a further step-down for small phones (iPhone SE-class, <=360px), matching index.html */
-    @media(max-width:360px){
-      .hero h1{font-size:38px}
     }
 
     /* short-but-wide viewports (laptop windows, browser chrome eating vertical space):
@@ -255,16 +263,28 @@
       .hero p.sub{margin:0 0 18px}
       .hero-photo{aspect-ratio:4/3.2}
     }
+
+    @media(max-width:520px){
+      .nav-inner{flex-wrap:wrap;row-gap:10px;justify-content:flex-end}
+      .logo-lockup{flex:0 0 100%;margin-right:0}
+      #navmark{height:44px}
+      .lang{white-space:nowrap;font-size:var(--fs-2xs);padding:4px 10px}
+      .nav .btn-primary{padding:9px 16px;font-size:var(--fs-xs)}
+    }
+    /* a further step-down for small phones (iPhone SE-class, <=360px): 48px Cormorant
+       Garamond across two lines was the only breakpoint the hero h1 had below 880px */
+    @media(max-width:360px){
+      .hero h1{font-size:38px}
+    }
   </style>
 </head>
 <body>
 
-<!-- ============================ PROMOTION BAR ============================ -->
+<!-- ===== PROMOTION BAR ===== -->
 <div class="promo-bar">
   ✦&nbsp;&nbsp;<b>¿Primera vez aquí?</b> Ven a respirar conmigo, empieza con un reset gratuito.&nbsp;&nbsp;<a href="#reset">Empezar →</a>
 </div>
 
-<!-- ============================================================= LA PÁGINA EMPIEZA AQUÍ ========= -->
 <header class="nav">
   <div class="nav-inner">
     <a class="logo-lockup" href="#top" aria-label="Respira con Diana, inicio">
@@ -301,7 +321,7 @@
   </div>
 </section>
 
-<!-- ===== LA PRÁCTICA ===== -->
+<!-- ===== THE PRACTICE (what rebirthing breathwork actually is) ===== -->
 <section class="practice" id="practice">
   <div class="wrap-narrow">
     <div class="eyebrow">La práctica</div>
@@ -364,7 +384,7 @@
   </div>
 </section>
 
-<!-- ===== DOS CAMINOS ===== -->
+<!-- ===== TWO DOORS ===== -->
 <section class="doors" id="doors">
   <div class="wrap" style="text-align:center">
     <div class="eyebrow">Dos caminos</div>
@@ -396,7 +416,7 @@
   </div>
 </section>
 
-<!-- ===== QUÉ ESPERAR ===== -->
+<!-- ===== WHAT A SESSION IS LIKE (honest explainer) ===== -->
 <section id="session">
   <div class="wrap">
     <div class="eyebrow">Qué esperar</div>
@@ -422,10 +442,10 @@
   </div>
 </section>
 
-<!-- ===== EL ESPACIO ===== -->
+<!-- ===== THE SPACE (full-width photo band) ===== -->
 <div class="space-band"><img src="img/studio-space.jpg" alt="El espacio tranquilo y lleno de luz donde se realizan las sesiones"></div>
 
-<!-- ===== MI HISTORIA ===== -->
+<!-- ===== STORY ===== -->
 <section class="story" id="story">
   <div class="wrap">
     <div class="story-grid">
@@ -457,7 +477,7 @@
   </div>
 </section>
 
-<!-- ===== RESEÑAS ===== -->
+<!-- ===== REVIEWS ===== -->
 <section id="reviews">
   <div class="wrap" style="text-align:center">
     <div class="eyebrow">En sus palabras</div>
@@ -469,15 +489,20 @@
     <div class="rev-grid">
       <div class="rev">
         <div class="rev-body">
-          <p class="quote">“Durante la sesión sentí mi cuerpo muy intensamente. Los labios, las manos y la zona pélvica me hormigueaban y ardían de energía. Podía sentir un flujo muy fuerte moviéndose a través de mí. En algún momento empezó una liberación emocional profunda. Empecé a llorar, a llorar de verdad, y era exactamente lo que necesitaba.</p>
-          <p class="quote">El proceso me ayudó a ver en qué momentos me estoy traicionando a mí misma, mis propios deseos y necesidades, y qué quiero cambiar en la forma en que me relaciono conmigo misma, con mi pareja y con otras personas. Llegaron ideas muy importantes.</p>
           <details class="rev-more">
-            <summary></summary>
-            <div class="quote-more">
-              <p>“Hacía tiempo que quería probar el rebirthing, pero nunca terminaba de animarme. Entonces vi el mensaje de Diana, y llegó justo en el momento en que más lo necesitaba. Lo que más me gustó fue la forma en que Diana guio el proceso, con mucho cuidado, presencia y atención a cada detalle. Antes de empezar me explicó todo con claridad, y eso me ayudó a sentirme segura y a confiar en la experiencia.</p>
-              <p>“Al terminar la sesión sentí una gratitud inmensa por Diana y por el trabajo que hace. Honestamente, experiencias como esta no tienen precio. La oportunidad de reconectar tan profundamente con tu cuerpo y acallar el ruido interminable de la mente es increíblemente valiosa.</p>
-              <p>“Como terapeuta que soy, sé lo importante que es encontrar a los guías y facilitadores correctos. Recomiendo a Diana de todo corazón a cualquiera que quiera liberar emociones guardadas, soltar bloqueos que carga en el cuerpo, reiniciar su sistema y crear espacio para una transformación interior profunda.”</p>
-            </div>
+            <summary>
+              <div class="quote-excerpt">
+                <p class="quote">“[...] Durante la sesión sentí mi cuerpo muy intensamente. Los labios, las manos y la zona pélvica me hormigueaban y ardían de energía. Podía sentir un flujo muy fuerte moviéndose a través de mí. En algún momento empezó una liberación emocional profunda. Empecé a llorar, a llorar de verdad, y era exactamente lo que necesitaba.</p>
+                <p class="quote">El proceso me ayudó a ver en qué momentos me estoy traicionando a mí misma, mis propios deseos y necesidades, y qué quiero cambiar en la forma en que me relaciono conmigo misma, con mi pareja y con otras personas. Llegaron ideas muy importantes. [...] <span class="toggle-cta">Seguir leyendo →</span></p>
+              </div>
+              <div class="quote-full">
+                <p class="quote">“Hacía tiempo que quería probar el rebirthing, pero nunca terminaba de animarme. Entonces vi el mensaje de Diana, y llegó justo en el momento en que más lo necesitaba. Lo que más me gustó fue la forma en que Diana guio el proceso, con mucho cuidado, presencia y atención a cada detalle. Antes de empezar me explicó todo con claridad, y eso me ayudó a sentirme segura y a confiar en la experiencia.</p>
+                <p class="quote"><span class="quote-highlight">“Durante la sesión sentí mi cuerpo muy intensamente. Los labios, las manos y la zona pélvica me hormigueaban y ardían de energía. Podía sentir un flujo muy fuerte moviéndose a través de mí. En algún momento empezó una liberación emocional profunda. Empecé a llorar, a llorar de verdad, y era exactamente lo que necesitaba.</span></p>
+                <p class="quote"><span class="quote-highlight">El proceso me ayudó a ver en qué momentos me estoy traicionando a mí misma, mis propios deseos y necesidades, y qué quiero cambiar en la forma en que me relaciono conmigo misma, con mi pareja y con otras personas. Llegaron ideas muy importantes.</span></p>
+                <p class="quote">“Al terminar la sesión sentí una gratitud inmensa por Diana y por el trabajo que hace. Honestamente, experiencias como esta no tienen precio. La oportunidad de reconectar tan profundamente con tu cuerpo y acallar el ruido interminable de la mente es increíblemente valiosa.</p>
+                <p class="quote">“Como terapeuta que soy, sé lo importante que es encontrar a los guías y facilitadores correctos. Recomiendo a Diana de todo corazón a cualquiera que quiera liberar emociones guardadas, soltar bloqueos que carga en el cuerpo, reiniciar su sistema y crear espacio para una transformación interior profunda.” <span class="toggle-cta">Mostrar menos</span></p>
+              </div>
+            </summary>
           </details>
         </div>
         <div class="who">
@@ -511,7 +536,7 @@
   </div>
 </section>
 
-<!-- ===== RESET GRATIS ===== -->
+<!-- ===== FREE RESET BAND ===== -->
 <section class="reset" id="reset">
   <div class="wrap-narrow">
     <div class="eyebrow" style="color:var(--bone)">Empieza aquí · gratis</div>
@@ -524,12 +549,12 @@
   </div>
 </section>
 
-<!-- ===== RESERVA / FAQ ===== -->
+<!-- ===== BOOK / PRICING / FAQ ===== -->
 <section id="book">
   <div class="wrap">
     <div class="eyebrow">Trabaja conmigo</div>
     <h2 class="sec">Empieza tu camino.</h2>
-    <p class="lead muted" style="margin-bottom:6px">Toda sesión comienza con una llamada gratuita de 15 minutos, para asegurarnos de que es lo indicado para ti y resolver tus preguntas. A partir de ahí, definimos en conjunto el horario y el formato que mejor te funcione.</p>
+    <p class="lead muted" style="max-width:none;margin-bottom:6px">Toda sesión comienza con una llamada gratuita de 15 minutos, para asegurarnos de que es lo indicado para ti y resolver tus preguntas. A partir de ahí, definimos en conjunto el horario y el formato que mejor te funcione.</p>
     <div class="book-grid">
       <div class="price-card">
         <div class="label">Sesión privada de rebirthing 1:1</div>

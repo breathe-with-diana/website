@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Breathe with Diana, Website Draft v1 + Logo Lab</title>
+  <title>Breathe with Diana · Coming home to your body</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
     /* ============================================================= SITE NAV */
     .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
       border-bottom:1px solid var(--hairline)}
-    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;row-gap:10px}
     .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
     #navmark{height:72px;width:auto;display:block}
     #footmark{height:auto;width:auto;max-height:150px;max-width:100%;display:block}
@@ -34,8 +34,8 @@
       white-space:nowrap;flex-shrink:0}
     .nav a.link:hover{opacity:1}
     .lang{display:flex;align-items:flex-start;gap:12px;font-family:var(--sans);font-size:var(--fs-xs);letter-spacing:.08em;
-      color:var(--muted);border:1px solid var(--hairline);border-radius:var(--radius-pill);padding:6px 14px;
-      white-space:nowrap;flex-shrink:0}
+      white-space:nowrap;flex-shrink:0;
+      color:var(--muted);border:1px solid var(--hairline);border-radius:var(--radius-pill);padding:6px 14px}
     .lang a,.lang b{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--muted)}
     .lang b{color:var(--umber)}
     .lang a:hover{color:var(--umber)}
@@ -52,7 +52,7 @@
     section{padding:104px 32px}
     .wrap{max-width:1140px;margin:0 auto}
     .wrap-narrow{max-width:760px;margin:0 auto}
-    /* the shared "eyebrow" label role: one size, one tracking, one (context-appropriate) color */
+    /* the shared "eyebrow" label role: one size, one tracking, one color across all three languages */
     /* .eyebrow is the primary section label (one size up, --fs-xs) from its five siblings
        below (.tagword, .price-card .label, footer h5, .fc-head span, all --fs-2xs) -
        deliberately: it's the lead label for a whole section, they're subordinate tags
@@ -82,7 +82,7 @@
     .practice .wrap-narrow{max-width:800px}
     .practice .lead{font-size:var(--fs-md);color:var(--umber);max-width:660px;margin:0 auto 16px}
     .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
-      max-width:600px;margin:48px auto 0}
+      max-width:600px;margin:0 auto}
     .practice .squiggle{display:block;width:72px;height:13px;margin:10px auto 26px;stroke:#8D4A28;
       fill:none;stroke-width:1.6;stroke-linecap:round}
     .alt-label{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
@@ -137,23 +137,22 @@
     .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep)}
 
     /* ===================================================================== SESSION / WHAT IT IS */
-    .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:56px}
+    .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:18px}
     .session-grid .steps-col{display:flex;flex-direction:column;justify-content:center}
-    .step{display:flex;gap:18px;margin-bottom:48px}
+    .step{display:flex;gap:18px;margin-bottom:26px}
     .session-grid .step:last-child{margin-bottom:0}
-    /* single declaration now (was split across a base rule + a #session ID override
-       that silently detached it whenever it was actually used) */
-    .lead-strong{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
-      text-align:center;margin:40px auto 0}
     #session .lead.muted{margin:0 0 8px}
     .step .step-pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--terracotta-deep);margin-top:10px}
     .step .n{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber);line-height:1;flex-shrink:0;width:34px}
     .step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-md);margin:2px 0 4px}
     .step p{font-size:var(--fs-sm);color:var(--muted);margin:0}
-    .honest{background:var(--umber);color:var(--bone);border-radius:var(--radius-md);padding:37px 32px;
+    .honest{background:var(--umber);color:var(--bone);border-radius:var(--radius-md);padding:38px 36px;
       display:flex;flex-direction:column;justify-content:center}
     .honest h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--bone);margin:0 0 16px}
     .honest p{font-size:var(--fs-md);color:rgba(244,239,230,.85);margin:0 0 14px}
+    .honest .pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:rgba(244,239,230,.85);margin-top:22px}
+    .lead-strong{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
+      text-align:center;margin:40px auto 0}
 
     /* ===================================================================== STORY */
     .story{background:var(--cream)}
@@ -163,10 +162,8 @@
     .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
     .story blockquote.long{font-size:var(--fs-lg);line-height:1.4;font-weight:600}
     .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
-    /* real photos fill their placeholder frames */
     .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
     .hero-photo img{object-position:50% 30%}
-    /* the story long-read expander */
     .story-more{margin-top:6px}
     .story-more[open] .story-more-toggle::after{content:"  Show less"}
     .story-more-toggle{font-family:var(--sans);font-weight:500;font-size:var(--fs-sm);color:var(--terracotta-deep);cursor:pointer;
@@ -176,10 +173,8 @@
     .story-more .more-body{margin-top:14px}
     .story-more .more-body p{margin:0 0 14px}
     .story p.story-sig{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);line-height:1.3;color:var(--terracotta-deep);margin-top:22px}
-    /* full-width "the space" band */
     .space-band{position:relative;height:clamp(220px,38vw,440px);overflow:hidden}
     .space-band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
-    /* book card without a price */
     .amt-note{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--umber);margin:6px 0 2px}
 
     /* ===================================================================== REVIEWS */
@@ -232,6 +227,10 @@
     details summary::after{content:"+";color:var(--terracotta-deep);font-size:var(--fs-lg)}
     details[open] summary::after{content:"-"}
     details p{font-size:var(--fs-sm);color:var(--muted);margin:12px 0 2px}
+    /* the story long-read expander is prose, not a FAQ row: drop the generic details border/padding.
+       (its own .story-more-toggle::after supplies the label, so no content:none override, which would
+       otherwise out-specify and hide that label, as it silently did on es/ru before this normalization) */
+    .story-more{border-bottom:none;padding:0}
 
     /* ===================================================================== FOOTER */
     footer{background:var(--umber);color:var(--bone);padding:40px 32px 28px}
@@ -279,24 +278,18 @@
     @media(max-width:360px){
       .hero h1{font-size:38px}
     }
-
   </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <filter id="rblur2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.05"/></filter>
-</defs></svg>
 
-<!-- ============================ PROMOTION BAR (real website element) ============================ -->
+<!-- ===== PROMOTION BAR ===== -->
 <div class="promo-bar">
   ✦&nbsp;&nbsp;<b>New here?</b> Come breathe with me, start with a free reset.&nbsp;&nbsp;<a href="#reset">Get it →</a>
 </div>
 
-<!-- ============================================================= THE WEBSITE STARTS HERE ========= -->
 <header class="nav">
   <div class="nav-inner">
     <a class="logo-lockup" href="#top" aria-label="Breathe with Diana, home">
-      <!-- final chosen mark, outlined compact lockup (figure + seeds + wordmark) -->
       <img id="navmark" src="logo-mark.svg" alt="Breathe with Diana" />
     </a>
     <a class="link" href="#practice">What it is</a>
@@ -390,7 +383,7 @@
       </div>
     </div>
 
-    <p class="boundary" style="margin-top:0">It isn't about changing who you are. It's about creating space for your body to let go of what no longer belongs to you.</p>
+    <p class="boundary">It isn't about changing who you are. It's about creating space for your body to let go of what no longer belongs to you.</p>
   </div>
 </section>
 

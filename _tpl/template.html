@@ -7,15 +7,17 @@
   <title>{{title}}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@{{cormorant_weights}}&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tokens.css">
   <style>
-{{css_comment_top}}
+    /* Recoleta isn't free; Cormorant Garamond stands in for this preview, as in the brand mockup.
+       In production the headline face would be Recoleta (or Canela). Palette/type-scale tokens
+       live in tokens.css, shared with es/ru/review/health-form/media-consent. */
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;scroll-behavior:smooth}
     body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
 
-{{css_comment_promo}}
+    /* ===== promotion bar (real website element; the site's one deliberate ochre moment) ===== */
     .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;
       letter-spacing:.03em;padding:10px 20px;text-align:center;position:sticky;top:0;z-index:200}
     .promo-bar b{font-weight:700}
@@ -24,29 +26,23 @@
     /* ============================================================= SITE NAV */
     .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
       border-bottom:1px solid var(--hairline)}
-    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px{{#if g2}};flex-wrap:wrap;row-gap:10px{{/if}}}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;row-gap:10px}
     .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
     #navmark{height:72px;width:auto;display:block}
     #footmark{height:auto;width:auto;max-height:150px;max-width:100%;display:block}
     .nav a.link{font-family:var(--sans);font-size:var(--fs-sm);color:var(--umber);text-decoration:none;opacity:.82;
       white-space:nowrap;flex-shrink:0}
     .nav a.link:hover{opacity:1}
-{{#if g2}}
     .lang{display:flex;align-items:flex-start;gap:12px;font-family:var(--sans);font-size:var(--fs-xs);letter-spacing:.08em;
       white-space:nowrap;flex-shrink:0;
       color:var(--muted);border:1px solid var(--hairline);border-radius:var(--radius-pill);padding:6px 14px}
-{{else}}
-    .lang{display:flex;align-items:flex-start;gap:12px;font-family:var(--sans);font-size:var(--fs-xs);letter-spacing:.08em;
-      color:var(--muted);border:1px solid var(--hairline);border-radius:var(--radius-pill);padding:6px 14px;
-      white-space:nowrap;flex-shrink:0}
-{{/if}}
     .lang a,.lang b{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--muted)}
     .lang b{color:var(--umber)}
     .lang a:hover{color:var(--umber)}
     .lang .flag{display:block;width:16px;height:11px;border-radius:2px;overflow:hidden}
     .lang .flag svg{display:block;width:100%;height:100%}
     .btn{font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;text-decoration:none;border-radius:var(--radius-pill);
-      padding:10px 20px;display:inline-block;transition:.15s;white-space:nowrap;flex-shrink:0{{#unless g2}};border:none;cursor:pointer;box-shadow:none{{/unless}}}
+      padding:10px 20px;display:inline-block;transition:.15s;white-space:nowrap;flex-shrink:0;border:none;cursor:pointer;box-shadow:none}
     /* terracotta-deep, not terracotta: the CTA's own label text needs to clear WCAG AA */
     .btn-primary{background:var(--terracotta-deep);color:var(--bone)}
     .btn-primary:hover{background:#7A4A36}
@@ -56,9 +52,13 @@
     section{padding:104px 32px}
     .wrap{max-width:1140px;margin:0 auto}
     .wrap-narrow{max-width:760px;margin:0 auto}
-{{css_comment_eyebrow}}
+    /* the shared "eyebrow" label role: one size, one tracking, one color across all three languages */
+    /* .eyebrow is the primary section label (one size up, --fs-xs) from its five siblings
+       below (.tagword, .price-card .label, footer h5, .fc-head span, all --fs-2xs) -
+       deliberately: it's the lead label for a whole section, they're subordinate tags
+       inside a card. All six share weight:600 and .18em tracking. */
     .eyebrow{font-family:var(--sans);font-size:var(--fs-xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-      color:{{eyebrow_color}};margin-bottom:22px}
+      color:var(--terracotta-deep);margin-bottom:22px}
     h2.sec{font-family:var(--serif);font-weight:500;font-size:var(--fs-2xl);line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}
     .lead{font-size:var(--fs-md);color:var(--umber);max-width:620px}
     .muted{color:var(--muted)}
@@ -77,18 +77,18 @@
                  radial-gradient(at 72% 78%,rgba(201,123,90,.55),transparent 60%),
                  linear-gradient(160deg,var(--cream),#Dcd2bf)}
 
-{{css_comment_practice}}
+    /* ===================================================================== THE PRACTICE (what it is) */
     .practice{background:var(--bone);text-align:center;padding-top:20px}
     .practice .wrap-narrow{max-width:800px}
     .practice .lead{font-size:var(--fs-md);color:var(--umber);max-width:660px;margin:0 auto 16px}
     .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
-      max-width:600px;margin:48px auto 0}
-{{#unless g2}}
+      max-width:600px;margin:0 auto}
+{{#if practice_squiggle}}
     .practice .squiggle{display:block;width:72px;height:13px;margin:10px auto 26px;stroke:#8D4A28;
       fill:none;stroke-width:1.6;stroke-linecap:round}
+{{/if}}
     .alt-label{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
       color:var(--terracotta-deep);margin-bottom:30px}
-{{/unless}}
 
     /* ----- the process + practical facts (extends The Practice section) ----- */
     .process-block{margin:70px auto 0;max-width:960px;border-top:1px dashed var(--hairline);padding-top:48px}
@@ -138,11 +138,13 @@
     .door .tagword{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
     .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep)}
 
-{{css_comment_session}}
-{{#if g2}}
+    /* ===================================================================== SESSION / WHAT IT IS */
     .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:18px}
     .session-grid .steps-col{display:flex;flex-direction:column;justify-content:center}
     .step{display:flex;gap:18px;margin-bottom:26px}
+    .session-grid .step:last-child{margin-bottom:0}
+    #session .lead.muted{margin:0 0 8px}
+    .step .step-pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--terracotta-deep);margin-top:10px}
     .step .n{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber);line-height:1;flex-shrink:0;width:34px}
     .step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-md);margin:2px 0 4px}
     .step p{font-size:var(--fs-sm);color:var(--muted);margin:0}
@@ -153,25 +155,6 @@
     .honest .pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:rgba(244,239,230,.85);margin-top:22px}
     .lead-strong{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
       text-align:center;margin:40px auto 0}
-{{else}}
-    .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:56px}
-    .session-grid .steps-col{display:flex;flex-direction:column;justify-content:center}
-    .step{display:flex;gap:18px;margin-bottom:48px}
-    .session-grid .step:last-child{margin-bottom:0}
-    /* single declaration now (was split across a base rule + a #session ID override
-       that silently detached it whenever it was actually used) */
-    .lead-strong{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
-      text-align:center;margin:40px auto 0}
-    #session .lead.muted{margin:0 0 8px}
-    .step .step-pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--terracotta-deep);margin-top:10px}
-    .step .n{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber);line-height:1;flex-shrink:0;width:34px}
-    .step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-md);margin:2px 0 4px}
-    .step p{font-size:var(--fs-sm);color:var(--muted);margin:0}
-    .honest{background:var(--umber);color:var(--bone);border-radius:var(--radius-md);padding:37px 32px;
-      display:flex;flex-direction:column;justify-content:center}
-    .honest h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--bone);margin:0 0 16px}
-    .honest p{font-size:var(--fs-md);color:rgba(244,239,230,.85);margin:0 0 14px}
-{{/if}}
 
     /* ===================================================================== STORY */
     .story{background:var(--cream)}
@@ -181,14 +164,8 @@
     .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
     .story blockquote.long{font-size:var(--fs-lg);line-height:1.4;font-weight:600}
     .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
-{{#unless g2}}
-    /* real photos fill their placeholder frames */
-{{/unless}}
     .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
     .hero-photo img{object-position:50% 30%}
-{{#unless g2}}
-    /* the story long-read expander */
-{{/unless}}
     .story-more{margin-top:6px}
     .story-more[open] .story-more-toggle::after{content:"{{story_more_less}}"}
     .story-more-toggle{font-family:var(--sans);font-weight:500;font-size:var(--fs-sm);color:var(--terracotta-deep);cursor:pointer;
@@ -198,32 +175,17 @@
     .story-more .more-body{margin-top:14px}
     .story-more .more-body p{margin:0 0 14px}
     .story p.story-sig{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);line-height:1.3;color:var(--terracotta-deep);margin-top:22px}
-{{#unless g2}}
-    /* full-width "the space" band */
-{{/unless}}
     .space-band{position:relative;height:clamp(220px,38vw,440px);overflow:hidden}
     .space-band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
-{{#unless g2}}
-    /* book card without a price */
-{{/unless}}
     .amt-note{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--umber);margin:6px 0 2px}
 
     /* ===================================================================== REVIEWS */
     .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
-{{#unless g2}}
     .rev-grid .rev:last-child:nth-child(3n+1){grid-column:2}
-{{/unless}}
     .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:30px 28px;display:flex;flex-direction:column}
     .rev .rev-body{flex:1;margin-bottom:22px}
     .rev .quote{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:0}
     .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:var(--fs-md);font-style:italic;color:var(--terracotta-deep);border:1px solid var(--hairline)}
-{{#if g2}}
-    .rev-more summary{cursor:pointer;font-family:var(--sans);font-weight:500;font-size:var(--fs-xs);color:var(--terracotta-deep);list-style:none;display:inline-block;margin-top:10px}
-    .rev-more summary::-webkit-details-marker{display:none}
-    .rev-more summary::after{content:"{{rev_more_open}}"}
-    .rev-more[open] summary::after{content:"{{rev_more_less}}"}
-    .rev-more .quote-more p{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:12px 0 0}
-{{else}}
     .rev-more summary{cursor:pointer;list-style:none;display:block;font-weight:400}
     .rev-more summary::-webkit-details-marker{display:none}
     .rev-more .quote-full{display:none}
@@ -232,7 +194,6 @@
     .rev .quote-highlight{font-weight:600}
     .rev .toggle-cta{font-family:var(--sans);font-style:normal;font-weight:500;font-size:var(--fs-xs);
       color:var(--terracotta-deep);white-space:nowrap;margin-left:2px}
-{{/if}}
     .rev .quote + .quote{margin-top:14px}
     .rev .who{display:flex;align-items:center;gap:12px}
     .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
@@ -250,10 +211,6 @@
     .reset-form{display:flex;gap:10px;max-width:430px;margin:0 auto;justify-content:center;flex-wrap:wrap}
     .reset-form input{font-family:var(--sans);font-size:var(--fs-sm);padding:13px 18px;border-radius:var(--radius-pill);border:none;
       flex:1;min-width:220px;color:var(--umber)}
-{{#if g2}}
-    .reset-form .btn-primary{background:var(--umber)}
-    .reset-form .btn-primary:hover{background:#43332628}
-{{/if}}
 
     /* ===================================================================== BOOK */
     .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
@@ -272,15 +229,16 @@
     details summary::after{content:"+";color:var(--terracotta-deep);font-size:var(--fs-lg)}
     details[open] summary::after{content:"-"}
     details p{font-size:var(--fs-sm);color:var(--muted);margin:12px 0 2px}
-{{#if g2}}
-    .story-more summary::after{content:none}
+    /* the story long-read expander is prose, not a FAQ row: drop the generic details border/padding.
+       (its own .story-more-toggle::after supplies the label, so no content:none override, which would
+       otherwise out-specify and hide that label, as it silently did on es/ru before this normalization) */
     .story-more{border-bottom:none;padding:0}
-{{/if}}
 
     /* ===================================================================== FOOTER */
     footer{background:var(--umber);color:var(--bone);padding:40px 32px 28px}
     .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
-{{css_comment_footer}}
+    /* footer sits on the dark --umber background; headings/icons use --ochre (its one other
+       deliberate appearance besides the promo bar) so they read as colored, not washed out */
     footer h5{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
     footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:var(--fs-sm)}
     footer a:hover{color:var(--bone)}
@@ -290,30 +248,6 @@
     .foot-bottom{max-width:1140px;margin:18px auto 0;padding-top:14px;border-top:1px solid rgba(244,239,230,.18);
       font-size:var(--fs-xs);color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
-{{#if g2}}
-    @media(max-width:880px){
-      .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
-      .door-grid,.rev-grid,.foot-grid{grid-template-columns:1fr}
-      .hero h1{font-size:48px}.nav a.link{display:none}
-      .story-photo{position:static;top:auto}
-    }
-{{css_comment_360}}
-    @media(max-width:360px){
-      .hero h1{font-size:38px}
-    }
-
-    /* short-but-wide viewports (laptop windows, browser chrome eating vertical space):
-       the hero was sized for tall screens only and got cropped with no scroll cue. */
-    @media (max-height:900px) and (min-width:881px){
-      .promo-bar{padding:6px 20px}
-      .nav-inner{padding:10px 32px}
-      #navmark{height:52px}
-      .hero{padding:20px 32px 40px}
-      .hero h1{font-size:44px;margin:8px 0 12px}
-      .hero p.sub{margin:0 0 18px}
-      .hero-photo{aspect-ratio:4/3.2}
-    }
-{{else}}
     @media(max-width:880px){
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
       .door-grid,.rev-grid,.foot-grid{grid-template-columns:1fr}
@@ -346,31 +280,18 @@
     @media(max-width:360px){
       .hero h1{font-size:38px}
     }
-{{/if}}
-{{#if blank_before_style_close}}
-
-{{/if}}
   </style>
 </head>
 <body>
-{{#unless g2}}
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <filter id="rblur2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.05"/></filter>
-</defs></svg>
-{{/unless}}
 
-{{comment_promo_html}}
+<!-- ===== PROMOTION BAR ===== -->
 <div class="promo-bar">
   {{promo_inner}}
 </div>
 
-{{comment_body_start}}
 <header class="nav">
   <div class="nav-inner">
     <a class="logo-lockup" href="#top" aria-label="{{nav_aria}}">
-{{#unless g2}}
-      <!-- final chosen mark, outlined compact lockup (figure + seeds + wordmark) -->
-{{/unless}}
       <img id="navmark" src="logo-mark.svg" alt="Breathe with Diana" />
     </a>
     <a class="link" href="#practice">{{nav_practice}}</a>
@@ -402,14 +323,14 @@
   </div>
 </section>
 
-{{comment_practice_html}}
+<!-- ===== THE PRACTICE (what rebirthing breathwork actually is) ===== -->
 <section class="practice" id="practice">
   <div class="wrap-narrow">
     <div class="eyebrow">{{practice_eyebrow}}</div>
     <h2 class="sec">{{practice_h2}}</h2>
-{{#unless g2}}
+{{#if practice_squiggle}}
     <svg class="squiggle" viewBox="0 0 90 16" aria-hidden="true"><path d="M2 8c6-7 12-7 18 0s12 7 18 0 12-7 18 0 12 7 18 0 12-7 16-2"/></svg>
-{{/unless}}
+{{/if}}
     <p class="lead">{{practice_lead1}}</p>
     <p class="lead">{{practice_lead2}}</p>
 
@@ -447,11 +368,11 @@
       </div>
     </div>
 
-    <p class="boundary"{{boundary_style}}>{{practice_boundary}}</p>
+    <p class="boundary">{{practice_boundary}}</p>
   </div>
 </section>
 
-{{comment_doors_html}}
+<!-- ===== TWO DOORS ===== -->
 <section class="doors" id="doors">
   <div class="wrap" style="text-align:center">
     <div class="eyebrow">{{doors_eyebrow}}</div>
@@ -470,7 +391,7 @@
         <div class="door-cta"><a class="btn btn-ghost" href="#reset">{{door1_cta}}</a></div>
       </div>
       <div class="door">
-        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="{{door2_stroke}}" stroke-width="2.4" stroke-linecap="round">
+        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#905840" stroke-width="2.4" stroke-linecap="round">
           <circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="8"/>
         </svg>
         <div class="tagword">{{door2_tag}}</div>
@@ -483,7 +404,7 @@
   </div>
 </section>
 
-{{comment_session_html}}
+<!-- ===== WHAT A SESSION IS LIKE (honest explainer) ===== -->
 <section id="session">
   <div class="wrap">
     <div class="eyebrow">{{session_eyebrow}}</div>
@@ -509,10 +430,10 @@
   </div>
 </section>
 
-{{comment_space_html}}
+<!-- ===== THE SPACE (full-width photo band) ===== -->
 <div class="space-band"><img src="img/studio-space.jpg" alt="{{space_alt}}"></div>
 
-{{comment_story_html}}
+<!-- ===== STORY ===== -->
 <section class="story" id="story">
   <div class="wrap">
     <div class="story-grid">
@@ -537,7 +458,7 @@
   </div>
 </section>
 
-{{comment_reviews_html}}
+<!-- ===== REVIEWS ===== -->
 <section id="reviews">
   <div class="wrap" style="text-align:center">
     <div class="eyebrow">{{reviews_eyebrow}}</div>
@@ -558,7 +479,7 @@
   </div>
 </section>
 
-{{comment_reset_html}}
+<!-- ===== FREE RESET BAND ===== -->
 <section class="reset" id="reset">
   <div class="wrap-narrow">
     <div class="eyebrow" style="color:var(--bone)">{{reset_eyebrow}}</div>
@@ -571,12 +492,12 @@
   </div>
 </section>
 
-{{comment_book_html}}
+<!-- ===== BOOK / PRICING / FAQ ===== -->
 <section id="book">
   <div class="wrap">
     <div class="eyebrow">{{book_eyebrow}}</div>
     <h2 class="sec">{{book_h2}}</h2>
-    <p class="lead muted" style="{{book_lead_style}}">{{book_lead}}</p>
+    <p class="lead muted" style="max-width:none;margin-bottom:6px">{{book_lead}}</p>
     <div class="book-grid">
       <div class="price-card">
         <div class="label">{{price_label}}</div>
