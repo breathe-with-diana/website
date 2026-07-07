@@ -26,7 +26,7 @@
     /* ============================================================= SITE NAV */
     .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
       border-bottom:1px solid var(--hairline)}
-    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;row-gap:10px}
+    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px}
     .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
     #navmark{height:72px;width:auto;display:block}
     #footmark{height:auto;width:auto;max-height:150px;max-width:100%;display:block}
@@ -248,11 +248,18 @@
     .foot-bottom{max-width:1140px;margin:18px auto 0;padding-top:14px;border-top:1px solid rgba(244,239,230,.18);
       font-size:var(--fs-xs);color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
+    /* the full nav (logo + section links + language + book button) only fits once the
+       viewport reaches the 1140px content max-width; below that, drop the section links so
+       the bar stays a clean logo + language + button rather than wrapping or clipping. */
+    @media(max-width:1140px){
+      .nav a.link{display:none}
+    }
+
     @media(max-width:880px){
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
       .door-grid,.rev-grid,.foot-grid{grid-template-columns:1fr}
       .rev-grid .rev:last-child:nth-child(3n+1){grid-column:auto}
-      .hero h1{font-size:48px}.nav a.link{display:none}
+      .hero h1{font-size:48px}
       .story-photo{position:static;top:auto}
     }
 
