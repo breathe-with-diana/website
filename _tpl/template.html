@@ -164,7 +164,7 @@
     .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
     .story blockquote.long{font-size:var(--fs-lg);line-height:1.4;font-weight:600}
     .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
-    .hero-photo img,.story-photo img,.story-photo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
     .hero-photo img{object-position:50% 30%}
     .story-more{margin-top:6px}
     .story-more[open] .story-more-toggle::after{content:"{{story_more_less}}"}
@@ -452,12 +452,7 @@
 <section class="story" id="story">
   <div class="wrap">
     <div class="story-grid">
-      <div class="story-photo">
-        <video autoplay muted loop playsinline preload="metadata" poster="img/diana-meditating-beach-poster.jpg" aria-label="{{story_alt}}">
-          <source src="img/diana-meditating-beach.mp4" type="video/mp4">
-          <img src="img/diana-meditating-beach.jpg" alt="{{story_alt}}">
-        </video>
-      </div>
+      <div class="story-photo"><img src="img/diana-meditating-beach.jpg" alt="{{story_alt}}"></div>
       <div>
         <div class="eyebrow">{{story_eyebrow}}</div>
         <blockquote class="long">{{story_blockquote}}</blockquote>
