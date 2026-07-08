@@ -241,14 +241,30 @@
     footer a.social-link{display:flex;align-items:center;gap:10px;position:relative}
     footer a.social-link svg{width:18px;height:18px;flex-shrink:0;stroke:var(--ochre)}
     footer a.social-link svg.brand-wa{stroke:none}
-    /* click-to-copy confirmation for the email link (mailto still fires for anyone
-       with a mail client; the copy + toast is the fallback for webmail users) */
+    /* click-to-copy confirmation for the email link, shown when "Copy address"
+       is chosen from the email menu below */
     footer a.social-link .copy-note{position:absolute;left:28px;bottom:100%;margin-bottom:6px;
       background:var(--ochre);color:var(--umber);font-family:var(--sans);font-weight:600;
       font-size:var(--fs-2xs);letter-spacing:.03em;padding:3px 9px;border-radius:6px;
       white-space:nowrap;opacity:0;transform:translateY(4px);pointer-events:none;
-      transition:opacity .18s ease,transform .18s ease}
+      transition:opacity .18s ease,transform .18s ease;z-index:11}
     footer a.social-link .copy-note.show{opacity:1;transform:translateY(0)}
+    /* email chooser popover: a mailto: link only opens a mail app on machines that
+       have one configured, so clicking the email opens this menu instead. Gmail /
+       Outlook open a webmail compose window (works with no desktop client at all),
+       "Default mail app" uses the mailto:, and "Copy address" copies + confirms. */
+    .email-choice{position:relative}
+    .email-menu{position:absolute;left:0;bottom:100%;margin-bottom:8px;z-index:12;
+      min-width:210px;background:var(--bone);border:1px solid var(--hairline);border-radius:12px;
+      padding:6px;box-shadow:0 10px 30px rgba(43,34,26,.35);display:flex;flex-direction:column;gap:1px}
+    .email-menu[hidden]{display:none}
+    .email-menu .em-label{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;
+      letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:6px 10px 4px;margin:0}
+    footer .email-menu .em-item{display:flex;align-items:center;gap:10px;width:100%;margin:0;
+      padding:9px 10px;border:none;background:none;border-radius:7px;cursor:pointer;text-align:left;
+      font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;color:var(--umber);text-decoration:none}
+    footer .email-menu .em-item:hover{background:var(--cream);color:var(--umber)}
+    .email-menu .em-item svg{width:17px;height:17px;flex-shrink:0;stroke:var(--terracotta-deep)}
     .foot-bottom{max-width:1140px;margin:18px auto 0;padding-top:14px;border-top:1px solid rgba(244,239,230,.18);
       font-size:var(--fs-xs);color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
@@ -611,7 +627,16 @@
       <h5>Encuéntrame</h5>
       <a class="social-link" href="https://instagram.com/respira.con.diana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="var(--ochre)" stroke="none"/></svg>@respira.con.diana</a>
       <a class="social-link" href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener"><svg class="brand-wa" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>+66 63 125 9588</a>
-      <a class="social-link" href="mailto:ven@respiracondiana.com" data-email="ven@respiracondiana.com" data-copied-label="Dirección copiada"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>ven@respiracondiana.com</a>
+      <span class="email-choice">
+        <a class="social-link" href="mailto:ven@respiracondiana.com" data-email="ven@respiracondiana.com" data-copied-label="Dirección copiada" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>ven@respiracondiana.com</a>
+        <span class="email-menu" role="menu" aria-label="Escríbeme por" hidden>
+          <span class="em-label">Escríbeme por</span>
+          <a class="em-item" role="menuitem" data-compose="gmail" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Gmail</a>
+          <a class="em-item" role="menuitem" data-compose="outlook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Outlook</a>
+          <a class="em-item" role="menuitem" data-compose="mailto" href="mailto:ven@respiracondiana.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z" opacity="0"/><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h10M7 13h6"/></svg>App de correo</a>
+          <button type="button" class="em-item" role="menuitem" data-compose="copy"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>Copiar dirección</button>
+        </span>
+      </span>
     </div>
   </div>
   <div class="foot-bottom">
@@ -621,25 +646,33 @@
 </footer>
 
 <script>
-/* Email link: copy the address to the clipboard on click and show a brief
-   confirmation. The mailto: default is left intact, so visitors who have a mail
-   client still get it; those on webmail or with no mail client (where a mailto
-   click otherwise does nothing) get the address copied plus a visible toast.
+/* Email chooser. A mailto: link only opens a mail app on machines that have one
+   configured; on a laptop with no default mail handler it does nothing at all,
+   which is exactly what was reported. A web page cannot force a mail client open,
+   so clicking the email opens a small menu instead, giving every visitor a route
+   that actually works:
+     - Gmail / Outlook  -> a webmail compose window, prefilled, opens in a new tab
+                           (works with no desktop mail client at all)
+     - Default mail app -> the mailto:, for anyone who does have one configured
+     - Copy address     -> copies the address and shows a brief confirmation
+   The anchor keeps its mailto: href, so right-click "Copy email address" still
+   works and, with JavaScript disabled, the link degrades to a plain mailto:.
 
-   Two things this must get right, both learned the hard way:
-   1. The confirmation is shown UNCONDITIONALLY and synchronously on click, never
-      gated on the clipboard write finishing. When it was gated on the async
-      Clipboard API promise, a machine with no mail client would attempt the
-      mailto: navigation, that attempt stole focus, the promise rejected, the
-      swallowing .catch fired, and the click produced no visible effect at all.
-   2. Copy is attempted via the synchronous execCommand path FIRST. It runs to
-      completion inside the click gesture, before the mailto: navigation can
-      steal focus, so it succeeds even where the async Clipboard API would reject.
-      The Clipboard API is used as an enhancement/fallback only. */
+   Copy uses the synchronous execCommand path FIRST: it completes inside the click
+   gesture, so it succeeds even where the async Clipboard API would reject (e.g.
+   if focus shifts). The Clipboard API is an enhancement/fallback only. */
 (function(){
-  var link = document.querySelector('a.social-link[data-email]');
-  if(!link) return;
+  var wrap = document.querySelector('.email-choice');
+  if(!wrap) return;
+  var link = wrap.querySelector('a.social-link[data-email]');
+  var menu = wrap.querySelector('.email-menu');
+  if(!link || !menu) return;
   var email = link.getAttribute('data-email');
+  var gmail = menu.querySelector('[data-compose="gmail"]');
+  var outlook = menu.querySelector('[data-compose="outlook"]');
+  if(gmail) gmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email);
+  if(outlook) outlook.href = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + encodeURIComponent(email);
+
   var note = document.createElement('span');
   note.className = 'copy-note';
   note.textContent = link.getAttribute('data-copied-label') || 'Copied';
@@ -665,9 +698,47 @@
     clearTimeout(timer);
     timer = setTimeout(function(){ note.classList.remove('show'); }, 1800);
   }
-  link.addEventListener('click', function(){
-    copy(email);
-    showNote();
+  function openMenu(){
+    menu.hidden = false;
+    link.setAttribute('aria-expanded', 'true');
+    document.addEventListener('click', onDocClick, true);
+    document.addEventListener('keydown', onKey);
+  }
+  function closeMenu(focusLink){
+    menu.hidden = true;
+    link.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('click', onDocClick, true);
+    document.removeEventListener('keydown', onKey);
+    if(focusLink) link.focus();
+  }
+  function onDocClick(e){ if(!wrap.contains(e.target)) closeMenu(false); }
+  function onKey(e){ if(e.key === 'Escape' || e.keyCode === 27) closeMenu(true); }
+
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    if(menu.hidden){
+      openMenu();
+      var first = menu.querySelector('.em-item');
+      if(first) first.focus();
+    } else {
+      closeMenu(false);
+    }
+  });
+
+  menu.addEventListener('click', function(e){
+    var item = e.target.closest ? e.target.closest('.em-item') : null;
+    if(!item) return;
+    var kind = item.getAttribute('data-compose');
+    if(kind === 'copy'){
+      e.preventDefault();
+      copy(email);
+      closeMenu(false);
+      showNote();
+    } else {
+      /* gmail / outlook (new tab via target=_blank) and mailto: all follow their
+         href natively; just close the menu after the choice. */
+      closeMenu(false);
+    }
   });
 })();
 </script>

@@ -173,6 +173,9 @@
   "ig_handle": "@respira.con.diana",
   "email": "ven@respiracondiana.com",
   "email_copied": "Dirección copiada",
+  "email_menu_label": "Escríbeme por",
+  "email_open_default": "App de correo",
+  "email_copy": "Copiar dirección",
   "footer_copyright": "© 2026 Respira con Diana · respiracondiana.com",
   "footer_disclaimer": "El rebirthing breathwork no sustituye la atención médica ni psicológica."
 }
