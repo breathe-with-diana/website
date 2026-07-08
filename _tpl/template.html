@@ -127,7 +127,7 @@
       .fact-col:first-child{border-top:none}
       .fact-col .fc-head{justify-content:center}
     }
-    @media (max-width:480px){.proc-grid{grid-template-columns:1fr;max-width:280px}}
+    @media (max-width:480px){.proc-grid{grid-template-columns:1fr;max-width:340px}}
 
     /* ===================================================================== TWO DOORS */
     .doors{background:var(--cream)}
@@ -285,8 +285,49 @@
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
       .door-grid,.rev-grid,.foot-grid{grid-template-columns:1fr}
       .rev-grid .rev:last-child:nth-child(3n+1){grid-column:auto}
-      .hero h1{font-size:48px}
-      .story-photo{position:static;top:auto}
+      /* MUST stay a positioned box (relative, not static): its img is
+         position:absolute; inset:0; height:100%, so it needs .story-photo as its
+         containing block. With static, the img escaped to the viewport as its
+         containing block and blew up to full-screen, stacking OVER the hero (the
+         top of every mobile page showed the story photo instead of the headline).
+         relative keeps it in normal flow (un-sticky) while restoring that box. */
+      .story-photo{position:relative;top:auto}
+      /* mobile spacing rhythm: the fixed 104px/32px section box was tuned for
+         desktop; on a phone it made the page ~16,000px tall and pinched the side
+         gutters at the same time. (the hero h1 now scales via the fluid --fs-3xl,
+         so the old fixed 48px override that lived here is gone.) */
+      section{padding:72px 24px}
+      .hero{padding:28px 24px 56px}
+      footer{padding:36px 24px 24px}
+      .nav-inner{padding:14px 24px}
+      .process-block{margin-top:48px;padding-top:36px}
+      /* the desktop logo (72px) never shrank between 521 and 880px, leaving a ~100px
+         sticky bar there holding only a logo + button; 52px reads fine (matches the
+         short-viewport rule). #navmark drops again to 44px at <=520px below. */
+      #navmark{height:52px}
+      /* a deliberate square crop on mobile (was an in-between 4/3.6 that read as
+         accidental); keeps Diana's portrait present without dominating the fold. */
+      .hero-photo{aspect-ratio:1/1}
+      /* the promo bar and nav are both sticky; the nav's sticky offset (top:39px)
+         assumes a one-line promo, but the promo wraps to two lines somewhere below
+         ~560px and then overlaps the nav. Rather than chase a fragile magic offset,
+         stop pinning the promo below tablet width and pin only the nav to the top. */
+      .promo-bar{position:static}
+      .nav{top:0}
+      /* buttons are pills with white-space:nowrap, which is fine in a roomy desktop
+         card but forces a longer label (e.g. the Russian door CTAs) wider than a
+         narrow phone card, overflowing the page. Let in-flow buttons wrap on mobile;
+         keep only the compact nav pill on one line. min-height + flex centering gives
+         every button a >=44px touch target (Apple 44 / Material Design 48). */
+      .btn{white-space:normal;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+      .nav .btn-primary{white-space:nowrap}
+      /* touch targets for the other controls: footer contact links were 22px tall
+         (the Instagram / WhatsApp / email conversion path) and the FAQ + story
+         toggles 30px. Turn dead margin into live padding to reach ~44px. */
+      footer a{padding:11px 0;margin-bottom:2px}
+      footer a.social-link{min-height:44px}
+      details summary{min-height:44px;align-items:center}
+      .story-more-toggle{min-height:44px;display:inline-flex;align-items:center}
     }
 
     /* short-but-wide viewports (laptop windows, browser chrome eating vertical space):
@@ -302,16 +343,29 @@
     }
 
     @media(max-width:520px){
-      .nav-inner{flex-wrap:wrap;row-gap:10px;justify-content:flex-end}
+      .nav-inner{flex-wrap:wrap;row-gap:10px;justify-content:flex-end;padding:12px 20px}
       .logo-lockup{flex:0 0 100%;margin-right:0}
       #navmark{height:44px}
-      .lang{white-space:nowrap;font-size:var(--fs-2xs);padding:4px 10px}
+      .lang{white-space:nowrap;font-size:var(--fs-2xs);padding:4px 8px;gap:6px}
+      /* language toggle is a first-class action on a trilingual site; grow each
+         option to a ~40px reliable tap target instead of a ~26px glyph. */
+      .lang a,.lang b{min-height:40px;justify-content:center;padding:0 6px}
       .nav .btn-primary{padding:9px 16px;font-size:var(--fs-xs)}
-    }
-    /* a further step-down for small phones (iPhone SE-class, <=360px): 48px Cormorant
-       Garamond across two lines was the only breakpoint the hero h1 had below 880px */
-    @media(max-width:360px){
-      .hero h1{font-size:38px}
+      /* tighter gutters + shorter vertical rhythm on true phones */
+      section{padding:56px 20px}
+      .hero{padding:22px 20px 44px}
+      footer{padding:30px 20px 20px}
+      .promo-bar{padding:9px 16px}
+      /* desktop card padding (34-36px) wastes scarce width on a phone; trim it so
+         line length and content height recover inside the 20px section gutters. */
+      .door,.price-card,.honest{padding:28px 22px}
+      .rev{padding:24px 20px}
+      /* stacked, full-width buttons/inputs are easier to tap than a cramped wrapping row */
+      .hero-cta{flex-direction:column;align-items:stretch;gap:12px}
+      .hero-cta .btn{width:100%;text-align:center}
+      .reset-form{flex-direction:column;gap:12px}
+      .reset-form input{min-width:0;width:100%}
+      .reset-form .btn{width:100%}
     }
   </style>
 </head>
