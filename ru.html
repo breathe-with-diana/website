@@ -630,8 +630,19 @@
 <script>
 /* Email link: copy the address to the clipboard on click and show a brief
    confirmation. The mailto: default is left intact, so visitors who have a mail
-   client still get it; those on webmail (where a mailto click does nothing) get
-   the address on their clipboard instead. */
+   client still get it; those on webmail or with no mail client (where a mailto
+   click otherwise does nothing) get the address copied plus a visible toast.
+
+   Two things this must get right, both learned the hard way:
+   1. The confirmation is shown UNCONDITIONALLY and synchronously on click, never
+      gated on the clipboard write finishing. When it was gated on the async
+      Clipboard API promise, a machine with no mail client would attempt the
+      mailto: navigation, that attempt stole focus, the promise rejected, the
+      swallowing .catch fired, and the click produced no visible effect at all.
+   2. Copy is attempted via the synchronous execCommand path FIRST. It runs to
+      completion inside the click gesture, before the mailto: navigation can
+      steal focus, so it succeeds even where the async Clipboard API would reject.
+      The Clipboard API is used as an enhancement/fallback only. */
 (function(){
   var link = document.querySelector('a.social-link[data-email]');
   if(!link) return;
@@ -642,26 +653,28 @@
   link.appendChild(note);
   var timer;
   function copy(text){
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      return navigator.clipboard.writeText(text);
+    var ok = false;
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly','');
+      ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select(); ta.setSelectionRange(0, text.length);
+      ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+    }catch(e){ ok = false; }
+    if(!ok && navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).catch(function(){});
     }
-    return new Promise(function(resolve, reject){
-      try{
-        var ta = document.createElement('textarea');
-        ta.value = text; ta.setAttribute('readonly','');
-        ta.style.position = 'absolute'; ta.style.left = '-9999px';
-        document.body.appendChild(ta); ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta); resolve();
-      }catch(e){ reject(e); }
-    });
+  }
+  function showNote(){
+    note.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(function(){ note.classList.remove('show'); }, 1800);
   }
   link.addEventListener('click', function(){
-    copy(email).then(function(){
-      note.classList.add('show');
-      clearTimeout(timer);
-      timer = setTimeout(function(){ note.classList.remove('show'); }, 1800);
-    }).catch(function(){});
+    copy(email);
+    showNote();
   });
 })();
 </script>
