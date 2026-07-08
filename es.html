@@ -160,7 +160,7 @@
     .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
     .story blockquote.long{font-size:var(--fs-lg);line-height:1.4;font-weight:600}
     .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
-    .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+    .hero-photo img,.story-photo img,.story-photo video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
     .hero-photo img{object-position:50% 30%}
     .story-more{margin-top:6px}
     .story-more[open] .story-more-toggle::after{content:"  Mostrar menos"}
@@ -464,7 +464,12 @@
 <section class="story" id="story">
   <div class="wrap">
     <div class="story-grid">
-      <div class="story-photo"><img src="img/diana-meditating-beach.jpg" alt="Diana meditando en posición de oración sobre una roca en la playa"></div>
+      <div class="story-photo">
+        <video autoplay muted loop playsinline preload="metadata" poster="img/diana-meditating-beach-poster.jpg" aria-label="Diana meditando en posición de oración sobre una roca en la playa">
+          <source src="img/diana-meditating-beach.mp4" type="video/mp4">
+          <img src="img/diana-meditating-beach.jpg" alt="Diana meditando en posición de oración sobre una roca en la playa">
+        </video>
+      </div>
       <div>
         <div class="eyebrow">Mi camino a casa</div>
         <blockquote class="long">Dejé de esforzarme por ser la mujer que todos admiraban,<br>y empecé a convertirme en la mujer que podía reconocer en el espejo.</blockquote>
