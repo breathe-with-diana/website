@@ -7,6 +7,7 @@
   <meta name="robots" content="noindex, nofollow" />
   {{/if}}
   <title>{{title}}</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -50,6 +51,12 @@
     .btn-primary:hover{background:#7A4A36}
     .btn-ghost{border:1px solid var(--umber);color:var(--umber)}
     .btn-ghost:hover{background:var(--umber);color:var(--bone)}
+
+    /* ---- mobile menu (hamburger). Hidden on desktop; the media queries below reveal it
+       once the inline nav no longer fits. Built on <details>/<summary>, so it is fully
+       keyboard- and screen-reader-operable and works with JS off. ---- */
+    .navmenu{display:none}
+    .promo-short{display:none}
 
     section{padding:104px 32px}
     .wrap{max-width:1140px;margin:0 auto}
@@ -275,15 +282,55 @@
       font-size:var(--fs-xs);color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
     /* the full nav (logo + section links + language + book button) only fits once the
-       viewport reaches the 1140px content max-width; below that, drop the section links so
-       the bar stays a clean logo + language + button rather than wrapping or clipping. */
+       viewport reaches the 1140px content max-width; below that the whole inline nav is
+       replaced by the hamburger, so navigation (and the language switcher + Book CTA) all
+       stay reachable in one clean menu instead of a bar that clipped its own links. */
     @media(max-width:1140px){
-      .nav a.link{display:none}
+      .nav a.link,
+      .nav-inner > .lang,
+      .nav-inner > .nav-cta{display:none}
+      /* neutralize the generic FAQ <details> styling (border, padding, the +/- summary
+         marker) that would otherwise leak onto this menu, since it is a <details> too. */
+      .navmenu{display:block;position:static;border-bottom:none;padding:0}
+      /* two classes so this out-specifies BOTH `details summary::after` (the "+") and
+         `details[open] summary::after` (the "-"), which the FAQ accordion defines. */
+      .navmenu .navmenu-btn::after{content:none}
+      /* the hamburger button: a >=44px square touch target, three bars drawn in umber */
+      .navmenu-btn{list-style:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+        cursor:pointer;border-radius:10px;margin-left:6px}
+      .navmenu-btn::-webkit-details-marker{display:none}
+      .navmenu-btn:hover{background:rgba(91,70,54,.06)}
+      .navmenu-bars{display:block;width:22px;height:16px;position:relative}
+      .navmenu-bars span{position:absolute;left:0;width:100%;height:2px;border-radius:2px;background:var(--umber);
+        transition:transform .2s ease,opacity .15s ease}
+      .navmenu-bars span:nth-child(1){top:0}
+      .navmenu-bars span:nth-child(2){top:7px}
+      .navmenu-bars span:nth-child(3){top:14px}
+      /* open state: bars morph into an X */
+      .navmenu[open] .navmenu-bars span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+      .navmenu[open] .navmenu-bars span:nth-child(2){opacity:0}
+      .navmenu[open] .navmenu-bars span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+      /* the dropdown panel: drops from the bottom of the sticky bar, full width, as a card */
+      .navmenu-panel{position:absolute;left:0;right:0;top:100%;display:flex;flex-direction:column;
+        background:var(--bone);border-bottom:1px solid var(--hairline);
+        box-shadow:0 16px 34px rgba(43,34,26,.16);padding:8px 20px 18px}
+      .navmenu-panel a:not(.btn){font-family:var(--sans);font-size:var(--fs-md);color:var(--umber);
+        text-decoration:none;padding:14px 4px;border-bottom:1px solid var(--hairline);min-height:44px;
+        display:flex;align-items:center}
+      .navmenu-panel a:not(.btn):active{color:var(--terracotta-deep)}
+      .navmenu-lang{border:none;padding:16px 0 6px;justify-content:flex-start;gap:20px}
+      .navmenu-book{margin-top:16px;width:100%;text-align:center}
     }
 
     @media(max-width:880px){
       .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
       .door-grid,.rev-grid,.foot-grid{grid-template-columns:1fr}
+      /* photo-first hero on mobile: Diana greets the visitor at the top of the page
+         instead of being pushed below a wall of text + two CTAs (the old stacked order).
+         `order` re-sequences the two grid children without touching the desktop DOM. */
+      .hero-grid{gap:24px}
+      .hero-grid > div:first-child{order:2}
+      .hero-photo{order:1}
       .rev-grid .rev:last-child:nth-child(3n+1){grid-column:auto}
       /* MUST stay a positioned box (relative, not static): its img is
          position:absolute; inset:0; height:100%, so it needs .story-photo as its
@@ -297,7 +344,8 @@
          gutters at the same time. (the hero h1 now scales via the fluid --fs-3xl,
          so the old fixed 48px override that lived here is gone.) */
       section{padding:72px 24px}
-      .hero{padding:28px 24px 56px}
+      /* less top padding now the photo leads: it should sit just under the nav */
+      .hero{padding:18px 24px 52px}
       footer{padding:36px 24px 24px}
       .nav-inner{padding:14px 24px}
       .process-block{margin-top:48px;padding-top:36px}
@@ -342,18 +390,23 @@
       .hero-photo{aspect-ratio:4/3.2}
     }
 
+    /* the full promo line wraps to two lines below ~680px in the longer languages (ES/RU;
+       EN fits lower), so swap to the short one-line variant at 700px, comfortably above the
+       whole wrap band, so the ochre bar always reads as one clean line on every language. */
+    @media(max-width:700px){
+      .promo-full{display:none}
+      .promo-short{display:inline}
+    }
+
     @media(max-width:520px){
-      .nav-inner{flex-wrap:wrap;row-gap:10px;justify-content:flex-end;padding:12px 20px}
-      .logo-lockup{flex:0 0 100%;margin-right:0}
+      /* phone nav is just logo + hamburger, so it stays on one row (the old rule stacked
+         the logo onto its own line to make room for the lang pill + Book button that now
+         live inside the menu). */
+      .nav-inner{padding:10px 20px}
       #navmark{height:44px}
-      .lang{white-space:nowrap;font-size:var(--fs-2xs);padding:4px 8px;gap:6px}
-      /* language toggle is a first-class action on a trilingual site; grow each
-         option to a ~40px reliable tap target instead of a ~26px glyph. */
-      .lang a,.lang b{min-height:40px;justify-content:center;padding:0 6px}
-      .nav .btn-primary{padding:9px 16px;font-size:var(--fs-xs)}
       /* tighter gutters + shorter vertical rhythm on true phones */
       section{padding:56px 20px}
-      .hero{padding:22px 20px 44px}
+      .hero{padding:14px 20px 40px}
       footer{padding:30px 20px 20px}
       .promo-bar{padding:9px 16px}
       /* desktop card padding (34-36px) wastes scarce width on a phone; trim it so
@@ -366,14 +419,26 @@
       .reset-form{flex-direction:column;gap:12px}
       .reset-form input{min-width:0;width:100%}
       .reset-form .btn{width:100%}
+      /* centered body copy is harder to read on a narrow column: left-align the two
+         "what to expect" lead paragraphs while the eyebrow, heading and closing line
+         stay centered as section anchors. */
+      .practice .lead{text-align:left}
+      /* .18em tracking on the 11-12px uppercase labels reads as stretched/gappy on a
+         phone; tighten it so the small-caps labels stay tidy. */
+      .eyebrow,.alt-label,.door .tagword,.fact-col .fc-head span,
+      .price-card .label,footer h5{letter-spacing:.1em}
     }
   </style>
 </head>
 <body{{#if feedback}} data-fb-noun="{{fb_noun}}" data-fb-key="{{fb_key}}" data-fb-page="{{fb_page}}" data-fb-email="{{fb_email}}"{{/if}}>
 
 <!-- ===== PROMOTION BAR ===== -->
+<!-- Two copies of the promo line: the full one on desktop/tablet, a shorter one on
+     phones so the bar always stays a single line (the full text wrapped to two). Only
+     one is ever visible at a time (CSS toggle at the phone breakpoint). -->
 <div class="promo-bar">
-  {{promo_inner}}
+  <span class="promo-full">{{promo_inner}}</span>
+  <span class="promo-short">{{promo_short}}</span>
 </div>
 
 <header class="nav">
@@ -391,7 +456,30 @@
 {{nav_lang}}
     </span>
     {{/if}}
-    <a class="btn btn-primary" href="#book">{{nav_book}}</a>
+    <a class="btn btn-primary nav-cta" href="#book">{{nav_book}}</a>
+
+    <!-- Mobile menu. Below the content max-width the inline links/language/Book button
+         are hidden and this hamburger takes over. Built on a native <details> so it
+         opens and every link works with zero JavaScript; the script below only adds the
+         niceties (close on link-tap, Escape, and outside-click). -->
+    <details class="navmenu" id="navmenu">
+      <summary class="navmenu-btn" aria-label="{{nav_menu_label}}">
+        <span class="navmenu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      </summary>
+      <nav class="navmenu-panel" aria-label="{{nav_menu_label}}">
+        <a href="#practice">{{nav_practice}}</a>
+        <a href="#doors">{{nav_doors}}</a>
+        <a href="#session">{{nav_session}}</a>
+        <a href="#story">{{nav_story}}</a>
+        <a href="#reviews">{{nav_reviews}}</a>
+        {{#if show_lang}}
+        <span class="navmenu-lang lang" title="{{lang_title}}">
+{{nav_lang}}
+        </span>
+        {{/if}}
+        <a class="btn btn-primary navmenu-book" href="#book">{{nav_book}}</a>
+      </nav>
+    </details>
   </div>
 </header>
 
@@ -737,6 +825,27 @@
          href natively; just close the menu after the choice. */
       closeMenu(false);
     }
+  });
+})();
+
+/* Mobile hamburger menu. The <details>/<summary> already opens, closes and is keyboard-
+   operable on its own (so it works with JS disabled); this only adds the expected
+   niceties: close after tapping a destination, close on Escape, close on an outside click. */
+(function(){
+  var menu = document.getElementById('navmenu');
+  if(!menu) return;
+  var panel = menu.querySelector('.navmenu-panel');
+  var summary = menu.querySelector('summary');
+  function close(){ menu.removeAttribute('open'); }
+  if(panel) panel.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if(a) close();
+  });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'Escape' || e.keyCode === 27) && menu.open){ close(); if(summary) summary.focus(); }
+  });
+  document.addEventListener('click', function(e){
+    if(menu.open && !menu.contains(e.target)) close();
   });
 })();
 </script>

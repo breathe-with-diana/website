@@ -11,6 +11,8 @@
   "story_more_less": "  Mostrar menos",
   "story_more_open": "  Lee más de mi historia →",
   "promo_inner": "✦&nbsp;&nbsp;<b>¿Primera vez aquí?</b> Ven a respirar conmigo, empieza con un reset gratuito.&nbsp;&nbsp;<a href=\"#reset\">Empezar →</a>",
+  "promo_short": "✦&nbsp;&nbsp;<b>¿Primera vez?</b>&nbsp;&nbsp;<a href=\"#reset\">Reset gratuito →</a>",
+  "nav_menu_label": "Menú",
   "nav_aria": "Respira con Diana, inicio",
   "nav_practice": "Qué es",
   "nav_doors": "El trabajo",
