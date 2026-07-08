@@ -341,12 +341,13 @@
       /* less top padding now the photo leads: it should sit just under the nav */
       .hero{padding:18px 24px 52px}
       footer{padding:36px 24px 24px}
-      .nav-inner{padding:14px 24px}
+      /* trim the vertical padding so the logo (below) fills the bar height rather than
+         floating in whitespace; the hamburger keeps its own >=44px hit area regardless. */
+      .nav-inner{padding:8px 24px}
       .process-block{margin-top:48px;padding-top:36px}
-      /* the desktop logo (72px) never shrank between 521 and 880px, leaving a ~100px
-         sticky bar there holding only a logo + button; 52px reads fine (matches the
-         short-viewport rule). #navmark drops again to 44px at <=520px below. */
-      #navmark{height:52px}
+      /* on mobile the logo is the bar: size it to nearly fill the header height (was 52px
+         floating in a taller bar). drops to 56px at <=520px below to keep width in hand. */
+      #navmark{height:64px}
       /* a deliberate square crop on mobile (was an in-between 4/3.6 that read as
          accidental); keeps Diana's portrait present without dominating the fold. */
       .hero-photo{aspect-ratio:1/1}
@@ -396,8 +397,8 @@
       /* phone nav is just logo + hamburger, so it stays on one row (the old rule stacked
          the logo onto its own line to make room for the lang pill + Book button that now
          live inside the menu). */
-      .nav-inner{padding:10px 20px}
-      #navmark{height:44px}
+      .nav-inner{padding:7px 20px}
+      #navmark{height:56px}
       /* tighter gutters + shorter vertical rhythm on true phones */
       section{padding:56px 20px}
       .hero{padding:14px 20px 40px}
