@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {{#if noindex}}
   <meta name="robots" content="noindex, nofollow" />
+  {{/if}}
   <title>{{title}}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -313,7 +315,7 @@
     }
   </style>
 </head>
-<body>
+<body{{#if feedback}} data-fb-noun="{{fb_noun}}" data-fb-key="{{fb_key}}" data-fb-page="{{fb_page}}" data-fb-email="{{fb_email}}"{{/if}}>
 
 <!-- ===== PROMOTION BAR ===== -->
 <div class="promo-bar">
@@ -330,9 +332,11 @@
     <a class="link" href="#session">{{nav_session}}</a>
     <a class="link" href="#story">{{nav_story}}</a>
     <a class="link" href="#reviews">{{nav_reviews}}</a>
+    {{#if show_lang}}
     <span class="lang" title="{{lang_title}}">
 {{nav_lang}}
     </span>
+    {{/if}}
     <a class="btn btn-primary" href="#book">{{nav_book}}</a>
   </div>
 </header>
@@ -682,6 +686,9 @@
   });
 })();
 </script>
-
+{{#if feedback}}
+<!-- Review-only feedback widget (Diana). Gated to unfinalized language pages via content JSON. -->
+<script src="feedback.js?v=3"></script>
+{{/if}}
 </body>
 </html>

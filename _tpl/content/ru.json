@@ -1,5 +1,12 @@
 {
   "lang": "ru",
+  "noindex": true,
+  "show_lang": true,
+  "feedback": true,
+  "fb_noun": "раздел",
+  "fb_key": "website-ru",
+  "fb_page": "Website RU · Breathe with Diana",
+  "fb_email": "d.blaecker@gmail.com",
   "title": "Breathe with Diana · Вернуться домой, к своему телу",
   "story_more_less": "  Свернуть",
   "story_more_open": "  Читать мою историю дальше →",

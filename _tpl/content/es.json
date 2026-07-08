@@ -1,5 +1,12 @@
 {
   "lang": "es",
+  "noindex": true,
+  "show_lang": true,
+  "feedback": true,
+  "fb_noun": "sección",
+  "fb_key": "website-es",
+  "fb_page": "Website ES · Respira con Diana",
+  "fb_email": "d.blaecker@gmail.com",
   "title": "Respira con Diana · Volver a casa, a tu cuerpo",
   "story_more_less": "  Mostrar menos",
   "story_more_open": "  Lee más de mi historia →",
