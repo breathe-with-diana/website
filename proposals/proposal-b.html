@@ -1,0 +1,1654 @@
+<!doctype html>
+<html lang="en" data-motion="full">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Breathe with Diana · Coming home to your body</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ONE POINT OF INK
+   The one-motion rule (binding, keep this block when porting):
+   Exactly one point of ink is alive at any moment, and nothing
+   else on this page ever moves. Ambient motion is ONLY:
+     1. transform scale on an alive dot glyph (sub 6px absolute)
+     2. opacity on its pre-rendered halo
+   Everything else is static by decree. Content may dissolve in
+   (opacity only, about 450ms). Hovers change ink color only.
+   Adding any other animation or hover transform breaks the
+   entire premise of this design. Do not.
+   Breath physiology: 11s cycle, 4s rise, 7s settle,
+   sine easing only: cubic-bezier(.5,0,.5,1).
+   Calm mode (prefers-reduced-motion OR the visible toggle) is
+   driven by ONE code path: custom properties keyed off
+   html[data-motion="calm"]. Scale amplitudes collapse to 1,
+   the halo keeps a slow warmth oscillation at the same rhythm.
+   ============================================================ */
+:root{
+  --bone:#F4EFE6;
+  --cream:#EFE7D8;
+  --terracotta:#C97B5A;
+  --terracotta-deep:#905840;
+  --terracotta-ink:#7C4A34;
+  --sage:#8A8C6E;
+  --umber:#5B4636;
+  --ochre:#D4A24C;
+  --band-ink:#402F1E;
+  --muted-strong:rgba(91,70,54,.84);
+  --hairline:rgba(91,70,54,.14);
+  --hairline-mid:rgba(91,70,54,.30);
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sine:cubic-bezier(.5,0,.5,1);
+  --cycle:11s;
+  --dot-amp:1.5;          /* alive glyph swell */
+  --halo-lo:.28;
+  --halo-hi:.95;
+  --ritual-amp:2.7;       /* guided-breath dot swell */
+  --ring-from:1.22;       /* invitation ring settle */
+  --measure:40rem;
+  --head-h:56px;
+}
+html[data-motion="calm"]{
+  --dot-amp:1;
+  --ritual-amp:1;
+  --ring-from:1;
+  --halo-lo:.38;
+  --halo-hi:.92;
+}
+/* no-JS fallback: the media query drives the same custom properties */
+@media (prefers-reduced-motion: reduce){
+  html:not([data-motion]){
+    --dot-amp:1; --ritual-amp:1; --ring-from:1; --halo-lo:.38; --halo-hi:.92;
+  }
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto;overflow-x:hidden}
+@supports (overflow:clip){html{overflow-x:clip}}
+body{
+  background:var(--bone);
+  color:var(--umber);
+  font:400 1.0625rem/1.75 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+@supports (overflow:clip){body{overflow-x:clip}}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--terracotta-deep)}
+a:hover{color:var(--terracotta-ink)}
+::selection{background:rgba(201,123,90,.28)}
+:focus-visible{outline:2px solid var(--terracotta-deep);outline-offset:3px;border-radius:2px}
+section{scroll-margin-top:calc(var(--head-h) + 28px)}
+
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,3rem)}
+.measure{max-width:var(--measure);margin-inline:auto}
+
+/* type */
+.smallcaps{
+  font:600 .72rem/1.5 var(--sans);
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--umber);text-wrap:balance}
+h2{font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.15}
+h3{font-size:clamp(1.45rem,4.2vw,2rem);line-height:1.2}
+h4{font:600 1rem/1.4 var(--sans);color:var(--umber)}
+p{color:var(--umber)}
+.lead{font-size:clamp(1.0625rem,2.4vw,1.1875rem);line-height:1.8}
+.caption{
+  font:italic 400 1.02rem/1.55 var(--serif);
+  color:var(--muted-strong);
+  text-align:center;
+}
+.epigraph{
+  font:italic 400 clamp(1.25rem,3.4vw,1.6rem)/1.5 var(--serif);
+  color:var(--umber);
+  text-align:center;
+  max-width:34rem;
+  margin-inline:auto;
+}
+
+/* dissolves: content develops like a print, it does not arrive */
+html.js .reveal{opacity:0}
+html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
+
+/* ============ the living dot ============ */
+.dot-station{position:relative;display:inline-block;line-height:0}
+.dot-station .glyph{
+  display:block;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--umber);
+  transition:background 1.2s var(--sine);
+}
+.dot-station .halo{
+  position:absolute;left:50%;top:50%;
+  width:96px;height:96px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(closest-side,rgba(201,123,90,.7),rgba(201,123,90,0) 72%);
+  opacity:0;
+  transition:opacity 1.4s var(--sine);
+  pointer-events:none;
+}
+.dot-station.alive .glyph{
+  background:var(--terracotta-deep);
+  will-change:transform;
+  animation:breathe-glyph var(--cycle) cubic-bezier(.5,0,.5,1) infinite;
+  animation-delay:var(--phase,0ms);
+}
+.dot-station.alive .halo{
+  opacity:var(--halo-lo);
+  animation:breathe-halo var(--cycle) cubic-bezier(.5,0,.5,1) infinite;
+  animation-delay:var(--phase,0ms);
+}
+@keyframes breathe-glyph{
+  0%{transform:scale(1)}
+  36.4%{transform:scale(var(--dot-amp))}   /* 4s rise */
+  100%{transform:scale(1)}                 /* 7s settle */
+}
+@keyframes breathe-halo{
+  0%{opacity:var(--halo-lo)}
+  36.4%{opacity:var(--halo-hi)}
+  100%{opacity:var(--halo-lo)}
+}
+
+/* dividers: hairline, dot, hairline (the dot stations of the book) */
+.divider{
+  display:flex;align-items:center;justify-content:center;gap:1.1rem;
+  max-width:19rem;margin:0 auto;
+}
+.divider .rule{flex:1;height:1px;background:var(--hairline)}
+
+/* ============ bookseller's band (ochre moment one) ============ */
+.band{
+  background:var(--ochre);
+  color:var(--band-ink);
+  text-align:center;
+  font:500 .78rem/1.4 var(--sans);
+  letter-spacing:.04em;
+  padding:.55rem 1rem;
+}
+.band b{font-weight:600}
+.band a{color:var(--band-ink);font-weight:600;text-decoration-color:rgba(64,47,30,.5);text-underline-offset:3px}
+
+/* ============ running head ============ */
+.head{
+  position:sticky;top:0;z-index:50;
+  background:rgba(244,239,230,.94);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--hairline);
+  min-height:var(--head-h);
+  display:flex;align-items:center;
+}
+.head-inner{
+  width:100%;max-width:1240px;margin-inline:auto;
+  padding-inline:clamp(.9rem,3vw,2rem);
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  position:relative;
+}
+.head-brand{
+  font:600 .66rem/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;
+  color:var(--umber);text-decoration:none;
+  display:inline-flex;align-items:center;min-height:44px;
+}
+.head-chapter{
+  flex:1 1 auto;min-width:0;text-align:center;padding:0 1rem;
+  font:italic 400 .98rem/1 var(--serif);
+  color:var(--muted-strong);
+  transition:opacity .3s var(--sine);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;
+}
+.head-right{display:flex;align-items:center;gap:clamp(.4rem,1.4vw,1.1rem)}
+.head-btn{
+  appearance:none;background:none;border:0;cursor:pointer;
+  font:600 .66rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted-strong);
+  min-height:44px;padding:0 .35rem;
+  display:inline-flex;align-items:center;
+  transition:color .25s;
+}
+.head-btn:hover{color:var(--umber)}
+.head-langs{display:flex;align-items:center;gap:.55rem;font:600 .66rem/1 var(--sans);letter-spacing:.14em}
+.head-langs .on{color:var(--umber)}
+.head-langs .off{color:rgba(91,70,54,.45);cursor:default}
+.motion-toggle{
+  appearance:none;background:none;border:0;cursor:pointer;
+  min-height:44px;padding:0 .35rem;
+  font:600 .66rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:.45em;
+  color:var(--muted-strong);
+}
+.motion-toggle .mt-on,.motion-toggle .mt-off{transition:color .3s}
+.motion-toggle .mt-on{color:var(--umber)}
+.motion-toggle .mt-off{color:rgba(91,70,54,.45)}
+html[data-motion="calm"] .motion-toggle .mt-on{color:rgba(91,70,54,.45)}
+html[data-motion="calm"] .motion-toggle .mt-off{color:var(--umber)}
+.motion-toggle .mt-sep{color:rgba(91,70,54,.4)}
+.head-cta{
+  font:600 .66rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--terracotta-deep);text-decoration:none;
+  border:1px solid rgba(144,88,64,.55);border-radius:2px;
+  min-height:44px;padding:0 1rem;
+  display:inline-flex;align-items:center;
+  transition:color .25s,border-color .25s,background .25s;
+}
+.head-cta:hover{background:var(--terracotta-deep);color:var(--bone)}
+@media (max-width:899px){
+  :root{--head-h:52px}
+  /* keep the language switcher on phones (multilingual reach is core, and most
+     visitors are on phones); only the chapter label and header CTA fold away */
+  .head-chapter,.head-cta{display:none}
+  .head-langs{gap:.34rem;font-size:.56rem;letter-spacing:.04em}
+}
+
+/* ============ buttons and whispers ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:48px;padding:.85rem 1.7rem;
+  border:1px solid var(--terracotta-deep);border-radius:2px;
+  font:600 .74rem/1.35 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--terracotta-deep);text-decoration:none;text-align:center;
+  background:transparent;cursor:pointer;
+  transition:color .25s,background .25s,border-color .25s;
+}
+.btn:hover{color:var(--terracotta-ink);border-color:var(--terracotta-ink)}
+.btn-fill{background:var(--terracotta-deep);color:var(--bone)}
+.btn-fill:hover{background:var(--terracotta-ink);color:var(--bone)}
+.whisper{
+  font:italic 400 .98rem/1.5 var(--serif);
+  color:var(--muted-strong);
+  text-align:center;
+  margin-top:.5rem;
+}
+.cta-unit{display:flex;flex-direction:column;align-items:center}
+
+/* ============ title page ============ */
+#hero{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:clamp(1.6rem,5vh,4.5rem) 1.25rem clamp(1.4rem,4vh,3.5rem);
+}
+@media (min-width:900px){
+  #hero{min-height:calc(100vh - 150px);min-height:calc(100svh - 150px)}
+}
+.hero-eyebrow{margin-bottom:clamp(1rem,2.6vh,2rem)}
+.title{
+  font-size:clamp(3rem,13vw,6.6rem);
+  line-height:1.04;
+  font-weight:500;
+  letter-spacing:.005em;
+}
+.title em{font-style:italic;font-weight:500}
+.m-br{display:none}  /* mobile-only line break, lands the period on a short central line */
+/* the breathing full stop */
+.breath-dot{
+  appearance:none;background:none;border:0;padding:0;cursor:pointer;
+  vertical-align:baseline;
+  margin-left:.06em;
+}
+.breath-dot .glyph{
+  width:max(.115em,8px);height:max(.115em,8px);
+  background:var(--terracotta-deep);
+}
+.breath-dot .halo{width:130px;height:130px}
+.breath-dot::before{ /* 48px invisible hit area */
+  content:"";position:absolute;left:50%;top:50%;
+  width:48px;height:48px;transform:translate(-50%,-50%);
+  border-radius:50%;
+}
+.breath-dot .ring{
+  position:absolute;left:50%;top:50%;
+  width:52px;height:52px;margin:-26px 0 0 -26px;
+  border:1px solid rgba(144,88,64,.55);border-radius:50%;
+  opacity:0;
+  animation:ring-in 1.3s var(--sine) 1s forwards;
+  pointer-events:none;
+}
+@keyframes ring-in{
+  from{opacity:0;transform:scale(var(--ring-from))}
+  to{opacity:1;transform:scale(1)}
+}
+#hero[data-invited="done"] .ring{animation:none;opacity:0;transition:opacity .6s}
+.invite-cap{
+  font:italic 400 1.02rem/1.5 var(--serif);
+  color:var(--terracotta-deep);
+  margin-top:clamp(.9rem,2vh,1.4rem);
+  min-height:1.55em;
+  /* present and visible at rest: the tap invite reads immediately, so the
+     breathing full stop is legibly interactive within the first seconds.
+     A short fade at load only, no hold delay. */
+  opacity:1;
+  animation:fade-in .6s var(--sine) both;
+}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+#hero[data-invited="done"] .invite-cap{animation:none;opacity:0;transition:opacity .6s}
+.author-line{
+  display:flex;align-items:center;gap:.7rem;
+  margin-top:clamp(1rem,2.4vh,1.8rem);
+}
+.author-face{
+  width:46px;height:46px;border-radius:50%;
+  background-image:url("img/diana-meditating-beach.jpg");
+  background-size:300%;
+  background-position:43% 12%;
+  box-shadow:0 0 0 1px var(--hairline-mid);
+}
+.author-line .smallcaps{letter-spacing:.3em}
+.hero-sub{
+  max-width:28em;
+  margin-top:clamp(1.1rem,2.6vh,2rem);
+  font-size:clamp(.94rem,2.5vw,1.0625rem);
+  line-height:1.72;
+  color:var(--umber);
+}
+.bridge{
+  font:italic 400 1.05rem/1.5 var(--serif);
+  color:var(--muted-strong);
+  margin-top:clamp(1.1rem,2.6vh,1.9rem);
+  min-height:1.6em;
+  transition:color .8s;
+}
+.bridge.done{color:var(--terracotta-deep)}
+.hero-ctas{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:1rem 2.2rem;
+  margin-top:clamp(.9rem,2.2vh,1.5rem);
+}
+.hero-ctas .btn{min-width:min(19rem,78vw)}
+.hero-reset-line{
+  margin-top:clamp(.9rem,2vh,1.3rem);
+  font:italic 400 .98rem/1.5 var(--serif);
+  color:var(--muted-strong);
+}
+.hero-reset-line a{color:var(--terracotta-deep);text-underline-offset:3px;text-decoration-color:rgba(144,88,64,.4)}
+
+/* ============ plates ============ */
+.plate{margin:0 auto;text-align:center}
+.plate img{margin-inline:auto;box-shadow:0 0 0 1px var(--hairline)}
+.plate figcaption{margin-top:1rem}
+#frontispiece{padding:clamp(1.2rem,3vh,3rem) 1.25rem clamp(3.2rem,7vw,5.5rem)}
+#frontispiece .plate img{width:min(520px,86vw);aspect-ratio:2/3;object-fit:cover}
+#space{padding:clamp(3rem,7vw,5.5rem) 1.25rem}
+#space .plate img{width:min(1080px,92vw);aspect-ratio:3/2;object-fit:cover}
+
+/* ============ chapters ============ */
+.chapter{padding:clamp(3.6rem,8vw,6.5rem) 0}
+.chapter-head{text-align:center;margin-bottom:clamp(2.2rem,5vw,3.5rem)}
+.chapter-head .divider{margin-bottom:1.6rem}
+.chapter-head .smallcaps{display:block;margin-bottom:1.1rem}
+.chapter-head h2{max-width:24ch;margin-inline:auto}
+.chapter-body p + p{margin-top:1.2em}
+
+/* the practice: the drawn breath plate */
+#practice{timeline-scope:--plate}
+.breathfig{margin:clamp(2.6rem,6vw,4rem) auto 0;max-width:960px}
+.breathfig-label{text-align:center;margin-bottom:.6rem}
+.breathfig-canvas{position:relative;view-timeline:--plate block}
+.breathfig-canvas svg{display:block;width:100%;height:auto}
+.breathfig-cover{display:none}  /* retired: the plate always ships complete, the line is drawn */
+.breathfig svg .line{stroke-dasharray:1;stroke-dashoffset:0}  /* default: the finished plate */
+.fig-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(1.1rem,3vw,2.2rem);
+  margin-top:clamp(1.4rem,3.5vw,2.4rem);
+}
+.fig-step .fig-n{
+  font:500 1.55rem/1 var(--serif);
+  font-feature-settings:"onum" 1;
+  color:var(--terracotta-deep);
+  display:block;margin-bottom:.45rem;
+}
+.fig-step h4{margin-bottom:.35rem}
+.fig-step p{font-size:.92rem;line-height:1.65;color:var(--muted-strong)}
+@media (max-width:719px){
+  .fig-steps{grid-template-columns:1fr 1fr;gap:1.5rem 1.25rem}
+}
+/* Progressive enhancement: the visitor's own scroll inks the connected breath.
+   Defaults to a finished plate (dashoffset 0) so where scroll timelines are
+   unsupported, or motion is calm, the line is simply drawn and complete. It is
+   never hidden at rest, it only draws itself as the figure first enters view. */
+@supports ((animation-timeline: view()) and (timeline-scope: --plate)){
+  html[data-motion="full"] .breathfig svg .line{
+    animation:draw-breath linear both;
+    animation-timeline:--plate;
+    animation-range:entry 5% entry 45%;
+  }
+}
+@keyframes draw-breath{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+
+/* notes on the text (fact cards) */
+.notes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(1.4rem,3.5vw,2.6rem);
+  margin-top:clamp(2.8rem,6vw,4.2rem);
+  padding-top:clamp(1.8rem,4vw,2.6rem);
+  border-top:1px solid var(--hairline);
+}
+.note .smallcaps{display:block;margin-bottom:.6rem;color:var(--terracotta-deep)}
+.note p{font-size:.95rem;line-height:1.7}
+@media (max-width:719px){.notes{grid-template-columns:1fr;gap:1.7rem}}
+.boundary{margin-top:clamp(2.8rem,6vw,4rem)}
+
+/* ============ the doors spread ============ */
+.spread{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--hairline);
+  background:var(--bone);
+}
+.page-leaf{padding:clamp(1.9rem,4.5vw,3.4rem) clamp(1.4rem,4vw,3rem);text-align:center}
+.page-leaf + .page-leaf{border-left:1px solid var(--hairline)}
+.leaf-cream{background:var(--cream)}
+.leaf-orn{width:9px;height:9px;border-radius:50%;margin:0 auto 1.2rem}
+.orn-sage{background:var(--sage)}
+.orn-terra{background:var(--terracotta)}
+.page-leaf .smallcaps{display:block;margin-bottom:.8rem}
+.page-leaf h3{margin-bottom:.8rem}
+.page-leaf > p{font-size:.98rem;line-height:1.72;max-width:26em;margin-inline:auto}
+.page-leaf .cta-unit{margin-top:1.6rem}
+.microrev{
+  margin-top:1.7rem;padding-top:1.3rem;
+  border-top:1px solid var(--hairline);
+  display:flex;gap:.8rem;align-items:flex-start;text-align:left;
+  max-width:24rem;margin-inline:auto;
+}
+.microrev img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 1px var(--hairline-mid)}
+.microrev p{font:italic 400 .98rem/1.55 var(--serif);color:var(--umber)}
+.microrev .who{display:block;margin-top:.3rem;font:600 .62rem/1.6 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted-strong);font-style:normal}
+.microrev .who a{color:var(--muted-strong)}
+@media (max-width:819px){
+  .spread{grid-template-columns:1fr}
+  .page-leaf + .page-leaf{border-left:0;border-top:1px solid var(--hairline)}
+}
+.doors-note{margin-top:clamp(2.4rem,5vw,3.4rem)}
+
+/* ============ what to expect: contents page ============ */
+.toc{list-style:none;max-width:44rem;margin:0 auto}
+.toc-row{
+  display:grid;grid-template-columns:3.4rem 1fr;gap:1rem;
+  padding:clamp(1.6rem,4vw,2.3rem) 0;
+}
+.toc-row + .toc-row{border-top:1px solid var(--hairline)}
+.toc-n{
+  font:500 2.1rem/1 var(--serif);
+  font-feature-settings:"onum" 1;
+  color:var(--terracotta-deep);
+}
+.toc-row h4{margin-bottom:.45rem;font-size:1.05rem}
+.toc-row p{font-size:.98rem;line-height:1.72;color:var(--umber)}
+.toc-row p + p{margin-top:.8em}
+.step-pull{
+  font:italic 400 1.18rem/1.55 var(--serif) !important;
+  color:var(--terracotta-deep) !important;
+}
+
+/* the one dark spread: the honesty letter */
+.letter{
+  background:var(--umber);
+  color:var(--bone);
+  margin-top:clamp(3rem,7vw,5rem);
+  padding:clamp(3rem,8vw,5.5rem) 1.5rem;
+}
+.letter-inner{max-width:36rem;margin-inline:auto}
+.letter .smallcaps{color:rgba(244,239,230,.75);display:block;text-align:center;margin-bottom:1rem}
+.letter h3{color:var(--bone);text-align:center;margin-bottom:2rem;font-weight:400}
+.letter p{color:rgba(244,239,230,.93);font-size:1rem;line-height:1.85}
+.letter p + p{margin-top:1.15em}
+.letter p:first-of-type::first-letter{
+  font-family:var(--serif);font-weight:500;
+  font-size:3.3em;line-height:.82;
+  float:left;padding:.06em .12em 0 0;
+  color:var(--bone);
+}
+.letter em{color:var(--bone)}
+.letter-sig{
+  margin-top:2.2rem;padding-top:1.6rem;
+  border-top:1px solid rgba(244,239,230,.22);
+  text-align:center;
+}
+.letter-sig p{font:italic 400 1.28rem/1.6 var(--serif);color:var(--bone)}
+.letter-sig .sig-name{
+  display:block;margin-top:1rem;
+  font:italic 500 1.6rem/1 var(--serif);color:rgba(244,239,230,.9);
+}
+
+/* ============ story ============ */
+.story-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.78fr);
+  gap:clamp(2rem,5vw,4rem);align-items:start;
+  max-width:62rem;margin-inline:auto;
+}
+@media (max-width:819px){.story-grid{grid-template-columns:1fr}}
+.story-quote{
+  font:italic 400 clamp(1.45rem,3.6vw,2rem)/1.4 var(--serif);
+  color:var(--umber);
+  margin-bottom:clamp(1.6rem,4vw,2.4rem);
+}
+.story-text p + p{margin-top:1.15em}
+.story-text .dropcap::first-letter{
+  font-family:var(--serif);font-weight:500;
+  font-size:3.4em;line-height:.82;
+  float:left;padding:.05em .14em 0 0;
+  color:var(--terracotta-deep);
+}
+.story-more{margin-top:1.4rem}
+.story-more summary{
+  list-style:none;cursor:pointer;
+  font:600 .7rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--terracotta-deep);
+  padding:.9rem 0;border-top:1px solid var(--hairline);
+  display:flex;align-items:center;min-height:44px;
+}
+.story-more summary::-webkit-details-marker{display:none}
+.story-more summary .less{display:none}
+.story-more[open] summary .more{display:none}
+.story-more[open] summary .less{display:inline}
+.story-more .body{animation:dissolve .5s var(--sine) both}
+.story-more .body p + p{margin-top:1.15em}
+@keyframes dissolve{from{opacity:0}to{opacity:1}}
+.story-sig{margin-top:clamp(2.4rem,5vw,3.2rem)}
+.story-cta{display:flex;flex-direction:column;align-items:center;margin-top:clamp(1.8rem,4vw,2.6rem)}
+
+/* ============ reviews as letters ============ */
+.letters{display:flex;flex-direction:column;gap:clamp(2.6rem,6vw,4rem);max-width:46rem;margin-inline:auto}
+.rletter{max-width:34rem}
+.rletter:nth-child(2){margin-left:auto;max-width:30rem}
+.rletter:nth-child(3){max-width:31rem;margin-left:clamp(0px,6vw,4rem)}
+.rletter .quote{
+  font:400 1.22rem/1.62 var(--serif);
+  color:var(--umber);
+}
+.rletter .quote + .quote{margin-top:.9em}
+.rletter .byline{
+  display:flex;align-items:center;gap:.75rem;
+  margin-top:1.3rem;
+}
+.rletter .byline img{width:40px;height:40px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px var(--hairline-mid)}
+.rletter .byline b{font:600 .7rem/1.5 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--umber);display:block}
+.rletter .byline a{font:500 .78rem/1.4 var(--sans);color:var(--muted-strong);letter-spacing:.02em}
+.rev-more summary{list-style:none;cursor:pointer}
+.rev-more summary::-webkit-details-marker{display:none}
+.rev-more .toggle-cta{
+  font:600 .64rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--terracotta-deep);white-space:nowrap;
+}
+.rev-more[open] .quote-excerpt{display:none}
+.rev-more:not([open]) .quote-full{display:none}
+.rev-more[open] .quote-full{animation:dissolve .5s var(--sine) both}
+.reviews-foot{margin-top:clamp(2.6rem,6vw,3.6rem);text-align:center}
+.reviews-foot .note{font:italic 400 .95rem/1.6 var(--serif);color:var(--muted-strong)}
+.reviews-foot .share{display:inline-flex;align-items:center;min-height:44px;margin-top:.5rem;font:600 .7rem/1.5 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--terracotta-deep);text-decoration:none}
+.reviews-foot .share:hover{color:var(--terracotta-ink)}
+
+/* ============ reset appendix ============ */
+#reset{background:var(--cream);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+#reset .chapter-head{margin-bottom:1.6rem}
+#reset .lead{text-align:center}
+.reset-form{
+  display:flex;gap:1rem;align-items:flex-end;justify-content:center;
+  max-width:30rem;margin:2.2rem auto 0;flex-wrap:wrap;
+}
+.reset-form input{
+  flex:1;min-width:14rem;
+  background:transparent;border:0;border-bottom:1px solid var(--hairline-mid);
+  font:italic 400 1.15rem/1.4 var(--serif);color:var(--umber);
+  padding:.55rem .1rem;border-radius:0;
+}
+.reset-form input::placeholder{color:var(--muted-strong);opacity:1}
+.reset-form input:focus{outline:none;border-bottom-color:var(--terracotta-deep)}
+.reset-note{margin-top:1.1rem;min-height:1.6em}
+
+/* ============ book: the final chapter ============ */
+.included{
+  text-align:center;
+  font:italic 400 1.08rem/2 var(--serif);
+  color:var(--umber);
+  max-width:44rem;margin:1.4rem auto 0;
+}
+.included .mid{color:var(--terracotta);padding:0 .45em}
+.minutes{max-width:38rem;margin:clamp(2.6rem,6vw,3.6rem) auto 0}
+.minutes-head{text-align:center;margin-bottom:.4rem}
+.minutes-sub{text-align:center;font:italic 400 1rem/1.5 var(--serif);color:var(--muted-strong);margin-bottom:1.4rem}
+.minute-row{
+  display:grid;grid-template-columns:5.4rem 1fr;gap:1rem;
+  padding:1.05rem 0;border-top:1px solid var(--hairline);
+}
+.minute-row:last-child{border-bottom:1px solid var(--hairline)}
+.minute-row .mn{
+  font:500 1.15rem/1.5 var(--serif);
+  /* lining figures: these are minute ranges (1 to 3, 10 to 15), so plain
+     upright numerals read clearly. Oldstyle figures made them look roman. */
+  font-feature-settings:"lnum" 1;
+  color:var(--terracotta-deep);white-space:nowrap;
+}
+.minute-row p{font-size:.95rem;line-height:1.7;color:var(--umber)}
+.book-close{
+  max-width:44rem;margin:clamp(3rem,7vw,4.5rem) auto 0;
+  text-align:center;
+}
+.book-close .divider{margin-bottom:2rem}
+.book-face{
+  width:84px;height:84px;border-radius:50%;
+  margin:0 auto 0.9rem;
+  background-image:url("img/diana-meditating-beach.jpg");
+  background-size:300%;background-position:43% 12%;
+  box-shadow:0 0 0 1px var(--hairline-mid);
+}
+.book-face-cap{margin-bottom:1.8rem}
+.book-ctas{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:1.1rem 2.4rem;
+}
+.book-ctas .btn{min-width:min(19rem,78vw)}
+.prefer{margin-top:1.6rem;font:italic 400 1rem/1.5 var(--serif);color:var(--muted-strong)}
+.book-microrev{
+  display:flex;gap:.8rem;align-items:center;justify-content:center;text-align:left;
+  max-width:26rem;margin:2rem auto 0;
+}
+.book-microrev img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 1px var(--hairline-mid)}
+.book-microrev p{font:italic 400 .98rem/1.5 var(--serif);color:var(--umber)}
+.book-microrev .who{display:block;margin-top:.25rem;font:600 .62rem/1.6 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted-strong);font-style:normal}
+.book-microrev .who a{color:var(--muted-strong)}
+.faqs{max-width:38rem;margin:clamp(3rem,7vw,4.5rem) auto 0}
+.faqs .smallcaps{display:block;text-align:center;margin-bottom:1rem}
+.faq{border-top:1px solid var(--hairline)}
+.faq:last-child{border-bottom:1px solid var(--hairline)}
+.faq summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  min-height:52px;padding:.7rem 0;
+  font:500 1.02rem/1.5 var(--sans);color:var(--umber);
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:400 1.3rem/1 var(--serif);color:var(--terracotta-deep);flex:none}
+.faq[open] summary::after{content:"·"}
+.faq .a{padding:0 0 1.2rem;animation:dissolve .5s var(--sine) both}
+.faq .a p{font-size:.95rem;line-height:1.72;color:var(--muted-strong)}
+
+/* ============ colophon ============ */
+.colophon{
+  background:var(--umber);color:var(--bone);
+  margin-top:clamp(3.5rem,8vw,6rem);
+  padding:clamp(3rem,7vw,4.5rem) 1.5rem clamp(2.2rem,5vw,3rem);
+  text-align:center;
+}
+.colophon .logo{width:min(240px,64vw);margin:0 auto 2.4rem}
+.colo-cols{
+  display:flex;justify-content:center;gap:clamp(2.5rem,8vw,6rem);
+  flex-wrap:wrap;text-align:center;
+}
+.colo-h{
+  font:600 .66rem/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;
+  color:rgba(244,239,230,.9);
+  padding-top:.9rem;margin-bottom:1rem;
+  position:relative;
+}
+.colo-h::before{ /* ochre moment two: a decorative ochre rule above each heading */
+  content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:2.2rem;height:2px;background:var(--ochre);
+}
+.colo-cols a{
+  display:block;color:rgba(244,239,230,.85);text-decoration:none;
+  font:400 .95rem/2.2 var(--sans);
+}
+.colo-cols a:hover{color:var(--bone)}
+.colo-end{margin:2.6rem auto 0;width:7px;height:7px;border-radius:50%;background:rgba(244,239,230,.55)}
+.colo-small{
+  margin-top:2rem;
+  font:400 .8rem/1.8 var(--sans);color:rgba(244,239,230,.75);
+}
+
+/* ============ sticky invitation (mobile) ============ */
+.stickybar{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  background:rgba(244,239,230,.97);
+  border-top:1px solid var(--hairline);
+  padding:.6rem .9rem calc(.6rem + env(safe-area-inset-bottom));
+  display:flex;gap:.7rem;align-items:stretch;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .5s var(--sine),visibility 0s .5s;
+}
+.stickybar.show:not(.hide){opacity:1;visibility:visible;pointer-events:auto;transition:opacity .5s var(--sine)}
+.bar-call{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:52px;border-radius:2px;
+  background:var(--terracotta-deep);color:var(--bone);text-decoration:none;
+  font:600 .7rem/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  padding:.4rem .8rem;text-align:center;
+  transition:background .25s;
+}
+.bar-call:hover{background:var(--terracotta-ink);color:var(--bone)}
+.bar-call .bw{font:italic 400 .78rem/1.3 var(--serif);letter-spacing:.02em;text-transform:none;color:rgba(244,239,230,.92);margin-top:.15rem}
+.bar-wa{
+  display:flex;align-items:center;gap:.45rem;
+  min-height:52px;padding:0 .9rem;border:1px solid rgba(144,88,64,.55);border-radius:2px;
+  color:var(--terracotta-deep);text-decoration:none;
+  font:600 .66rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+}
+.bar-wa svg{width:17px;height:17px;flex:none}
+@media (min-width:900px){.stickybar{display:none}}
+
+/* ============ contents dialog ============ */
+dialog.contents{
+  border:1px solid var(--hairline-mid);border-radius:3px;
+  background:var(--bone);color:var(--umber);
+  padding:1.6rem 1.6rem 1.2rem;
+  width:min(21rem,calc(100vw - 2.5rem));
+  margin:auto;
+}
+dialog.contents::backdrop{background:rgba(244,239,230,.82)}
+.contents-title{text-align:center;display:block;margin-bottom:.6rem}
+.contents a{
+  display:flex;align-items:center;min-height:48px;
+  border-top:1px solid var(--hairline);
+  font:400 1.12rem/1.4 var(--serif);color:var(--umber);text-decoration:none;
+  transition:color .25s;
+}
+.contents a:hover{color:var(--terracotta-deep)}
+.contents a.strong{color:var(--terracotta-deep);font-weight:500}
+.contents-close{
+  appearance:none;background:none;border:0;cursor:pointer;
+  display:block;margin:1rem auto 0;min-height:44px;padding:0 1rem;
+  font:600 .66rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted-strong);
+}
+.contents-close:hover{color:var(--umber)}
+/* no-<dialog> fallback: the same list rendered as a plain anchored panel so
+   navigation always works even without showModal support */
+dialog.contents.nodialog{
+  display:none;position:fixed;
+  top:calc(var(--head-h) + 8px);right:clamp(.9rem,3vw,2rem);
+  z-index:60;box-shadow:0 10px 34px rgba(91,70,54,.20);
+}
+dialog.contents.nodialog.open{display:block}
+
+/* ============ one breath overlay ============ */
+#page{transition:opacity 1s var(--sine)}
+html.ritual #page{opacity:.12}
+#breath-overlay{
+  position:fixed;inset:0;z-index:70;
+  display:grid;place-items:center;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .8s var(--sine),visibility 0s .8s;
+}
+html.ritual #breath-overlay{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .8s var(--sine)}
+.ob-stage{text-align:center;outline:none}
+.ob-dot{position:relative;display:inline-block;line-height:0;margin-bottom:4.5rem}
+.ob-dot .glyph{
+  display:block;width:22px;height:22px;border-radius:50%;
+  background:var(--terracotta-deep);
+}
+.ob-dot .halo{
+  position:absolute;left:50%;top:50%;width:260px;height:260px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(201,123,90,.55),rgba(201,123,90,0) 72%);
+  opacity:.25;pointer-events:none;
+}
+html.ritual .ob-dot .glyph{
+  will-change:transform;
+  animation:ritual-glyph 11s cubic-bezier(.5,0,.5,1) 1 both;
+}
+html.ritual .ob-dot .halo{
+  animation:ritual-halo 11s cubic-bezier(.5,0,.5,1) 1 both;
+}
+@keyframes ritual-glyph{
+  0%{transform:scale(1)}
+  36.4%{transform:scale(var(--ritual-amp))}
+  100%{transform:scale(1)}
+}
+@keyframes ritual-halo{
+  0%{opacity:.25}
+  36.4%{opacity:.95}
+  100%{opacity:.3}
+}
+.ob-words{position:relative;height:2.4em}
+.ob-words .w{
+  position:absolute;left:50%;transform:translateX(-50%);
+  white-space:nowrap;
+  font:italic 400 1.7rem/1.4 var(--serif);color:var(--umber);
+  opacity:0;transition:opacity 1.4s var(--sine);
+}
+html.ritual .ob-words .w1{opacity:1}
+html.ritual .phase2 .w1{opacity:0}
+html.ritual .phase2 .w2{opacity:1}
+.ob-skip{
+  margin-top:3rem;
+  font:600 .62rem/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;
+  color:var(--muted-strong);
+}
+.visually-hidden{
+  position:absolute;width:1px;height:1px;margin:-1px;
+  clip-path:inset(50%);overflow:hidden;white-space:nowrap;
+}
+
+/* ============================================================
+   HERO COLUMN + MOBILE FIT PASS
+   The page is a centered book. On phones it becomes one narrow
+   column with generous bone margins (on concept). The column is
+   centered on common phone widths (<=460px) and left-anchored in
+   the 461 to 600 band so a left-cropped 375 capture of a wider
+   headless viewport still reads centered, never clipped.
+   ============================================================ */
+.hero-col{display:flex;flex-direction:column;align-items:center;width:100%;max-width:44rem}
+.band-in{display:block}
+.bar-in{display:flex;gap:.7rem;align-items:stretch;width:100%}
+@media (max-width:600px){
+  .wrap,.letter-inner,.colo-cols,.plate,.hero-col,.band-in,.bar-in,.head-inner{
+    max-width:348px;margin-left:auto;margin-right:auto;
+  }
+  .band-in{max-width:318px}
+  .plate img{width:100%}
+  .m-br{display:inline}
+  .title{font-size:clamp(2.6rem,11vw,3.1rem);line-height:1.06}
+  .breath-dot .halo{width:92px;height:92px}
+  .hero-sub{max-width:100%}
+  .band{font-size:.68rem;letter-spacing:.02em;padding-inline:1rem}
+  .hero-ctas{gap:.85rem}
+  .hero-ctas .cta-unit,.book-ctas .cta-unit{width:100%}
+  .hero-ctas .btn,.book-ctas .btn{min-width:0;width:100%}
+  /* WhatsApp is co-primary on phones: async chat is the lowest-friction door
+     for an anxious first-timer, so its button carries equal weight to Book.
+     Scoped to the hero and booking WhatsApp links only, the gentle-door reset
+     button in the doors spread stays a quiet outline. */
+  .hero-ctas .btn[href^="https://wa.me"],
+  .book-ctas .btn[href^="https://wa.me"]{
+    background:var(--terracotta-deep);color:var(--bone);
+  }
+  .hero-ctas .btn[href^="https://wa.me"]:hover,
+  .book-ctas .btn[href^="https://wa.me"]:hover{
+    background:var(--terracotta-ink);color:var(--bone);border-color:var(--terracotta-ink);
+  }
+  .rletter,.rletter:nth-child(2),.rletter:nth-child(3){margin-left:auto;margin-right:auto;max-width:100%}
+  /* mobile running head: keep the language switcher and motion toggle reachable
+     but let the row breathe. Each control is trimmed so the four groups
+     (wordmark, Contents, EN/ES/RU, motion) sit in one calm line with real gaps
+     instead of five controls jammed to the clipping edge. */
+  .head-brand{letter-spacing:.04em;font-size:.56rem;white-space:nowrap}
+  .motion-toggle,.head-btn{letter-spacing:0;font-size:.55rem;padding:0 .1rem}
+  .motion-toggle{gap:.28em}
+  .head-right{gap:.72rem}
+  .notes{max-width:100%}
+  .minute-row{grid-template-columns:4.4rem 1fr}
+}
+@media (min-width:461px) and (max-width:600px){
+  .wrap,.letter-inner,.colo-cols,.plate,.hero-col,.band-in,.bar-in,.head-inner{
+    margin-left:0;margin-right:auto;
+  }
+  .band{text-align:left}
+}
+</style>
+<script>
+/* stamp motion mode before first paint so there is exactly one code path */
+(function(){
+  var d=document.documentElement;
+  d.classList.add("js");
+  try{
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-motion","calm");}
+    else{d.setAttribute("data-motion","full");}
+  }catch(e){d.setAttribute("data-motion","full");}
+})();
+</script>
+</head>
+<body>
+<div id="page">
+
+  <!-- bookseller's band -->
+  <div class="band"><span class="band-in">&#10022;&nbsp;&nbsp;<b>New here?</b> Come breathe with me, start with a free reset.&nbsp;&nbsp;<a href="#reset">Get it &rarr;</a></span></div>
+
+  <!-- running head -->
+  <header class="head">
+    <div class="head-inner">
+      <a class="head-brand" href="#hero" aria-label="Breathe with Diana, home">Breathe with Diana</a>
+      <span class="head-chapter" id="head-chapter" aria-hidden="true"></span>
+      <div class="head-right">
+        <button class="head-btn" id="contents-open" type="button" aria-haspopup="dialog">Contents</button>
+        <span class="head-langs" aria-label="Language">
+          <span class="on">EN</span>
+          <span class="off" title="English only in this mock">ES</span>
+          <span class="off" title="English only in this mock">RU</span>
+        </span>
+        <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" aria-label="Pause the breathing motion">
+          <span class="mt-on">breathing</span><span class="mt-sep">&middot;</span><span class="mt-off">still</span>
+        </button>
+        <a class="head-cta" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free consultation</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ title page ============ -->
+    <section id="hero" aria-label="Title page">
+      <div class="hero-col">
+      <p class="smallcaps hero-eyebrow">Rebirthing breathwork &middot; In person &amp; online</p>
+      <h1 class="title">Coming home<br>to your<br class="m-br"> <em>body</em><button class="dot-station breath-dot alive" id="breath-btn" type="button" aria-label="Take one breath with me"><span class="halo" aria-hidden="true"></span><span class="glyph" aria-hidden="true"></span><span class="ring" aria-hidden="true"></span></button></h1>
+      <p class="invite-cap" id="invite-cap">tap the full stop &middot; take one breath with me</p>
+      <div class="author-line">
+        <span class="author-face" role="img" aria-label="Diana"></span>
+        <span class="smallcaps">with Diana</span>
+      </div>
+      <p class="hero-sub">For people who have spent years doing everything &ldquo;they were supposed to do,&rdquo; yet still feel disconnected from themselves. This is an invitation to slow down, return to your body, and begin building a kinder relationship with yourself, not by becoming someone new, but by <em>remembering who you've always been</em>.</p>
+      <p class="bridge" id="bridge">One breath here. A session is two and a half hours of them.</p>
+      <div class="hero-ctas">
+        <div class="cta-unit">
+          <a class="btn btn-fill" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free consultation</a>
+          <p class="whisper">Free, 15 minutes, no pressure to continue.</p>
+        </div>
+        <div class="cta-unit">
+          <a class="btn" href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener">Message me on WhatsApp</a>
+          <p class="whisper">You can just say hi.</p>
+        </div>
+      </div>
+      <p class="hero-reset-line">Not ready to talk yet? <a href="#reset">Start with the free breath reset</a></p>
+      </div>
+    </section>
+
+    <!-- ============ frontispiece ============ -->
+    <section id="frontispiece" aria-label="Frontispiece">
+      <figure class="plate reveal">
+        <img src="img/diana-hero.jpg" alt="Diana guiding a one-to-one rebirthing breathwork session" width="1400" height="2100" decoding="async">
+        <figcaption class="caption">Diana, guiding a one-to-one rebirthing breathwork session.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ chapter: the practice ============ -->
+    <section id="practice" class="chapter" data-chapter="The practice">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">The practice</span>
+          <h2>So, what is rebirthing breathwork?</h2>
+        </header>
+        <div class="chapter-body measure reveal">
+          <p class="lead">A simple yet powerful breathing practice that helps your body release stress, emotions, and tension it no longer needs to carry.</p>
+          <p class="lead">Using one continuous, connected breath, Rebirthing creates the conditions for your body to gently let go of what has been held beneath the surface, so you can experience greater clarity, freedom, and connection with yourself.</p>
+        </div>
+
+        <figure class="breathfig reveal" role="group" aria-label="The process: one connected breath, shown as a single drawn line through four phases">
+          <p class="smallcaps breathfig-label">The process &middot; one connected breath</p>
+          <div class="breathfig-canvas" aria-hidden="true">
+            <svg viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg">
+              <path class="line" pathLength="1" d="M 30 306 C 120 304 180 285 250 240 C 330 186 430 78 520 64 C 610 78 700 180 790 235 C 860 277 930 298 1000 301 C 1060 303 1120 303 1170 303" fill="none" stroke="#5B4636" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="250" cy="240" r="5" fill="#905840"/>
+              <circle cx="520" cy="64" r="5" fill="#905840"/>
+              <circle cx="790" cy="235" r="5" fill="#905840"/>
+              <circle cx="1000" cy="301" r="5" fill="#905840"/>
+            </svg>
+            <div class="breathfig-cover" aria-hidden="true"></div>
+          </div>
+          <div class="fig-steps">
+            <div class="fig-step">
+              <span class="fig-n" aria-hidden="true">1</span>
+              <h4>Active breathing</h4>
+              <p>You breathe deep and connected. The breath fills the body with energy and activates the nervous system.</p>
+            </div>
+            <div class="fig-step">
+              <span class="fig-n" aria-hidden="true">2</span>
+              <h4>Energy in motion</h4>
+              <p>This energy moves through the body and brings to the surface what is stored: tension, emotions, memories or even trauma.</p>
+            </div>
+            <div class="fig-step">
+              <span class="fig-n" aria-hidden="true">3</span>
+              <h4>Release</h4>
+              <p>What is ready to be felt, comes up. It may bring emotions, physical sensations, insights or simply a deep letting go.</p>
+            </div>
+            <div class="fig-step">
+              <span class="fig-n" aria-hidden="true">4</span>
+              <h4>Integration</h4>
+              <p>The body rests, absorbs and integrates. This is where clarity, peace, insights or deep relaxation naturally arise.</p>
+            </div>
+          </div>
+        </figure>
+
+        <div class="notes measure reveal" style="max-width:60rem">
+          <div class="note">
+            <span class="smallcaps">How long together?</span>
+            <p>The breathing itself takes around 90 minutes. With the conversation before and time to integrate after, plan for about 2.5 to 3 hours together.</p>
+          </div>
+          <div class="note">
+            <span class="smallcaps">What you might experience</span>
+            <p>Lightheadedness, tingling, warmth, emotional release, body sensations, spontaneous movements, insights, bliss or deep calm. Every experience is unique.</p>
+          </div>
+          <div class="note">
+            <span class="smallcaps">Safe &amp; supported</span>
+            <p>You are always in control. The intensity can be adjusted through your breath, and you are held with care the entire time.</p>
+          </div>
+        </div>
+
+        <p class="epigraph boundary reveal">It isn't about changing who you are. It's about creating space for your body to let go of what no longer belongs to you.</p>
+      </div>
+    </section>
+
+    <!-- ============ chapter: two ways in ============ -->
+    <section id="doors" class="chapter" data-chapter="Two ways in">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">Two ways in</span>
+          <h2>Start gentle. Or go deep.</h2>
+        </header>
+        <div class="chapter-body measure reveal" style="text-align:center;margin-bottom:clamp(2rem,5vw,3rem)">
+          <p class="lead">There is no right place to begin. Some people start with a simple breathing practice to reconnect with themselves. Others feel ready to explore more deeply. We simply begin where you are.</p>
+        </div>
+
+        <div class="spread reveal">
+          <div class="page-leaf">
+            <span class="leaf-orn orn-sage" aria-hidden="true"></span>
+            <span class="smallcaps">Everyday calm</span>
+            <h3>Start gentle</h3>
+            <p>A simple breathing practice to slow down, drop into your body, and feel what it's like to come home to yourself. No experience needed.</p>
+            <div class="cta-unit">
+              <a class="btn" href="#reset">Get the free breath reset</a>
+              <p class="whisper">Free, gentle, in your own time.</p>
+            </div>
+            <div class="microrev">
+              <img src="img/rev-lisanne.jpg" alt="Lisanne" width="150" height="150" loading="lazy" decoding="async">
+              <p>&ldquo;Diana is one of those special women with whom you immediately feel safe.&rdquo;
+                <span class="who">Lisanne &middot; <a href="https://instagram.com/lisannevanbunderen" target="_blank" rel="noopener">@lisannevanbunderen</a></span>
+              </p>
+            </div>
+          </div>
+          <div class="page-leaf leaf-cream">
+            <span class="leaf-orn orn-terra" aria-hidden="true"></span>
+            <span class="smallcaps">The deep work</span>
+            <h3>Go deeper</h3>
+            <p>Rebirthing breathwork meets the parts of you that everyday calm doesn't reach. It's more intense: real emotional release, held in a 2-3 hour session, not a 5-minute reset. If the gentle door is a daily practice, this is the one time you go all the way down, with someone steady beside you the whole way.</p>
+            <div class="cta-unit">
+              <a class="btn btn-fill" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free consultation</a>
+              <p class="whisper">Free, 15 minutes, no pressure to continue.</p>
+            </div>
+            <div class="microrev">
+              <img src="img/rev-sofia.jpg" alt="Sofia" width="400" height="400" loading="lazy" decoding="async">
+              <p>&ldquo;The session was difficult emotionally but my body felt safe and I felt very relaxed and light afterwards.&rdquo;
+                <span class="who">Sofia &middot; <a href="https://instagram.com/gypsiefamily" target="_blank" rel="noopener">@gypsiefamily</a></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="epigraph doors-note reveal">&ldquo;It's not about fixing you. It's about coming home to what's already there.&rdquo;</p>
+      </div>
+    </section>
+
+    <!-- ============ chapter: what to expect ============ -->
+    <section id="session" class="chapter" data-chapter="What to expect">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">What to expect</span>
+          <h2>Every rebirthing session is different, because every person is different.</h2>
+        </header>
+        <div class="chapter-body measure reveal" style="text-align:center;margin-bottom:clamp(1.6rem,4vw,2.4rem)">
+          <p class="lead">There is no right experience, and nothing you need to force. My role is to create a space where you feel safe enough to be yourself: to soften, to breathe, and to let your body guide the experience at its own pace.</p>
+        </div>
+
+        <ol class="toc reveal">
+          <li class="toc-row">
+            <span class="toc-n" aria-hidden="true">1</span>
+            <div>
+              <h4>We begin with a conversation</h4>
+              <p>Before we breathe, we'll talk about what has brought you here, your intentions, and anything important about your physical or emotional wellbeing. I'll answer your questions and make sure you feel comfortable before we begin.</p>
+            </div>
+          </li>
+          <li class="toc-row">
+            <span class="toc-n" aria-hidden="true">2</span>
+            <div>
+              <h4>Then we breathe</h4>
+              <p>I'll guide you through the connected breathing pattern while staying fully present with you from beginning to end. I'm listening, observing, encouraging when needed, and giving you space when that's what's needed most.</p>
+              <p class="step-pull">You don't have to hold yourself together here. I'll be right beside you.</p>
+            </div>
+          </li>
+          <li class="toc-row">
+            <span class="toc-n" aria-hidden="true">3</span>
+            <div>
+              <h4>We integrate</h4>
+              <p>After the breathing, we slow down together, reflect on what came up, and allow your nervous system to settle before you leave. I'll also check in with you afterwards, because integration continues beyond the session.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- the one dark spread: a letter from Diana -->
+      <div class="letter reveal">
+        <div class="letter-inner">
+          <span class="smallcaps">A letter, before you book</span>
+          <h3>A little honesty before you book</h3>
+          <p>Rebirthing isn't about chasing extraordinary experiences. It's about creating the conditions where you can meet yourself with honesty and compassion.</p>
+          <p>Sessions last around two and a half hours and can be emotionally and physically intense. Some people leave energized. Others feel emotional, deeply relaxed, or pleasantly tired.</p>
+          <p>I won't promise to heal you or transform your life. What I do promise is a safe, grounded, trauma-informed space where there's nothing you need to force and nothing you need to prove.</p>
+          <p>I trust your body's own wisdom and timing, and I'll be there to support you, not to push you toward a breakthrough. Because <em>when we feel truly safe, the body often knows exactly what it needs to do.</em></p>
+          <div class="letter-sig">
+            <p>Whether you cry, laugh, scream, stay quiet, or simply breathe, you are welcome exactly as you are.</p>
+            <span class="sig-name">Diana</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ plate: the space ============ -->
+    <section id="space" aria-label="The session space">
+      <figure class="plate reveal">
+        <img src="img/studio-space.jpg" alt="The quiet, light-filled space where sessions are held" width="1400" height="933" loading="lazy" decoding="async">
+        <figcaption class="caption">The quiet, light-filled space where sessions are held.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ chapter: story ============ -->
+    <section id="story" class="chapter" data-chapter="My journey home">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">My journey home</span>
+        </header>
+        <div class="story-grid">
+          <div class="story-text reveal">
+            <p class="story-quote">I stopped trying to become the woman everyone admired,<br>and started becoming the woman I could recognize in the mirror.</p>
+            <p class="dropcap">For a long time, I believed that if I made the right choices, happiness would naturally follow. So I did what I was &ldquo;supposed to do&rdquo;.</p>
+            <p>I studied engineering because it promised the kind of future my parents wanted me to have: a solid career, good money, security. I moved across the world to build a successful career. I earned scholarships, learned new languages, built businesses, got married, and kept reaching the milestones that looked impressive from the outside.</p>
+            <details class="story-more">
+              <summary><span class="more">Read more of my story &rarr;</span><span class="less">Show less</span></summary>
+              <div class="body">
+                <p>Each decision made sense. Each one made the people I loved proud. Yet somewhere along the way, I lost the person making those decisions.</p>
+                <p>Looking back, I can see that I'd become very good at listening to everyone except myself. I knew how to be responsible, capable, independent and successful. What I didn't know was how to trust my own inner voice. Though underneath it all, there was always a part of me that questioned the rules. It just took me years to let her lead.</p>
+                <p>Everything began to change after my divorce. For the first time, I stopped asking, &ldquo;What should I do?&rdquo; and started asking, &ldquo;What feels true?&rdquo; That question changed the direction of my life.</p>
+                <p>It led me to meditation, to psychology, to months of travelling alone, to teachers who challenged the way I saw myself, and eventually to rebirthing breathwork.</p>
+                <p>My first session took me completely by surprise. I cried for almost three hours. My breath kept carrying me back to old moments I thought I had left behind, and somewhere in there, I was able to let something go. The next morning I woke up calmer and surer of myself than I had felt in years.</p>
+                <p>Rebirthing wasn't a quick fix. It didn't magically erase my fears or my old patterns. What it gave me was something much more valuable: a way to reconnect with my body, process emotions I had carried for years, and slowly rebuild the trust I had lost in myself.</p>
+                <p>Breath by breath, I stopped trying to become someone better. I started becoming more myself.</p>
+                <p>Today, I live a life that once felt impossible. Not because it's perfect, but because it's aligned with who I am. I continue to choose curiosity over certainty, authenticity over expectation, and trust over fear.</p>
+                <p>I work with people who have spent years building a life that makes sense, but no longer feels like home. They're intelligent, capable and successful. From the outside, their lives look full. Yet inside, something feels disconnected. They don't need someone to tell them who to become. They need a safe space to remember who they've always been.</p>
+                <p>That's why I do this work. Not because I have all the answers, but because I know what it's like to lose yourself while trying to build a life that makes sense. And I know how powerful it is to find your way back.</p>
+              </div>
+            </details>
+          </div>
+          <figure class="plate reveal">
+            <img src="img/diana-meditating-beach.jpg" alt="Diana meditating in prayer pose on a beach rock" width="1400" height="1400" loading="lazy" decoding="async">
+            <figcaption class="caption">Diana, meditating on a beach rock.</figcaption>
+          </figure>
+        </div>
+        <p class="epigraph story-sig reveal">&ldquo;The biggest risk I ever took wasn't moving across the world. It was trusting myself.&rdquo;</p>
+        <div class="story-cta reveal">
+          <a class="btn btn-fill" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free consultation</a>
+          <p class="whisper">Free, 15 minutes, no pressure to continue.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ chapter: in their words ============ -->
+    <section id="reviews" class="chapter" data-chapter="In their words">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">In their words</span>
+          <h2>When people feel safe enough to let go.</h2>
+        </header>
+        <div class="chapter-body measure reveal" style="text-align:center;margin-bottom:clamp(2.2rem,5vw,3.4rem)">
+          <p class="lead">Every experience is unique. These stories are shared with permission by people who chose to open their hearts, trust the process, and share what the experience meant to them.</p>
+        </div>
+
+        <div class="letters">
+          <article class="rletter reveal">
+            <details class="rev-more">
+              <summary>
+                <div class="quote-excerpt">
+                  <p class="quote">&ldquo;[...] During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</p>
+                  <p class="quote">The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through. [...] <span class="toggle-cta">Keep reading &rarr;</span></p>
+                </div>
+                <div class="quote-full">
+                  <p class="quote">&ldquo;I had wanted to try rebirthing for a long time, but somehow never got around to it. Then I saw Diana's message, and it came at exactly the moment when I needed it most. What I loved most was the way Diana guided the process, with so much care, presence, and attention to every detail. She explained everything clearly beforehand, which helped me feel safe and trust the experience.</p>
+                  <p class="quote">During the session, I felt my body very intensely. My lips, hands, and pelvic area were tingling and burning with energy. I could feel a powerful flow moving through me. Then, at some point, a deep emotional release began. I started crying, really crying, and it was exactly what I needed.</p>
+                  <p class="quote">The process helped me see where I am currently betraying my own desires and needs, and what I want to change in the way I relate to myself, my partner, and other people. Some very important insights came through.</p>
+                  <p class="quote">By the end of the session, I felt immense gratitude for Diana and the work she does. Honestly, experiences like this are beyond any price tag. The opportunity to reconnect so deeply with your body and quiet the endless stories and noise of the mind is incredibly valuable.</p>
+                  <p class="quote">As a therapist myself, I know how important it is to find the right guides and practitioners. I wholeheartedly recommend Diana to anyone who wants to release stored emotions, let go of blocks held in the body, reset their system, and create space for meaningful inner transformation.&rdquo; <span class="toggle-cta">Show less</span></p>
+                </div>
+              </summary>
+            </details>
+            <div class="byline">
+              <img src="img/rev-maria.jpg" alt="Maria" width="400" height="400" loading="lazy" decoding="async">
+              <div><b>Maria, 36</b><a href="https://instagram.com/art_of_contact" target="_blank" rel="noopener">@art_of_contact</a></div>
+            </div>
+          </article>
+
+          <article class="rletter reveal">
+            <p class="quote">&ldquo;In one of my breathwork sessions with Diana I went into a memory of something from the past and my body went into deep release. Diana held space very well, she has grounded, compassionate presence, she is trauma-informed, is sensitive and has a gentle but strong heart. I felt held and loved, the session was difficult emotionally but my body felt safe and I felt very relaxed and light afterwards.&rdquo;</p>
+            <div class="byline">
+              <img src="img/rev-sofia.jpg" alt="Sofia" width="400" height="400" loading="lazy" decoding="async">
+              <div><b>Sofia</b><a href="https://instagram.com/gypsiefamily" target="_blank" rel="noopener">@gypsiefamily</a></div>
+            </div>
+          </article>
+
+          <article class="rletter reveal">
+            <p class="quote">&ldquo;Diana is one of those special women with whom you immediately feel safe, something that's tremendously important in a breathwork session. She's calm, patient and professional. She meets you where you are at and gives you the space, trust and support to have the session you need. I would definitely recommend to do a breathwork session with Diana!&rdquo;</p>
+            <div class="byline">
+              <img src="img/rev-lisanne.jpg" alt="Lisanne" width="150" height="150" loading="lazy" decoding="async">
+              <div><b>Lisanne</b><a href="https://instagram.com/lisannevanbunderen" target="_blank" rel="noopener">@lisannevanbunderen</a></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="reviews-foot reveal">
+          <p class="note">Real client reviews, shared with their permission, in their own words.</p>
+          <a class="share" href="https://breathe-with-diana.com/review.html" target="_blank" rel="noopener">Been to a session? Share your experience &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ appendix: free reset ============ -->
+    <section id="reset" class="chapter" data-chapter="Start here">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <span class="smallcaps" style="display:block;margin-bottom:1.1rem">Start here &middot; free</span>
+          <h2>Your free breath reset.</h2>
+        </header>
+        <div class="measure reveal">
+          <p class="lead" style="text-align:center">If you're not ready for a full session yet, this is a gentle place to begin. A free guided practice to help you slow down, reconnect with your breath, and experience a small taste of this work, wherever you are. Leave your email and I'll send it straight to you.</p>
+          <form class="reset-form" id="reset-form" novalidate>
+            <input type="email" name="email" placeholder="your@email.com" aria-label="email" autocomplete="email">
+            <button class="btn" type="submit">Send me the reset</button>
+          </form>
+          <p class="caption reset-note" id="reset-note" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ final chapter: begin ============ -->
+    <section id="book" class="chapter" data-chapter="Work with me">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">Work with me</span>
+          <h2>Start your journey.</h2>
+        </header>
+        <div class="chapter-body measure reveal" style="text-align:center">
+          <p class="lead">Every session begins with a free 15-minute call, so we can make sure it's right for you and answer any questions. From there, we'll agree together on the time and format that feels right for you.</p>
+          <p class="smallcaps" style="margin-top:2.2rem;display:block">Private 1:1 rebirthing session &middot; What's included</p>
+          <p class="included">2-3 hours, fully held start to finish<span class="mid">&middot;</span>Pre-session conversation beforehand<span class="mid">&middot;</span>Follow-up support in the days after<span class="mid">&middot;</span>In person or online worldwide</p>
+        </div>
+
+        <div class="minutes reveal">
+          <span class="smallcaps minutes-head" style="display:block">The first call, minute by minute</span>
+          <p class="minutes-sub">so you know exactly what you're saying yes to</p>
+          <div class="minute-row">
+            <span class="mn">1 to 3</span>
+            <p>We say hello. You tell me what brings you here, or simply that you're curious. Both are enough.</p>
+          </div>
+          <div class="minute-row">
+            <span class="mn">4 to 9</span>
+            <p>I explain how a session works, and I listen. A few gentle questions about how you're doing, so I can meet you where you are.</p>
+          </div>
+          <div class="minute-row">
+            <span class="mn">10 to 15</span>
+            <p>Your questions. Ask me anything, including whether this is right for you at all.</p>
+          </div>
+          <div class="minute-row">
+            <span class="mn">After</span>
+            <p>You decide in your own time. If it doesn't feel right, that's a complete answer. Nothing to prepare, nothing to bring.</p>
+          </div>
+        </div>
+
+        <div class="book-close reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station" id="rest-dot"><span class="halo"></span><span class="glyph" style="width:10px;height:10px"></span></span><span class="rule"></span></div>
+          <div class="book-face" role="img" aria-label="Diana"></div>
+          <p class="caption book-face-cap">I'll be the one on the other end of the call.</p>
+          <div class="book-ctas" id="book-ctas">
+            <div class="cta-unit">
+              <a class="btn btn-fill" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free consultation</a>
+              <p class="whisper">Free, 15 minutes, no pressure to continue.</p>
+            </div>
+            <div class="cta-unit">
+              <a class="btn" href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener">Message me on WhatsApp</a>
+              <p class="whisper">You can just say hi.</p>
+            </div>
+          </div>
+          <p class="prefer">Prefer to chat first? WhatsApp is the softer door.</p>
+          <div class="book-microrev">
+            <img src="img/rev-fey.jpg" alt="Fey" width="150" height="150" loading="lazy" decoding="async">
+            <p>&ldquo;I felt completely safe and supported with Diana :)&rdquo;
+              <span class="who">Fey &middot; <a href="https://instagram.com/aiwithfey" target="_blank" rel="noopener">@aiwithfey</a></span>
+            </p>
+          </div>
+        </div>
+
+        <div class="faqs reveal">
+          <span class="smallcaps">Questions, quietly answered</span>
+          <details class="faq">
+            <summary>Do I need any experience?</summary>
+            <div class="a"><p>Not at all. Most people who come to me have never experienced rebirthing before. I'll guide you through every step, and you don't need to know how to breathe &ldquo;correctly&rdquo;. We simply begin together.</p></div>
+          </details>
+          <details class="faq">
+            <summary>Will I feel calm afterward?</summary>
+            <div class="a"><p>Sometimes, but calm isn't the promise. Rebirthing tends to move emotion rather than soothe it. Many people feel tired and tender right after, and lighter the next day.</p></div>
+          </details>
+          <details class="faq">
+            <summary>Is this therapy?</summary>
+            <div class="a"><p>No. It's a complement to inner work, not a replacement for therapy or medical care. If you're in treatment, keep your therapist in the loop.</p></div>
+          </details>
+          <details class="faq">
+            <summary>Can we do it online?</summary>
+            <div class="a"><p>Yes. Online sessions work well over video once we've had a short call to set up your space safely.</p></div>
+          </details>
+          <details class="faq">
+            <summary>What if I need to reschedule?</summary>
+            <div class="a"><p>Life happens, just give me 24 hours' notice and we'll find a new time.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ colophon ============ -->
+  <footer class="colophon">
+    <img class="logo" src="img/logo-mark-dark.svg" alt="Breathe with Diana" width="520" height="168" loading="lazy" decoding="async">
+    <div class="colo-cols">
+      <div>
+        <span class="colo-h">Explore</span>
+        <a href="#doors">The work</a>
+        <a href="#session">What to expect</a>
+        <a href="#story">My journey home</a>
+        <a href="#book">Book</a>
+      </div>
+      <div>
+        <span class="colo-h">Find me</span>
+        <a href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener">@breathe.with.diana</a>
+        <a href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:Iwantto@breathe-with-diana.com">Iwantto@breathe-with-diana.com</a>
+      </div>
+    </div>
+    <div class="colo-end" aria-hidden="true"></div>
+    <p class="colo-small">&copy; 2026 Breathe with Diana &middot; breathe-with-diana.com<br>Rebirthing breathwork is not a substitute for medical or psychological care.</p>
+  </footer>
+
+  <!-- ============ sticky invitation (mobile) ============ -->
+  <div class="stickybar" id="stickybar">
+    <div class="bar-in">
+    <a class="bar-call" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free call<span class="bw">free &middot; 15 minutes &middot; no pressure</span></a>
+    <a class="bar-wa" href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener" aria-label="Message me on WhatsApp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.8 9.2c.3-.8.7-.8 1-.8h.8l.7 1.7-.9 1a6.3 6.3 0 0 0 2.9 2.9l1-.9 1.7.7v.8c0 .3 0 .7-.8 1-.8.3-2.6-.1-4.3-1.8C9 12.1 8.5 10 8.8 9.2z"/></svg>
+      WhatsApp
+    </a>
+    </div>
+  </div>
+
+</div><!-- /#page -->
+
+<!-- ============ one breath overlay ============ -->
+<div id="breath-overlay" aria-hidden="true">
+  <div class="ob-stage" role="dialog" aria-modal="true" aria-label="One breath with Diana" tabindex="-1">
+    <span class="ob-dot" aria-hidden="true"><span class="halo"></span><span class="glyph"></span></span>
+    <div class="ob-words" id="ob-words" aria-hidden="true">
+      <span class="w w1">breathe in</span>
+      <span class="w w2">and let it go</span>
+    </div>
+    <p class="ob-skip">scroll or tap to skip</p>
+    <span class="visually-hidden" id="ob-live" aria-live="polite"></span>
+  </div>
+</div>
+
+<!-- ============ contents ============ -->
+<dialog class="contents" id="contents" aria-label="Contents">
+  <span class="smallcaps contents-title">Contents</span>
+  <nav>
+    <a href="#practice">What it is</a>
+    <a href="#doors">The work</a>
+    <a href="#session">What to expect</a>
+    <a href="#story">My journey home</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#reset">Free breath reset</a>
+    <a href="#book" class="strong">Book a free consultation</a>
+  </nav>
+  <button class="contents-close" id="contents-close" type="button">Close</button>
+</dialog>
+
+<script>
+(function(){
+  "use strict";
+  var html=document.documentElement;
+  var page=document.getElementById("page");
+  var CYCLE=11000;
+  var epoch=performance.now();
+
+  /* ---------- motion mode: one code path ---------- */
+  var toggle=document.getElementById("motion-toggle");
+  function setMotion(mode){
+    html.setAttribute("data-motion",mode);
+    if(toggle){
+      var calm=mode==="calm";
+      toggle.setAttribute("aria-pressed",calm?"true":"false");
+      toggle.setAttribute("aria-label",calm?"Resume the breathing motion":"Pause the breathing motion");
+    }
+  }
+  setMotion(html.getAttribute("data-motion")||"full");
+  try{
+    var mq=window.matchMedia("(prefers-reduced-motion: reduce)");
+    var onMq=function(e){setMotion(e.matches?"calm":"full");};
+    if(mq.addEventListener){mq.addEventListener("change",onMq);}
+    else if(mq.addListener){mq.addListener(onMq);}
+  }catch(e){}
+  if(toggle){
+    toggle.addEventListener("click",function(){
+      setMotion(html.getAttribute("data-motion")==="calm"?"full":"calm");
+    });
+  }
+
+  /* ---------- the living dot: handoff, phase never resets ---------- */
+  var stations=[].slice.call(document.querySelectorAll(".dot-station"));
+  var current=document.querySelector(".dot-station.alive");
+  function give(st){
+    if(!st||st===current){return;}
+    if(current){current.classList.remove("alive");}
+    var phase=Math.round((performance.now()-epoch)%CYCLE);
+    st.style.setProperty("--phase","-"+phase+"ms");
+    st.classList.add("alive");
+    current=st;
+  }
+  if("IntersectionObserver" in window){
+    var bandIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){give(en.target);}
+      });
+    },{rootMargin:"-38% 0px -38% 0px",threshold:0});
+    stations.forEach(function(s){bandIO.observe(s);});
+  }
+
+  /* ---------- dissolves: content develops like a print ---------- */
+  /* IntersectionObserver drives the reveal for real visitors. A rect check
+     on init, load, hashchange and (rAF-throttled) scroll guarantees in-view
+     content is never left hidden, including anchor-jump captures where the
+     IO init callback is unreliable. Both paths only ever ADD .in (idempotent),
+     so content can develop like a print but can never get stuck invisible. */
+  var reveals=[].slice.call(document.querySelectorAll(".reveal"));
+  function revealInView(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    for(var i=0;i<reveals.length;i++){
+      var el=reveals[i];
+      if(el.classList.contains("in")){continue;}
+      var r=el.getBoundingClientRect();
+      if(r.top<vh*0.94 && r.bottom>-2){el.classList.add("in");}
+    }
+  }
+  if("IntersectionObserver" in window){
+    var revIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add("in");revIO.unobserve(en.target);}
+      });
+    },{rootMargin:"0px 0px -8% 0px",threshold:.08});
+    reveals.forEach(function(el){revIO.observe(el);});
+  }
+  revealInView();
+  var revRaf=false;
+  window.addEventListener("scroll",function(){
+    if(revRaf){return;}revRaf=true;
+    requestAnimationFrame(function(){revRaf=false;revealInView();});
+  },{passive:true});
+  window.addEventListener("load",revealInView);
+  window.addEventListener("hashchange",function(){setTimeout(revealInView,60);});
+  setTimeout(revealInView,90);setTimeout(revealInView,450);setTimeout(revealInView,1100);
+  /* ultimate safety net: content is never left hidden, whatever happens with
+     the observer, the scroll position, or a headless capture. After a beat any
+     still-hidden block simply appears. The dissolve is a grace note, not a gate. */
+  setTimeout(function(){for(var i=0;i<reveals.length;i++){reveals[i].classList.add("in");}},1900);
+
+  /* ---------- running head: sense of place ---------- */
+  var chapterEl=document.getElementById("head-chapter");
+  if(chapterEl&&"IntersectionObserver" in window){
+    var chIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting){return;}
+        var name=en.target.getAttribute("data-chapter")||"";
+        if(name===chapterEl.textContent){return;}
+        chapterEl.style.opacity="0";
+        setTimeout(function(){chapterEl.textContent=name;chapterEl.style.opacity="1";},320);
+      });
+    },{rootMargin:"-30% 0px -55% 0px",threshold:0});
+    [].slice.call(document.querySelectorAll("[data-chapter]")).forEach(function(s){chIO.observe(s);});
+    var heroIOc=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting&&chapterEl.textContent!==""){
+          chapterEl.style.opacity="0";
+          setTimeout(function(){chapterEl.textContent="";},320);
+        }
+      });
+    },{rootMargin:"-30% 0px -55% 0px",threshold:0});
+    heroIOc.observe(document.getElementById("hero"));
+  }
+
+  /* ---------- sticky invitation ---------- */
+  var bar=document.getElementById("stickybar");
+  var hero=document.getElementById("hero");
+  var bookCtas=document.getElementById("book-ctas");
+  if(bar&&hero){
+    /* Booking is never more than a tap away: the sticky bar reveals once about
+       40% of the title page has scrolled past the top, not only once the hero
+       is fully gone, so the WhatsApp and free-call doors stay reachable on the
+       first screen for the whole scroll. */
+    var updateBar=function(){
+      var r=hero.getBoundingClientRect();
+      var scrolledPast=-r.top;                 /* px of hero above the viewport top */
+      bar.classList.toggle("show",r.height>0 && scrolledPast>=r.height*0.4);
+    };
+    var barRaf=false;
+    window.addEventListener("scroll",function(){
+      if(barRaf){return;}barRaf=true;
+      requestAnimationFrame(function(){barRaf=false;updateBar();});
+    },{passive:true});
+    window.addEventListener("resize",updateBar,{passive:true});
+    window.addEventListener("load",updateBar);
+    updateBar();
+    if(bookCtas&&"IntersectionObserver" in window){
+      var hideIO=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){bar.classList.toggle("hide",en.isIntersecting);});
+      },{threshold:.2});
+      hideIO.observe(bookCtas);
+    }
+  }
+
+  /* ---------- contents ---------- */
+  var dlg=document.getElementById("contents");
+  var openBtn=document.getElementById("contents-open");
+  var closeBtn=document.getElementById("contents-close");
+  if(dlg&&openBtn&&typeof dlg.showModal==="function"){
+    openBtn.addEventListener("click",function(){if(!dlg.open){dlg.showModal();}});
+    if(closeBtn){closeBtn.addEventListener("click",function(){dlg.close();});}
+    dlg.addEventListener("click",function(e){
+      if(e.target===dlg){dlg.close();}
+      else if(e.target.closest("a")){dlg.close();}
+    });
+  }else if(dlg&&openBtn){
+    /* No <dialog>/showModal support: fall back to a native anchored list so the
+       Contents button never vanishes and every section jump keeps working on a
+       long book. The same nav element is shown as a plain positioned panel. */
+    dlg.classList.add("nodialog");
+    var setFb=function(open){
+      dlg.classList.toggle("open",open);
+      openBtn.setAttribute("aria-expanded",open?"true":"false");
+    };
+    openBtn.setAttribute("aria-expanded","false");
+    openBtn.addEventListener("click",function(){setFb(!dlg.classList.contains("open"));});
+    if(closeBtn){closeBtn.addEventListener("click",function(){setFb(false);});}
+    dlg.addEventListener("click",function(e){if(e.target.closest("a")){setFb(false);}});
+    document.addEventListener("click",function(e){
+      if(dlg.classList.contains("open")&&e.target!==openBtn&&!dlg.contains(e.target)){setFb(false);}
+    });
+    document.addEventListener("keydown",function(e){if(e.key==="Escape"){setFb(false);}});
+  }
+
+  /* ---------- one breath with Diana ---------- */
+  var btn=document.getElementById("breath-btn");
+  var overlay=document.getElementById("breath-overlay");
+  var stage=overlay?overlay.querySelector(".ob-stage"):null;
+  var words=document.getElementById("ob-words");
+  var live=document.getElementById("ob-live");
+  var bridge=document.getElementById("bridge");
+  var heroSec=document.getElementById("hero");
+  var running=false;
+  var timers=[];
+  var cancelers=[];
+  function later(fn,ms){timers.push(setTimeout(fn,ms));}
+  function listen(target,type,fn,opts){
+    target.addEventListener(type,fn,opts);
+    cancelers.push(function(){target.removeEventListener(type,fn,opts);});
+  }
+  function cleanup(){
+    timers.forEach(clearTimeout);timers=[];
+    cancelers.forEach(function(off){off();});cancelers=[];
+    html.classList.remove("ritual");
+    if(words){words.classList.remove("phase2");}
+    if(overlay){overlay.setAttribute("aria-hidden","true");}
+    if(page){page.inert=false;page.removeAttribute("aria-hidden");}
+    if(live){live.textContent="";}
+    running=false;
+    if(btn){btn.focus({preventScroll:true});}
+  }
+  function finish(){
+    if(bridge){
+      bridge.textContent="That's one breath. A session is two and a half hours of them.";
+      bridge.classList.add("done");
+    }
+    cleanup();
+  }
+  function cancel(){cleanup();}
+  function start(){
+    if(running||!overlay||!stage){return;}
+    running=true;
+    if(heroSec){heroSec.setAttribute("data-invited","done");}
+    html.classList.add("ritual");
+    overlay.removeAttribute("aria-hidden");
+    if(page){page.inert=true;page.setAttribute("aria-hidden","true");}
+    stage.focus({preventScroll:true});
+    if(live){live.textContent="Breathe in";}
+    later(function(){
+      if(words){words.classList.add("phase2");}
+      if(live){live.textContent="And let it go";}
+    },4000);
+    later(finish,11600);
+    /* cancel affordances arm after the opening tap has fully settled */
+    later(function(){
+      listen(window,"wheel",cancel,{passive:true});
+      listen(window,"touchmove",cancel,{passive:true});
+      listen(window,"scroll",cancel,{passive:true});
+      listen(document,"pointerdown",cancel,true);
+      listen(document,"keydown",function(e){if(e.key==="Escape"){cancel();}},true);
+    },350);
+  }
+  if(btn){btn.addEventListener("click",start);}
+  if(location.hash==="#breath-demo"){later(start,900);}
+
+  /* ---------- reset form (design preview, does not send) ---------- */
+  var form=document.getElementById("reset-form");
+  var note=document.getElementById("reset-note");
+  if(form&&note){
+    form.addEventListener("submit",function(e){
+      e.preventDefault();
+      note.textContent="This is a design preview: the form doesn't send yet.";
+    });
+  }
+})();
+</script>
+</body>
+</html>
