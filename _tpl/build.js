@@ -201,13 +201,6 @@ function main() {
   // EN/ES/RU drifted apart before this build system existed.
   const BUNDLES = [
     {
-      name: 'site',
-      content: 'content',
-      templates: [
-        { file: 'template.html', out: { en: 'index.html', es: 'es.html', ru: 'ru.html' } },
-      ],
-    },
-    {
       name: 'reset',
       content: 'reset/content',
       templates: [

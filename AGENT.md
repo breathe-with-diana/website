@@ -6,27 +6,24 @@ This is the public website repo only. It intentionally holds no private business
 ## What this repo is
 
 The static website for **https://breathe-with-diana.com**, served by GitHub Pages from `main`.
-English, Spanish, and Russian, generated from a shared template.
+English, Spanish, and Russian.
 
 ## The one rule that trips everyone up
 
-`index.html`, `es.html`, and `ru.html` are **build output**. They are regenerated from
-`_tpl/template.html` plus `_tpl/content/*` by `node _tpl/build.js`. Editing them by hand is a trap:
-the next build silently overwrites the change.
+`index.html`, `es.html`, and `ru.html` are three separate hand-maintained pages, each fully
+self-contained: its own CSS in a `<style>` block, its own script. There is no generator behind
+them, so **a structural or CSS change has to be made in all three**, and a change made in one only
+is how the languages drift apart.
 
-To change the site:
+`index.html` is the public page. `es.html` and `ru.html` are `noindex` and carry the feedback
+widget so Diana can comment on them; the public page deliberately does not.
 
-1. Edit `_tpl/template.html` (structure plus CSS, shared by all three languages), or
-   `_tpl/content/<lang>.json` (per-language text), or the raw fragments in `_tpl/content/`
-   (review cards, language switcher).
-2. Run `node _tpl/build.js --strict` from the repo root (fails loud on a typo'd `{{key}}` instead
-   of emitting a silent blank).
-3. Commit the source change **together with** the regenerated `index.html` / `es.html` / `ru.html`.
-4. `bash _tpl/verify.sh` asserts the committed pages match a fresh build and guards against dashes.
+`_tpl/` still generates the breath-reset emails and listening pages. Those are build output and the
+rules in [`_tpl/README.md`](_tpl/README.md) apply to them. `bash _tpl/verify.sh` checks that output
+is in sync and guards every page we ship against dashes.
 
 Standalone pages (`review.html`, `health-form.html`, `media-consent.html`, `for-diana/`,
-`partnership/`, `v2/`) are not template-generated and are edited directly. Nothing under `v2/` has
-a generator any more.
+`partnership/`) are edited directly.
 
 ## House conventions
 

@@ -4,29 +4,27 @@ Source for the live site at **https://breathe-with-diana.com**.
 
 A small, static, multilingual marketing site (English, Spanish, Russian) for Diana's breathwork
 practice. Served by GitHub Pages from the `main` branch of this repo. No framework, no runtime
-dependencies: the pages are plain HTML/CSS built by a tiny zero-dependency Node script.
+dependencies, no build step for the pages themselves: the committed HTML is what ships.
 
 ## How the site is built
 
-The three language pages (`index.html`, `es.html`, `ru.html`) are **generated**, never hand-edited.
-They come from one shared template plus per-language content files under `_tpl/`. A structural or
-CSS change is made once in the template and propagates to all three languages.
+The three language pages (`index.html`, `es.html`, `ru.html`) are hand-maintained and
+self-contained, one file per language, each carrying its own CSS and script. A structural or CSS
+change has to be made in all three.
+
+`_tpl/` generates the breath-reset emails and listening pages from a shared template.
 
 ```bash
-node _tpl/build.js --strict   # regenerate index.html / es.html / ru.html (fails loud on a bad key)
+node _tpl/build.js --strict   # regenerate the reset emails and pages (fails loud on a bad key)
 bash  _tpl/verify.sh          # self-test the engine, assert output is in sync, guard against dashes
 ```
 
-Full details of the build system live in [`_tpl/README.md`](_tpl/README.md).
-
-> Do not edit `index.html`, `es.html`, or `ru.html` directly. The next build overwrites your change.
-> Edit `_tpl/template.html` or `_tpl/content/*` instead, then rebuild and commit source plus output
-> together.
+Full details live in [`_tpl/README.md`](_tpl/README.md).
 
 ## Layout
 
-- `index.html`, `es.html`, `ru.html` · generated language pages (build output).
-- `_tpl/` · the build system (template, per-language content, builder, verify script).
+- `index.html`, `es.html`, `ru.html` · the three language pages, hand-maintained.
+- `_tpl/` · the reset-email build system and the logo generator.
 - `review.html`, `health-form.html`, `media-consent.html`, `partnership/` · standalone pages.
 - `feedback.js`, `tokens.css`, `review.css` · shared script and styles.
 - `img/` · images and logo assets.

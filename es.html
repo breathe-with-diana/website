@@ -1,1000 +1,1859 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-motion="full">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Respira con Diana · Volver a casa, a tu cuerpo</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="tokens.css">
-  <style>
-    /* Recoleta isn't free; Cormorant Garamond stands in for this preview, as in the brand mockup.
-       In production the headline face would be Recoleta (or Canela). Palette/type-scale tokens
-       live in tokens.css, shared with es/ru/review/health-form/media-consent. */
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;scroll-behavior:smooth}
-    body{background:var(--bone);color:var(--umber);font-family:var(--sans);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Respira con Diana · Volver a casa, a tu cuerpo</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ONE POINT OF INK
+   The one-motion rule (binding, keep this block when porting):
+   Exactly one point of ink is alive at any moment, and nothing
+   else on this page ever moves. Ambient motion is ONLY:
+     1. transform scale on an alive dot glyph (sub 6px absolute)
+     2. opacity on its pre-rendered halo
+   Everything else is static by decree. Content may dissolve in
+   (opacity only, about 450ms). Hovers change ink color only.
+   Adding any other animation or hover transform breaks the
+   entire premise of this design. Do not.
+   Breath physiology: 11s cycle, 4s rise, 7s settle,
+   sine easing only: cubic-bezier(.5,0,.5,1).
+   Calm mode (prefers-reduced-motion OR the visible toggle) is
+   driven by ONE code path: custom properties keyed off
+   html[data-motion="calm"]. Scale amplitudes collapse to 1,
+   the halo keeps a slow warmth oscillation at the same rhythm.
+   ============================================================ */
+:root{
+  --bone:#F4EFE6;
+  --cream:#EFE7D8;
+  --terracotta:#C97B5A;
+  --terracotta-deep:#905840;
+  --terracotta-ink:#7C4A34;
+  --sage:#8A8C6E;
+  --umber:#5B4636;
+  --ochre:#D4A24C;
+  --band-ink:#402F1E;
+  --muted-strong:rgba(91,70,54,.84);
+  --hairline:rgba(91,70,54,.14);
+  --hairline-mid:rgba(91,70,54,.30);
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sine:cubic-bezier(.5,0,.5,1);
+  --cycle:11s;
+  --dot-amp:1.5;          /* alive glyph swell */
+  --halo-lo:.28;
+  --halo-hi:.95;
+  --ritual-amp:2.7;       /* guided-breath dot swell */
+  --sol-travel:34px;      /* seed of life: how far the six circles leave the centre */
+  --sol-amp:1.12;         /* seed of life: centre circle swell */
+  --ring-from:1.22;       /* invitation ring settle */
+  --measure:40rem;
+  --head-h:56px;
 
-    /* ===== promotion bar (real website element; the site's one deliberate ochre moment) ===== */
-    .promo-bar{background:var(--ochre);color:var(--umber);font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;
-      letter-spacing:.03em;padding:10px 20px;text-align:center;position:sticky;top:0;z-index:200}
-    .promo-bar b{font-weight:700}
-    .promo-bar a{color:var(--umber);text-decoration:underline;font-weight:700;white-space:nowrap}
+  /* Vertical rhythm. Two --gap make one boundary between sections. A boundary that
+     touches a photo plate, or closes a colour band, spends --gap-tight on that side:
+     an image or a band edge already separates, so it needs less air than a text block
+     to read as a new section. Every section boundary on the page resolves to one of
+     these two, which is what keeps the scroll rhythm even. */
+  --gap:clamp(1.9rem,2.6vw,2.5rem);
+  --gap-tight:clamp(1.1rem,1.7vw,1.6rem);
 
-    /* ============================================================= SITE NAV */
-    .nav{position:sticky;top:39px;z-index:100;background:rgba(244,239,230,.86);backdrop-filter:blur(10px);
-      border-bottom:1px solid var(--hairline)}
-    .nav-inner{max-width:1140px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;gap:28px}
-    .logo-lockup{display:flex;align-items:center;gap:10px;margin-right:auto;text-decoration:none}
-    #navmark{height:72px;width:auto;display:block}
-    #footmark{height:auto;width:auto;max-height:150px;max-width:100%;display:block}
-    .nav a.link{font-family:var(--sans);font-size:var(--fs-sm);color:var(--umber);text-decoration:none;opacity:.82;
-      white-space:nowrap;flex-shrink:0}
-    .nav a.link:hover{opacity:1}
-    .lang{display:flex;align-items:flex-start;gap:12px;font-family:var(--sans);font-size:var(--fs-xs);letter-spacing:.08em;
-      white-space:nowrap;flex-shrink:0;
-      color:var(--muted);border:1px solid var(--hairline);border-radius:var(--radius-pill);padding:6px 14px}
-    .lang a,.lang b{display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;color:var(--muted)}
-    .lang b{color:var(--umber)}
-    .lang a:hover{color:var(--umber)}
-    .lang .flag{display:block;width:16px;height:11px;border-radius:2px;overflow:hidden}
-    .lang .flag svg{display:block;width:100%;height:100%}
-    .btn{font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;text-decoration:none;border-radius:var(--radius-pill);
-      padding:10px 20px;display:inline-block;transition:.15s;white-space:nowrap;flex-shrink:0;border:none;cursor:pointer;box-shadow:none}
-    /* terracotta-deep, not terracotta: the CTA's own label text needs to clear WCAG AA */
-    .btn-primary{background:var(--terracotta-deep);color:var(--bone)}
-    .btn-primary:hover{background:#7A4A36}
-    .btn-ghost{border:1px solid var(--umber);color:var(--umber)}
-    .btn-ghost:hover{background:var(--umber);color:var(--bone)}
+  /* One type scale. A role has one size everywhere: body copy, small copy inside a
+     card or list, an italic serif aside, and three tiers of uppercase label
+     (section / control / byline). Nothing on the page sets a size outside this. */
+  --fs-body:1.0625rem;
+  --fs-body-sm:.97rem;
+  --fs-aside:1rem;
+  --fs-quote:clamp(1.25rem,3.4vw,1.6rem);
+  --fs-pull:1.18rem;
+  --fs-label:.72rem;
+  --fs-label-ui:.68rem;
+  --fs-micro:.64rem;
+}
+html[data-motion="calm"]{
+  --dot-amp:1;
+  --ritual-amp:1;
+  --sol-travel:0px;
+  --sol-amp:1;
+  --ring-from:1;
+  --halo-lo:.38;
+  --halo-hi:.92;
+}
+/* no-JS fallback: the media query drives the same custom properties */
+@media (prefers-reduced-motion: reduce){
+  html:not([data-motion]){
+    --dot-amp:1; --ritual-amp:1; --ring-from:1; --halo-lo:.38; --halo-hi:.92;
+    --sol-travel:0px; --sol-amp:1;
+  }
+}
 
-    /* ---- mobile menu (hamburger). Hidden on desktop; the media queries below reveal it
-       once the inline nav no longer fits. Built on <details>/<summary>, so it is fully
-       keyboard- and screen-reader-operable and works with JS off. ---- */
-    .navmenu{display:none}
-    .promo-short{display:none}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto;overflow-x:hidden}
+@supports (overflow:clip){html{overflow-x:clip}}
+body{
+  background:var(--bone);
+  color:var(--umber);
+  font:400 var(--fs-body)/1.75 var(--sans);
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+@supports (overflow:clip){body{overflow-x:clip}}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--terracotta-deep)}
+a:hover{color:var(--terracotta-ink)}
+::selection{background:rgba(201,123,90,.28)}
+:focus-visible{outline:2px solid var(--terracotta-deep);outline-offset:3px;border-radius:2px}
+section{scroll-margin-top:calc(var(--head-h) + 28px)}
 
-    section{padding:104px 32px}
-    .wrap{max-width:1140px;margin:0 auto}
-    .wrap-narrow{max-width:760px;margin:0 auto}
-    /* the shared "eyebrow" label role: one size, one tracking, one color across all three languages */
-    /* .eyebrow is the primary section label (one size up, --fs-xs) from its five siblings
-       below (.tagword, .price-card .label, footer h5, .fc-head span, all --fs-2xs) -
-       deliberately: it's the lead label for a whole section, they're subordinate tags
-       inside a card. All six share weight:600 and .18em tracking. */
-    .eyebrow{font-family:var(--sans);font-size:var(--fs-xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-      color:var(--terracotta-deep);margin-bottom:22px}
-    h2.sec{font-family:var(--serif);font-weight:500;font-size:var(--fs-2xl);line-height:1.12;letter-spacing:-.01em;margin:0 0 18px}
-    .lead{font-size:var(--fs-md);color:var(--umber);max-width:620px}
-    .muted{color:var(--muted)}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,3rem)}
+.measure{max-width:var(--measure);margin-inline:auto}
 
-    /* ===================================================================== HERO */
-    .hero{padding:44px 32px 96px;background:
-      radial-gradient(at 78% 18%,rgba(212,162,76,.16),transparent 46%),
-      radial-gradient(at 12% 92%,rgba(201,123,90,.14),transparent 50%),var(--bone)}
-    .hero-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
-    .hero h1{font-family:var(--serif);font-weight:500;font-size:var(--fs-3xl);line-height:1.04;letter-spacing:-.015em;margin:18px 0 22px}
-    .hero h1 em{font-style:italic;color:var(--terracotta-deep)}
-    .hero p.sub{font-size:var(--fs-md);line-height:1.6;color:var(--umber);max-width:500px;margin:0 0 34px}
-    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-    .hero-photo{aspect-ratio:4/5;border-radius:var(--radius-md);position:relative;overflow:hidden;
-      background:radial-gradient(at 35% 28%,rgba(212,162,76,.5),transparent 55%),
-                 radial-gradient(at 72% 78%,rgba(201,123,90,.55),transparent 60%),
-                 linear-gradient(160deg,var(--cream),#Dcd2bf)}
+/* type */
+.smallcaps{
+  font:600 var(--fs-label)/1.5 var(--sans);
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--muted-strong);
+}
+h1,h2,h3{font-family:var(--serif);font-weight:500;color:var(--umber);text-wrap:balance}
+h2{font-size:clamp(1.9rem,5.2vw,3rem);line-height:1.15}
+h3{font-size:clamp(1.45rem,4.2vw,2rem);line-height:1.2}
+h4{font:600 1.02rem/1.4 var(--sans);color:var(--umber)}
+p{color:var(--umber)}
+.lead{font-size:clamp(1.0625rem,2.4vw,1.1875rem);line-height:1.8}
+.caption{
+  font:italic 400 var(--fs-aside)/1.55 var(--serif);
+  color:var(--muted-strong);
+  text-align:center;
+}
+.epigraph{
+  font:italic 400 var(--fs-quote)/1.5 var(--serif);
+  color:var(--umber);
+  text-align:center;
+  max-width:34rem;
+  margin-inline:auto;
+}
 
-    /* ===================================================================== THE PRACTICE (what it is) */
-    .practice{background:var(--bone);text-align:center;padding-top:20px}
-    .practice .wrap-narrow{max-width:800px}
-    .practice .lead{font-size:var(--fs-md);color:var(--umber);max-width:660px;margin:0 auto 16px}
-    .practice .boundary{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
-      max-width:600px;margin:0 auto}
-    .alt-label{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-      color:var(--terracotta-deep);margin-bottom:30px}
+/* dissolves: content develops like a print, it does not arrive */
+html.js .reveal{opacity:0}
+html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
 
-    /* ----- the process + practical facts (extends The Practice section) ----- */
-    .process-block{margin:70px auto 0;max-width:960px;border-top:1px dashed var(--hairline);padding-top:48px}
-    .process-block .alt-label{margin-bottom:8px}
-    .process-block .proc-lead{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--umber);
-      max-width:560px;margin:0 auto 44px}
-    .proc-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:start;
-      gap:18px;margin:0 auto 52px;max-width:920px}
-    .proc-step{padding:0 6px}
-    .proc-step .ic{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-      margin:0 auto 16px}
-    .proc-step .ic svg{width:27px;height:27px}
-    .proc-step .ic img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-    .proc-step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-xs);margin:0 0 7px;
-      text-transform:uppercase;letter-spacing:.04em}
-    .proc-step p{font-size:var(--fs-sm);color:var(--muted);margin:0;line-height:1.55}
-    /* same reasoning as .story-more below: this is prose, not a FAQ row, so it drops the
-       generic details border/padding. */
-    .proc-more{border-bottom:none;padding:9px 0 0}
-    .proc-more summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center}
-    .proc-more summary::-webkit-details-marker{display:none}
-    .proc-more summary::after{content:"Seguir leyendo →";font-family:var(--sans);font-weight:500;
-      font-size:var(--fs-xs);color:var(--terracotta-deep);white-space:nowrap}
-    .proc-more[open] summary::after{content:"Mostrar menos"}
-    .proc-step .proc-more-body{margin-top:7px}
-    .proc-arrow{display:flex;align-items:center;justify-content:center;padding-top:29px}
-    .proc-arrow svg{width:26px;height:11px;stroke:#8D4A28;stroke-width:1.6;
-      stroke-linecap:round;stroke-linejoin:round;fill:none}
-    .fact-card-unified{display:grid;grid-template-columns:repeat(3,1fr);margin:0 auto 40px;
-      max-width:920px;text-align:left;background:var(--cream);border:1px solid var(--hairline);border-radius:var(--radius-md)}
-    .fact-col{padding:24px 22px;border-left:1px solid var(--hairline);display:flex;flex-direction:column}
-    .fact-col:first-child{border-left:none}
-    .fact-col .fc-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;min-height:36px}
-    .fact-col .fc-head svg{width:18px;height:18px;color:var(--terracotta-deep);flex-shrink:0}
-    .fact-col .fc-head span{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;letter-spacing:.18em;
-      text-transform:uppercase;color:var(--umber);line-height:1.35}
-    .fact-col p{font-size:var(--fs-sm);color:var(--muted);margin:0;line-height:1.6}
-    @media (max-width:820px){
-      .proc-grid{grid-template-columns:1fr 1fr;row-gap:36px;max-width:460px}
-      .proc-arrow{display:none}
-      .fact-card-unified{grid-template-columns:1fr;max-width:460px;text-align:center}
-      .fact-col{border-left:none;border-top:1px solid var(--hairline)}
-      .fact-col:first-child{border-top:none}
-      .fact-col .fc-head{justify-content:center}
-    }
-    @media (max-width:480px){.proc-grid{grid-template-columns:1fr;max-width:340px}}
+/* ============ the living dot ============ */
+.dot-station{position:relative;display:inline-block;line-height:0}
+.dot-station .glyph{
+  display:block;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--umber);
+  transition:background 1.2s var(--sine);
+}
+.dot-station .halo{
+  position:absolute;left:50%;top:50%;
+  width:96px;height:96px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(closest-side,rgba(201,123,90,.7),rgba(201,123,90,0) 72%);
+  opacity:0;
+  transition:opacity 1.4s var(--sine);
+  pointer-events:none;
+}
+.dot-station.alive .glyph{
+  background:var(--terracotta-deep);
+  will-change:transform;
+  animation:breathe-glyph var(--cycle) cubic-bezier(.5,0,.5,1) infinite;
+  animation-delay:var(--phase,0ms);
+}
+.dot-station.alive .halo{
+  opacity:var(--halo-lo);
+  animation:breathe-halo var(--cycle) cubic-bezier(.5,0,.5,1) infinite;
+  animation-delay:var(--phase,0ms);
+}
+@keyframes breathe-glyph{
+  0%{transform:scale(1)}
+  36.4%{transform:scale(var(--dot-amp))}   /* 4s rise */
+  100%{transform:scale(1)}                 /* 7s settle */
+}
+@keyframes breathe-halo{
+  0%{opacity:var(--halo-lo)}
+  36.4%{opacity:var(--halo-hi)}
+  100%{opacity:var(--halo-lo)}
+}
 
-    /* ===================================================================== TWO DOORS */
-    .doors{background:var(--cream)}
-    .door-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:42px}
-    .door{background:var(--bone);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:38px 34px;display:flex;flex-direction:column}
-    .door .ix{width:46px;height:46px;margin-bottom:20px}
-    .door h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;margin:0 0 10px}
-    .door p{font-size:var(--fs-md);color:var(--umber);margin:0 0 6px}
-    .door .door-cta{margin-top:auto;padding-top:26px}
-    .door .tagword{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--umber)}
-    .doors-note{text-align:center;margin-top:38px;font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep)}
+/* dividers: hairline, dot, hairline (the dot stations of the book) */
+.divider{
+  display:flex;align-items:center;justify-content:center;gap:1.1rem;
+  max-width:19rem;margin:0 auto;
+}
+.divider .rule{flex:1;height:1px;background:var(--hairline)}
 
-    /* ===================================================================== SESSION / WHAT IT IS */
-    .session-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:18px}
-    .session-grid .steps-col{display:flex;flex-direction:column;justify-content:center}
-    .step{display:flex;gap:18px;margin-bottom:26px}
-    .session-grid .step:last-child{margin-bottom:0}
-    #session .lead.muted{margin:0 0 8px}
-    .step .step-pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-md);color:var(--terracotta-deep);margin-top:10px}
-    .step .n{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--umber);line-height:1;flex-shrink:0;width:34px}
-    .step h4{font-family:var(--sans);font-weight:600;font-size:var(--fs-md);margin:2px 0 4px}
-    .step p{font-size:var(--fs-sm);color:var(--muted);margin:0}
-    .step p + p{margin-top:.7em}
-    .honest{background:var(--umber);color:var(--bone);border-radius:var(--radius-md);padding:38px 36px;
-      display:flex;flex-direction:column;justify-content:center}
-    .honest h3{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--bone);margin:0 0 16px}
-    .honest p{font-size:var(--fs-md);color:rgba(244,239,230,.85);margin:0 0 14px}
-    .honest .pull{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:rgba(244,239,230,.85);margin-top:22px}
-    .lead-strong{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);color:var(--terracotta-deep);
-      text-align:center;margin:40px auto 0}
+/* ============ bookseller's band (ochre moment one) ============ */
+.band{
+  background:var(--ochre);
+  color:var(--band-ink);
+  text-align:center;
+  font:500 .78rem/1.4 var(--sans);
+  letter-spacing:.04em;
+  padding:.55rem 1rem;
+}
+.band b{font-weight:600}
+.band a{color:var(--band-ink);font-weight:600;text-decoration-color:rgba(64,47,30,.5);text-underline-offset:3px}
 
-    /* ===================================================================== STORY */
-    .story{background:var(--cream)}
-    .story-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
-    .story-photo{aspect-ratio:1/1;border-radius:var(--radius-md);position:sticky;top:150px;overflow:hidden;
-      background:radial-gradient(at 60% 35%,rgba(201,123,90,.5),transparent 55%),linear-gradient(160deg,var(--bone),#ddd2bf)}
-    .story blockquote{font-family:var(--serif);font-size:var(--fs-xl);line-height:1.25;font-weight:500;margin:0 0 24px;letter-spacing:-.01em}
-    .story blockquote.long{font-size:var(--fs-lg);line-height:1.4;font-weight:400;font-style:italic}
-    .story p{font-size:var(--fs-sm);color:var(--umber);max-width:560px}
-    .hero-photo img,.story-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-    .hero-photo img{object-position:50% 30%}
-    .story-more{margin-top:6px}
-    .story-more[open] .story-more-toggle::after{content:"  Mostrar menos"}
-    .story-more-toggle{font-family:var(--sans);font-weight:500;font-size:var(--fs-sm);color:var(--terracotta-deep);cursor:pointer;
-      list-style:none;display:inline-block;margin-top:4px}
-    .story-more-toggle::-webkit-details-marker{display:none}
-    .story-more-toggle::after{content:"  Lee más de mi historia →"}
-    .story-more .more-body{margin-top:14px}
-    .story-more .more-body p{margin:0 0 14px}
-    .story p.story-sig{font-family:var(--serif);font-style:italic;font-size:var(--fs-lg);line-height:1.3;color:var(--terracotta-deep);margin-top:22px}
-    .space-band{position:relative;height:clamp(220px,38vw,440px);overflow:hidden}
-    .space-band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
-    .reset-kicker{font-family:var(--sans);font-weight:600;font-size:var(--fs-xs);letter-spacing:.09em;
-      text-transform:uppercase;color:var(--bone);opacity:.72;margin:-6px 0 14px}
-    .amt-note{font-family:var(--serif);font-size:var(--fs-xl);font-weight:500;color:var(--umber);margin:6px 0 2px}
+/* ============ running head ============ */
+.head{
+  position:sticky;top:0;z-index:50;
+  background:rgba(244,239,230,.94);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--hairline);
+  min-height:var(--head-h);
+  display:flex;align-items:center;
+}
+.head-inner{
+  width:100%;max-width:1240px;margin-inline:auto;
+  padding-inline:clamp(.9rem,3vw,2rem);
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  position:relative;
+}
+/* The logo holds the optical centre of the running head whatever the two side
+   clusters weigh, so it is taken out of the flex row rather than balanced
+   against it. Both neighbours are sized to clear it at every width. */
+.head-brand{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--umber);text-decoration:none;
+  display:inline-flex;align-items:center;min-height:44px;
+}
+.head-chapter{
+  /* stops short of the centred logo at every width */
+  flex:1 1 auto;min-width:0;max-width:calc(50% - 5.5rem);padding-right:1rem;
+  font:italic 400 var(--fs-aside)/1 var(--serif);
+  color:var(--muted-strong);
+  transition:opacity .3s var(--sine);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;
+}
+.head-right{
+  flex:0 0 auto;margin-left:auto;
+  display:flex;align-items:center;gap:clamp(.4rem,1.4vw,1.1rem);
+}
+.head-btn{
+  appearance:none;background:none;border:0;cursor:pointer;
+  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted-strong);
+  min-height:44px;padding:0 .35rem;
+  display:inline-flex;align-items:center;
+  transition:color .25s;
+}
+.head-btn:hover{color:var(--umber)}
+.head-langs{display:flex;align-items:center;gap:.55rem;font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.16em}
+.head-langs .on,.head-langs .off{display:inline-flex;align-items:center;gap:.36em}
+.head-langs .on{color:var(--umber)}
+.head-langs .off{color:rgba(91,70,54,.45);cursor:default}
+.head-langs a.off{text-decoration:none;transition:color .25s}
+.head-langs a.off:hover{color:var(--umber)}
+.flag{
+  width:1.35em;height:auto;flex:none;border-radius:1px;
+  box-shadow:0 0 0 .5px rgba(64,47,30,.3);
+  transition:opacity .25s;
+}
+.head-langs .off .flag{opacity:.5}
+.head-langs a.off:hover .flag{opacity:1}
+.head-cta{
+  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  background:var(--terracotta-deep);color:var(--bone);text-decoration:none;
+  border:1px solid var(--terracotta-deep);border-radius:2px;
+  min-height:44px;padding:0 1rem;
+  display:inline-flex;align-items:center;
+  transition:background .25s,border-color .25s;
+}
+.head-cta:hover{background:var(--terracotta-ink);border-color:var(--terracotta-ink);color:var(--bone)}
+/* From 900px up the centred logo leaves each side half the bar, so the right
+   cluster is tightened to fit its half rather than pushing the logo off centre.
+   Only the widest desktops have room for it at full size. */
+@media (min-width:900px) and (max-width:1279px){
+  .head-chapter{display:none}
+  .head-right{gap:.55rem}
+  .head-btn{font-size:.58rem;letter-spacing:.08em;padding:0 .2rem}
+  .head-langs{gap:.4rem;font-size:.6rem;letter-spacing:.04em}
+  .flag{width:1.2em}
+  .head-cta{font-size:.6rem;letter-spacing:.05em;padding:0 .6rem}
+}
+@media (max-width:899px){
+  :root{--head-h:52px}
+  /* keep the language switcher on phones (multilingual reach is core, and most
+     visitors are on phones); only the chapter label and header CTA fold away */
+  .head-chapter,.head-cta{display:none}
+  .head-langs{gap:.34rem;font-size:.56rem;letter-spacing:.04em}
+}
 
-    /* ===================================================================== REVIEWS */
-    .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px}
-    .rev-grid .rev:last-child:nth-child(3n+1){grid-column:2}
-    .rev{background:var(--bone);border:1px solid var(--hairline);border-radius:var(--radius-md);padding:30px 28px;display:flex;flex-direction:column}
-    .rev .rev-body{flex:1;margin-bottom:22px}
-    .rev .quote{font-family:var(--serif);font-size:var(--fs-lg);line-height:1.4;font-style:italic;color:var(--umber);margin:0}
-    .rev .av-letter{display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:var(--fs-md);font-style:italic;color:var(--terracotta-deep);border:1px solid var(--hairline)}
-    /* a review expander is prose too, so it drops the FAQ's generic details chrome. Its
-       label is the inline .toggle-cta span, not a ::after, so killing the "+" is safe here
-       (unlike .story-more, whose label IS the ::after). */
-    .rev-more{border-bottom:none;padding:0}
-    .rev-more summary{cursor:pointer;list-style:none;display:block;font-weight:400}
-    .rev-more summary::after{content:none}
-    .rev-more summary::-webkit-details-marker{display:none}
-    .rev-more .quote-full{display:none}
-    .rev-more[open] .quote-excerpt{display:none}
-    .rev-more[open] .quote-full{display:block}
-    .rev .quote-highlight{font-weight:600}
-    .rev .toggle-cta{font-family:var(--sans);font-style:normal;font-weight:500;font-size:var(--fs-xs);
-      color:var(--terracotta-deep);white-space:nowrap;margin-left:2px}
-    .rev .quote + .quote{margin-top:14px}
-    .rev .who{display:flex;align-items:center;gap:12px}
-    .rev .av{width:46px;height:46px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--cream)}
-    .rev .av img{width:100%;height:100%;object-fit:cover;display:block}
-    .rev .who b{font-size:var(--fs-sm);font-weight:600}
-    .rev .who span{font-size:var(--fs-xs);color:var(--muted);display:block;margin-top:1px}
-    .rev .who a{color:var(--terracotta-deep);text-decoration:none}
-    .rev .who a:hover{text-decoration:underline}
-    .rev-note{text-align:center;font-size:var(--fs-xs);color:var(--muted);font-style:italic;margin-top:26px}
+/* ============ buttons and whispers ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:48px;padding:.85rem 1.7rem;
+  border:1px solid var(--terracotta-deep);border-radius:2px;
+  font:600 var(--fs-label)/1.35 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--terracotta-deep);text-decoration:none;text-align:center;
+  background:transparent;cursor:pointer;
+  transition:color .25s,background .25s,border-color .25s;
+}
+.btn:hover{color:var(--terracotta-ink);border-color:var(--terracotta-ink)}
+.btn-fill{background:var(--terracotta-deep);color:var(--bone)}
+.btn-fill:hover{background:var(--terracotta-ink);color:var(--bone)}
+.whisper{
+  font:italic 400 var(--fs-aside)/1.5 var(--serif);
+  color:var(--muted-strong);
+  text-align:center;
+  margin-top:.5rem;
+}
+.cta-unit{display:flex;flex-direction:column;align-items:center}
 
-    /* ===================================================================== RESET BAND */
-    .reset{background:var(--sage);color:var(--bone);text-align:center}
-    .reset h2{font-family:var(--serif);font-weight:500;font-size:var(--fs-2xl);color:var(--bone);margin:0 0 14px}
-    .reset p{color:rgba(244,239,230,.9);max-width:480px;margin:0 auto 28px;font-size:var(--fs-base)}
-    .reset-form{display:flex;gap:10px;max-width:430px;margin:0 auto;justify-content:center;flex-wrap:wrap}
-    .reset-form input{font-family:var(--sans);font-size:var(--fs-sm);padding:13px 18px;border-radius:var(--radius-pill);border:none;
-      flex:1;min-width:220px;color:var(--umber)}
-    /* the placeholder would otherwise inherit .reset p's 28px bottom margin and
-       pad the band out before anyone has submitted anything */
-    .reset-note:empty{display:none}
-    .reset-note:not(:empty){display:block;max-width:430px;margin:16px auto 0;padding:13px 16px;
-      background:rgba(244,239,230,.95);border-radius:12px;
-      font-size:var(--fs-sm);line-height:1.55;color:var(--umber);text-align:center}
+/* ============ title page ============ */
+#hero{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  padding:clamp(1.6rem,5vh,4.5rem) 1.25rem clamp(1.4rem,4vh,3.5rem);
+}
+@media (min-width:900px){
+  #hero{min-height:calc(100vh - 150px);min-height:calc(100svh - 150px)}
+}
+.hero-eyebrow{margin-bottom:clamp(1rem,2.6vh,2rem)}
+.title{
+  font-size:clamp(3rem,13vw,6.6rem);
+  line-height:1.04;
+  font-weight:500;
+  letter-spacing:.005em;
+}
+.title em{font-style:italic;font-weight:500}
+.m-br{display:none}  /* mobile-only line break, lands the period on a short central line */
+/* the breathing full stop */
+.breath-dot{
+  appearance:none;background:none;border:0;padding:0;cursor:pointer;
+  vertical-align:baseline;
+  margin-left:.06em;
+}
+.breath-dot .glyph{
+  width:max(.115em,8px);height:max(.115em,8px);
+  background:var(--terracotta-deep);
+}
+.breath-dot .halo{width:130px;height:130px}
+.breath-dot::before{ /* 48px invisible hit area */
+  content:"";position:absolute;left:50%;top:50%;
+  width:48px;height:48px;transform:translate(-50%,-50%);
+  border-radius:50%;
+}
+.breath-dot .ring{
+  position:absolute;left:50%;top:50%;
+  width:52px;height:52px;margin:-26px 0 0 -26px;
+  border:1px solid rgba(144,88,64,.55);border-radius:50%;
+  opacity:0;
+  animation:ring-in 1.3s var(--sine) 1s forwards;
+  pointer-events:none;
+}
+@keyframes ring-in{
+  from{opacity:0;transform:scale(var(--ring-from))}
+  to{opacity:1;transform:scale(1)}
+}
+#hero[data-invited="done"] .ring{animation:none;opacity:0;transition:opacity .6s}
+.invite-cap{
+  appearance:none;-webkit-appearance:none;
+  display:inline-flex;align-items:center;gap:.55em;
+  min-height:44px;padding:.5rem 1.15rem;
+  border:1px solid var(--hairline-mid);border-radius:999px;
+  background:var(--cream);
+  font:italic 400 var(--fs-aside)/1.5 var(--serif);
+  color:var(--terracotta-deep);
+  cursor:pointer;
+  margin-top:clamp(.9rem,2vh,1.4rem);
+  /* present and visible at rest: the tap invite reads immediately, so the
+     breathing full stop is legibly interactive within the first seconds.
+     A short fade at load only, no hold delay. */
+  opacity:1;
+  animation:fade-in .6s var(--sine) both;
+  transition:border-color .25s,color .25s;
+}
+.invite-cap:hover{border-color:var(--terracotta);color:var(--umber)}
+/* the global :focus-visible squares every corner to 2px; a pill must keep its own */
+.invite-cap:focus-visible{border-radius:999px}
+.invite-cap .ico{
+  position:relative;flex:none;
+  width:13px;height:13px;border-radius:50%;
+  border:1px solid var(--terracotta-deep);
+}
+.invite-cap .ico::after{
+  content:"";position:absolute;left:50%;top:50%;
+  width:4px;height:4px;margin:-2px 0 0 -2px;
+  border-radius:50%;background:var(--terracotta-deep);
+}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+#hero[data-invited="done"] .invite-cap{
+  animation:none;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .6s,visibility 0s linear .6s;
+}
+.author-line{
+  display:flex;align-items:center;gap:.7rem;
+  margin-top:clamp(1rem,2.4vh,1.8rem);
+}
+.author-face{
+  width:80px;height:80px;border-radius:50%;
+  /* a face crop, not the full frame: at 46px a full-body shot leaves the face at
+     about a sixth of the circle and reads as a shape rather than as her */
+  background-image:url("/img/diana-avatar.jpg");
+  background-size:cover;
+  background-position:50% 44%;
+  box-shadow:0 0 0 1px var(--hairline-mid);
+}
+.author-line .smallcaps{letter-spacing:.26em}
+.hero-sub{
+  max-width:28em;
+  margin-top:clamp(1.1rem,2.6vh,2rem);
+  font-size:clamp(.94rem,2.5vw,1.0625rem);
+  line-height:1.72;
+  color:var(--umber);
+}
+.hero-ctas{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:1rem 2.2rem;
+  margin-top:clamp(.9rem,2.2vh,1.5rem);
+}
+.hero-ctas .btn{min-width:min(19rem,78vw)}
+.hero-reset-line{
+  margin-top:clamp(.9rem,2vh,1.3rem);
+  font:italic 400 var(--fs-aside)/1.5 var(--serif);
+  color:var(--muted-strong);
+}
+.hero-reset-line a{color:var(--terracotta-deep);text-underline-offset:3px;text-decoration-color:rgba(144,88,64,.4)}
 
-    /* ===================================================================== BOOK */
-    .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:18px}
-    .price-card{background:var(--sage);border:1px solid var(--sage);
-      border-radius:var(--radius-lg);padding:38px 34px}
-    .price-card .label{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:rgba(244,239,230,.75)}
-    .price-card .amt-note{color:var(--bone)}
-    .price-card ul{list-style:none;padding:0;margin:22px 0 26px}
-    .price-card li{font-size:var(--fs-sm);padding:9px 0;border-bottom:1px solid rgba(244,239,230,.22);display:flex;gap:10px;color:rgba(244,239,230,.92)}
-    .price-card li::before{content:"·";color:var(--bone);font-weight:700}
-    .price-card p.muted{color:rgba(244,239,230,.75)}
-    .price-card p.muted a{color:var(--bone);white-space:nowrap}
-    details{border-bottom:1px solid var(--hairline);padding:16px 0}
-    details summary{font-family:var(--sans);font-weight:500;font-size:var(--fs-md);cursor:pointer;list-style:none;display:flex;justify-content:space-between}
-    details summary::-webkit-details-marker{display:none}
-    details summary::after{content:"+";color:var(--terracotta-deep);font-size:var(--fs-lg)}
-    details[open] summary::after{content:"-"}
-    details p{font-size:var(--fs-sm);color:var(--muted);margin:12px 0 2px}
-    /* the story long-read expander is prose, not a FAQ row: drop the generic details border/padding.
-       (its own .story-more-toggle::after supplies the label, so no content:none override, which would
-       otherwise out-specify and hide that label, as it silently did on es/ru before this normalization) */
-    .story-more{border-bottom:none;padding:0}
+/* ============ plates ============ */
+.plate{margin:0 auto;text-align:center}
+.plate img{margin-inline:auto;box-shadow:0 0 0 1px var(--hairline)}
+.plate figcaption{margin-top:1rem}
+#frontispiece{padding:var(--gap-tight) 1.25rem var(--gap-tight)}
+/* per Diana: crop the hero photo shorter (less floor). Was 2/3 (very tall); now 4/5
+   with the frame biased upward so the floor at the bottom is cropped, not Diana. */
+#frontispiece .plate img{width:min(520px,86vw);aspect-ratio:4/5;border-radius:22px;object-fit:cover;object-position:50% 20%}
+#space{padding:calc(var(--gap) * .85) 1.25rem}
+/* the story photo takes the frontispiece's 4/5 frame so an upright shot does not
+   tower over the text column beside it. The figure needs the explicit width: with
+   `.plate{margin:0 auto}` an auto-margin grid item sizes to max-content, and a
+   percentage-width child then has nothing to resolve against. */
+#story .plate{width:100%}
+#story .plate img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 62%}
 
-    /* ===================================================================== FOOTER */
-    footer{background:var(--umber);color:var(--bone);padding:40px 32px 28px}
-    .foot-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:40px}
-    /* footer sits on the dark --umber background; headings/icons use --ochre (its one other
-       deliberate appearance besides the promo bar) so they read as colored, not washed out */
-    footer h5{font-family:var(--sans);font-weight:600;font-size:var(--fs-2xs);letter-spacing:.18em;text-transform:uppercase;color:var(--ochre);margin:0 0 16px}
-    footer a{color:rgba(244,239,230,.85);text-decoration:none;display:block;margin-bottom:9px;font-size:var(--fs-sm)}
-    footer a:hover{color:var(--bone)}
-    footer a.social-link{display:flex;align-items:center;gap:10px;position:relative}
-    footer a.social-link svg{width:18px;height:18px;flex-shrink:0;stroke:var(--ochre)}
-    footer a.social-link svg.brand-wa{stroke:none}
-    /* click-to-copy confirmation for the email link, shown when "Copy address"
-       is chosen from the email menu below */
-    footer a.social-link .copy-note{position:absolute;left:28px;bottom:100%;margin-bottom:6px;
-      background:var(--ochre);color:var(--umber);font-family:var(--sans);font-weight:600;
-      font-size:var(--fs-2xs);letter-spacing:.03em;padding:3px 9px;border-radius:6px;
-      white-space:nowrap;opacity:0;transform:translateY(4px);pointer-events:none;
-      transition:opacity .18s ease,transform .18s ease;z-index:11}
-    footer a.social-link .copy-note.show{opacity:1;transform:translateY(0)}
-    /* email chooser popover: a mailto: link only opens a mail app on machines that
-       have one configured, so clicking the email opens this menu instead. Gmail /
-       Outlook open a webmail compose window (works with no desktop client at all),
-       "Default mail app" uses the mailto:, and "Copy address" copies + confirms. */
-    .email-choice{position:relative}
-    .email-menu{position:absolute;left:0;bottom:100%;margin-bottom:8px;z-index:12;
-      min-width:210px;background:var(--bone);border:1px solid var(--hairline);border-radius:12px;
-      padding:6px;box-shadow:0 10px 30px rgba(43,34,26,.35);display:flex;flex-direction:column;gap:1px}
-    .email-menu[hidden]{display:none}
-    .email-menu .em-label{font-family:var(--sans);font-size:var(--fs-2xs);font-weight:600;
-      letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:6px 10px 4px;margin:0}
-    footer .email-menu .em-item{display:flex;align-items:center;gap:10px;width:100%;margin:0;
-      padding:9px 10px;border:none;background:none;border-radius:7px;cursor:pointer;text-align:left;
-      font-family:var(--sans);font-size:var(--fs-sm);font-weight:500;color:var(--umber);text-decoration:none}
-    footer .email-menu .em-item:hover{background:var(--cream);color:var(--umber)}
-    .email-menu .em-item svg{width:17px;height:17px;flex-shrink:0;stroke:var(--terracotta-deep)}
-    .foot-bottom{max-width:1140px;margin:18px auto 0;padding-top:14px;border-top:1px solid rgba(244,239,230,.18);
-      font-size:var(--fs-xs);color:rgba(244,239,230,.55);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+/* ============ chapters ============ */
+.chapter{padding:var(--gap) 0}
+/* a chapter that opens on a photo plate, or closes on a full-bleed colour band,
+   hands that side of the boundary to the plate or the band */
+#session{padding-top:var(--gap-tight);padding-bottom:0}
+.chapter-head{text-align:center;margin-bottom:calc(var(--gap) * 1.2)}
+.chapter-head .divider{margin-bottom:1.6rem}
+.chapter-head .smallcaps{display:block;margin-bottom:1.1rem}
+.chapter-head h2{max-width:24ch;margin-inline:auto}
+.chapter-body p + p{margin-top:1.2em}
+/* the centred paragraph that introduces a chapter under its heading */
+.chapter-intro{text-align:center;margin-bottom:var(--gap)}
 
-    /* the full nav (logo + section links + language + book button) only fits once the
-       viewport reaches the 1140px content max-width; below that the whole inline nav is
-       replaced by the hamburger, so navigation (and the language switcher + Book CTA) all
-       stay reachable in one clean menu instead of a bar that clipped its own links. */
-    @media(max-width:1140px){
-      .nav a.link,
-      .nav-inner > .lang,
-      .nav-inner > .nav-cta{display:none}
-      /* neutralize the generic FAQ <details> styling (border, padding, the +/- summary
-         marker) that would otherwise leak onto this menu, since it is a <details> too. */
-      .navmenu{display:block;position:static;border-bottom:none;padding:0}
-      /* two classes so this out-specifies BOTH `details summary::after` (the "+") and
-         `details[open] summary::after` (the "-"), which the FAQ accordion defines. */
-      .navmenu .navmenu-btn::after{content:none}
-      /* the hamburger button: a >=44px square touch target, three bars drawn in umber */
-      .navmenu-btn{list-style:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
-        cursor:pointer;border-radius:10px;margin-left:6px}
-      .navmenu-btn::-webkit-details-marker{display:none}
-      .navmenu-btn:hover{background:rgba(91,70,54,.06)}
-      .navmenu-bars{display:block;width:22px;height:16px;position:relative}
-      .navmenu-bars span{position:absolute;left:0;width:100%;height:2px;border-radius:2px;background:var(--umber);
-        transition:transform .2s ease,opacity .15s ease}
-      .navmenu-bars span:nth-child(1){top:0}
-      .navmenu-bars span:nth-child(2){top:7px}
-      .navmenu-bars span:nth-child(3){top:14px}
-      /* open state: bars morph into an X */
-      .navmenu[open] .navmenu-bars span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-      .navmenu[open] .navmenu-bars span:nth-child(2){opacity:0}
-      .navmenu[open] .navmenu-bars span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-      /* the dropdown panel: drops from the bottom of the sticky bar, full width, as a card */
-      .navmenu-panel{position:absolute;left:0;right:0;top:100%;display:flex;flex-direction:column;
-        background:var(--bone);border-bottom:1px solid var(--hairline);
-        box-shadow:0 16px 34px rgba(43,34,26,.16);padding:8px 20px 18px}
-      .navmenu-panel a:not(.btn){font-family:var(--sans);font-size:var(--fs-md);color:var(--umber);
-        text-decoration:none;padding:14px 4px;border-bottom:1px solid var(--hairline);min-height:44px;
-        display:flex;align-items:center}
-      .navmenu-panel a:not(.btn):active{color:var(--terracotta-deep)}
-      .navmenu-lang{border:none;padding:16px 0 6px;justify-content:flex-start;gap:20px}
-      .navmenu-book{margin-top:16px;width:100%;text-align:center}
-    }
+/* notes on the text (fact cards) */
+.notes{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  max-width:60rem;margin-inline:auto;
+  gap:clamp(1.4rem,3.5vw,2.6rem);
+  margin-top:calc(var(--gap) * 1.5);
+  padding-top:calc(var(--gap) * .9);
+  border-top:1px solid var(--hairline);
+}
+.note .smallcaps{display:block;margin-bottom:.6rem;color:var(--terracotta-deep)}
+.note p{font-size:var(--fs-body-sm);line-height:1.7}
+@media (max-width:719px){.notes{grid-template-columns:1fr;gap:1.7rem}}
+.boundary{margin-top:calc(var(--gap) * 1.2)}
 
-    @media(max-width:880px){
-      .hero-grid,.session-grid,.story-grid,.book-grid{grid-template-columns:1fr;gap:36px}
-      .door-grid,.rev-grid,.foot-grid{grid-template-columns:1fr}
-      /* photo-first hero on mobile: Diana greets the visitor at the top of the page
-         instead of being pushed below a wall of text + two CTAs (the old stacked order).
-         `order` re-sequences the two grid children without touching the desktop DOM. */
-      .hero-grid{gap:24px}
-      .hero-grid > div:first-child{order:2}
-      .hero-photo{order:1}
-      .rev-grid .rev:last-child:nth-child(3n+1){grid-column:auto}
-      /* MUST stay a positioned box (relative, not static): its img is
-         position:absolute; inset:0; height:100%, so it needs .story-photo as its
-         containing block. With static, the img escaped to the viewport as its
-         containing block and blew up to full-screen, stacking OVER the hero (the
-         top of every mobile page showed the story photo instead of the headline).
-         relative keeps it in normal flow (un-sticky) while restoring that box. */
-      .story-photo{position:relative;top:auto}
-      /* mobile spacing rhythm: the fixed 104px/32px section box was tuned for
-         desktop; on a phone it made the page ~16,000px tall and pinched the side
-         gutters at the same time. (the hero h1 now scales via the fluid --fs-3xl,
-         so the old fixed 48px override that lived here is gone.) */
-      section{padding:72px 24px}
-      /* less top padding now the photo leads: it should sit just under the nav */
-      .hero{padding:18px 24px 52px}
-      footer{padding:36px 24px 24px}
-      /* trim the vertical padding so the logo (below) fills the bar height rather than
-         floating in whitespace; the hamburger keeps its own >=44px hit area regardless. */
-      .nav-inner{padding:8px 24px}
-      .process-block{margin-top:48px;padding-top:36px}
-      /* on mobile the logo is the bar: size it to nearly fill the header height (was 52px
-         floating in a taller bar). drops to 56px at <=520px below to keep width in hand. */
-      #navmark{height:64px}
-      /* a deliberate square crop on mobile (was an in-between 4/3.6 that read as
-         accidental); keeps Diana's portrait present without dominating the fold. */
-      .hero-photo{aspect-ratio:1/1}
-      /* the promo bar and nav are both sticky; the nav's sticky offset (top:39px)
-         assumes a one-line promo, but the promo wraps to two lines somewhere below
-         ~560px and then overlaps the nav. Rather than chase a fragile magic offset,
-         stop pinning the promo below tablet width and pin only the nav to the top. */
-      .promo-bar{position:static}
-      .nav{top:0}
-      /* buttons are pills with white-space:nowrap, which is fine in a roomy desktop
-         card but forces a longer label (e.g. the Russian door CTAs) wider than a
-         narrow phone card, overflowing the page. Let in-flow buttons wrap on mobile;
-         keep only the compact nav pill on one line. min-height + flex centering gives
-         every button a >=44px touch target (Apple 44 / Material Design 48). */
-      .btn{white-space:normal;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-      .nav .btn-primary{white-space:nowrap}
-      /* touch targets for the other controls: footer contact links were 22px tall
-         (the Instagram / WhatsApp / email conversion path) and the FAQ + story
-         toggles 30px. Turn dead margin into live padding to reach ~44px. */
-      footer a{padding:11px 0;margin-bottom:2px}
-      footer a.social-link{min-height:44px}
-      details summary{min-height:44px;align-items:center}
-      .story-more-toggle{min-height:44px;display:inline-flex;align-items:center}
-    }
+/* ============ the doors spread ============ */
+.spread{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--hairline);
+  background:var(--bone);
+}
+.page-leaf{padding:clamp(1.9rem,4.5vw,3.4rem) clamp(1.4rem,4vw,3rem);text-align:center}
+.page-leaf + .page-leaf{border-left:1px solid var(--hairline)}
+.leaf-cream{background:var(--cream)}
+.leaf-orn{width:9px;height:9px;border-radius:50%;margin:0 auto 1.2rem}
+.orn-sage{background:var(--sage)}
+.orn-terra{background:var(--terracotta)}
+.page-leaf .smallcaps{display:block;margin-bottom:.8rem}
+.page-leaf h3{margin-bottom:.8rem}
+.page-leaf > p{font-size:var(--fs-body-sm);line-height:1.72;max-width:26em;margin-inline:auto}
+.page-leaf .cta-unit{margin-top:1.6rem}
+.microrev{
+  margin-top:1.7rem;padding-top:1.3rem;
+  border-top:1px solid var(--hairline);
+  display:flex;gap:.8rem;align-items:flex-start;text-align:left;
+  max-width:24rem;margin-inline:auto;
+}
+.microrev img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 1px var(--hairline-mid)}
+.microrev p{font:italic 400 var(--fs-aside)/1.55 var(--serif);color:var(--umber)}
+.microrev .who{display:block;margin-top:.3rem;font:600 var(--fs-micro)/1.6 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted-strong);font-style:normal}
+.microrev .who a{color:var(--muted-strong)}
+@media (max-width:819px){
+  .spread{grid-template-columns:1fr}
+  .page-leaf + .page-leaf{border-left:0;border-top:1px solid var(--hairline)}
+}
+.doors-note{margin-top:calc(var(--gap) * 1.2)}
 
-    /* short-but-wide viewports (laptop windows, browser chrome eating vertical space):
-       the hero was sized for tall screens only and got cropped with no scroll cue. */
-    @media (max-height:900px) and (min-width:881px){
-      .promo-bar{padding:6px 20px}
-      .nav-inner{padding:10px 32px}
-      #navmark{height:52px}
-      .hero{padding:20px 32px 40px}
-      .hero h1{font-size:44px;margin:8px 0 12px}
-      .hero p.sub{margin:0 0 18px}
-      .hero-photo{aspect-ratio:4/3.2}
-    }
+/* ============ what to expect: contents page ============ */
+.toc{list-style:none;max-width:44rem;margin:0 auto}
+.toc-row{
+  display:grid;grid-template-columns:3.4rem 1fr;gap:1rem;
+  padding:clamp(1.6rem,4vw,2.3rem) 0;
+}
+.toc-row + .toc-row{border-top:1px solid var(--hairline)}
+.toc-n{
+  font:500 2.1rem/1 var(--serif);
+  font-feature-settings:"onum" 1;
+  color:var(--terracotta-deep);
+}
+.toc-row h4{margin-bottom:.45rem}
+.toc-row p{font-size:var(--fs-body-sm);line-height:1.72;color:var(--umber)}
+.toc-row p + p{margin-top:.8em}
+.step-pull{
+  font:italic 400 var(--fs-pull)/1.55 var(--serif) !important;
+  color:var(--terracotta-deep) !important;
+}
 
-    /* the full promo line wraps to two lines below ~680px in the longer languages (ES/RU;
-       EN fits lower), so swap to the short one-line variant at 700px, comfortably above the
-       whole wrap band, so the ochre bar always reads as one clean line on every language. */
-    @media(max-width:700px){
-      .promo-full{display:none}
-      .promo-short{display:inline}
-    }
+/* the one dark spread: the honesty letter */
+.letter{
+  background:var(--umber);
+  color:var(--bone);
+  margin-top:calc(var(--gap) * 1.5);
+  padding:calc(var(--gap) * 1.9) 1.5rem calc(var(--gap) * 1.6);
+}
+.letter-inner{max-width:36rem;margin-inline:auto}
+.letter .smallcaps{color:rgba(244,239,230,.75);display:block;text-align:center;margin-bottom:1rem}
+.letter h3{color:var(--bone);text-align:center;margin-bottom:2rem;font-weight:400}
+.letter p{color:rgba(244,239,230,.93);font-size:var(--fs-body);line-height:1.85}
+.letter p + p{margin-top:1.15em}
+.letter-inner > p:first-of-type::first-letter{
+  font-family:var(--serif);font-weight:500;
+  font-size:3.3em;line-height:.82;
+  float:left;padding:.06em .12em 0 0;
+  color:var(--bone);
+}
+.letter em{color:var(--bone)}
+/* The letter's closing blessing. It is a quote, not another paragraph of the letter,
+   so it gets its own ground: an ochre wash and ochre rules inside the dark spread.
+   Ochre is the brand's rare eye-catcher, which is exactly the job here. */
+.benediction{
+  margin:calc(var(--gap) * 1.4) auto 0;
+  padding:clamp(1.4rem,3.6vw,2rem) clamp(1.3rem,4vw,2.4rem) clamp(1.7rem,4.4vw,2.3rem);
+  background:rgba(212,162,76,.13);
+  border-top:1px solid rgba(212,162,76,.55);
+  border-bottom:1px solid rgba(212,162,76,.55);
+  text-align:center;
+}
+.benediction::before{
+  content:"\201C";
+  display:block;
+  font:400 clamp(3rem,8vw,3.9rem)/.62 var(--serif);
+  color:var(--ochre);
+  margin-bottom:.55rem;
+}
+.benediction p{
+  font:italic 400 clamp(1.3rem,3.3vw,1.7rem)/1.45 var(--serif);
+  color:#FBF6EC;
+  max-width:26rem;margin-inline:auto;
+  text-wrap:balance;
+}
+.letter-sig{margin-top:calc(var(--gap) * 1.1);text-align:center}
+.letter-sig .sig-name{
+  display:block;
+  font:italic 500 1.6rem/1 var(--serif);color:rgba(244,239,230,.9);
+}
 
-    @media(max-width:520px){
-      /* phone nav is just logo + hamburger, so it stays on one row (the old rule stacked
-         the logo onto its own line to make room for the lang pill + Book button that now
-         live inside the menu). */
-      .nav-inner{padding:7px 20px}
-      #navmark{height:56px}
-      /* tighter gutters + shorter vertical rhythm on true phones */
-      section{padding:56px 20px}
-      .hero{padding:14px 20px 40px}
-      footer{padding:30px 20px 20px}
-      .promo-bar{padding:9px 16px}
-      /* desktop card padding (34-36px) wastes scarce width on a phone; trim it so
-         line length and content height recover inside the 20px section gutters. */
-      .door,.price-card,.honest{padding:28px 22px}
-      .rev{padding:24px 20px}
-      /* stacked, full-width buttons/inputs are easier to tap than a cramped wrapping row */
-      .hero-cta{flex-direction:column;align-items:stretch;gap:12px}
-      .hero-cta .btn{width:100%;text-align:center}
-      .reset-form{flex-direction:column;gap:12px}
-      .reset-form input{min-width:0;width:100%}
-      .reset-form .btn{width:100%}
-      /* centered body copy is harder to read on a narrow column: left-align the two
-         "what to expect" lead paragraphs while the eyebrow, heading and closing line
-         stay centered as section anchors. */
-      .practice .lead{text-align:left}
-      /* .18em tracking on the 11-12px uppercase labels reads as stretched/gappy on a
-         phone; tighten it so the small-caps labels stay tidy. */
-      .eyebrow,.alt-label,.door .tagword,.fact-col .fc-head span,
-      .price-card .label,footer h5{letter-spacing:.1em}
-    }
-  </style>
+/* ============ story ============ */
+.story-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.78fr);
+  gap:clamp(2rem,5vw,4rem);align-items:start;
+  max-width:62rem;margin-inline:auto;
+}
+@media (max-width:819px){.story-grid{grid-template-columns:1fr}}
+.story-quote{
+  font:italic 400 clamp(1.45rem,3.6vw,2rem)/1.4 var(--serif);
+  color:var(--umber);
+  margin-bottom:clamp(1.6rem,4vw,2.4rem);
+}
+.story-text p + p{margin-top:1.15em}
+.story-text .dropcap::first-letter{
+  font-family:var(--serif);font-weight:500;
+  font-size:3.4em;line-height:.82;
+  float:left;padding:.05em .14em 0 0;
+  color:var(--terracotta-deep);
+}
+.story-more{margin-top:1.4rem}
+.story-more summary{
+  list-style:none;cursor:pointer;
+  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--terracotta-deep);
+  padding:.9rem 0;border-top:1px solid var(--hairline);
+  display:flex;align-items:center;min-height:44px;
+}
+.story-more summary::-webkit-details-marker{display:none}
+.story-more summary .less{display:none}
+.story-more[open] summary .more{display:none}
+.story-more[open] summary .less{display:inline}
+.story-more .body{animation:dissolve .5s var(--sine) both}
+.story-more .body p + p{margin-top:1.15em}
+@keyframes dissolve{from{opacity:0}to{opacity:1}}
+.story-sig{margin-top:calc(var(--gap) * 1.2)}
+.story-cta{display:flex;flex-direction:column;align-items:center;margin-top:clamp(1.8rem,4vw,2.6rem)}
+
+/* ============ reviews ============ */
+.reviews-foot{margin-top:clamp(2.6rem,6vw,3.6rem);text-align:center}
+.reviews-foot .note{font:italic 400 var(--fs-aside)/1.6 var(--serif);color:var(--muted-strong)}
+.reviews-foot .share{display:inline-flex;align-items:center;min-height:44px;margin-top:.5rem;font:600 var(--fs-label-ui)/1.5 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--terracotta-deep);text-decoration:none}
+.reviews-foot .share:hover{color:var(--terracotta-ink)}
+
+/* ============ reset appendix ============ */
+#reset{
+  background:var(--cream);
+  border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);
+  padding-bottom:calc(var(--gap) * .85);
+}
+#reset .lead{text-align:center}
+.reset-form{
+  display:flex;gap:1rem;align-items:flex-end;justify-content:center;
+  max-width:30rem;margin:var(--gap) auto 0;flex-wrap:wrap;
+}
+.reset-form input{
+  flex:1;min-width:14rem;
+  background:transparent;border:0;border-bottom:1px solid var(--hairline-mid);
+  font:italic 400 1.15rem/1.4 var(--serif);color:var(--umber);
+  padding:.55rem .1rem;border-radius:0;
+}
+.reset-form input::placeholder{color:var(--muted-strong);opacity:1}
+.reset-form input:focus{outline:none;border-bottom-color:var(--terracotta-deep)}
+.reset-note{margin-top:.75rem;min-height:1.5em}
+
+/* ============ book: the final chapter ============ */
+/* the final chapter's opening words, then the offer it leads into */
+.book-intro{text-align:center}
+.offer{
+  text-align:center;
+  max-width:44rem;margin:calc(var(--gap) * 1.5) auto 0;
+  padding-top:calc(var(--gap) * .9);
+  border-top:1px solid var(--hairline);
+}
+.offer h3{margin-bottom:.9rem}
+.offer-label{display:block;color:var(--terracotta-deep)}
+.included{
+  text-align:center;
+  font:italic 400 1.08rem/2 var(--serif);
+  color:var(--umber);
+  max-width:44rem;margin:.9rem auto 0;
+}
+.included .mid{color:var(--terracotta);padding:0 .45em}
+.book-close{
+  max-width:44rem;margin:calc(var(--gap) * 1.5) auto 0;
+  text-align:center;
+}
+.book-close .divider{margin-bottom:2rem}
+#rest-dot .glyph{width:10px;height:10px}
+.book-face{
+  width:84px;height:84px;border-radius:50%;
+  margin:0 auto 0.9rem;
+  background-image:url("/img/diana-avatar.jpg");
+  background-size:cover;background-position:50% 44%;
+  box-shadow:0 0 0 1px var(--hairline-mid);
+}
+.book-face-cap{margin-bottom:1.8rem}
+.book-ctas{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:1.1rem 2.4rem;
+}
+.book-ctas .btn{min-width:min(19rem,78vw)}
+.prefer{margin-top:1.6rem;font:italic 400 var(--fs-aside)/1.5 var(--serif);color:var(--muted-strong)}
+.book-microrev{
+  display:flex;gap:.8rem;align-items:center;justify-content:center;text-align:left;
+  max-width:26rem;margin:2rem auto 0;
+}
+.book-microrev img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 1px var(--hairline-mid)}
+.book-microrev p{font:italic 400 var(--fs-aside)/1.5 var(--serif);color:var(--umber)}
+.book-microrev .who{display:block;margin-top:.25rem;font:600 var(--fs-micro)/1.6 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--muted-strong);font-style:normal}
+.book-microrev .who a{color:var(--muted-strong)}
+.faqs{max-width:38rem;margin:calc(var(--gap) * 1.5) auto 0}
+.faqs .smallcaps{display:block;text-align:center;margin-bottom:1rem}
+.faq{border-top:1px solid var(--hairline)}
+.faq:last-child{border-bottom:1px solid var(--hairline)}
+.faq summary{
+  list-style:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  min-height:52px;padding:.7rem 0;
+  font:500 1.02rem/1.5 var(--sans);color:var(--umber);
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:400 1.3rem/1 var(--serif);color:var(--terracotta-deep);flex:none}
+.faq[open] summary::after{content:"·"}
+.faq .a{padding:0 0 1.2rem;animation:dissolve .5s var(--sine) both}
+.faq .a p{font-size:var(--fs-body-sm);line-height:1.72;color:var(--muted-strong)}
+
+/* ============ colophon ============ */
+.colophon{
+  background:var(--umber);color:var(--bone);
+  padding:clamp(3rem,7vw,4.5rem) 1.5rem clamp(2.2rem,5vw,3rem);
+  text-align:center;
+}
+.colophon .logo{width:min(240px,64vw);margin:0 auto 2.4rem}
+.colo-cols{
+  display:flex;justify-content:center;gap:clamp(2.5rem,8vw,6rem);
+  flex-wrap:wrap;text-align:center;
+}
+.colo-h{
+  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(244,239,230,.9);
+  padding-top:.9rem;margin-bottom:1rem;
+  position:relative;
+}
+.colo-h::before{ /* ochre moment two: a decorative ochre rule above each heading */
+  content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:2.2rem;height:2px;background:var(--ochre);
+}
+.colo-cols a{
+  display:block;color:rgba(244,239,230,.85);text-decoration:none;
+  font:400 var(--fs-body-sm)/2.2 var(--sans);
+}
+.colo-cols a:hover{color:var(--bone)}
+.colo-small{
+  margin-top:2rem;
+  font:400 .82rem/1.8 var(--sans);color:rgba(244,239,230,.75);
+}
+
+/* ============ sticky invitation (mobile) ============ */
+.stickybar{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  background:rgba(244,239,230,.97);
+  border-top:1px solid var(--hairline);
+  padding:.6rem .9rem calc(.6rem + env(safe-area-inset-bottom));
+  display:flex;gap:.7rem;align-items:stretch;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .5s var(--sine),visibility 0s .5s;
+}
+.stickybar.show:not(.hide){opacity:1;visibility:visible;pointer-events:auto;transition:opacity .5s var(--sine)}
+.bar-call{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:52px;border-radius:2px;
+  background:var(--terracotta-deep);color:var(--bone);text-decoration:none;
+  font:600 var(--fs-label-ui)/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+  padding:.4rem .8rem;text-align:center;
+  transition:background .25s;
+}
+.bar-call:hover{background:var(--terracotta-ink);color:var(--bone)}
+.bar-call .bw{font:italic 400 .8rem/1.3 var(--serif);letter-spacing:.02em;text-transform:none;color:rgba(244,239,230,.92);margin-top:.15rem}
+.bar-wa{
+  display:flex;align-items:center;gap:.45rem;
+  min-height:52px;padding:0 .9rem;border:1px solid rgba(144,88,64,.55);border-radius:2px;
+  color:var(--terracotta-deep);text-decoration:none;
+  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+}
+.bar-wa svg{width:17px;height:17px;flex:none}
+@media (min-width:900px){.stickybar{display:none}}
+
+/* ============ contents dialog ============ */
+dialog.contents{
+  border:1px solid var(--hairline-mid);border-radius:3px;
+  background:var(--bone);color:var(--umber);
+  padding:1.6rem 1.6rem 1.2rem;
+  width:min(21rem,calc(100vw - 2.5rem));
+  margin:auto;
+}
+dialog.contents::backdrop{background:rgba(244,239,230,.82)}
+.contents-title{text-align:center;display:block;margin-bottom:.6rem}
+.contents a{
+  display:flex;align-items:center;min-height:48px;
+  border-top:1px solid var(--hairline);
+  font:400 1.12rem/1.4 var(--serif);color:var(--umber);text-decoration:none;
+  transition:color .25s;
+}
+.contents a:hover{color:var(--terracotta-deep)}
+.contents a.strong{color:var(--terracotta-deep);font-weight:500}
+.contents-close{
+  appearance:none;background:none;border:0;cursor:pointer;
+  display:block;margin:1rem auto 0;min-height:44px;padding:0 1rem;
+  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted-strong);
+}
+.contents-close:hover{color:var(--umber)}
+/* no-<dialog> fallback: the same list rendered as a plain anchored panel so
+   navigation always works even without showModal support */
+dialog.contents.nodialog{
+  display:none;position:fixed;
+  top:calc(var(--head-h) + 8px);right:clamp(.9rem,3vw,2rem);
+  z-index:60;box-shadow:0 10px 34px rgba(91,70,54,.20);
+}
+dialog.contents.nodialog.open{display:block}
+
+/* ============ one breath overlay ============ */
+#page{transition:opacity 1s var(--sine)}
+html.ritual #page{opacity:.12}
+#breath-overlay{
+  position:fixed;inset:0;z-index:70;
+  display:grid;place-items:center;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .8s var(--sine),visibility 0s .8s;
+}
+html.ritual #breath-overlay{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .8s var(--sine)}
+.ob-stage{text-align:center;outline:none}
+/* The seed of life: six circles drawn out of one on the in-breath and folded
+   back into it on the out. Same physiology as everything else here, 4s out,
+   7s back. In calm mode --sol-travel is 0, so the figure stays whole and only
+   the ink strength breathes. */
+.ob-sol{
+  display:block;overflow:visible;
+  width:min(64vw,300px);height:min(64vw,300px);
+  margin:0 auto 4.5rem;
+}
+.ob-sol circle{fill:none;stroke:var(--terracotta-deep);stroke-width:1.1}
+.ob-sol .ring{opacity:.18;transform:translateY(var(--sol-travel))}
+.ob-sol .mid{opacity:.3;transform-origin:100px 100px}
+html.ritual .ob-sol .ring{
+  will-change:transform;
+  animation:ritual-sol 11s cubic-bezier(.5,0,.5,1) 1 both;
+}
+html.ritual .ob-sol .mid{
+  animation:ritual-sol-mid 11s cubic-bezier(.5,0,.5,1) 1 both;
+}
+@keyframes ritual-sol{
+  0%{transform:translateY(var(--sol-travel));opacity:.18}
+  36.4%{transform:translateY(0);opacity:.62}
+  100%{transform:translateY(var(--sol-travel));opacity:.18}
+}
+@keyframes ritual-sol-mid{
+  0%{opacity:.3;transform:scale(1)}
+  36.4%{opacity:.85;transform:scale(var(--sol-amp))}
+  100%{opacity:.3;transform:scale(1)}
+}
+.ob-words{position:relative;height:2.4em}
+.ob-words .w{
+  position:absolute;left:50%;transform:translateX(-50%);
+  white-space:nowrap;
+  font:italic 400 1.7rem/1.4 var(--serif);color:var(--umber);
+  opacity:0;transition:opacity 1.4s var(--sine);
+}
+html.ritual .ob-words .w1{opacity:1}
+html.ritual .phase2 .w1{opacity:0}
+html.ritual .phase2 .w2{opacity:1}
+.ob-skip{
+  margin-top:3rem;
+  font:600 var(--fs-micro)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted-strong);
+}
+.visually-hidden{
+  position:absolute;width:1px;height:1px;margin:-1px;
+  clip-path:inset(50%);overflow:hidden;white-space:nowrap;
+}
+
+/* ============================================================
+   HERO COLUMN + MOBILE FIT PASS
+   The page is a centered book. On phones it becomes one narrow
+   column with generous bone margins (on concept). The column is
+   centered on common phone widths (<=460px) and left-anchored in
+   the 461 to 600 band so a left-cropped 375 capture of a wider
+   headless viewport still reads centered, never clipped.
+   ============================================================ */
+.hero-col{display:flex;flex-direction:column;align-items:center;width:100%;max-width:44rem}
+.band-in{display:block}
+.bar-in{display:flex;gap:.7rem;align-items:stretch;width:100%}
+@media (max-width:600px){
+  .wrap,.letter-inner,.colo-cols,.plate,.hero-col,.band-in,.bar-in,.head-inner{
+    max-width:348px;margin-left:auto;margin-right:auto;
+  }
+  .band-in{max-width:318px}
+  .plate img{width:100%}
+  .m-br{display:inline}
+  .title{font-size:clamp(2.6rem,11vw,3.1rem);line-height:1.06}
+  .breath-dot .halo{width:92px;height:92px}
+  .hero-sub{max-width:100%}
+  .band{font-size:.68rem;letter-spacing:.02em;padding-inline:1rem}
+  .hero-ctas{gap:.85rem}
+  .hero-ctas .cta-unit,.book-ctas .cta-unit{width:100%}
+  .hero-ctas .btn,.book-ctas .btn{min-width:0;width:100%}
+  /* WhatsApp is co-primary on phones: async chat is the lowest-friction door
+     for an anxious first-timer, so its button carries equal weight to Book.
+     Scoped to the hero and booking WhatsApp links only, the gentle-door reset
+     button in the doors spread stays a quiet outline. */
+  .hero-ctas .btn[href^="https://wa.me"],
+  .book-ctas .btn[href^="https://wa.me"]{
+    background:var(--terracotta-deep);color:var(--bone);
+  }
+  .hero-ctas .btn[href^="https://wa.me"]:hover,
+  .book-ctas .btn[href^="https://wa.me"]:hover{
+    background:var(--terracotta-ink);color:var(--bone);border-color:var(--terracotta-ink);
+  }
+  /* mobile running head: the logo holds the centre, so the right cluster has to
+     fit in the half-width left beside it. The language codes drop to their flags
+     (the label stays for screen readers); Contents keeps its word. */
+  .head-brand{letter-spacing:.04em;font-size:.56rem;white-space:nowrap}
+  .head-btn{letter-spacing:0;font-size:.55rem;padding:0 .1rem}
+  .head-right{gap:.72rem}
+  /* the running head goes edge to edge on phones: it is a bar, not a body column,
+     and the corner is where Contents and the flags belong */
+  .head-inner{max-width:none;padding-inline:.85rem}
+  .head-langs{gap:.42rem}
+  .head-langs .lang-code{
+    position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+  }
+  .flag{width:15px}
+  .head-logo{height:21px}
+  .notes{max-width:100%}
+}
+/* narrow phones: the bar is the tightest it gets, so every control gives a little */
+@media (max-width:389px){
+  .head-inner{padding-inline:.7rem}
+  .head-btn{font-size:.5rem}
+  .head-right{gap:.5rem}
+  .head-langs{gap:.3rem}
+  .flag{width:13px}
+  .head-logo{height:18px}
+}
+@media (min-width:461px) and (max-width:600px){
+  .wrap,.letter-inner,.colo-cols,.plate,.hero-col,.band-in,.bar-in,.head-inner{
+    margin-left:0;margin-right:auto;
+  }
+  .band{text-align:left}
+}
+
+/* --- logo in the running head --- */
+.head-logo{height:28px;width:auto;display:block}
+@media (max-width:899px){.head-logo{height:24px}}
+
+/* --- the process wave + icons (from proposal A) --- */
+#practice{view-timeline-name:--wave}
+.process{margin:calc(var(--gap) * 1.5) auto 0;max-width:1040px}
+.alt-label{font:600 var(--fs-label)/1.5 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--terracotta-deep);text-align:center;margin:0 0 .5rem}
+.wave-wrap{position:relative;max-width:1040px;margin:0 auto}
+.wave-svg{display:block;width:100%;height:auto}
+.wave-path{stroke:rgba(91,70,54,.34);stroke-width:1.6;fill:none;stroke-linecap:round}
+.wave-path-echo{stroke:rgba(201,123,90,.20);stroke-width:3.4;fill:none;stroke-linecap:round}
+.wave-marker{fill:var(--bone);stroke:rgba(91,70,54,.4);stroke-width:1}
+.wave-dot{opacity:0}
+@media (prefers-reduced-motion: no-preference){
+  @supports (animation-timeline: view()){
+    html[data-motion="full"] .wave-dot{opacity:1;animation:wave-travel linear both;animation-timeline:--wave;animation-range:cover 14% cover 86%}
+    html[data-motion="full"] .wave-dot-d{offset-path:path('M 18 206 C 60 201 96 191 128 179 C 196 154 300 76 378 61 C 432 51 452 71 500 105 C 549 140 590 157 626 168 C 692 188 776 203 872 210 C 914 213 954 212 984 211');offset-rotate:0deg}
+    html[data-motion="full"] .wave-dot-m{offset-path:path('M 13 24 C 10 84 14 148 24 194 C 32 230 36 240 36 262 C 36 294 29 332 24 374 C 19 414 15 452 13 502 C 12 550 12 598 12.5 640 C 12.7 662 13 676 13 688');offset-rotate:0deg}
+  }
+}
+@keyframes wave-travel{from{offset-distance:0%}to{offset-distance:100%}}
+.wave-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.1rem,3vw,2rem);max-width:1040px;margin:1.4rem auto 0;text-align:center}
+.proc-step img{width:66px;height:66px;border-radius:50%;margin:0 auto 12px;background:var(--cream)}
+.proc-step h4{font:600 var(--fs-label)/1.4 var(--sans);margin:0 0 6px;letter-spacing:.16em;text-transform:uppercase;color:var(--umber)}
+.proc-step p{font-size:var(--fs-body-sm);color:var(--muted-strong);margin:0;line-height:1.6}
+.proc-step .phase{display:block;font:italic 400 var(--fs-aside)/1.4 var(--serif);letter-spacing:0;text-transform:none;color:var(--muted-strong);margin-top:6px}
+.wave-mobile{display:none}
+@media (max-width:719px){
+  .wave-wrap,.wave-steps-d{display:none}
+  .wave-mobile{display:block;position:relative;max-width:480px;margin:0 auto;text-align:left;padding-left:64px}
+  .wave-mobile .wave-svg-m{position:absolute;left:6px;top:0;width:44px;height:100%}
+  .wave-mobile .wave-steps{grid-template-columns:1fr;gap:36px;margin:0;text-align:left}
+  .wave-mobile .proc-step{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start}
+  .wave-mobile .proc-step img{margin:0}
+  .wave-mobile .proc-step h4{margin-top:2px}
+}
+
+/* --- portrait opening the honesty chapter --- */
+.honesty-portrait{display:flex;flex-direction:column;align-items:center;text-align:center;padding:calc(var(--gap) * 1.5) 1.25rem 0}
+/* a rounded rectangle in the frame's own 3:2, per Diana: the photo holds two people
+   side by side, so any square or round crop bites into whichever of them sits nearer
+   an edge. */
+.honesty-portrait img{width:min(520px,86vw);aspect-ratio:3/2;border-radius:22px;object-fit:cover;object-position:50% 50%;box-shadow:0 0 0 1px var(--hairline-mid)}
+.honesty-portrait figcaption{margin-top:1.1rem;max-width:26rem}
+/* A: opening the chapter, the section's own top padding already carries the air */
+.honesty-portrait--top{padding-top:0;padding-bottom:calc(var(--gap) * 1.5)}
+
+/* --- the room, quote centred on it --- */
+.space-plate{position:relative}
+#space .space-plate img{width:min(1080px,92vw);aspect-ratio:2/1;object-fit:cover;object-position:50% 58%}
+.space-quote{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;padding:1.5rem;text-align:center;pointer-events:none}
+/* soft ellipse only behind the words, so the room stays visible around it. A three word
+   line is a much smaller target than the long sentence the scrim was first tuned for, so
+   it gets bigger type and a tighter ellipse: at the long-quote size it read as weak over
+   the bright wall, which would be the scrim's fault and not the line's. */
+.space-quote::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 44% 34% at center,rgba(52,38,24,.6),rgba(52,38,24,0) 74%)}
+.space-quote-text{position:relative;font:italic 400 clamp(1.85rem,4.8vw,2.9rem)/1.4 var(--serif);color:#FBF6EC;max-width:20rem;text-wrap:balance;text-shadow:0 2px 16px rgba(40,28,18,.85)}
+@media (max-width:700px){
+  #space .space-plate img{aspect-ratio:1.5/1}
+  .space-quote{padding:1rem}
+  .space-quote::before{background:radial-gradient(ellipse 74% 48% at center,rgba(52,38,24,.66),rgba(52,38,24,0) 82%)}
+  .space-quote-text{font-size:clamp(1.35rem,6.4vw,1.75rem)}
+}
+
+/* --- voice-note card (from proposal A) --- */
+.voice-card{display:flex;gap:16px;align-items:center;background:var(--bone);border:1px solid var(--hairline);border-radius:14px;padding:16px 18px;max-width:34rem;margin:1.8rem 0 0}
+.voice-play{width:52px;height:52px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:var(--cream);border:1px solid var(--hairline-mid)}
+.voice-play svg{width:15px;height:17px;opacity:.55}
+.voice-label{font:italic 400 var(--fs-aside)/1.4 var(--serif);color:var(--umber);margin:0 0 5px}
+.voice-soon{font:600 var(--fs-micro)/1.5 var(--sans);letter-spacing:.16em;color:var(--muted-strong);margin:0;text-transform:uppercase}
+
+/* --- aigoddesses-style testimonial carousel (sample) --- */
+.ai-highlights{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;max-width:52rem;margin:0 auto clamp(2.2rem,5vw,3.2rem);padding:0}
+.ai-pill{font:600 var(--fs-label-ui)/1.4 var(--sans);letter-spacing:.08em;color:var(--terracotta-deep);background:var(--cream);border:1px solid var(--hairline);border-radius:999px;padding:.55rem 1.05rem}
+.ai-marquee{position:relative;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.ai-track{display:flex;gap:1.4rem;width:max-content;padding:.4rem 0;animation:ai-scroll 66s linear infinite}
+.ai-marquee:hover .ai-track,.ai-marquee:focus-within .ai-track{animation-play-state:paused}
+@keyframes ai-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ai-card{flex:0 0 auto;width:min(340px,80vw);background:var(--bone);border:1px solid var(--hairline);border-radius:18px;padding:1.6rem 1.5rem;display:flex;flex-direction:column;gap:1.1rem;box-shadow:0 8px 26px rgba(91,70,54,.07)}
+.ai-quote{font:400 1.1rem/1.6 var(--serif);color:var(--umber);margin:0}
+.ai-quote::before{content:"\201C";color:var(--terracotta);font-size:1.5em;line-height:0;vertical-align:-.35em;margin-right:.06em}
+.ai-who{display:flex;align-items:center;gap:.75rem;margin-top:auto}
+.ai-who img{width:46px;height:46px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px var(--hairline-mid)}
+.ai-av-letter{width:46px;height:46px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--cream);color:var(--terracotta-deep);font:500 1.3rem/1 var(--serif);box-shadow:0 0 0 1px var(--hairline-mid)}
+.ai-who b{font:600 var(--fs-micro)/1.5 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--umber);display:block}
+.ai-who a{font:500 .82rem/1.3 var(--sans);color:var(--muted-strong)}
+html[data-motion="calm"] .ai-track{animation:none}
+html[data-motion="calm"] .ai-marquee{overflow-x:auto}
+@media (prefers-reduced-motion: reduce){
+  .ai-track{animation:none}
+  .ai-marquee{overflow-x:auto}
+}
+</style>
+<script>
+/* stamp motion mode before first paint so there is exactly one code path */
+(function(){
+  var d=document.documentElement;
+  d.classList.add("js");
+  try{
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){d.setAttribute("data-motion","calm");}
+    else{d.setAttribute("data-motion","full");}
+  }catch(e){d.setAttribute("data-motion","full");}
+})();
+</script>
 </head>
-<body data-fb-noun="sección" data-fb-key="website-es" data-fb-page="Website ES · Respira con Diana" data-fb-email="d.blaecker@gmail.com">
+<body data-fb-noun="sección" data-fb-key="v2-homepage-es" data-fb-page="Website ES · Respira con Diana" data-fb-email="d.blaecker@gmail.com">
+<div id="page">
 
-<!-- ===== PROMOTION BAR ===== -->
-<!-- Two copies of the promo line: the full one on desktop/tablet, a shorter one on
-     phones so the bar always stays a single line (the full text wrapped to two). Only
-     one is ever visible at a time (CSS toggle at the phone breakpoint). -->
-<div class="promo-bar">
-  <span class="promo-full">✦&nbsp;&nbsp;<b>¿Primera vez aquí?</b> Ven a respirar conmigo, empieza con un reset gratuito.&nbsp;&nbsp;<a href="#reset">Empezar →</a></span>
-  <span class="promo-short">✦&nbsp;&nbsp;<b>¿Primera vez?</b>&nbsp;&nbsp;<a href="#reset">Reset gratuito →</a></span>
-</div>
+  <!-- bookseller's band -->
+  <div class="band"><span class="band-in">&#10022;&nbsp;&nbsp;<b>¿Primera vez aquí?</b> Ven a respirar conmigo, empieza con un reset gratuito.&nbsp;&nbsp;<a href="#reset">Empezar &rarr;</a></span></div>
 
-<header class="nav">
-  <div class="nav-inner">
-    <a class="logo-lockup" href="#top" aria-label="Respira con Diana, inicio">
-      <img id="navmark" src="logo-mark.svg" alt="Breathe with Diana" />
-    </a>
-    <a class="link" href="#practice">Qué es</a>
-    <a class="link" href="#doors">El trabajo</a>
-    <a class="link" href="#session">Qué esperar</a>
-    <a class="link" href="#story">Mi camino a casa</a>
-    <a class="link" href="#reviews">Reseñas</a>
-    <span class="lang" title="Idioma">
-      <a href="index.html">EN<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="4"/><path d="M30,0 V40 M0,20 H60" stroke="#fff" stroke-width="14"/><path d="M30,0 V40 M0,20 H60" stroke="#C8102E" stroke-width="8"/></svg></span></a>
-      <b>ES<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#AA151B"/><rect y="10" width="60" height="20" fill="#F1BF00"/></svg></span></b>
-      <a href="ru.html">RU<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><rect y="13.33" width="60" height="13.34" fill="#0039A6"/><rect y="26.67" width="60" height="13.33" fill="#D52B1E"/></svg></span></a>
-    </span>
-    <a class="btn btn-primary nav-cta" href="#book">Reserva una consulta gratuita</a>
+  <!-- running head -->
+  <header class="head">
+    <div class="head-inner">
+      <span class="head-chapter" id="head-chapter" aria-hidden="true"></span>
+      <a class="head-brand" href="#hero" aria-label="Respira con Diana, inicio"><img class="head-logo" src="/logo-mark.svg" alt="Breathe with Diana" width="150" height="48"></a>
+      <div class="head-right">
+        <button class="head-btn" id="contents-open" type="button" aria-haspopup="dialog">Índice</button>
+        <span class="head-langs" aria-label="Idioma">
+          <a class="off" href="index.html" title="English"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="2"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6.5"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="3.5"/></svg><span class="lang-code">EN</span></a>
+          <span class="on" title="Español"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#C60B1E"/><rect y="5" width="30" height="10" fill="#FFC400"/></svg><span class="lang-code">ES</span></span>
+          <a class="off" href="ru.html" title="Русский"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#fff"/><rect y="6.667" width="30" height="6.667" fill="#0039A6"/><rect y="13.333" width="30" height="6.667" fill="#D52B1E"/></svg><span class="lang-code">RU</span></a>
+        </span>
+        <a class="head-cta" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una consulta gratuita</a>
+      </div>
+    </div>
+  </header>
+  <main>
 
-    <!-- Mobile menu. Below the content max-width the inline links/language/Book button
-         are hidden and this hamburger takes over. Built on a native <details> so it
-         opens and every link works with zero JavaScript; the script below only adds the
-         niceties (close on link-tap, Escape, and outside-click). -->
-    <details class="navmenu" id="navmenu">
-      <summary class="navmenu-btn" aria-label="Menú">
-        <span class="navmenu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-      </summary>
-      <nav class="navmenu-panel" aria-label="Menú">
-        <a href="#practice">Qué es</a>
+    <!-- ============ title page ============ -->
+    <section id="hero" aria-label="Portada">
+      <div class="hero-col">
+      <p class="smallcaps hero-eyebrow">Rebirthing breathwork &middot; Presencial y en línea</p>
+      <h1 class="title">Vuelve a casa.<br>Vuelve a tu<br class="m-br"> <em>cuerpo</em><button class="dot-station breath-dot alive" id="breath-btn" type="button" aria-label="Respira una vez conmigo"><span class="halo" aria-hidden="true"></span><span class="glyph" aria-hidden="true"></span><span class="ring" aria-hidden="true"></span></button></h1>
+      <button class="invite-cap" id="invite-cap" type="button"><span class="ico" aria-hidden="true"></span>Respira una vez conmigo</button>
+      <div class="author-line">
+        <span class="author-face" role="img" aria-label="Diana"></span>
+        <span class="smallcaps">con Diana</span>
+      </div>
+      <p class="hero-sub">Para quienes llevan años haciendo todo lo que se suponía que debían hacer y, aun así, sienten que en algún momento se perdieron de sí mismos. Esta es una invitación a bajar el ritmo. A volver a escucharte. A reconectar con tu cuerpo y empezar a construir una relación más amable contigo. Porque no se trata de convertirte en alguien diferente. Se trata de <em>volver a encontrarte con tu esencia</em>.</p>
+      <div class="hero-ctas">
+        <div class="cta-unit">
+          <a class="btn btn-fill" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una consulta gratuita</a>
+          <p class="whisper">Gratis, 15 minutos, sin compromiso de continuar.</p>
+        </div>
+        <div class="cta-unit">
+          <a class="btn" href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+          <p class="whisper">Puedes solo saludar.</p>
+        </div>
+      </div>
+      <p class="hero-reset-line">¿Todavía no quieres hablar? <a href="#reset">Empieza con el reset de respiración gratis</a></p>
+      </div>
+    </section>
+
+    <!-- ============ frontispiece ============ -->
+    <section id="frontispiece" aria-label="Frontispicio">
+      <figure class="plate reveal">
+        <img src="/img/diana-hero.jpg" alt="Diana guiando una sesión privada de rebirthing breathwork" width="1400" height="2100" decoding="async">
+        <figcaption class="caption">Diana, guiando una sesión privada de rebirthing breathwork.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ chapter: the practice ============ -->
+    <section id="practice" class="chapter" data-chapter="La práctica">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">La práctica</span>
+          <h2>¿Qué es el Rebirthing (respiración consciente conectada)?</h2>
+        </header>
+        <div class="chapter-body measure reveal">
+          <p class="lead">El Rebirthing es una práctica de respiración sencilla y profunda que utiliza un patrón continuo y conectado para crear un espacio en el que el cuerpo puede liberar el estrés, la tensión y las emociones que ha ido acumulando con el tiempo.</p>
+          <p class="lead">Poco a poco, eso que quedó guardado bajo la superficie puede empezar a soltarse. No porque lo fuerces, sino porque el cuerpo, cuando se siente seguro, sabe cómo hacerlo. Y desde ahí suelen aparecer más claridad, más libertad y una conexión más honesta contigo.</p>
+        </div>
+
+        <!-- The process, grafted from proposal A per Diana: the four icons plus the
+             breath-wave timeline. On desktop a point of light travels the wave as you
+             scroll; on phones the wave turns vertical beside the steps. -->
+        <div class="process reveal" role="group" aria-label="El proceso: una respiración conectada, mostrada como una ola de cuatro fases">
+          <p class="alt-label">El proceso</p>
+          <div class="wave-wrap" aria-hidden="true">
+            <svg class="wave-svg" viewBox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg">
+              <path class="wave-path-echo" d="M 18 206 C 60 201 96 191 128 179 C 196 154 300 76 378 61 C 432 51 452 71 500 105 C 549 140 590 157 626 168 C 692 188 776 203 872 210 C 914 213 954 212 984 211"/>
+              <path class="wave-path" d="M 18 206 C 60 201 96 191 128 179 C 196 154 300 76 378 61 C 432 51 452 71 500 105 C 549 140 590 157 626 168 C 692 188 776 203 872 210 C 914 213 954 212 984 211"/>
+              <circle class="wave-marker" cx="128" cy="179" r="4"/>
+              <circle class="wave-marker" cx="378" cy="61" r="4"/>
+              <circle class="wave-marker" cx="626" cy="168" r="4"/>
+              <circle class="wave-marker" cx="872" cy="210" r="4"/>
+              <g class="wave-dot wave-dot-d">
+                <circle r="10" fill="rgba(212,162,76,.28)"/>
+                <circle r="4.5" fill="#D4A24C"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="wave-mobile">
+            <svg class="wave-svg-m" viewBox="0 0 44 700" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path class="wave-path-echo" vector-effect="non-scaling-stroke" d="M 13 24 C 10 84 14 148 24 194 C 32 230 36 240 36 262 C 36 294 29 332 24 374 C 19 414 15 452 13 502 C 12 550 12 598 12.5 640 C 12.7 662 13 676 13 688"/>
+              <path class="wave-path" vector-effect="non-scaling-stroke" d="M 13 24 C 10 84 14 148 24 194 C 32 230 36 240 36 262 C 36 294 29 332 24 374 C 19 414 15 452 13 502 C 12 550 12 598 12.5 640 C 12.7 662 13 676 13 688"/>
+              <circle class="wave-marker" vector-effect="non-scaling-stroke" cx="12" cy="86" r="3.5"/>
+              <circle class="wave-marker" vector-effect="non-scaling-stroke" cx="36" cy="260" r="3.5"/>
+              <circle class="wave-marker" vector-effect="non-scaling-stroke" cx="18.5" cy="435" r="3.5"/>
+              <circle class="wave-marker" vector-effect="non-scaling-stroke" cx="12.3" cy="610" r="3.5"/>
+              <g class="wave-dot wave-dot-m">
+                <circle r="8" fill="rgba(212,162,76,.28)"/>
+                <circle r="4" fill="#D4A24C"/>
+              </g>
+            </svg>
+            <div class="wave-steps">
+              <div class="proc-step"><img src="/img/proc-active-breathing.png" width="212" height="211" alt="" loading="lazy"><div><h4>Respiración activa<span class="phase">en la subida</span></h4><p>Respiras profundo y conectado. La respiración despierta la energía del cuerpo y activa el sistema nervioso.</p></div></div>
+              <div class="proc-step"><img src="/img/proc-energy-motion.png" width="212" height="211" alt="" loading="lazy"><div><h4>Energía en movimiento<span class="phase">en la cresta</span></h4><p>Esa energía circula por el cuerpo y trae a la superficie lo que estaba guardado: tensión, emociones, recuerdos o incluso trauma.</p></div></div>
+              <div class="proc-step"><img src="/img/proc-release.png" width="210" height="212" alt="" loading="lazy"><div><h4>Liberación<span class="phase">en la exhalación larga</span></h4><p>Sale lo que está listo para ser sentido. Puede llegar como emociones, sensaciones físicas, comprensiones o, simplemente, un soltar profundo.</p></div></div>
+              <div class="proc-step"><img src="/img/proc-integration.png" width="212" height="212" alt="" loading="lazy"><div><h4>Integración<span class="phase">en la quietud de después</span></h4><p>El cuerpo descansa, asimila e integra. Aquí suelen aparecer la claridad, la calma, nuevas comprensiones o una relajación profunda.</p></div></div>
+            </div>
+          </div>
+
+          <div class="wave-steps wave-steps-d">
+            <div class="proc-step"><img src="/img/proc-active-breathing.png" width="212" height="211" alt="" loading="lazy"><h4>Respiración activa<span class="phase">en la subida</span></h4><p>Respiras profundo y conectado. La respiración despierta la energía del cuerpo y activa el sistema nervioso.</p></div>
+            <div class="proc-step"><img src="/img/proc-energy-motion.png" width="212" height="211" alt="" loading="lazy"><h4>Energía en movimiento<span class="phase">en la cresta</span></h4><p>Esa energía circula por el cuerpo y trae a la superficie lo que estaba guardado: tensión, emociones, recuerdos o incluso trauma.</p></div>
+            <div class="proc-step"><img src="/img/proc-release.png" width="210" height="212" alt="" loading="lazy"><h4>Liberación<span class="phase">en la exhalación larga</span></h4><p>Sale lo que está listo para ser sentido. Puede llegar como emociones, sensaciones físicas, comprensiones o, simplemente, un soltar profundo.</p></div>
+            <div class="proc-step"><img src="/img/proc-integration.png" width="212" height="212" alt="" loading="lazy"><h4>Integración<span class="phase">en la quietud de después</span></h4><p>El cuerpo descansa, asimila e integra. Aquí suelen aparecer la claridad, la calma, nuevas comprensiones o una relajación profunda.</p></div>
+          </div>
+        </div>
+
+        <div class="notes reveal">
+          <div class="note">
+            <span class="smallcaps">¿Cuánto dura una sesión?</span>
+            <p>La respiración suele durar alrededor de 90 minutos. Sumando la conversación inicial, la integración y el cierre, reserva entre dos horas y media y tres horas.</p>
+          </div>
+          <div class="note">
+            <span class="smallcaps">¿Qué podrías experimentar?</span>
+            <p>Mareo leve, hormigueo, calor, liberación emocional, sensaciones corporales, movimientos espontáneos, comprensiones, gozo o una calma profunda. Cada experiencia es única.</p>
+          </div>
+          <div class="note">
+            <span class="smallcaps">Seguridad y acompañamiento</span>
+            <p>En todo momento, tú marcas el ritmo. La intensidad puede ajustarse a través de la respiración, y estaré a tu lado, presente y atenta, durante todo el proceso.</p>
+          </div>
+        </div>
+
+        <p class="epigraph boundary reveal">El Rebirthing no busca cambiar quién eres. Te ofrece un espacio para que el cuerpo suelte lo que ya no te pertenece.</p>
+      </div>
+    </section>
+
+    <!-- ============ chapter: two ways in ============ -->
+    <section id="doors" class="chapter" data-chapter="Dos caminos">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">Dos caminos</span>
+          <h2>Empieza suave. O ve más profundo.</h2>
+        </header>
+        <div class="chapter-body measure chapter-intro reveal">
+          <p class="lead">No existe un lugar correcto para empezar. Hay quien comienza con una práctica de respiración sencilla para reconectar consigo. Otras personas ya se sienten listas para explorar algo más profundo. Empezamos donde estás.</p>
+        </div>
+
+        <div class="spread reveal">
+          <div class="page-leaf">
+            <span class="leaf-orn orn-sage" aria-hidden="true"></span>
+            <span class="smallcaps">Calma cotidiana</span>
+            <h3>Empieza suave</h3>
+            <p>Una práctica de respiración sencilla para bajar el ritmo, habitar tu cuerpo y sentir cómo es volver a casa, a ti. No necesitas experiencia previa.</p>
+            <div class="cta-unit">
+              <a class="btn" href="#reset">Recibe el reset de respiración gratis</a>
+              <p class="whisper">Gratis, suave, a tu propio ritmo.</p>
+            </div>
+            <div class="microrev">
+              <img src="/img/rev-lisanne.jpg" alt="Lisanne" width="150" height="150" loading="lazy" decoding="async">
+              <p>&ldquo;Diana es una de esas mujeres especiales con las que te sientes segura de inmediato.&rdquo;
+                <span class="who">Lisanne &middot; <a href="https://instagram.com/lisannevanbunderen" target="_blank" rel="noopener">@lisannevanbunderen</a></span>
+              </p>
+            </div>
+          </div>
+          <div class="page-leaf leaf-cream">
+            <span class="leaf-orn orn-terra" aria-hidden="true"></span>
+            <span class="smallcaps">Trabajo profundo</span>
+            <h3>Ve más profundo</h3>
+            <p>El rebirthing llega a las partes de ti que la calma cotidiana no alcanza. Es más intenso: una liberación emocional real, sostenida en una sesión de 2 a 3 horas, no un reset de 5 minutos. Si la puerta suave es una práctica diaria, esta es la vez que bajas hasta el fondo, con alguien firme a tu lado todo el camino.</p>
+            <div class="cta-unit">
+              <a class="btn btn-fill" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una consulta gratuita</a>
+              <p class="whisper">Gratis, 15 minutos, sin compromiso de continuar.</p>
+            </div>
+            <div class="microrev">
+              <img src="/img/rev-sofia.jpg" alt="Sofia" width="400" height="400" loading="lazy" decoding="async">
+              <p>&ldquo;La sesión fue difícil emocionalmente, pero mi cuerpo se sintió seguro y después me sentí muy relajada y ligera.&rdquo;
+                <span class="who">Sofia &middot; <a href="https://instagram.com/gypsiefamily" target="_blank" rel="noopener">@gypsiefamily</a></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p class="epigraph doors-note reveal">&laquo;No se trata de arreglarte. Se trata de volver a casa, a lo que ya está ahí.&raquo;</p>
+      </div>
+    </section>
+
+    <!-- ============ chapter: what to expect ============ -->
+    <section id="session" class="chapter" data-chapter="Qué esperar">
+      <figure class="honesty-portrait honesty-portrait--top reveal">
+        <img src="/img/diana-pair-jungle.jpg" alt="Diana sentada rodilla con rodilla frente a una persona, una mano en su pecho, las manos unidas" width="820" height="546" loading="lazy" decoding="async">
+        <figcaption class="caption">Estaré aquí contigo, en todo el camino.</figcaption>
+      </figure>
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">Qué esperar</span>
+          <h2>Cada sesión de rebirthing es diferente, porque cada persona es diferente.</h2>
+        </header>
+        <div class="chapter-body measure chapter-intro reveal">
+          <p class="lead">No existe una experiencia correcta, ni nada que tengas que forzar. Mi papel es crear un espacio en el que te sientas lo bastante segura para ser tú: ablandarte, respirar y dejar que tu cuerpo guíe la experiencia a su propio ritmo.</p>
+        </div>
+
+        <ol class="toc reveal">
+          <li class="toc-row">
+            <span class="toc-n" aria-hidden="true">1</span>
+            <div>
+              <h4>Empezamos con una conversación</h4>
+              <p>Antes de respirar, hablamos de lo que te trae hasta aquí, de tus intenciones y de cualquier cosa importante sobre tu bienestar físico o emocional. Respondo tus preguntas y me aseguro de que te sientas cómoda antes de comenzar.</p>
+            </div>
+          </li>
+          <li class="toc-row">
+            <span class="toc-n" aria-hidden="true">2</span>
+            <div>
+              <h4>Después respiramos</h4>
+              <p>Te guío a través del patrón de respiración conectada, presente contigo de principio a fin. Escucho, observo, acompaño cuando hace falta y te doy espacio cuando es eso lo que más necesitas.</p>
+              <p class="step-pull">Aquí no tienes que sostenerlo todo. Estaré justo a tu lado.</p>
+            </div>
+          </li>
+          <li class="toc-row">
+            <span class="toc-n" aria-hidden="true">3</span>
+            <div>
+              <h4>Integramos</h4>
+              <p>Después de la respiración bajamos el ritmo juntos, miramos lo que apareció y damos tiempo a que tu sistema nervioso se asiente antes de que te vayas. También te escribo en los días siguientes, porque la integración continúa más allá de la sesión.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <!-- the one dark spread: a letter from Diana -->
+      <div class="letter reveal">
+        <div class="letter-inner">
+          <span class="smallcaps">Una carta, antes de reservar</span>
+          <h3>Un poco de honestidad antes de reservar</h3>
+          <p>El rebirthing no se trata de perseguir experiencias extraordinarias ni de escapar de ti. Se trata de crear las condiciones para que puedas encontrarte contigo con honestidad y compasión.</p>
+          <p>Las sesiones duran alrededor de dos horas y media y pueden ser intensas, emocional y físicamente. Hay quien sale con mucha energía. Otras personas se van sensibles, profundamente relajadas o agradablemente cansadas.</p>
+          <p>No te voy a prometer curarte ni transformar tu vida. Lo que sí te prometo es un espacio seguro, con los pies en la tierra e informado en trauma, donde no hay nada que forzar ni nada que demostrar.</p>
+          <p>Confío en la sabiduría y en los tiempos de tu cuerpo, y estaré ahí para apoyarte, no para empujarte hacia un gran momento. Porque <em>cuando nos sentimos realmente seguros, el cuerpo suele saber exactamente lo que necesita hacer.</em></p>
+          <figure class="benediction">
+            <blockquote><p>Ya sea que llores, rías, grites, te quedes en silencio o simplemente respires, eres bienvenida tal como eres.</p></blockquote>
+          </figure>
+          <div class="letter-sig">
+            <span class="sig-name">Diana</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ plate: the space ============ -->
+    <section id="space" aria-label="El espacio de las sesiones">
+      <figure class="plate space-plate reveal">
+        <img src="/img/studio-space.jpg" alt="El espacio tranquilo y lleno de luz donde se realizan las sesiones" width="1400" height="933" loading="lazy" decoding="async">
+        <!-- the A-frame ceiling is cropped off so the quote has an unbusy band to sit in -->
+        <figcaption class="space-quote">
+          <span class="space-quote-text">Respira. Suelta. Vuelve a casa.</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ chapter: story ============ -->
+    <section id="story" class="chapter" data-chapter="Mi camino a casa">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">Mi camino a casa</span>
+        </header>
+        <div class="story-grid">
+          <div class="story-text reveal">
+            <p class="story-quote">Dejé de esforzarme por ser la mujer que todos admiraban<br>y empecé a convertirme en la mujer que podía reconocer en el espejo.</p>
+            <p class="dropcap">Durante mucho tiempo creí que, si tomaba las decisiones correctas, la felicidad llegaría por sí sola. Así que hice lo que se suponía que debía hacer.</p>
+            <p>Estudié ingeniería porque ofrecía el futuro que mis padres imaginaban para mí: una carrera sólida, estabilidad y seguridad. Me mudé al otro lado del mundo para construir una carrera exitosa. Gané becas, aprendí nuevos idiomas, creé negocios, me casé y seguí alcanzando metas que, desde afuera, parecían impresionantes.</p>
+            <details class="story-more">
+              <summary><span class="more">Lee más de mi historia &rarr;</span><span class="less">Mostrar menos</span></summary>
+              <div class="body">
+                <p>Cada decisión tenía sentido. Cada una hacía sentir orgullosas a las personas que amaba. Pero, en algún momento del camino, perdí de vista a la persona que estaba tomando todas esas decisiones.</p>
+                <p>Mirando atrás, veo que me había vuelto muy buena escuchando a todo el mundo menos a mí misma. Sabía ser responsable, capaz, independiente y exitosa. Lo que no sabía era confiar en mi propia voz. Aunque, en el fondo, siempre hubo una parte de mí que cuestionaba las reglas. Necesité años para atreverme a escucharla.</p>
+                <p>Todo empezó a cambiar después de mi divorcio. Por primera vez, dejé de preguntarme &ldquo;¿Qué debería hacer?&rdquo; y empecé a preguntarme &ldquo;¿Qué se siente verdadero para mí?&rdquo;. Esa pregunta cambió la dirección de mi vida.</p>
+                <p>Me llevó a la meditación, a la psicología, a meses de viajar sola, a maestros que cuestionaron la forma en que me veía a mí misma y, finalmente, al Rebirthing Breathwork.</p>
+                <p>Mi primera sesión me tomó completamente por sorpresa. Lloré durante casi tres horas. La respiración me condujo una y otra vez hacia momentos que creía haber dejado atrás. Y, en algún lugar de ese proceso, algo en mí pudo aflojarse y soltar. A la mañana siguiente desperté con una sensación de calma y confianza que no había sentido en mucho tiempo.</p>
+                <p>Pero el Rebirthing no fue una solución rápida. No hizo desaparecer mis miedos ni mis viejos patrones. Me dio algo mucho más valioso: una forma de volver a escuchar mi cuerpo, de sentir y procesar emociones que había llevado conmigo durante años y, poco a poco, reconstruir la confianza en mí misma.</p>
+                <p>Respiración a respiración, dejé de intentar convertirme en alguien mejor. Empecé a volver a mí.</p>
+                <p>Hoy vivo una vida que alguna vez me habría parecido imposible. No porque sea perfecta, sino porque se siente más alineada conmigo. Sigo eligiendo la curiosidad por encima de la certeza, la autenticidad por encima de las expectativas y la confianza por encima del miedo.</p>
+                <p>Acompaño a personas que llevan años construyendo una vida que tiene sentido, pero que por dentro ya no se siente como un hogar. Personas inteligentes, capaces y exitosas. Desde afuera, sus vidas parecen llenas. Y sin embargo, algo por dentro se siente desconectado. No necesitan que alguien les diga en quién convertirse. Necesitan un espacio seguro para recordar quienes siempre han sido.</p>
+                <p>Por eso hago este trabajo. No porque tenga todas las respuestas, sino porque sé lo que significa perderte a ti misma intentando construir una vida que tiene sentido. Y sé también lo poderoso que puede ser encontrar el camino de vuelta.</p>
+              </div>
+            </details>
+            <!-- per Diana: the voice-note idea from proposal A. Honest, visibly-disabled
+                 placeholder, never fake audio, until Diana records the real note. -->
+            <div class="voice-card">
+              <div class="voice-play" aria-hidden="true"><svg viewBox="0 0 16 18"><path d="M1 1 L15 9 L1 17 Z" fill="#905840"/></svg></div>
+              <div>
+                <p class="voice-label">Dale al play. Una respiración, guiada. Así suena mi voz.</p>
+                <p class="voice-soon">Nota de voz muy pronto &middot; Diana la está grabando en inglés, español y ruso</p>
+              </div>
+            </div>
+          </div>
+          <!-- per Diana: photo caption ("explanation of the pic") removed -->
+          <figure class="plate reveal">
+            <img src="/img/diana-path-terracotta.jpg" alt="Diana en un camino del bosque, una mano en el corazón, mirando a la cámara" width="820" height="1228" loading="lazy" decoding="async">
+          </figure>
+        </div>
+        <p class="epigraph story-sig reveal">&laquo;El riesgo más grande que he tomado no fue mudarme al otro lado del mundo. Fue confiar en mí misma.&raquo;</p>
+        <div class="story-cta reveal">
+          <a class="btn btn-fill" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una consulta gratuita</a>
+          <p class="whisper">Gratis, 15 minutos, sin compromiso de continuar.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ chapter: in their words ============ -->
+    <section id="reviews" class="chapter" data-chapter="En sus palabras">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">En sus palabras</span>
+          <h2>Cuando nos sentimos lo suficientemente seguros para soltar.</h2>
+        </header>
+        <div class="chapter-body measure chapter-intro reveal">
+          <p class="lead">Cada experiencia es única. Estas historias se comparten con el permiso de quienes las vivieron y eligieron abrirse, confiar en el proceso y compartir lo que esta experiencia significó para ellas.</p>
+        </div>
+
+        <!-- Sample per Diana: testimonials in the style of aigoddesses.community, a soft
+             auto-scrolling carousel of short quotes with round avatars. Every quote is
+             the client's own words (trimmed) from the six real, consented live reviews.
+             Pauses on hover; in calm / reduced-motion it stops and scrolls by hand. -->
+        <ul class="ai-highlights reveal">
+          <li class="ai-pill">Me sentí segura enseguida</li>
+          <li class="ai-pill">Una liberación emocional profunda</li>
+          <li class="ai-pill">Sostenida y querida</li>
+          <li class="ai-pill">Relajada y ligera después</li>
+        </ul>
+        <div class="ai-marquee reveal" id="ai-marquee">
+          <div class="ai-track" id="ai-track">
+            <figure class="ai-card">
+              <blockquote class="ai-quote">Empecé a llorar, a llorar de verdad, y era exactamente lo que necesitaba.</blockquote>
+              <figcaption class="ai-who">
+                <img src="/img/rev-maria.jpg" alt="Maria" width="88" height="88" loading="lazy" decoding="async">
+                <span><b>Maria, 36</b><a href="https://instagram.com/art_of_contact" target="_blank" rel="noopener">@art_of_contact</a></span>
+              </figcaption>
+            </figure>
+            <figure class="ai-card">
+              <blockquote class="ai-quote">Con Diana me sentí completamente segura y sostenida desde el primer momento.</blockquote>
+              <figcaption class="ai-who">
+                <img src="/img/rev-doris.jpg" alt="Doris" width="88" height="88" loading="lazy" decoding="async">
+                <span><b>Doris, 41</b><a href="https://instagram.com/doriskemptner_official" target="_blank" rel="noopener">@doriskemptner_official</a></span>
+              </figcaption>
+            </figure>
+            <figure class="ai-card">
+              <blockquote class="ai-quote">Me sentí sostenida y querida. Mi cuerpo se sintió seguro y después me sentí muy relajada y ligera.</blockquote>
+              <figcaption class="ai-who">
+                <img src="/img/rev-sofia.jpg" alt="Sofia" width="88" height="88" loading="lazy" decoding="async">
+                <span><b>Sofia</b><a href="https://instagram.com/gypsiefamily" target="_blank" rel="noopener">@gypsiefamily</a></span>
+              </figcaption>
+            </figure>
+            <figure class="ai-card">
+              <blockquote class="ai-quote">Suave, serena, y se sintió exactamente como tenía que ser.</blockquote>
+              <figcaption class="ai-who">
+                <span class="ai-av-letter" aria-hidden="true">S</span>
+                <span><b>Su, 60</b></span>
+              </figcaption>
+            </figure>
+            <figure class="ai-card">
+              <blockquote class="ai-quote">Me sentí completamente segura y sostenida con Diana. Fue una experiencia poderosa y una forma de soltar completamente nueva para mí.</blockquote>
+              <figcaption class="ai-who">
+                <img src="/img/rev-fey.jpg" alt="Fey" width="88" height="88" loading="lazy" decoding="async">
+                <span><b>Fey</b><a href="https://instagram.com/aiwithfey" target="_blank" rel="noopener">@aiwithfey</a></span>
+              </figcaption>
+            </figure>
+            <figure class="ai-card">
+              <blockquote class="ai-quote">Una de esas mujeres especiales con las que te sientes segura de inmediato.</blockquote>
+              <figcaption class="ai-who">
+                <img src="/img/rev-lisanne.jpg" alt="Lisanne" width="88" height="88" loading="lazy" decoding="async">
+                <span><b>Lisanne</b><a href="https://instagram.com/lisannevanbunderen" target="_blank" rel="noopener">@lisannevanbunderen</a></span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <div class="reviews-foot reveal">
+          <p class="note">Reseñas reales de clientes, compartidas con su permiso. Traducidas del inglés mientras reunimos las primeras reseñas escritas en español.</p>
+          <a class="share" href="https://breathe-with-diana.com/review.html" target="_blank" rel="noopener">¿Ya viviste una sesión? Comparte tu experiencia &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ appendix: free reset ============ -->
+    <section id="reset" class="chapter" data-chapter="Empieza aquí">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">Empieza aquí &middot; gratis</span>
+          <h2>Tu reset de respiración gratis.</h2>
+        </header>
+        <div class="measure reveal">
+          <p class="lead">Si todavía no sientes que sea el momento para una sesión completa, puedes empezar aquí. Una práctica guiada y gratuita para bajar el ritmo, volver a tu respiración y experimentar, estés donde estés, una pequeña muestra de este trabajo. Déjame tu correo y te la enviaré directamente.</p>
+          <form class="reset-form" id="reset-form" novalidate>
+            <input type="email" name="email" id="reset-email" placeholder="tu@correo.com" aria-label="correo" autocomplete="email">
+            <!-- honeypot, hidden from people, filled in by bots -->
+            <input type="text" name="company" id="reset-company" tabindex="-1" autocomplete="off"
+                   aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+            <button class="btn" type="submit" id="reset-submit">Envíame el reset</button>
+          </form>
+          <p class="caption reset-note" id="reset-note" role="status" aria-live="polite"
+             data-sending="Enviando…"
+             data-thanks="Gracias. Tu correo está guardado. Estoy terminando la grabación y te la enviaré en cuanto esté lista. 🤎"
+             data-err-email="Ese correo no parece del todo correcto. ¿Lo puedes revisar?"
+             data-err-send="Algo salió mal ahora mismo. Inténtalo de nuevo en un momento."
+             data-err-unwired="Todavía no puedo recibir correos aquí. Escríbeme y te la envío yo misma. 🤎"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ final chapter: begin ============ -->
+    <section id="book" class="chapter" data-chapter="Trabaja conmigo">
+      <div class="wrap">
+        <header class="chapter-head reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <span class="smallcaps">Trabaja conmigo</span>
+          <h2>Empieza tu camino.</h2>
+        </header>
+        <div class="chapter-body measure book-intro reveal">
+          <p class="lead">Toda sesión comienza con una llamada gratuita de 15 minutos, un pequeño espacio para conocernos, conectar y hablar de lo que te trae hasta aquí.</p>
+          <p class="lead">Puedes contarme lo que sientas importante, hacerme todas las preguntas que tengas y hablarme un poco de dónde estás ahora mismo. También me da la oportunidad de entender lo que necesitas y de intuir cómo puedo acompañarte mejor, para crear juntos una sesión que se sienta adecuada para ti.</p>
+          <p class="lead">Y si juntos sentimos que este es el camino, encontramos el horario y el formato que mejor te funcionen y damos el siguiente paso desde ahí.</p>
+        </div>
+
+        <div class="offer reveal">
+          <h3>Sesión privada de rebirthing 1:1</h3>
+          <span class="smallcaps offer-label">Qué incluye</span>
+          <p class="included">2 a 3 horas, acompañamiento completo de principio a fin<span class="mid">&middot;</span>Conversación previa a la sesión<span class="mid">&middot;</span>Apoyo y seguimiento en los días siguientes<span class="mid">&middot;</span>Presencial o en línea, donde estés</p>
+        </div>
+
+        <div class="book-close reveal">
+          <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station" id="rest-dot"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
+          <div class="book-face" role="img" aria-label="Diana"></div>
+          <p class="caption book-face-cap">Yo seré quien esté al otro lado de la llamada.</p>
+          <div class="book-ctas" id="book-ctas">
+            <div class="cta-unit">
+              <a class="btn btn-fill" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una consulta gratuita</a>
+              <p class="whisper">Gratis, 15 minutos, sin compromiso de continuar.</p>
+            </div>
+            <div class="cta-unit">
+              <a class="btn" href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
+              <p class="whisper">Puedes solo saludar.</p>
+            </div>
+          </div>
+          <p class="prefer">¿Prefieres escribirme primero? WhatsApp es la puerta más suave.</p>
+          <div class="book-microrev">
+            <img src="/img/rev-fey.jpg" alt="Fey" width="150" height="150" loading="lazy" decoding="async">
+            <p>&ldquo;Me sentí completamente segura y sostenida con Diana :)&rdquo;
+              <span class="who">Fey &middot; <a href="https://instagram.com/aiwithfey" target="_blank" rel="noopener">@aiwithfey</a></span>
+            </p>
+          </div>
+        </div>
+
+        <div class="faqs reveal">
+          <span class="smallcaps">Preguntas, respondidas con calma</span>
+          <details class="faq">
+            <summary>¿Necesito experiencia?</summary>
+            <div class="a"><p>Para nada. La mayoría de las personas que llegan a mí nunca han vivido un rebirthing. Te guío en cada paso, y no necesitas saber respirar &ldquo;correctamente&rdquo;. Simplemente empezamos, tú y yo.</p></div>
+          </details>
+          <details class="faq">
+            <summary>¿Voy a sentirme en calma después?</summary>
+            <div class="a"><p>A veces, pero la calma no es la promesa. El rebirthing tiende a mover la emoción más que a calmarla. Muchas personas se sienten cansadas y sensibles justo después, y más livianas al día siguiente.</p></div>
+          </details>
+          <details class="faq">
+            <summary>¿Esto es terapia?</summary>
+            <div class="a"><p>No. Es un complemento del trabajo interior, no un reemplazo de la terapia ni de la atención médica. Si estás en tratamiento, mantén a tu terapeuta al tanto.</p></div>
+          </details>
+          <details class="faq">
+            <summary>¿Podemos hacerlo en línea?</summary>
+            <div class="a"><p>Sí. Las sesiones en línea funcionan muy bien por video, después de una llamada corta para preparar tu espacio de forma segura.</p></div>
+          </details>
+          <details class="faq">
+            <summary>¿Y si necesito reprogramar?</summary>
+            <div class="a"><p>La vida pasa. Avísame con 24 horas de anticipación y encontramos un nuevo horario.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ colophon ============ -->
+  <footer class="colophon">
+    <img class="logo" src="/logo-mark-dark.svg" alt="Breathe with Diana" width="520" height="168" loading="lazy" decoding="async">
+    <div class="colo-cols">
+      <div>
+        <span class="colo-h">Explora</span>
         <a href="#doors">El trabajo</a>
         <a href="#session">Qué esperar</a>
         <a href="#story">Mi camino a casa</a>
-        <a href="#reviews">Reseñas</a>
-        <span class="navmenu-lang lang" title="Idioma">
-      <a href="index.html">EN<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#fff" stroke-width="8"/><path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="4"/><path d="M30,0 V40 M0,20 H60" stroke="#fff" stroke-width="14"/><path d="M30,0 V40 M0,20 H60" stroke="#C8102E" stroke-width="8"/></svg></span></a>
-      <b>ES<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#AA151B"/><rect y="10" width="60" height="20" fill="#F1BF00"/></svg></span></b>
-      <a href="ru.html">RU<span class="flag" aria-hidden="true"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><rect y="13.33" width="60" height="13.34" fill="#0039A6"/><rect y="26.67" width="60" height="13.33" fill="#D52B1E"/></svg></span></a>
-        </span>
-        <a class="btn btn-primary navmenu-book" href="#book">Reserva una consulta gratuita</a>
-      </nav>
-    </details>
-  </div>
-</header>
-
-<!-- ===== HERO ===== -->
-<a id="top"></a>
-<section class="hero">
-  <div class="hero-grid">
-    <div>
-      <div class="eyebrow">Rebirthing breathwork · Presencial y en línea</div>
-      <h1>Vuelve a casa.<br>Vuelve a tu <em>cuerpo</em>.</h1>
-      <p class="sub">Para quienes llevan años haciendo todo lo que se suponía que debían hacer y, aun así, sienten que en algún momento se perdieron de sí mismos. Esta es una invitación a bajar el ritmo. A volver a escucharte. A reconectar con tu cuerpo y empezar a construir una relación más amable contigo. Porque no se trata de convertirte en alguien diferente. Se trata de <em>volver a encontrarte con tu esencia</em>.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="#book">Reserva una consulta gratuita</a>
-        <a class="btn btn-ghost" href="#reset">Empieza con un reset gratis</a>
-      </div>
-    </div>
-    <div class="hero-photo"><img src="img/diana-hero.jpg" alt="Diana guiando una sesión privada de rebirthing breathwork"></div>
-  </div>
-</section>
-
-<!-- ===== THE PRACTICE (what rebirthing breathwork actually is) ===== -->
-<section class="practice" id="practice">
-  <div class="wrap-narrow">
-    <div class="eyebrow">La práctica</div>
-    <h2 class="sec">¿Qué es el Rebirthing (respiración consciente conectada)?</h2>
-    <p class="lead">El Rebirthing es una práctica de respiración sencilla y profunda que utiliza un patrón continuo y conectado para crear un espacio en el que el cuerpo puede liberar el estrés, la tensión y las emociones que ha ido acumulando con el tiempo.</p>
-    <p class="lead">A medida que la respiración se profundiza, la energía comienza a ponerse en movimiento. Y, con ella, también aquello que durante mucho tiempo fue quedando en silencio: emociones no expresadas, tensiones acumuladas o experiencias que, por distintas razones, quedaron sin procesar.</p>
-    <p class="lead">Poco a poco, todo eso puede empezar a salir a la superficie. No porque lo fuerces, sino porque el cuerpo, cuando se siente seguro, suele saber cómo empezar a liberar lo que ya no necesita sostener.</p>
-
-    <div class="process-block">
-      <div class="alt-label">Cómo funciona</div>
-
-      <div class="proc-grid">
-        <div class="proc-step">
-          <div class="ic"><img src="img/proc-active-breathing.png" alt="" width="58" height="58"></div>
-          <h4>Respiración activa</h4>
-          <p>Comenzamos con una respiración continua y conectada. Poco a poco, la atención se dirige hacia dentro.</p>
-          <details class="proc-more">
-            <summary></summary>
-            <p class="proc-more-body">La respiración despierta la energía del cuerpo y activa el sistema nervioso.</p>
-          </details>
-        </div>
-
-        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
-
-        <div class="proc-step">
-          <div class="ic"><img src="img/proc-energy-motion.png" alt="" width="58" height="58"></div>
-          <h4>Energía en movimiento</h4>
-          <p>La energía comienza a circular. Pueden aparecer sensaciones físicas, emociones o recuerdos.</p>
-          <details class="proc-more">
-            <summary></summary>
-            <p class="proc-more-body">También experiencias que han permanecido contenidas durante mucho tiempo.</p>
-          </details>
-        </div>
-
-        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
-
-        <div class="proc-step">
-          <div class="ic"><img src="img/proc-release.png" alt="" width="58" height="58"></div>
-          <h4>Liberación</h4>
-          <p>Puede haber lágrimas, risas, calor, hormigueo, movimiento o silencio. Cada persona lo vive de manera diferente.</p>
-        </div>
-
-        <div class="proc-arrow" aria-hidden="true"><svg viewBox="0 0 40 16"><path d="M1 8h34m0 0-8-6m8 6-8 6"/></svg></div>
-
-        <div class="proc-step">
-          <div class="ic"><img src="img/proc-integration.png" alt="" width="58" height="58"></div>
-          <h4>Integración</h4>
-          <p>Después de la respiración activa, el sistema nervioso comienza a asentarse.</p>
-          <details class="proc-more">
-            <summary></summary>
-            <p class="proc-more-body">El cuerpo integra la experiencia a su propio ritmo. Con frecuencia aparece una sensación profunda de alivio, una mayor claridad o comprensiones que no nacen del pensamiento, sino de una conexión más profunda con uno mismo.</p>
-          </details>
-        </div>
-      </div>
-
-      <div class="fact-card-unified">
-        <div class="fact-col">
-          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg><span>¿Cuánto dura una sesión?</span></div>
-          <p>La respiración suele durar alrededor de 90 minutos. Sumando la conversación inicial, la integración y el cierre, reserva entre dos horas y media y tres horas para vivir la experiencia con calma.</p>
-        </div>
-        <div class="fact-col">
-          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.8L21 9.6l-4.5 4.2L17.6 21 12 17.8 6.4 21l1.1-7.2L3 9.6l6.4-.8z"/></svg><span>¿Qué podrías experimentar?</span></div>
-          <p>Cada sesión es única. Puedes sentir calor, hormigueo, emociones intensas o una profunda relajación. También pueden aparecer recuerdos, movimientos espontáneos, sensaciones de ligereza o momentos de claridad. No existe una experiencia correcta: tu proceso será tan único como tu historia.</p>
-        </div>
-        <div class="fact-col">
-          <div class="fc-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.35-9.3-9.3C1.4 8.4 3.2 5 6.6 5c2 0 3.4 1.1 4 2.2C11.2 6.1 12.6 5 14.6 5c3.4 0 5.2 3.4 3.9 6.7C16.3 16.65 12 21 12 21z"/></svg><span>Seguridad y acompañamiento</span></div>
-          <p>Durante toda la sesión, tú marcas el ritmo. La intensidad puede ajustarse a través de la respiración y, en todo momento, puedes hacer una pausa o cambiar el ritmo si lo necesitas. Yo estaré a tu lado, presente y atenta, acompañándote con cuidado durante todo el proceso.</p>
-        </div>
-      </div>
-    </div>
-
-    <p class="boundary">El Rebirthing no busca cambiar quién eres. Te ofrece un espacio para escuchar lo que ya está ahí, incluso aquello que no siempre puede expresarse con palabras.</p>
-  </div>
-</section>
-
-<!-- ===== TWO DOORS ===== -->
-<section class="doors" id="doors">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow">Dos caminos</div>
-    <h2 class="sec">Empieza suave. O ve más profundo.</h2>
-    <p class="lead muted" style="margin:0 auto">No existe un lugar correcto para empezar. Quizás estás buscando un espacio para desacelerar, reconectar contigo y sentirte más presente. O quizás llevas tiempo sintiendo que hay algo más profundo que quieres explorar. No tienes que saber de antemano qué necesitas. Empezamos donde estás.</p>
-  </div>
-  <div class="wrap">
-    <div class="door-grid">
-      <div class="door">
-        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#8A8C6E" stroke-width="2.4" stroke-linecap="round">
-          <path d="M8 30 q16 -14 32 0"/><path d="M12 36 q12 -9 24 0"/>
-        </svg>
-        <div class="tagword">Calma cotidiana</div>
-        <h3>Empieza suave</h3>
-        <p>Prácticas de respiración para desacelerar, sentirte más presente y reconectar con tu experiencia corporal. Un espacio para hacer una pausa, salir por un momento del ruido cotidiano y volver tu atención hacia dentro. No necesitas experiencia previa. Solo un poco de tiempo y la disposición para estar presente.</p>
-        <div class="door-cta"><a class="btn btn-ghost" href="#reset">Recibe el reset de respiración gratis</a></div>
-      </div>
-      <div class="door">
-        <svg class="ix" viewBox="0 0 48 48" fill="none" stroke="#905840" stroke-width="2.4" stroke-linecap="round">
-          <circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="8"/>
-        </svg>
-        <div class="tagword">Trabajo profundo</div>
-        <h3>Ve más profundo</h3>
-        <p>Rebirthing para ir más allá de lo que la mente puede comprender. Hay cosas que podemos comprender con la mente y, aun así, seguir repitiendo los mismos patrones. A través del trabajo somático, nos acercamos a esas experiencias desde otro lugar: la respiración, las sensaciones y la experiencia directa del cuerpo. No necesitas encontrar las palabras correctas ni entender exactamente cómo cambiar algo. La respiración crea un espacio para sentir y expresar aquello que quizá lleva mucho tiempo sin poder expresarse.</p>
-        <div class="door-cta"><a class="btn btn-primary" href="#book">Reserva una consulta gratuita</a></div>
-      </div>
-    </div>
-    <p class="doors-note">«No todo tiene que pasar por la mente para poder empezar a cambiar.»</p>
-  </div>
-</section>
-
-<!-- ===== WHAT A SESSION IS LIKE (honest explainer) ===== -->
-<section id="session">
-  <div class="wrap">
-    <div class="eyebrow">Qué esperar</div>
-    <h2 class="sec">Un espacio para detenerte, respirar y permitirte estar contigo de una manera diferente.</h2>
-    <p class="lead muted" style="max-width:none">No necesitas saber cómo hacerlo ni llegar con una intención concreta. Yo te acompaño durante todo el proceso, creando un entorno seguro y respetuoso con tu ritmo.</p>
-    <div class="session-grid">
-      <div class="steps-col">
-        <div class="step"><div class="n">1</div><div><h4>Al principio</h4><p>Comenzamos con un momento para aterrizar y conectar con lo que está presente en ti. Hablamos brevemente sobre cómo te encuentras, qué estás viviendo y qué necesitas de este encuentro.</p><p>Después, te explico la práctica y te acompaño a encontrar una forma de respirar que se sienta adecuada para ti.</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Durante la sesión</h4><p>La parte principal de la sesión se realiza tumbada/o, en un ambiente tranquilo y sin interrupciones. A través de una respiración consciente, conectada y sostenida, vas entrando poco a poco en un estado de mayor presencia corporal. Pueden aparecer sensaciones físicas, emociones, recuerdos o, simplemente, momentos de calma y silencio.</p><p>No hay nada que tengas que provocar ni ninguna experiencia que tengas que alcanzar. Mi papel no es decirte qué debería suceder, sino acompañarte mientras escuchas lo que surge en ti y permites que el proceso se desarrolle a su propio ritmo.</p></div></div>
-        <div class="step"><div class="n">3</div><div><h4>Después de la respiración activa</h4><p>Entramos en un espacio de integración. Volvemos poco a poco a nuestra respiración habitual, dejando que el cuerpo encuentre su propio ritmo. Durante estos minutos de respiración pasiva, damos tiempo para asimilar lo que acabas de vivir. Es un momento de profunda calma y quietud, en el que el sistema puede asentarse y descansar.</p><p>Desde este lugar pueden aparecer sensaciones de bienestar, claridad o nuevas perspectivas que antes no estaban disponibles. Sin prisas, dejamos que todo se acomode y, poco a poco, volvemos al cuerpo, al espacio que nos rodea y al momento presente.</p></div></div>
-      </div>
-      <div class="honest">
-        <h3>Un poco de honestidad antes de reservar</h3>
-        <p>El rebirthing no se trata de perseguir experiencias extraordinarias ni de escapar de ti. Se trata de crear las condiciones para que puedas encontrarte contigo con honestidad y compasión.</p>
-        <p>No te voy a prometer transformar tu vida en una sesión. Lo que sí te prometo es un espacio seguro, con los pies en la tierra e informado en trauma, donde puedes explorar lo que surja a tu propio ritmo.</p>
-        <p>Confío en la sabiduría y en los tiempos de tu cuerpo, y estaré ahí para apoyarte, no para empujarte hacia un gran momento. Porque <em>cuando nos sentimos realmente seguros, el cuerpo suele saber exactamente lo que necesita hacer.</em></p>
-        <div class="pull">Aquí no tienes que sostenerlo todo.<br>Estaré justo a&nbsp;tu&nbsp;lado.</div>
-      </div>
-    </div>
-    <p class="lead-strong">Ya sea que llores, rías, grites, te quedes en silencio o simplemente respires, eres bienvenida tal como eres.</p>
-  </div>
-</section>
-
-<!-- ===== THE SPACE (full-width photo band) ===== -->
-<div class="space-band"><img src="img/studio-space.jpg" alt="El espacio tranquilo y lleno de luz donde se realizan las sesiones"></div>
-
-<!-- ===== STORY ===== -->
-<section class="story" id="story">
-  <div class="wrap">
-    <div class="story-grid">
-      <div class="story-photo"><img src="img/diana-meditating-beach.jpg" alt="Diana meditando en posición de oración sobre una roca en la playa"></div>
-      <div>
-        <div class="eyebrow">Mi camino a casa</div>
-        <blockquote class="long">Dejé de esforzarme por ser la mujer que todos admiraban<br>y empecé a convertirme en la mujer que podía reconocer en el espejo.</blockquote>
-        <p>Durante mucho tiempo creí que, si tomaba las decisiones correctas, la felicidad llegaría por sí sola. Así que hice lo que se suponía que debía hacer.</p>
-        <p>Estudié ingeniería porque ofrecía el futuro que mis padres imaginaban para mí: una carrera sólida, estabilidad y seguridad. Me mudé al otro lado del mundo para construir una carrera exitosa. Gané becas, aprendí nuevos idiomas, creé negocios, me casé y seguí alcanzando metas que, desde afuera, parecían impresionantes.</p>
-        <details class="story-more">
-          <summary class="story-more-toggle"></summary>
-          <div class="more-body">
-            <p>Cada decisión tenía sentido. Cada una hacía sentir orgullosas a las personas que amaba. Pero, en algún momento del camino, perdí de vista a la persona que estaba tomando todas esas decisiones.</p>
-            <p>Mirando atrás, veo que me había vuelto muy buena escuchando a todo el mundo menos a mí misma. Sabía ser responsable, capaz, independiente y exitosa. Lo que no sabía era confiar en mi propia voz. Aunque, en el fondo, siempre hubo una parte de mí que cuestionaba las reglas. Necesité años para atreverme a escucharla.</p>
-            <p>Todo empezó a cambiar después de mi divorcio. Por primera vez, dejé de preguntarme &ldquo;¿Qué debería hacer?&rdquo; y empecé a preguntarme &ldquo;¿Qué se siente verdadero para mí?&rdquo;. Esa pregunta cambió la dirección de mi vida.</p>
-            <p>Me llevó a la meditación, a la psicología, a meses de viajar sola, a maestros que cuestionaron la forma en que me veía a mí misma y, finalmente, al Rebirthing Breathwork.</p>
-            <p>Mi primera sesión me tomó completamente por sorpresa. Lloré durante casi tres horas. La respiración me condujo una y otra vez hacia momentos que creía haber dejado atrás. Y, en algún lugar de ese proceso, algo en mí pudo aflojarse y soltar. A la mañana siguiente desperté con una sensación de calma y confianza que no había sentido en mucho tiempo.</p>
-            <p>Pero el Rebirthing no fue una solución rápida. No hizo desaparecer mis miedos ni mis viejos patrones. Me dio algo mucho más valioso: una forma de volver a escuchar mi cuerpo, de sentir y procesar emociones que había llevado conmigo durante años y, poco a poco, reconstruir la confianza en mí misma.</p>
-            <p>Respiración a respiración, dejé de intentar convertirme en alguien mejor. Empecé a volver a mí.</p>
-            <p>Hoy vivo una vida que alguna vez me habría parecido imposible. No porque sea perfecta, sino porque se siente más alineada conmigo. Sigo eligiendo la curiosidad por encima de la certeza, la autenticidad por encima de las expectativas y la confianza por encima del miedo.</p>
-            <p>Y eso es también lo que me llevó a hacer este trabajo. Acompaño a personas que llevan años construyendo una vida que, desde afuera, se ve bien. Una vida que tiene sentido, que cumple con muchas de las expectativas que aprendimos a tener, pero que por dentro ya no se siente del todo como un hogar.</p>
-            <p>Personas inteligentes, capaces y acostumbradas a sostener mucho. Desde afuera, sus vidas pueden parecer llenas. Pero en algún lugar profundo sienten desconexión, cansancio o la sensación de haberse alejado de sí mismas. No necesitan que alguien les diga quién deberían ser. Creamos un espacio donde puedan parar, escucharse y volver a sentir lo que realmente necesitan.</p>
-            <p>Por eso hago este trabajo. No porque tenga todas las respuestas, sino porque sé lo que significa perderte a ti misma intentando construir una vida que se ve bien desde afuera, pero que por dentro ya no se siente completamente tuya. Y sé también lo poderoso que puede ser encontrar el camino de vuelta.</p>
-            <p class="story-sig">«El riesgo más grande que he tomado no fue mudarme al otro lado del mundo. Fue confiar en mí misma.»</p>
-          </div>
-        </details>
-        <p style="margin-top:22px"><a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una consulta gratuita</a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== REVIEWS ===== -->
-<section id="reviews">
-  <div class="wrap" style="text-align:center">
-    <div class="eyebrow">En sus palabras</div>
-    <h2 class="sec">Cuando nos sentimos lo suficientemente seguros para soltar.</h2>
-    <p class="lead muted" style="margin:0 auto">Cada experiencia es única. Estas historias se comparten con el permiso de quienes las vivieron y eligieron abrirse, confiar en el proceso y compartir lo que esta experiencia significó para ellas.</p>
-    <p class="rev-note" style="margin-top:14px">Todavía no tenemos reseñas escritas directamente en español. Mientras llegan las primeras, aquí compartimos, traducidas, las palabras de quienes ya vivieron una sesión.</p>
-  </div>
-  <div class="wrap">
-    <div class="rev-grid">
-      <div class="rev">
-        <div class="rev-body">
-          <details class="rev-more">
-            <summary>
-              <div class="quote-excerpt">
-                <p class="quote">“[...] Durante la sesión sentí mi cuerpo muy intensamente. Podía sentir un flujo muy fuerte moviéndose a través de mí. En algún momento empezó una liberación emocional profunda. Empecé a llorar, a llorar de verdad, y era exactamente lo que necesitaba. [...] <span class="toggle-cta">Seguir leyendo →</span></p>
-              </div>
-              <div class="quote-full">
-                <p class="quote">“Hacía tiempo que quería probar el rebirthing, pero nunca terminaba de animarme. Entonces vi el mensaje de Diana, y llegó justo en el momento en que más lo necesitaba. Lo que más me gustó fue la forma en que Diana guio el proceso, con mucho cuidado, presencia y atención a cada detalle. Antes de empezar me explicó todo con claridad, y eso me ayudó a sentirme segura y a confiar en la experiencia.</p>
-                <p class="quote"><span class="quote-highlight">“Durante la sesión sentí mi cuerpo muy intensamente. Los labios, las manos y la zona pélvica me hormigueaban y ardían de energía. Podía sentir un flujo muy fuerte moviéndose a través de mí. En algún momento empezó una liberación emocional profunda. Empecé a llorar, a llorar de verdad, y era exactamente lo que necesitaba.</span></p>
-                <p class="quote"><span class="quote-highlight">El proceso me ayudó a ver en qué momentos me estoy traicionando a mí misma, mis propios deseos y necesidades, y qué quiero cambiar en la forma en que me relaciono conmigo misma, con mi pareja y con otras personas. Llegaron ideas muy importantes.</span></p>
-                <p class="quote">“Al terminar la sesión sentí una gratitud inmensa por Diana y por el trabajo que hace. Honestamente, experiencias como esta no tienen precio. La oportunidad de reconectar tan profundamente con tu cuerpo y acallar el ruido interminable de la mente es increíblemente valiosa.</p>
-                <p class="quote">“Como terapeuta que soy, sé lo importante que es encontrar a los guías y facilitadores correctos. Recomiendo a Diana de todo corazón a cualquiera que quiera liberar emociones guardadas, soltar bloqueos que carga en el cuerpo, reiniciar su sistema y crear espacio para una transformación interior profunda.” <span class="toggle-cta">Mostrar menos</span></p>
-              </div>
-            </summary>
-          </details>
-        </div>
-        <div class="who">
-          <div class="av"><img src="img/rev-maria.jpg" alt="Maria"></div>
-          <div><b>Maria, 36</b><span><a href="https://instagram.com/art_of_contact" target="_blank" rel="noopener">@art_of_contact</a></span></div>
-        </div>
-      </div>
-      <div class="rev">
-        <div class="rev-body">
-          <p class="quote">“En una de mis sesiones de respiración con Diana entré en un recuerdo del pasado y mi cuerpo entró en una liberación profunda. Diana sostuvo el espacio muy bien, tiene una presencia aterrizada y compasiva, está formada en trauma, es sensible y tiene un corazón suave pero fuerte. Me sentí sostenida y querida, la sesión fue difícil emocionalmente pero mi cuerpo se sintió seguro y después me sentí muy relajada y ligera.”</p>
-        </div>
-        <div class="who">
-          <div class="av"><img src="img/rev-sofia.jpg" alt="Sofia"></div>
-          <div><b>Sofia</b><span><a href="https://instagram.com/gypsiefamily" target="_blank" rel="noopener">@gypsiefamily</a></span></div>
-        </div>
-      </div>
-      <div class="rev">
-        <div class="rev-body">
-          <p class="quote">“Me sentí completamente segura y sostenida con Diana :) Fue una experiencia poderosa y una forma de soltar completamente nueva para mí. La sesión me dejó una comprensión sobre los límites emocionales que yo misma me había puesto, y lo bueno que es simplemente permitirse sentir profundamente.”</p>
-        </div>
-        <div class="who">
-          <div class="av"><img src="img/rev-fey.jpg" alt="Fey"></div>
-          <div><b>Fey</b><span><a href="https://instagram.com/aiwithfey" target="_blank" rel="noopener">@aiwithfey</a></span></div>
-        </div>
-      </div>
-    </div>
-    <p class="rev-note">Reseñas reales de clientes, compartidas con su permiso. Traducidas del inglés mientras reunimos las primeras reseñas escritas en español.</p>
-    <p style="text-align:center;margin-top:26px">
-      <a class="btn btn-ghost" href="review.html">¿Ya viviste una sesión? Comparte tu experiencia →</a>
-    </p>
-  </div>
-</section>
-
-<!-- ===== FREE RESET BAND ===== -->
-<section class="reset" id="reset">
-  <div class="wrap-narrow">
-    <div class="eyebrow" style="color:var(--bone)">Empieza aquí</div>
-    <h2>Una pausa para volver a ti.</h2>
-    <p class="reset-kicker">Reset de respiración gratis</p>
-    <p>Si todavía no sientes que sea el momento para una sesión completa, puedes empezar aquí. Una práctica guiada y gratuita para bajar el ritmo, volver a tu respiración y experimentar, estés donde estés, una pequeña muestra de este trabajo. Déjame tu correo y te la enviaré directamente.</p>
-    <form class="reset-form" id="reset-form" novalidate>
-      <input type="email" id="reset-email" placeholder="tu@correo.com" aria-label="correo" autocomplete="email">
-      <!-- honeypot, hidden from people, filled in by bots -->
-      <input type="text" name="company" id="reset-company" tabindex="-1" autocomplete="off"
-             aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <button class="btn btn-primary" type="submit" id="reset-submit">Envíame el reset</button>
-    </form>
-    <p class="reset-note" id="reset-note" role="status" aria-live="polite"
-       data-sending="Enviando…"
-       data-thanks="Gracias. Tu correo está guardado. Estoy terminando la grabación y te la enviaré en cuanto esté lista. 🤎"
-       data-err-email="Ese correo no parece del todo correcto. ¿Lo puedes revisar?"
-       data-err-send="Algo salió mal ahora mismo. Inténtalo de nuevo en un momento."
-       data-err-unwired="Todavía no puedo recibir correos aquí. Escríbeme y te la envío yo misma. 🤎"></p>
-  </div>
-</section>
-
-<!-- ===== BOOK / PRICING / FAQ ===== -->
-<section id="book">
-  <div class="wrap">
-    <div class="eyebrow">Trabaja conmigo</div>
-    <h2 class="sec">Empieza tu camino.</h2>
-    <p class="lead muted" style="max-width:none;margin-bottom:6px">Toda sesión comienza con una llamada gratuita de 15 minutos, para asegurarnos de que es lo indicado para ti y resolver tus preguntas. A partir de ahí, definimos en conjunto el horario y el formato que mejor te funcione.</p>
-    <div class="book-grid">
-      <div class="price-card">
-        <div class="label">Sesión privada de rebirthing 1:1</div>
-        <div class="amt-note">Qué incluye</div>
-        <ul>
-          <li>2 a 3 horas, acompañamiento completo de principio a fin</li>
-          <li>Conversación previa a la sesión</li>
-          <li>Apoyo y seguimiento en los días siguientes</li>
-          <li>Presencial o en línea, donde estés</li>
-        </ul>
-        <a class="btn btn-primary" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener" style="width:100%;text-align:center">Reserva una consulta gratuita</a>
-        <p class="muted" style="font-size:var(--fs-sm);margin-top:16px;text-align:center">¿Prefieres escribirme primero? <a href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>.</p>
+        <a href="#book">Reserva</a>
       </div>
       <div>
-        <details open><summary>¿Necesito experiencia?</summary><p>Para nada. La mayoría de las personas que llegan a mí nunca han vivido un rebirthing. Te guío en cada paso, y no necesitas saber respirar &ldquo;correctamente&rdquo;. Simplemente empezamos, tú y yo.</p></details>
-        <details><summary>¿Voy a sentirme en calma después?</summary><p>A veces, pero la calma no es la promesa. El rebirthing tiende a mover la emoción más que a calmarla. Muchas personas se sienten cansadas y sensibles justo después, y más livianas al día siguiente.</p></details>
-        <details><summary>¿Esto es terapia?</summary><p>No. Es un complemento del trabajo interior, no un reemplazo de la terapia ni de la atención médica. Si estás en tratamiento, mantén a tu terapeuta al tanto.</p></details>
-        <details><summary>¿Podemos hacerlo en línea?</summary><p>Sí. Las sesiones en línea funcionan muy bien por video, después de una llamada corta para preparar tu espacio de forma segura.</p></details>
-        <details><summary>¿Y si necesito reprogramar?</summary><p>La vida pasa. Avísame con 24 horas de anticipación y encontramos un nuevo horario.</p></details>
+        <span class="colo-h">Encuéntrame</span>
+        <a href="https://instagram.com/respira.con.diana" target="_blank" rel="noopener">@respira.con.diana</a>
+        <a href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:ven@respiracondiana.com">ven@respiracondiana.com</a>
       </div>
     </div>
-  </div>
-</section>
+    <p class="colo-small">&copy; 2026 Respira con Diana &middot; respiracondiana.com<br>El rebirthing breathwork no sustituye la atención médica ni psicológica.</p>
+  </footer>
 
-<!-- ===== FOOTER ===== -->
-<footer>
-  <div class="foot-grid">
-    <div>
-      <img id="footmark" src="logo-mark-dark.svg" alt="Breathe with Diana" />
-    </div>
-    <div>
-      <h5>Explora</h5>
-      <a href="#doors">El trabajo</a>
-      <a href="#session">Qué esperar</a>
-      <a href="#story">Mi camino a casa</a>
-      <a href="#book">Reserva</a>
-    </div>
-    <div>
-      <h5>Encuéntrame</h5>
-      <a class="social-link" href="https://instagram.com/respira.con.diana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="var(--ochre)" stroke="none"/></svg>@respira.con.diana</a>
-      <a class="social-link" href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener"><svg class="brand-wa" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>+66 63 125 9588</a>
-      <span class="email-choice">
-        <a class="social-link" href="mailto:ven@respiracondiana.com" data-email="ven@respiracondiana.com" data-copied-label="Dirección copiada" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>ven@respiracondiana.com</a>
-        <span class="email-menu" role="menu" aria-label="Escríbeme por" hidden>
-          <span class="em-label">Escríbeme por</span>
-          <a class="em-item" role="menuitem" data-compose="gmail" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Gmail</a>
-          <a class="em-item" role="menuitem" data-compose="outlook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Outlook</a>
-          <a class="em-item" role="menuitem" data-compose="mailto" href="mailto:ven@respiracondiana.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z" opacity="0"/><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h10M7 13h6"/></svg>App de correo</a>
-          <button type="button" class="em-item" role="menuitem" data-compose="copy"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>Copiar dirección</button>
-        </span>
-      </span>
+  <!-- ============ sticky invitation (mobile) ============ -->
+  <div class="stickybar" id="stickybar">
+    <div class="bar-in">
+    <a class="bar-call" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una llamada<span class="bw">gratis &middot; 15 minutos &middot; sin compromiso</span></a>
+    <a class="bar-wa" href="https://wa.me/66631259588?text=Hola%20Diana%2C%20me%20gustar%C3%ADa%20reservar%20una%20sesi%C3%B3n" target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.8 9.2c.3-.8.7-.8 1-.8h.8l.7 1.7-.9 1a6.3 6.3 0 0 0 2.9 2.9l1-.9 1.7.7v.8c0 .3 0 .7-.8 1-.8.3-2.6-.1-4.3-1.8C9 12.1 8.5 10 8.8 9.2z"/></svg>
+      WhatsApp
+    </a>
     </div>
   </div>
-  <div class="foot-bottom">
-    <span>© 2026 Respira con Diana · respiracondiana.com</span>
-    <span>El rebirthing breathwork no sustituye la atención médica ni psicológica.</span>
+
+</div><!-- /#page -->
+
+<!-- ============ one breath overlay ============ -->
+<div id="breath-overlay" aria-hidden="true">
+  <div class="ob-stage" role="dialog" aria-modal="true" aria-label="Una respiración con Diana" tabindex="-1">
+    <svg class="ob-sol" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="mid" cx="100" cy="100" r="34"/>
+      <g transform="rotate(0 100 100)"><circle class="ring" cx="100" cy="66" r="34"/></g>
+      <g transform="rotate(60 100 100)"><circle class="ring" cx="100" cy="66" r="34"/></g>
+      <g transform="rotate(120 100 100)"><circle class="ring" cx="100" cy="66" r="34"/></g>
+      <g transform="rotate(180 100 100)"><circle class="ring" cx="100" cy="66" r="34"/></g>
+      <g transform="rotate(240 100 100)"><circle class="ring" cx="100" cy="66" r="34"/></g>
+      <g transform="rotate(300 100 100)"><circle class="ring" cx="100" cy="66" r="34"/></g>
+    </svg>
+    <div class="ob-words" id="ob-words" aria-hidden="true">
+      <span class="w w1">inhala</span>
+      <span class="w w2">y suéltalo</span>
+    </div>
+    <p class="ob-skip">desliza o toca para saltar</p>
+    <span class="visually-hidden" id="ob-live" aria-live="polite"></span>
   </div>
-</footer>
+</div>
+
+<!-- ============ contents ============ -->
+<dialog class="contents" id="contents" aria-label="Índice">
+  <span class="smallcaps contents-title">Índice</span>
+  <nav>
+    <a href="#practice">Qué es</a>
+    <a href="#doors">El trabajo</a>
+    <a href="#session">Qué esperar</a>
+    <a href="#story">Mi camino a casa</a>
+    <a href="#reviews">Reseñas</a>
+    <a href="#reset">Reset de respiración gratis</a>
+    <a href="#book" class="strong">Reserva una consulta gratuita</a>
+  </nav>
+  <button class="contents-close" id="contents-close" type="button">Cerrar</button>
+</dialog>
 
 <script>
-/* Email chooser. A mailto: link only opens a mail app on machines that have one
-   configured; on a laptop with no default mail handler it does nothing at all,
-   which is exactly what was reported. A web page cannot force a mail client open,
-   so clicking the email opens a small menu instead, giving every visitor a route
-   that actually works:
-     - Gmail / Outlook  -> a webmail compose window, prefilled, opens in a new tab
-                           (works with no desktop mail client at all)
-     - Default mail app -> the mailto:, for anyone who does have one configured
-     - Copy address     -> copies the address and shows a brief confirmation
-   The anchor keeps its mailto: href, so right-click "Copy email address" still
-   works and, with JavaScript disabled, the link degrades to a plain mailto:.
-
-   Copy uses the synchronous execCommand path FIRST: it completes inside the click
-   gesture, so it succeeds even where the async Clipboard API would reject (e.g.
-   if focus shifts). The Clipboard API is an enhancement/fallback only. */
 (function(){
-  var wrap = document.querySelector('.email-choice');
-  if(!wrap) return;
-  var link = wrap.querySelector('a.social-link[data-email]');
-  var menu = wrap.querySelector('.email-menu');
-  if(!link || !menu) return;
-  var email = link.getAttribute('data-email');
-  var gmail = menu.querySelector('[data-compose="gmail"]');
-  var outlook = menu.querySelector('[data-compose="outlook"]');
-  if(gmail) gmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email);
-  if(outlook) outlook.href = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + encodeURIComponent(email);
+  "use strict";
+  var html=document.documentElement;
+  var page=document.getElementById("page");
+  var CYCLE=11000;
+  var epoch=performance.now();
 
-  var note = document.createElement('span');
-  note.className = 'copy-note';
-  note.textContent = link.getAttribute('data-copied-label') || 'Copied';
-  link.appendChild(note);
-  var timer;
-  function copy(text){
-    var ok = false;
-    try{
-      var ta = document.createElement('textarea');
-      ta.value = text; ta.setAttribute('readonly','');
-      ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.select(); ta.setSelectionRange(0, text.length);
-      ok = document.execCommand('copy');
-      document.body.removeChild(ta);
-    }catch(e){ ok = false; }
-    if(!ok && navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).catch(function(){});
+  /* ---------- motion mode: one code path ---------- */
+  function setMotion(mode){
+    html.setAttribute("data-motion",mode);
+  }
+  setMotion(html.getAttribute("data-motion")||"full");
+  try{
+    var mq=window.matchMedia("(prefers-reduced-motion: reduce)");
+    var onMq=function(e){setMotion(e.matches?"calm":"full");};
+    if(mq.addEventListener){mq.addEventListener("change",onMq);}
+    else if(mq.addListener){mq.addListener(onMq);}
+  }catch(e){}
+
+  /* ---------- the living dot: handoff, phase never resets ---------- */
+  var stations=[].slice.call(document.querySelectorAll(".dot-station"));
+  var current=document.querySelector(".dot-station.alive");
+  function give(st){
+    if(!st||st===current){return;}
+    if(current){current.classList.remove("alive");}
+    var phase=Math.round((performance.now()-epoch)%CYCLE);
+    st.style.setProperty("--phase","-"+phase+"ms");
+    st.classList.add("alive");
+    current=st;
+  }
+  if("IntersectionObserver" in window){
+    var bandIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){give(en.target);}
+      });
+    },{rootMargin:"-38% 0px -38% 0px",threshold:0});
+    stations.forEach(function(s){bandIO.observe(s);});
+  }
+
+  /* ---------- dissolves: content develops like a print ---------- */
+  /* IntersectionObserver drives the reveal for real visitors. A rect check
+     on init, load, hashchange and (rAF-throttled) scroll guarantees in-view
+     content is never left hidden, including anchor-jump captures where the
+     IO init callback is unreliable. Both paths only ever ADD .in (idempotent),
+     so content can develop like a print but can never get stuck invisible. */
+  var reveals=[].slice.call(document.querySelectorAll(".reveal"));
+  function revealInView(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    for(var i=0;i<reveals.length;i++){
+      var el=reveals[i];
+      if(el.classList.contains("in")){continue;}
+      var r=el.getBoundingClientRect();
+      if(r.top<vh*0.94 && r.bottom>-2){el.classList.add("in");}
     }
   }
-  function showNote(){
-    note.classList.add('show');
-    clearTimeout(timer);
-    timer = setTimeout(function(){ note.classList.remove('show'); }, 1800);
+  if("IntersectionObserver" in window){
+    var revIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){en.target.classList.add("in");revIO.unobserve(en.target);}
+      });
+    },{rootMargin:"0px 0px -8% 0px",threshold:.08});
+    reveals.forEach(function(el){revIO.observe(el);});
   }
-  function openMenu(){
-    menu.hidden = false;
-    link.setAttribute('aria-expanded', 'true');
-    document.addEventListener('click', onDocClick, true);
-    document.addEventListener('keydown', onKey);
-  }
-  function closeMenu(focusLink){
-    menu.hidden = true;
-    link.setAttribute('aria-expanded', 'false');
-    document.removeEventListener('click', onDocClick, true);
-    document.removeEventListener('keydown', onKey);
-    if(focusLink) link.focus();
-  }
-  function onDocClick(e){ if(!wrap.contains(e.target)) closeMenu(false); }
-  function onKey(e){ if(e.key === 'Escape' || e.keyCode === 27) closeMenu(true); }
+  revealInView();
+  var revRaf=false;
+  window.addEventListener("scroll",function(){
+    if(revRaf){return;}revRaf=true;
+    requestAnimationFrame(function(){revRaf=false;revealInView();});
+  },{passive:true});
+  window.addEventListener("load",revealInView);
+  window.addEventListener("hashchange",function(){setTimeout(revealInView,60);});
+  setTimeout(revealInView,90);setTimeout(revealInView,450);setTimeout(revealInView,1100);
+  /* ultimate safety net: content is never left hidden, whatever happens with
+     the observer, the scroll position, or a headless capture. After a beat any
+     still-hidden block simply appears. The dissolve is a grace note, not a gate. */
+  setTimeout(function(){for(var i=0;i<reveals.length;i++){reveals[i].classList.add("in");}},1900);
 
-  link.addEventListener('click', function(e){
-    e.preventDefault();
-    if(menu.hidden){
-      openMenu();
-      var first = menu.querySelector('.em-item');
-      if(first) first.focus();
-    } else {
-      closeMenu(false);
+  /* ---------- running head: sense of place ---------- */
+  var chapterEl=document.getElementById("head-chapter");
+  if(chapterEl&&"IntersectionObserver" in window){
+    var chIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting){return;}
+        var name=en.target.getAttribute("data-chapter")||"";
+        if(name===chapterEl.textContent){return;}
+        chapterEl.style.opacity="0";
+        setTimeout(function(){chapterEl.textContent=name;chapterEl.style.opacity="1";},320);
+      });
+    },{rootMargin:"-30% 0px -55% 0px",threshold:0});
+    [].slice.call(document.querySelectorAll("[data-chapter]")).forEach(function(s){chIO.observe(s);});
+    var heroIOc=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting&&chapterEl.textContent!==""){
+          chapterEl.style.opacity="0";
+          setTimeout(function(){chapterEl.textContent="";},320);
+        }
+      });
+    },{rootMargin:"-30% 0px -55% 0px",threshold:0});
+    heroIOc.observe(document.getElementById("hero"));
+  }
+
+  /* ---------- sticky invitation ---------- */
+  var bar=document.getElementById("stickybar");
+  var hero=document.getElementById("hero");
+  var bookCtas=document.getElementById("book-ctas");
+  if(bar&&hero){
+    /* Booking is never more than a tap away: the sticky bar reveals once about
+       40% of the title page has scrolled past the top, not only once the hero
+       is fully gone, so the WhatsApp and free-call doors stay reachable on the
+       first screen for the whole scroll. */
+    var updateBar=function(){
+      var r=hero.getBoundingClientRect();
+      var scrolledPast=-r.top;                 /* px of hero above the viewport top */
+      bar.classList.toggle("show",r.height>0 && scrolledPast>=r.height*0.4);
+    };
+    var barRaf=false;
+    window.addEventListener("scroll",function(){
+      if(barRaf){return;}barRaf=true;
+      requestAnimationFrame(function(){barRaf=false;updateBar();});
+    },{passive:true});
+    window.addEventListener("resize",updateBar,{passive:true});
+    window.addEventListener("load",updateBar);
+    updateBar();
+    if(bookCtas&&"IntersectionObserver" in window){
+      var hideIO=new IntersectionObserver(function(entries){
+        entries.forEach(function(en){bar.classList.toggle("hide",en.isIntersecting);});
+      },{threshold:.2});
+      hideIO.observe(bookCtas);
     }
-  });
+  }
 
-  menu.addEventListener('click', function(e){
-    var item = e.target.closest ? e.target.closest('.em-item') : null;
-    if(!item) return;
-    var kind = item.getAttribute('data-compose');
-    if(kind === 'copy'){
-      e.preventDefault();
-      copy(email);
-      closeMenu(false);
-      showNote();
-    } else {
-      /* gmail / outlook (new tab via target=_blank) and mailto: all follow their
-         href natively; just close the menu after the choice. */
-      closeMenu(false);
-    }
-  });
-})();
-
-/* Mobile hamburger menu. The <details>/<summary> already opens, closes and is keyboard-
-   operable on its own (so it works with JS disabled); this only adds the expected
-   niceties: close after tapping a destination, close on Escape, close on an outside click. */
-(function(){
-  var menu = document.getElementById('navmenu');
-  if(!menu) return;
-  var panel = menu.querySelector('.navmenu-panel');
-  var summary = menu.querySelector('summary');
-  function close(){ menu.removeAttribute('open'); }
-  if(panel) panel.addEventListener('click', function(e){
-    var a = e.target.closest ? e.target.closest('a') : null;
-    if(a) close();
-  });
-  document.addEventListener('keydown', function(e){
-    if((e.key === 'Escape' || e.keyCode === 27) && menu.open){ close(); if(summary) summary.focus(); }
-  });
-  document.addEventListener('click', function(e){
-    if(menu.open && !menu.contains(e.target)) close();
-  });
-})();
-
-/* Free-reset email capture, through the same Apps Script deployment as
-   media-consent.html (see _build/consent-and-reset-intake/).
-
-   reset_thanks promises a send "as soon as it is ready" rather than an instant
-   delivery on purpose: the recording does not exist yet, so a waitlist is the only
-   honest confirmation. Swap it for a delivery line once the audio ships. */
-(function(){
-  var ENDPOINT = "https://script.google.com/macros/s/AKfycbzaKGDw-U9Un0ArJl_nXJHDhVXaeSgP1dzPC9F5ui2fzEjdCob3Hc7x1fDFA8DU1cY/exec";
-  var SUBMIT_TOKEN = "bwd_rs_6Yb1nZ5k"; // must match Code.gs TOKEN_RESET
-
-  var form = document.getElementById('reset-form');
-  var note = document.getElementById('reset-note');
-  var email = document.getElementById('reset-email');
-  var btn = document.getElementById('reset-submit');
-  var pot = document.getElementById('reset-company');
-  if(!form || !note || !email || !btn) return;
-
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    note.textContent = '';
-    if(pot && pot.value) return; // honeypot, do nothing
-    var v = email.value.trim();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){ note.textContent = note.dataset.errEmail; return; }
-    if(ENDPOINT.indexOf('APPS_SCRIPT_URL') !== -1){ note.textContent = note.dataset.errUnwired; return; }
-
-    var old = btn.textContent;
-    btn.disabled = true; btn.textContent = note.dataset.sending;
-    fetch(ENDPOINT, {
-      method: 'POST', mode: 'no-cors',
-      body: JSON.stringify({
-        form: 'reset', email: v, token: SUBMIT_TOKEN,
-        lang: document.documentElement.lang || '',
-        company: pot ? pot.value : '', page: location.href
-      })
-    }).then(function(){
-      form.style.display = 'none';
-      note.textContent = note.dataset.thanks;
-    }).catch(function(){
-      btn.disabled = false; btn.textContent = old;
-      note.textContent = note.dataset.errSend;
+  /* ---------- contents ---------- */
+  var dlg=document.getElementById("contents");
+  var openBtn=document.getElementById("contents-open");
+  var closeBtn=document.getElementById("contents-close");
+  if(dlg&&openBtn&&typeof dlg.showModal==="function"){
+    openBtn.addEventListener("click",function(){if(!dlg.open){dlg.showModal();}});
+    if(closeBtn){closeBtn.addEventListener("click",function(){dlg.close();});}
+    dlg.addEventListener("click",function(e){
+      if(e.target===dlg){dlg.close();}
+      else if(e.target.closest("a")){dlg.close();}
     });
-  });
+  }else if(dlg&&openBtn){
+    /* No <dialog>/showModal support: fall back to a native anchored list so the
+       Contents button never vanishes and every section jump keeps working on a
+       long book. The same nav element is shown as a plain positioned panel. */
+    dlg.classList.add("nodialog");
+    var setFb=function(open){
+      dlg.classList.toggle("open",open);
+      openBtn.setAttribute("aria-expanded",open?"true":"false");
+    };
+    openBtn.setAttribute("aria-expanded","false");
+    openBtn.addEventListener("click",function(){setFb(!dlg.classList.contains("open"));});
+    if(closeBtn){closeBtn.addEventListener("click",function(){setFb(false);});}
+    dlg.addEventListener("click",function(e){if(e.target.closest("a")){setFb(false);}});
+    document.addEventListener("click",function(e){
+      if(dlg.classList.contains("open")&&e.target!==openBtn&&!dlg.contains(e.target)){setFb(false);}
+    });
+    document.addEventListener("keydown",function(e){if(e.key==="Escape"){setFb(false);}});
+  }
+
+  /* ---------- one breath with Diana ---------- */
+  var btn=document.getElementById("breath-btn");
+  var overlay=document.getElementById("breath-overlay");
+  var stage=overlay?overlay.querySelector(".ob-stage"):null;
+  var words=document.getElementById("ob-words");
+  var live=document.getElementById("ob-live");
+  var heroSec=document.getElementById("hero");
+  var running=false;
+  var timers=[];
+  var cancelers=[];
+  function later(fn,ms){timers.push(setTimeout(fn,ms));}
+  function listen(target,type,fn,opts){
+    target.addEventListener(type,fn,opts);
+    cancelers.push(function(){target.removeEventListener(type,fn,opts);});
+  }
+  function cleanup(){
+    timers.forEach(clearTimeout);timers=[];
+    cancelers.forEach(function(off){off();});cancelers=[];
+    html.classList.remove("ritual");
+    if(words){words.classList.remove("phase2");}
+    if(overlay){overlay.setAttribute("aria-hidden","true");}
+    if(page){page.inert=false;page.removeAttribute("aria-hidden");}
+    if(live){live.textContent="";}
+    running=false;
+    if(btn){btn.focus({preventScroll:true});}
+  }
+  function finish(){
+    /* per Diana: no "that's one breath" message after the breath; just settle back */
+    cleanup();
+  }
+  function cancel(){cleanup();}
+  function start(){
+    if(running||!overlay||!stage){return;}
+    running=true;
+    if(heroSec){heroSec.setAttribute("data-invited","done");}
+    html.classList.add("ritual");
+    overlay.removeAttribute("aria-hidden");
+    if(page){page.inert=true;page.setAttribute("aria-hidden","true");}
+    stage.focus({preventScroll:true});
+    if(live){live.textContent="Inhala";}
+    later(function(){
+      if(words){words.classList.add("phase2");}
+      if(live){live.textContent="Y suéltalo";}
+    },4000);
+    later(finish,11600);
+    /* cancel affordances arm after the opening tap has fully settled */
+    later(function(){
+      listen(window,"wheel",cancel,{passive:true});
+      listen(window,"touchmove",cancel,{passive:true});
+      listen(window,"scroll",cancel,{passive:true});
+      listen(document,"pointerdown",cancel,true);
+      listen(document,"keydown",function(e){if(e.key==="Escape"){cancel();}},true);
+    },350);
+  }
+  var invite=document.getElementById("invite-cap");
+  if(btn){btn.addEventListener("click",start);}
+  if(invite){invite.addEventListener("click",start);}
+  if(location.hash==="#breath-demo"){later(start,900);}
+
+  /* ---------- reset form ---------- */
+  var form=document.getElementById("reset-form");
+  var note=document.getElementById("reset-note");
+  var rsEmail=document.getElementById("reset-email");
+  var rsBtn=document.getElementById("reset-submit");
+  var rsPot=document.getElementById("reset-company");
+  if(form&&note&&rsEmail&&rsBtn){
+    var ENDPOINT="https://script.google.com/macros/s/AKfycbzaKGDw-U9Un0ArJl_nXJHDhVXaeSgP1dzPC9F5ui2fzEjdCob3Hc7x1fDFA8DU1cY/exec";
+    var SUBMIT_TOKEN="bwd_rs_6Yb1nZ5k"; /* must match Code.gs TOKEN_RESET */
+    form.addEventListener("submit",function(e){
+      e.preventDefault();
+      note.textContent="";
+      if(rsPot&&rsPot.value){return;}
+      var v=rsEmail.value.trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){note.textContent=note.dataset.errEmail;return;}
+      if(ENDPOINT.indexOf("APPS_SCRIPT_URL")!==-1){note.textContent=note.dataset.errUnwired;return;}
+      var old=rsBtn.textContent;
+      rsBtn.disabled=true;rsBtn.textContent=note.dataset.sending;
+      fetch(ENDPOINT,{
+        method:"POST",mode:"no-cors",
+        body:JSON.stringify({
+          form:"reset",email:v,token:SUBMIT_TOKEN,
+          lang:document.documentElement.lang||"",
+          company:rsPot?rsPot.value:"",page:location.href
+        })
+      }).then(function(){
+        form.style.display="none";
+        note.textContent=note.dataset.thanks;
+      }).catch(function(){
+        rsBtn.disabled=false;rsBtn.textContent=old;
+        note.textContent=note.dataset.errSend;
+      });
+    });
+  }
+
+  /* ---------- aigoddesses-style testimonial marquee: clone for a seamless loop ---------- */
+  /* Only clone when motion is on. In reduced-motion the single set stays and the
+     marquee becomes a plain horizontal scroll (see CSS), so nothing is hidden. */
+  var aiTrack=document.getElementById("ai-track");
+  if(aiTrack){
+    var aiCalm=false;
+    try{aiCalm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+    if(!aiCalm){
+      [].slice.call(aiTrack.children).forEach(function(c){
+        var d=c.cloneNode(true);d.setAttribute("aria-hidden","true");aiTrack.appendChild(d);
+      });
+    }
+  }
 })();
 </script>
-<!-- Review-only feedback widget (Diana). Gated to unfinalized language pages via content JSON. -->
-<script src="feedback.js?v=4"></script>
+<!-- feedback widget: Diana hearts elements and types notes per section, then emails a clean summary -->
+<script src="/feedback.js?v=4" defer></script>
 </body>
 </html>

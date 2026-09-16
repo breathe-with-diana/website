@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Guard for the template build system. Asserts three things and exits non-zero on any failure:
+# Guard for the site. Asserts three things and exits non-zero on any failure:
 #   1. the engine self-tests pass;
 #   2. every committed generated page is in sync with its template + content (i.e. nobody
 #      edited a source file but forgot to rebuild, or committed a stale page);
-#   3. no em/en dashes (literal or HTML entity) slipped into the output.
+#   3. no em/en dashes (literal or HTML entity) slipped into any page we ship.
 # Wire this into a pre-push hook or CI. Run from anywhere inside the repo.
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -13,8 +13,8 @@ node "$DIR/build.js" --selftest
 node "$DIR/build.js" --strict
 
 # Every file the build writes. Keep in step with BUNDLES in build.js.
+# The three language pages are hand-maintained and deliberately absent.
 GENERATED=(
-  index.html es.html ru.html
   email/reset-en.html email/reset-es.html email/reset-ru.html
   email/review-en.html email/review-es.html email/review-ru.html
   breath-reset.html breath-reset-es.html breath-reset-ru.html
@@ -30,14 +30,15 @@ if ! git -C "$ROOT" diff --quiet -- "${GENERATED[@]}"; then
 fi
 echo "OK   committed output matches a fresh build of template + content"
 
-# Guard: no em/en dashes (literal or entity) anywhere in the output.
+# Guard: no em/en dashes (literal or entity) in anything we ship, generated or not.
+DASH_CHECKED=("${GENERATED[@]}" index.html es.html ru.html)
 PATHS=()
-for f in "${GENERATED[@]}"; do PATHS+=("$ROOT/$f"); done
+for f in "${DASH_CHECKED[@]}"; do PATHS+=("$ROOT/$f"); done
 if grep -lP '\x{2014}|\x{2013}|&mdash;|&ndash;|&#8212;|&#8211;' "${PATHS[@]}" 2>/dev/null; then
-  echo "FAIL em/en dash found in output"
+  echo "FAIL em/en dash found"
   exit 1
 fi
-echo "OK   no em/en dashes in output"
+echo "OK   no em/en dashes"
 
 # The delivered emails must never carry the feedback widget; only the review copies do.
 for f in email/reset-en.html email/reset-es.html email/reset-ru.html; do

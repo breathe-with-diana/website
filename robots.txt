@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /v2/
 Disallow: /email/
 
 Sitemap: https://breathe-with-diana.com/sitemap.xml
