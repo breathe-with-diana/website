@@ -270,10 +270,10 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
   transition:background .25s,border-color .25s;
 }
 .head-cta:hover{background:var(--terracotta-ink);border-color:var(--terracotta-ink);color:var(--bone)}
-/* Between 900px and the widest desktop the centred logo leaves each side half the
-   bar, so the right cluster is tightened to fit its half rather than pushing the
-   logo off centre. Above 1140px everything relaxes back to full size. */
-@media (min-width:900px) and (max-width:1139px){
+/* From 900px up the centred logo leaves each side half the bar, so the right
+   cluster is tightened to fit its half rather than pushing the logo off centre.
+   Only the widest desktops have room for it at full size. */
+@media (min-width:900px) and (max-width:1279px){
   .head-chapter{display:none}
   .head-right{gap:.55rem}
   .head-btn{font-size:.58rem;letter-spacing:.08em;padding:0 .2rem}
@@ -1049,7 +1049,7 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
         <span class="head-langs" aria-label="Idioma">
           <a class="off" href="index.html" title="English"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="2"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6.5"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="3.5"/></svg><span class="lang-code">EN</span></a>
           <span class="on" title="Español"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#C60B1E"/><rect y="5" width="30" height="10" fill="#FFC400"/></svg><span class="lang-code">ES</span></span>
-          <span class="off" title="Todavía no disponible en ruso"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#fff"/><rect y="6.667" width="30" height="6.667" fill="#0039A6"/><rect y="13.333" width="30" height="6.667" fill="#D52B1E"/></svg><span class="lang-code">RU</span></span>
+          <a class="off" href="ru.html" title="Русский"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#fff"/><rect y="6.667" width="30" height="6.667" fill="#0039A6"/><rect y="13.333" width="30" height="6.667" fill="#D52B1E"/></svg><span class="lang-code">RU</span></a>
         </span>
         <a class="head-cta" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Reserva una consulta gratuita</a>
       </div>
@@ -1431,10 +1431,18 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
         <div class="measure reveal">
           <p class="lead">Si todavía no sientes que sea el momento para una sesión completa, puedes empezar aquí. Una práctica guiada y gratuita para bajar el ritmo, volver a tu respiración y experimentar, estés donde estés, una pequeña muestra de este trabajo. Déjame tu correo y te la enviaré directamente.</p>
           <form class="reset-form" id="reset-form" novalidate>
-            <input type="email" name="email" placeholder="tu@correo.com" aria-label="correo" autocomplete="email">
-            <button class="btn" type="submit">Envíame el reset</button>
+            <input type="email" name="email" id="reset-email" placeholder="tu@correo.com" aria-label="correo" autocomplete="email">
+            <!-- honeypot, hidden from people, filled in by bots -->
+            <input type="text" name="company" id="reset-company" tabindex="-1" autocomplete="off"
+                   aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+            <button class="btn" type="submit" id="reset-submit">Envíame el reset</button>
           </form>
-          <p class="caption reset-note" id="reset-note" aria-live="polite"></p>
+          <p class="caption reset-note" id="reset-note" role="status" aria-live="polite"
+             data-sending="Enviando…"
+             data-thanks="Gracias. Tu correo está guardado. Estoy terminando la grabación y te la enviaré en cuanto esté lista. 🤎"
+             data-err-email="Ese correo no parece del todo correcto. ¿Lo puedes revisar?"
+             data-err-send="Algo salió mal ahora mismo. Inténtalo de nuevo en un momento."
+             data-err-unwired="Todavía no puedo recibir correos aquí. Escríbeme y te la envío yo misma. 🤎"></p>
         </div>
       </div>
     </section>
@@ -1801,13 +1809,40 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
   if(invite){invite.addEventListener("click",start);}
   if(location.hash==="#breath-demo"){later(start,900);}
 
-  /* ---------- reset form (design preview, does not send) ---------- */
+  /* ---------- reset form ----------
+     The endpoint placeholder is deliberate: until the Apps Script is deployed the
+     form says so rather than swallowing an address it cannot store. */
   var form=document.getElementById("reset-form");
   var note=document.getElementById("reset-note");
-  if(form&&note){
+  var rsEmail=document.getElementById("reset-email");
+  var rsBtn=document.getElementById("reset-submit");
+  var rsPot=document.getElementById("reset-company");
+  if(form&&note&&rsEmail&&rsBtn){
+    var ENDPOINT="__CONSENT_RESET_APPS_SCRIPT_URL__";
+    var SUBMIT_TOKEN="bwd_rs_6Yb1nZ5k"; /* must match Code.gs TOKEN_RESET */
     form.addEventListener("submit",function(e){
       e.preventDefault();
-      note.textContent="Esta es una vista previa de diseño: el formulario todavía no envía.";
+      note.textContent="";
+      if(rsPot&&rsPot.value){return;}
+      var v=rsEmail.value.trim();
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)){note.textContent=note.dataset.errEmail;return;}
+      if(ENDPOINT.indexOf("APPS_SCRIPT_URL")!==-1){note.textContent=note.dataset.errUnwired;return;}
+      var old=rsBtn.textContent;
+      rsBtn.disabled=true;rsBtn.textContent=note.dataset.sending;
+      fetch(ENDPOINT,{
+        method:"POST",mode:"no-cors",
+        body:JSON.stringify({
+          form:"reset",email:v,token:SUBMIT_TOKEN,
+          lang:document.documentElement.lang||"",
+          company:rsPot?rsPot.value:"",page:location.href
+        })
+      }).then(function(){
+        form.style.display="none";
+        note.textContent=note.dataset.thanks;
+      }).catch(function(){
+        rsBtn.disabled=false;rsBtn.textContent=old;
+        note.textContent=note.dataset.errSend;
+      });
     });
   }
 
