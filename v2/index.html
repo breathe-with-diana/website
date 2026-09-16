@@ -218,19 +218,27 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
   display:flex;align-items:center;justify-content:space-between;gap:.75rem;
   position:relative;
 }
+/* The logo holds the optical centre of the running head whatever the two side
+   clusters weigh, so it is taken out of the flex row rather than balanced
+   against it. Both neighbours are sized to clear it at every width. */
 .head-brand{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
   color:var(--umber);text-decoration:none;
   display:inline-flex;align-items:center;min-height:44px;
 }
 .head-chapter{
-  flex:1 1 auto;min-width:0;text-align:center;padding:0 1rem;
+  /* stops short of the centred logo at every width */
+  flex:1 1 auto;min-width:0;max-width:calc(50% - 5.5rem);padding-right:1rem;
   font:italic 400 var(--fs-aside)/1 var(--serif);
   color:var(--muted-strong);
   transition:opacity .3s var(--sine);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none;
 }
-.head-right{display:flex;align-items:center;gap:clamp(.4rem,1.4vw,1.1rem)}
+.head-right{
+  flex:0 0 auto;margin-left:auto;
+  display:flex;align-items:center;gap:clamp(.4rem,1.4vw,1.1rem);
+}
 .head-btn{
   appearance:none;background:none;border:0;cursor:pointer;
   font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
@@ -241,32 +249,38 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
 }
 .head-btn:hover{color:var(--umber)}
 .head-langs{display:flex;align-items:center;gap:.55rem;font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.16em}
+.head-langs .on,.head-langs .off{display:inline-flex;align-items:center;gap:.36em}
 .head-langs .on{color:var(--umber)}
 .head-langs .off{color:rgba(91,70,54,.45);cursor:default}
 .head-langs a.off{text-decoration:none;transition:color .25s}
 .head-langs a.off:hover{color:var(--umber)}
-.motion-toggle{
-  appearance:none;background:none;border:0;cursor:pointer;
-  min-height:44px;padding:0 .35rem;
-  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:.45em;
-  color:var(--muted-strong);
+.flag{
+  width:1.35em;height:auto;flex:none;border-radius:1px;
+  box-shadow:0 0 0 .5px rgba(64,47,30,.3);
+  transition:opacity .25s;
 }
-.motion-toggle .mt-on,.motion-toggle .mt-off{transition:color .3s}
-.motion-toggle .mt-on{color:var(--umber)}
-.motion-toggle .mt-off{color:rgba(91,70,54,.45)}
-html[data-motion="calm"] .motion-toggle .mt-on{color:rgba(91,70,54,.45)}
-html[data-motion="calm"] .motion-toggle .mt-off{color:var(--umber)}
-.motion-toggle .mt-sep{color:rgba(91,70,54,.4)}
+.head-langs .off .flag{opacity:.5}
+.head-langs a.off:hover .flag{opacity:1}
 .head-cta{
   font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--terracotta-deep);text-decoration:none;
-  border:1px solid rgba(144,88,64,.55);border-radius:2px;
+  background:var(--terracotta-deep);color:var(--bone);text-decoration:none;
+  border:1px solid var(--terracotta-deep);border-radius:2px;
   min-height:44px;padding:0 1rem;
   display:inline-flex;align-items:center;
-  transition:color .25s,border-color .25s,background .25s;
+  transition:background .25s,border-color .25s;
 }
-.head-cta:hover{background:var(--terracotta-deep);color:var(--bone)}
+.head-cta:hover{background:var(--terracotta-ink);border-color:var(--terracotta-ink);color:var(--bone)}
+/* Between 900px and the widest desktop the centred logo leaves each side half the
+   bar, so the right cluster is tightened to fit its half rather than pushing the
+   logo off centre. Above 1140px everything relaxes back to full size. */
+@media (min-width:900px) and (max-width:1139px){
+  .head-chapter{display:none}
+  .head-right{gap:.55rem}
+  .head-btn{font-size:.58rem;letter-spacing:.08em;padding:0 .2rem}
+  .head-langs{gap:.4rem;font-size:.6rem;letter-spacing:.04em}
+  .flag{width:1.2em}
+  .head-cta{font-size:.6rem;letter-spacing:.05em;padding:0 .6rem}
+}
 @media (max-width:899px){
   :root{--head-h:52px}
   /* keep the language switcher on phones (multilingual reach is core, and most
@@ -873,15 +887,32 @@ html.ritual .phase2 .w2{opacity:1}
   .book-ctas .btn[href^="https://wa.me"]:hover{
     background:var(--terracotta-ink);color:var(--bone);border-color:var(--terracotta-ink);
   }
-  /* mobile running head: keep the language switcher and motion toggle reachable
-     but let the row breathe. Each control is trimmed so the four groups
-     (wordmark, Contents, EN/ES/RU, motion) sit in one calm line with real gaps
-     instead of five controls jammed to the clipping edge. */
+  /* mobile running head: the logo holds the centre, so the right cluster has to
+     fit in the half-width left beside it. The language codes drop to their flags
+     (the label stays for screen readers); Contents keeps its word. */
   .head-brand{letter-spacing:.04em;font-size:.56rem;white-space:nowrap}
-  .motion-toggle,.head-btn{letter-spacing:0;font-size:.55rem;padding:0 .1rem}
-  .motion-toggle{gap:.28em}
+  .head-btn{letter-spacing:0;font-size:.55rem;padding:0 .1rem}
   .head-right{gap:.72rem}
+  /* the running head goes edge to edge on phones: it is a bar, not a body column,
+     and the corner is where Contents and the flags belong */
+  .head-inner{max-width:none;padding-inline:.85rem}
+  .head-langs{gap:.42rem}
+  .head-langs .lang-code{
+    position:absolute;width:1px;height:1px;overflow:hidden;
+    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
+  }
+  .flag{width:15px}
+  .head-logo{height:21px}
   .notes{max-width:100%}
+}
+/* narrow phones: the bar is the tightest it gets, so every control gives a little */
+@media (max-width:389px){
+  .head-inner{padding-inline:.7rem}
+  .head-btn{font-size:.5rem}
+  .head-right{gap:.5rem}
+  .head-langs{gap:.3rem}
+  .flag{width:13px}
+  .head-logo{height:18px}
 }
 @media (min-width:461px) and (max-width:600px){
   .wrap,.letter-inner,.colo-cols,.plate,.hero-col,.band-in,.bar-in,.head-inner{
@@ -1011,18 +1042,15 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
   <!-- running head -->
   <header class="head">
     <div class="head-inner">
-      <a class="head-brand" href="#hero" aria-label="Breathe with Diana, home"><img class="head-logo" src="/logo-mark.svg" alt="Breathe with Diana" width="150" height="48"></a>
       <span class="head-chapter" id="head-chapter" aria-hidden="true"></span>
+      <a class="head-brand" href="#hero" aria-label="Breathe with Diana, home"><img class="head-logo" src="/logo-mark.svg" alt="Breathe with Diana" width="150" height="48"></a>
       <div class="head-right">
         <button class="head-btn" id="contents-open" type="button" aria-haspopup="dialog">Contents</button>
         <span class="head-langs" aria-label="Language">
-          <span class="on">EN</span>
-          <a class="off" href="es.html">ES</a>
-          <span class="off" title="Not in Russian yet">RU</span>
+          <span class="on" title="English"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="2"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6.5"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="3.5"/></svg><span class="lang-code">EN</span></span>
+          <a class="off" href="es.html" title="Español"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#C60B1E"/><rect y="5" width="30" height="10" fill="#FFC400"/></svg><span class="lang-code">ES</span></a>
+          <span class="off" title="Not in Russian yet"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#fff"/><rect y="6.667" width="30" height="6.667" fill="#0039A6"/><rect y="13.333" width="30" height="6.667" fill="#D52B1E"/></svg><span class="lang-code">RU</span></span>
         </span>
-        <button class="motion-toggle" id="motion-toggle" type="button" aria-pressed="false" aria-label="Pause the breathing motion">
-          <span class="mt-on">breathing</span><span class="mt-sep">&middot;</span><span class="mt-off">still</span>
-        </button>
         <a class="head-cta" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free consultation</a>
       </div>
     </div>
@@ -1561,14 +1589,8 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
   var epoch=performance.now();
 
   /* ---------- motion mode: one code path ---------- */
-  var toggle=document.getElementById("motion-toggle");
   function setMotion(mode){
     html.setAttribute("data-motion",mode);
-    if(toggle){
-      var calm=mode==="calm";
-      toggle.setAttribute("aria-pressed",calm?"true":"false");
-      toggle.setAttribute("aria-label",calm?"Resume the breathing motion":"Pause the breathing motion");
-    }
   }
   setMotion(html.getAttribute("data-motion")||"full");
   try{
@@ -1577,11 +1599,6 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
     if(mq.addEventListener){mq.addEventListener("change",onMq);}
     else if(mq.addListener){mq.addListener(onMq);}
   }catch(e){}
-  if(toggle){
-    toggle.addEventListener("click",function(){
-      setMotion(html.getAttribute("data-motion")==="calm"?"full":"calm");
-    });
-  }
 
   /* ---------- the living dot: handoff, phase never resets ---------- */
   var stations=[].slice.call(document.querySelectorAll(".dot-station"));
