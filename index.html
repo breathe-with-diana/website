@@ -52,7 +52,7 @@
   --sol-amp:1.12;         /* seed of life: centre circle swell */
   --ring-from:1.22;       /* invitation ring settle */
   --measure:40rem;
-  --head-h:56px;
+  --head-h:64px;
 
   /* Vertical rhythm. Two --gap make one boundary between sections. A boundary that
      touches a photo plate, or closes a colour band, spends --gap-tight on that side:
@@ -214,7 +214,7 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
 .head-inner{
   width:100%;max-width:1240px;margin-inline:auto;
   padding-inline:clamp(.9rem,3vw,2rem);
-  display:flex;align-items:center;justify-content:space-between;gap:.75rem;
+  display:flex;align-items:center;gap:.75rem;
   position:relative;
 }
 /* The logo holds the optical centre of the running head whatever the two side
@@ -222,13 +222,26 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
    against it. Both neighbours are sized to clear it at every width. */
 .head-brand{
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
   color:var(--umber);text-decoration:none;
   display:inline-flex;align-items:center;min-height:44px;
 }
+.head-menu{
+  appearance:none;background:none;border:0;cursor:pointer;
+  flex:0 0 auto;width:44px;height:44px;margin-left:-.55rem;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--muted-strong);transition:color .25s;
+}
+.head-menu:hover{color:var(--umber)}
+.head-menu .bars,.head-menu .bars::before,.head-menu .bars::after{
+  display:block;width:22px;height:2px;border-radius:2px;background:currentColor;
+}
+.head-menu .bars{position:relative}
+.head-menu .bars::before,.head-menu .bars::after{content:"";position:absolute;left:0}
+.head-menu .bars::before{top:-7px}
+.head-menu .bars::after{top:7px}
 .head-chapter{
   /* stops short of the centred logo at every width */
-  flex:1 1 auto;min-width:0;max-width:calc(50% - 5.5rem);padding-right:1rem;
+  flex:1 1 auto;min-width:0;max-width:calc(50% - 7rem);padding-right:1rem;
   font:italic 400 var(--fs-aside)/1 var(--serif);
   color:var(--muted-strong);
   transition:opacity .3s var(--sine);
@@ -236,30 +249,13 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
 }
 .head-right{
   flex:0 0 auto;margin-left:auto;
-  display:flex;align-items:center;gap:clamp(.4rem,1.4vw,1.1rem);
+  display:flex;align-items:center;gap:clamp(.5rem,1.4vw,1.1rem);
 }
-.head-btn{
-  appearance:none;background:none;border:0;cursor:pointer;
-  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--muted-strong);
-  min-height:44px;padding:0 .35rem;
-  display:inline-flex;align-items:center;
-  transition:color .25s;
-}
-.head-btn:hover{color:var(--umber)}
-.head-langs{display:flex;align-items:center;gap:.55rem;font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.16em}
-.head-langs .on,.head-langs .off{display:inline-flex;align-items:center;gap:.36em}
+.head-langs{display:flex;align-items:center;gap:.7rem;font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.16em}
 .head-langs .on{color:var(--umber)}
-.head-langs .off{color:rgba(91,70,54,.45);cursor:default}
+.head-langs .off{color:rgba(91,70,54,.45)}
 .head-langs a.off{text-decoration:none;transition:color .25s}
 .head-langs a.off:hover{color:var(--umber)}
-.flag{
-  width:1.35em;height:auto;flex:none;border-radius:1px;
-  box-shadow:0 0 0 .5px rgba(64,47,30,.3);
-  transition:opacity .25s;
-}
-.head-langs .off .flag{opacity:.5}
-.head-langs a.off:hover .flag{opacity:1}
 .head-cta{
   font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
   background:var(--terracotta-deep);color:var(--bone);text-decoration:none;
@@ -269,23 +265,31 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
   transition:background .25s,border-color .25s;
 }
 .head-cta:hover{background:var(--terracotta-ink);border-color:var(--terracotta-ink);color:var(--bone)}
+.head-cta .cta-short{display:none}
 /* From 900px up the centred logo leaves each side half the bar, so the right
    cluster is tightened to fit its half rather than pushing the logo off centre.
    Only the widest desktops have room for it at full size. */
 @media (min-width:900px) and (max-width:1279px){
   .head-chapter{display:none}
-  .head-right{gap:.55rem}
-  .head-btn{font-size:.58rem;letter-spacing:.08em;padding:0 .2rem}
-  .head-langs{gap:.4rem;font-size:.6rem;letter-spacing:.04em}
-  .flag{width:1.2em}
-  .head-cta{font-size:.6rem;letter-spacing:.05em;padding:0 .6rem}
+  .head-right{gap:.6rem}
+  .head-langs{gap:.5rem;font-size:.6rem;letter-spacing:.06em}
+  .head-cta{font-size:.6rem;letter-spacing:.05em;padding:0 .7rem}
 }
 @media (max-width:899px){
-  :root{--head-h:52px}
-  /* keep the language switcher on phones (multilingual reach is core, and most
-     visitors are on phones); only the chapter label and header CTA fold away */
-  .head-chapter,.head-cta{display:none}
-  .head-langs{gap:.34rem;font-size:.56rem;letter-spacing:.04em}
+  :root{--head-h:56px}
+  .head-chapter{display:none}
+  .head-langs{gap:.55rem;font-size:.58rem;letter-spacing:.06em}
+  .head-cta{font-size:.56rem;letter-spacing:.06em;padding:0 .8rem}
+}
+/* Under 768px the centred logo leaves each side too little for both the language
+   codes and the booking button, and the codes start running under the logo (the
+   Spanish button is the longest, so it sets the breakpoint). The button keeps the
+   corner, since booking is what a phone visitor came for, and the languages move
+   into the menu. */
+@media (max-width:767px){
+  .head-langs{display:none}
+  .head-cta .cta-long{display:none}
+  .head-cta .cta-short{display:inline}
 }
 
 /* ============ buttons and whispers ============ */
@@ -700,28 +704,21 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
   padding:clamp(3rem,7vw,4.5rem) 1.5rem clamp(2.2rem,5vw,3rem);
   text-align:center;
 }
-.colophon .logo{width:min(240px,64vw);margin:0 auto 2.4rem}
-.colo-cols{
-  display:flex;justify-content:center;gap:clamp(2.5rem,8vw,6rem);
-  flex-wrap:wrap;text-align:center;
+.colophon .logo{width:min(240px,64vw);margin:0 auto 2rem}
+.colo-contact{
+  list-style:none;margin:0;padding:0;
+  display:flex;flex-direction:column;align-items:center;
 }
-.colo-h{
-  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(244,239,230,.9);
-  padding-top:.9rem;margin-bottom:1rem;
-  position:relative;
+.colo-contact a{
+  display:inline-flex;align-items:center;gap:.65rem;min-height:44px;
+  color:rgba(244,239,230,.85);text-decoration:none;
+  font:400 var(--fs-body-sm)/1.6 var(--sans);
+  transition:color .25s;
 }
-.colo-h::before{ /* ochre moment two: a decorative ochre rule above each heading */
-  content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:2.2rem;height:2px;background:var(--ochre);
-}
-.colo-cols a{
-  display:block;color:rgba(244,239,230,.85);text-decoration:none;
-  font:400 var(--fs-body-sm)/2.2 var(--sans);
-}
-.colo-cols a:hover{color:var(--bone)}
+.colo-contact a:hover{color:var(--bone)}
+.colo-contact svg{width:18px;height:18px;flex:none;color:var(--ochre)}
 .colo-small{
-  margin-top:2rem;
+  margin-top:1.8rem;
   font:400 .82rem/1.8 var(--sans);color:rgba(244,239,230,.75);
 }
 
@@ -755,12 +752,13 @@ html.js .reveal.in{opacity:1;transition:opacity .45s var(--sine)}
 .bar-wa svg{width:17px;height:17px;flex:none}
 @media (min-width:900px){.stickybar{display:none}}
 
-/* ============ contents dialog ============ */
+/* ============ menu panel ============ */
 dialog.contents{
   border:1px solid var(--hairline-mid);border-radius:3px;
   background:var(--bone);color:var(--umber);
   padding:1.6rem 1.6rem 1.2rem;
   width:min(21rem,calc(100vw - 2.5rem));
+  max-height:min(88dvh,44rem);overflow-y:auto;
   margin:auto;
 }
 dialog.contents::backdrop{background:rgba(244,239,230,.82)}
@@ -773,6 +771,20 @@ dialog.contents::backdrop{background:rgba(244,239,230,.82)}
 }
 .contents a:hover{color:var(--terracotta-deep)}
 .contents a.strong{color:var(--terracotta-deep);font-weight:500}
+.menu-h{display:block;text-align:center;color:var(--muted-strong);margin:1.4rem 0 .5rem}
+/* the two short rows at the foot of the menu read as one line each, not as more
+   chapters, so they opt out of the full-height list style above */
+.menu-row{
+  display:flex;justify-content:center;align-items:center;gap:1.3rem;
+  border-top:1px solid var(--hairline);padding-top:.5rem;flex-wrap:wrap;
+}
+.contents .menu-row a,.menu-row .on{
+  display:inline-flex;align-items:center;min-height:44px;border-top:0;
+  font:600 var(--fs-label-ui)/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;
+}
+.contents .menu-row a{color:var(--muted-strong)}
+.contents .menu-row a:hover{color:var(--terracotta-deep)}
+.menu-row .on{color:var(--terracotta-deep)}
 .contents-close{
   appearance:none;background:none;border:0;cursor:pointer;
   display:block;margin:1rem auto 0;min-height:44px;padding:0 1rem;
@@ -784,7 +796,7 @@ dialog.contents::backdrop{background:rgba(244,239,230,.82)}
    navigation always works even without showModal support */
 dialog.contents.nodialog{
   display:none;position:fixed;
-  top:calc(var(--head-h) + 8px);right:clamp(.9rem,3vw,2rem);
+  top:calc(var(--head-h) + 8px);left:clamp(.9rem,3vw,2rem);
   z-index:60;box-shadow:0 10px 34px rgba(91,70,54,.20);
 }
 dialog.contents.nodialog.open{display:block}
@@ -861,7 +873,7 @@ html.ritual .phase2 .w2{opacity:1}
 .band-in{display:block}
 .bar-in{display:flex;gap:.7rem;align-items:stretch;width:100%}
 @media (max-width:600px){
-  .wrap,.letter-inner,.colo-cols,.plate,.hero-col,.band-in,.bar-in,.head-inner{
+  .wrap,.letter-inner,.plate,.hero-col,.band-in,.bar-in,.head-inner{
     max-width:348px;margin-left:auto;margin-right:auto;
   }
   .band-in{max-width:318px}
@@ -886,43 +898,32 @@ html.ritual .phase2 .w2{opacity:1}
   .book-ctas .btn[href^="https://wa.me"]:hover{
     background:var(--terracotta-ink);color:var(--bone);border-color:var(--terracotta-ink);
   }
-  /* mobile running head: the logo holds the centre, so the right cluster has to
-     fit in the half-width left beside it. The language codes drop to their flags
-     (the label stays for screen readers); Contents keeps its word. */
-  .head-brand{letter-spacing:.04em;font-size:.56rem;white-space:nowrap}
-  .head-btn{letter-spacing:0;font-size:.55rem;padding:0 .1rem}
-  .head-right{gap:.72rem}
   /* the running head goes edge to edge on phones: it is a bar, not a body column,
-     and the corner is where Contents and the flags belong */
+     and the corners are where the menu and the booking button belong */
   .head-inner{max-width:none;padding-inline:.85rem}
-  .head-langs{gap:.42rem}
-  .head-langs .lang-code{
-    position:absolute;width:1px;height:1px;overflow:hidden;
-    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;
-  }
-  .flag{width:15px}
-  .head-logo{height:21px}
+  .head-menu{margin-left:-.4rem}
+  .head-cta{font-size:.54rem;letter-spacing:.04em;padding:0 .65rem}
   .notes{max-width:100%}
 }
 /* narrow phones: the bar is the tightest it gets, so every control gives a little */
 @media (max-width:389px){
   .head-inner{padding-inline:.7rem}
-  .head-btn{font-size:.5rem}
-  .head-right{gap:.5rem}
-  .head-langs{gap:.3rem}
-  .flag{width:13px}
-  .head-logo{height:18px}
+  .head-cta{font-size:.5rem;padding:0 .55rem}
 }
 @media (min-width:461px) and (max-width:600px){
-  .wrap,.letter-inner,.colo-cols,.plate,.hero-col,.band-in,.bar-in,.head-inner{
+  .wrap,.letter-inner,.plate,.hero-col,.band-in,.bar-in,.head-inner{
     margin-left:0;margin-right:auto;
   }
   .band{text-align:left}
 }
 
 /* --- logo in the running head --- */
-.head-logo{height:28px;width:auto;display:block}
-@media (max-width:899px){.head-logo{height:24px}}
+/* all four sizes sit together: split across the phone media blocks above they
+   would lose to this section's 899px rule, which comes later at equal weight */
+.head-logo{height:52px;width:auto;display:block}
+@media (max-width:899px){.head-logo{height:40px}}
+@media (max-width:460px){.head-logo{height:36px}}
+@media (max-width:389px){.head-logo{height:30px}}
 
 /* --- the process wave + icons (from proposal A) --- */
 #practice{view-timeline-name:--wave}
@@ -1035,16 +1036,16 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
   <!-- running head -->
   <header class="head">
     <div class="head-inner">
+      <button class="head-menu" id="contents-open" type="button" aria-haspopup="dialog" aria-label="Menu"><span class="bars" aria-hidden="true"></span></button>
       <span class="head-chapter" id="head-chapter" aria-hidden="true"></span>
-      <a class="head-brand" href="#hero" aria-label="Breathe with Diana, home"><img class="head-logo" src="/logo-mark.svg" alt="Breathe with Diana" width="150" height="48"></a>
+      <a class="head-brand" href="#hero" aria-label="Breathe with Diana, home"><img class="head-logo" src="/logo-mark.svg" alt="Breathe with Diana" width="520" height="168"></a>
       <div class="head-right">
-        <button class="head-btn" id="contents-open" type="button" aria-haspopup="dialog">Contents</button>
         <span class="head-langs" aria-label="Language">
-          <span class="on" title="English"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#012169"/><path d="M0 0L30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L30 20M30 0L0 20" stroke="#C8102E" stroke-width="2"/><path d="M15 0V20M0 10H30" stroke="#fff" stroke-width="6.5"/><path d="M15 0V20M0 10H30" stroke="#C8102E" stroke-width="3.5"/></svg><span class="lang-code">EN</span></span>
-          <a class="off" href="es.html" title="Español"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#C60B1E"/><rect y="5" width="30" height="10" fill="#FFC400"/></svg><span class="lang-code">ES</span></a>
-          <a class="off" href="ru.html" title="Русский"><svg class="flag" viewBox="0 0 30 20" aria-hidden="true" focusable="false"><rect width="30" height="20" fill="#fff"/><rect y="6.667" width="30" height="6.667" fill="#0039A6"/><rect y="13.333" width="30" height="6.667" fill="#D52B1E"/></svg><span class="lang-code">RU</span></a>
+          <span class="on" aria-current="true">EN</span>
+          <a class="off" href="es.html" title="Español">ES</a>
+          <a class="off" href="ru.html" title="Русский">RU</a>
         </span>
-        <a class="head-cta" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener">Book a free consultation</a>
+        <a class="head-cta" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1B_Pi3BGo1dXRyh1MfxqbBzI2WsJi37BYzN_wqbi-OFiDytP4g3b6O6x13jVz-aQx00vrF55f2" target="_blank" rel="noopener"><span class="cta-long">Book a free consultation</span><span class="cta-short">Book</span></a>
       </div>
     </div>
   </header>
@@ -1217,9 +1218,10 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
 
     <!-- ============ chapter: what to expect ============ -->
     <section id="session" class="chapter" data-chapter="What to expect">
-      <!-- The photo that opened this chapter (diana-pair-jungle.jpg) is held back until the
-           client in it returns a signed media-consent.html. She is clearly recognisable and
-           the consent sheet has no row for her. Put the figure back once it does. -->
+      <figure class="honesty-portrait honesty-portrait--top reveal">
+        <img src="/img/diana-pair-jungle.jpg" alt="Diana sitting knee to knee with a client, one hand on their chest, both hands held" width="820" height="546" loading="lazy" decoding="async">
+        <figcaption class="caption">I'll be right here with you, the whole way through.</figcaption>
+      </figure>
       <div class="wrap">
         <header class="chapter-head reveal">
           <div class="divider" aria-hidden="true"><span class="rule"></span><span class="dot-station"><span class="halo"></span><span class="glyph"></span></span><span class="rule"></span></div>
@@ -1513,21 +1515,11 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
   <!-- ============ colophon ============ -->
   <footer class="colophon">
     <img class="logo" src="/logo-mark-dark.svg" alt="Breathe with Diana" width="520" height="168" loading="lazy" decoding="async">
-    <div class="colo-cols">
-      <div>
-        <span class="colo-h">Explore</span>
-        <a href="#doors">The work</a>
-        <a href="#session">What to expect</a>
-        <a href="#story">My journey home</a>
-        <a href="#book">Book</a>
-      </div>
-      <div>
-        <span class="colo-h">Find me</span>
-        <a href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener">@breathe.with.diana</a>
-        <a href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="mailto:I-want-to@breathe-with-diana.com">I-want-to@breathe-with-diana.com</a>
-      </div>
-    </div>
+    <ul class="colo-contact">
+      <li><a href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>@breathe.with.diana</a></li>
+      <li><a href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3z"/><path d="M8.8 9.2c.3-.8.7-.8 1-.8h.8l.7 1.7-.9 1a6.3 6.3 0 0 0 2.9 2.9l1-.9 1.7.7v.8c0 .3 0 .7-.8 1-.8.3-2.6-.1-4.3-1.8C9 12.1 8.5 10 8.8 9.2z"/></svg>+66 63 125 9588</a></li>
+      <li><a href="mailto:I-want-to@breathe-with-diana.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.8 7 12 12.6 20.2 7"/></svg>I-want-to@breathe-with-diana.com</a></li>
+    </ul>
     <p class="colo-small">&copy; 2026 Breathe with Diana &middot; breathe-with-diana.com<br>Rebirthing breathwork is not a substitute for medical or psychological care.</p>
   </footer>
 
@@ -1566,8 +1558,8 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
 </div>
 
 <!-- ============ contents ============ -->
-<dialog class="contents" id="contents" aria-label="Contents">
-  <span class="smallcaps contents-title">Contents</span>
+<dialog class="contents" id="contents" aria-label="Menu">
+  <span class="smallcaps contents-title">Menu</span>
   <nav>
     <a href="#practice">What it is</a>
     <a href="#doors">The work</a>
@@ -1576,7 +1568,20 @@ html[data-motion="calm"] .ai-marquee{overflow-x:auto}
     <a href="#reviews">Reviews</a>
     <a href="#reset">Free breath reset</a>
     <a href="#book" class="strong">Book a free consultation</a>
+  
   </nav>
+  <span class="smallcaps menu-h">Find me</span>
+  <div class="menu-row">
+    <a href="https://instagram.com/breathe.with.diana" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://wa.me/66631259588?text=Hi%20Diana%2C%20I%27d%20like%20to%20book%20a%20session" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="mailto:I-want-to@breathe-with-diana.com">Email</a>
+  </div>
+  <span class="smallcaps menu-h">Language</span>
+  <div class="menu-row">
+    <span class="on">English</span>
+    <a href="es.html">Español</a>
+    <a href="ru.html">Русский</a>
+  </div>
   <button class="contents-close" id="contents-close" type="button">Close</button>
 </dialog>
 
